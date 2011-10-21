@@ -1,4 +1,4 @@
-package code.google.com.opengis.aplicaciondegestion;
+package code.google.com.opengis.gestion;
 
 import javax.swing.JOptionPane;
 
