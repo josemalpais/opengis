@@ -1,15 +1,17 @@
 package code.google.com.opengis.gestion;
 
-import javax.swing.JOptionPane;
+import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 
 public class main {
 
 
-	public static void main(String[] args) {
+	private static VentanaPrincipal vp;
+
+	public static void main(String[]args) {
 		
 
 		System.out.println("Hola a todos!");
-		
+		vp = new VentanaPrincipal();
 	}
 
 }
