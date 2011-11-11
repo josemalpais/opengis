@@ -9,7 +9,7 @@ import java.sql.*;
 * Clase que establece conexión con la base de datos y realiza las diferentes funciones con esta
 * Ya sea Querys o Updates
 * Última modificación 11/11/11
-* Faltan por hacer los métodos para realizar otros executes.
+* 
 */
 
 public class ConectarDBA {
@@ -49,7 +49,7 @@ static Statement st;
         } catch (ClassNotFoundException e) {
                 System.err.println(e.getMessage());    
         } catch (SQLException e) {
-                System.out.println("akipeta");
+                System.out.println("Aquí falla");
                 System.err.println(e.getMessage());
         }
 }
@@ -65,6 +65,19 @@ static Statement st;
 	   
 	//   Retorno la consulta especifica...
 	    return  st.executeQuery (sentenciaSQL);
+	 
+	}
+	/**
+	 * 
+	 * @param sentenciaSQL String con el insert/update que vamos a ejecutar
+	 * @throws SQLException devuelve un error en caso de producirse
+	 */
+	public void insertar(String sentenciaSQL) throws SQLException
+	{
+	//   Creamos un tipo Statement que maneja las consultas 
+	   
+	//   Retorno la consulta especifica...
+		st.executeUpdate (sentenciaSQL);
 	 
 	}
 	/**

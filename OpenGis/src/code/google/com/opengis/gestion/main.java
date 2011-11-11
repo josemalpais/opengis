@@ -20,16 +20,25 @@ public class main {
 		vp = new VentanaPrincipal();
 		//Lo que está comentado es una consulta para probar la clase conexión. Att. Pepe.
 		
-		/*ConectarDBA dba = new ConectarDBA();
+		/***************************************
+		ConectarDBA dba = new ConectarDBA();
 		dba.acceder();
 		String sentencia = "SELECT * FROM users";
 		ResultSet rs = dba.consulta(sentencia);
 		while (rs.next()){
 			System.out.println(rs.getString(1));
-			
 		}
 		rs.close();
-		dba.cerrarCon();*/
+		dba.cerrarCon();
+		**************************************/
+		
+		/*************************************
+		ConectarDBA dba = new ConectarDBA();
+		dba.acceder();
+		String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`) VALUES ('53758355S', 'Jose Francisco', 'Lara Fortea', '659677695', 'Cami Reial 40 1', 'Catarroja', '1990-01-25')";
+		dba.insertar(sentencia);
+		dba.cerrarCon();
+		**************************************/
 	}
 	
 
