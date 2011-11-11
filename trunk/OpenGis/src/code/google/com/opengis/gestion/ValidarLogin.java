@@ -9,9 +9,7 @@ public class ValidarLogin {
 	private String User;
 	private String Password;
 	boolean validacion;
-	private String userdba = "ivanserrano";
-	private String passworddba = "dai20112012";
-	private String url = "www.db4free.net/phpMyAdmin/index.php?target=server_databases.php&token=d44b2e43259b35a6f39643f72db38395";
+
 	private char tipodato;
 
 	
