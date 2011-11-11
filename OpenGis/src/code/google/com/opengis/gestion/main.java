@@ -3,9 +3,9 @@
 package code.google.com.opengis.gestion;
 
 import java.sql.*;
-import java.sql.SQLException;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.UsuariosDAO;
 import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 
 public class main {
@@ -36,9 +36,10 @@ public class main {
 		ConectarDBA dba = new ConectarDBA();
 		dba.acceder();
 		String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`) VALUES ('53758355S', 'Jose Francisco', 'Lara Fortea', '659677695', 'Cami Reial 40 1', 'Catarroja', '1990-01-25')";
-		dba.insertar(sentencia);
+		dba.modificar(sentencia);
 		dba.cerrarCon();
 		**************************************/
+		//UsuariosDAO.borrarUsuario("53758355S");
 	}
 	
 

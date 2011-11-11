@@ -72,7 +72,7 @@ static Statement st;
 	 * @param sentenciaSQL String con el insert/update que vamos a ejecutar
 	 * @throws SQLException devuelve un error en caso de producirse
 	 */
-	public void insertar(String sentenciaSQL) throws SQLException
+	public void modificar(String sentenciaSQL) throws SQLException
 	{
 	//   Creamos un tipo Statement que maneja las consultas 
 	   
