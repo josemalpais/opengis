@@ -87,6 +87,7 @@ static Statement st;
 	public void cerrarCon() throws SQLException{
 		st.close();
 		conexion.close();
+		System.out.println("Conexión cerrada");
 			
 	}
 }

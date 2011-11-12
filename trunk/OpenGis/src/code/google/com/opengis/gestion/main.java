@@ -17,7 +17,7 @@ public class main {
 		
 		
 		System.out.println("Hola a todos! Soy pepe y estoy probando");
-		vp = new VentanaPrincipal();
+		//vp = new VentanaPrincipal();
 		//Lo que está comentado es una consulta para probar la clase conexión. Att. Pepe.
 		
 		/***************************************
@@ -30,7 +30,7 @@ public class main {
 		}
 		rs.close();
 		dba.cerrarCon();
-		**************************************/
+		/**************************************/
 		
 		/*************************************
 		ConectarDBA dba = new ConectarDBA();
@@ -38,8 +38,9 @@ public class main {
 		String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`) VALUES ('53758355S', 'Jose Francisco', 'Lara Fortea', '659677695', 'Cami Reial 40 1', 'Catarroja', '1990-01-25')";
 		dba.modificar(sentencia);
 		dba.cerrarCon();
-		**************************************/
-		//UsuariosDAO.borrarUsuario("53758355S");
+		/**************************************/
+		//UsuariosDAO.borrarUsuario("53758352S");
+		//UsuariosDAO.comprobarUsuario("53858355S");
 	}
 	
 
