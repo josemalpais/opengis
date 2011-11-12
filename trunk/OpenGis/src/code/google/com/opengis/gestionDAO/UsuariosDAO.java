@@ -31,7 +31,7 @@ static ConectarDBA dba = new ConectarDBA();
 public static void comprobarUsuario(String dni) throws SQLException{
 		
 		
-		dba.acceder();
+		ConectarDBA.acceder();
 		String sentencia = "SELECT * FROM `usuario` WHERE `dni` LIKE '"+dni+"'";
 		ResultSet rs = dba.consulta(sentencia);
 		while(rs.next()){
