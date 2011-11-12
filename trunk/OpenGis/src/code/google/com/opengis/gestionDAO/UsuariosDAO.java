@@ -65,7 +65,7 @@ public static void comprobarUsuario(String dni) throws SQLException{
 		if (existe == true){ 
 			
 			
-			String sentencia = "DELETE FROM `dai2opengis`.`usuario` WHERE `usuario`.`dni` = \'"+dni+"\'";
+			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '"+dni+"'";
 			dba.modificar(sentencia);
 			//System.out.println("Ejecutada sentencia:"+sentencia);
 		}else if (existe == false){
