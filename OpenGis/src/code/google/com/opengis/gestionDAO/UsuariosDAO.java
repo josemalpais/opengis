@@ -5,10 +5,10 @@ package code.google.com.opengis.gestionDAO;
 import java.sql.*;
 
 /**
-* @author Pipepito
+* @author Pipepito & Juan Carlos García
 * Clase que establece conexión con la base de datos y nos permite insertar, modificar y eliminar usuarios.
 * 
-* Última modificación 12/11/11
+* Última modificación 14/11/11
 * 
 */
 
