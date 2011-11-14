@@ -29,11 +29,14 @@ static Statement st;
         // Asignamos a variables todos los datos requeridos para la conexion a
         // la base de datos.
         String nombreDriver = "com.mysql.jdbc.Driver";
+        //String nombreServidor = "db4free.net";
         String nombreServidor = "79.108.245.167";
         String numeroPuerto = "3306";
         String miBaseDatos = "dai2opengis";
         String url = "jdbc:mysql://" + nombreServidor + ":" + numeroPuerto
                         + "/" + miBaseDatos;
+        //String dbuser = "ivanserrano";
+        //String dbpwd = "dai20112012";
         String dbuser = "dai2proyecto";
         String dbpwd = "dai20112012";
 
