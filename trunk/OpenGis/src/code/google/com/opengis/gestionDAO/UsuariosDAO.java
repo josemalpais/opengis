@@ -4,6 +4,8 @@
 package code.google.com.opengis.gestionDAO;
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 /**
 * @author Pipepito & Juan Carlos García
 * Clase que establece conexión con la base de datos y nos permite insertar, modificar y eliminar usuarios.
@@ -15,9 +17,46 @@ import java.sql.*;
 
 public class UsuariosDAO {
 
-static boolean existe;
-static String resultado;
-static ConectarDBA dba = new ConectarDBA();
+	static boolean existe;
+	static String resultado;
+	static ConectarDBA dba = new ConectarDBA();
+	
+	private String Dni;
+	private String Nombre;
+	private String Apellidos;
+	private String Telefono;
+	private String Direccion;
+	private String Poblacion;
+	private String Fecha_nac;
+
+
+
+/** Constructor de la clase UsuariosDAO
+ * 
+ * En el momento que llamamos a la clase UsuariosDAO debemos pasarle los siguientes parametros
+ * 
+ * @param Dni El DNI del usuario que vamos a introducir
+ * @param Nombre El Nombre del Usuario que vamos a introducir
+ * @param Apellidos Los Apellidos del Usuario que vamos a introducir
+ * @param Telefono El Telefono del usuario que vamos a introducir
+ * @param Direccion La dirección del Usuario que vamos a introducir
+ * @param Poblacion La población del Usuario que vamos a introducir
+ * @param fecha_nac La fecha de Nacimiento del Usuario que vamos a introducir
+ */
+
+	public UsuariosDAO(String Dni,String Nombre,String Apellidos,String Telefono,String Direccion,String Poblacion, String fecha_nac){
+		
+		this.Dni = Dni;
+		this.Nombre = Nombre;
+		this.Apellidos = Apellidos;
+		this.Telefono = Telefono;
+		this.Direccion = Direccion;
+		this.Poblacion = Poblacion;
+		this.Fecha_nac = fecha_nac;
+	
+		
+	}
+
 	
 /**
  * Este método compara el dni que le pasamos por parámetro con todos los dni de la tabla usuarios, se puede emplear para todos los métodos de la clase UsuariosDAO
@@ -54,27 +93,68 @@ public static void comprobarUsuario(String dni) throws SQLException{
 		//System.out.println("Ejecutada sentencia "+sentencia);
 		
 	}
+
+
+
+
 	/** 
-	 * Este método compara un dni que obtiene por parámetro utilizando el método comprobarUsuario(), si existe, lo borrará de la BD.
+	 * Este método compara un dni que obtiene por parámetro utilizando el método comprobarUsuario(), si existe, no lo dará de alta en la BD.
+	 * En el caso de que no exista lo dará de alta como nuevo usuario.
+	 * 
 	 * Después cierra la conexión que abre el método comprobarUsuario().
-	 * @param dni Parámetro DNI del usuario que vamos a borrar.
+	 *
 	 * @throws SQLException
 	 */
-	public static void borrarUsuario(String dni) throws SQLException{
-		comprobarUsuario(dni);
-		if (existe == true){ 
-			
-			
-			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '"+dni+"'";
+
+	public void altaUsuario() throws SQLException{
+		comprobarUsuario(this.Dni);
+		
+		if (existe == false){ 
+		
+			String sentencia = "INSERT INTO usuario VALUES('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', 0)";
 			dba.modificar(sentencia);
-			//System.out.println("Ejecutada sentencia:"+sentencia);
-		}else if (existe == false){
-			System.out.println("El usuario no existe");
+
+			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo usuario");
+			
+		}else{
+			
+			
+			JOptionPane.showMessageDialog(null,"El DNI ya existe");
+			
 		}
+		
+		
 		dba.cerrarCon();
 		
 		
 	}
+
+	/** 
+	 * Este método compara un dni que obtiene por parámetro utilizando el método comprobarUsuario(), si existe, lo borrará de la BD.
+	 * Después cierra la conexión que abre el método comprobarUsuario().
+	 * @throws SQLException
+	 */
+	
+	public void borrarUsuario() throws SQLException{
+		comprobarUsuario(this.Dni);
+		if (existe == true){ 
+		
+			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '"+this.Dni+"'";
+			dba.modificar(sentencia);
+
+			JOptionPane.showMessageDialog(null,"Usuario eliminado correctamente");
+			
+		}else{
+			
+			JOptionPane.showMessageDialog(null,"El usuario no existe");
+		}
+		
+		dba.cerrarCon();
+		
+		
+	}
+	
+
 	
 	
 	

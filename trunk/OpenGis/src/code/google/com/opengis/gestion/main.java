@@ -1,21 +1,34 @@
-
-
 package code.google.com.opengis.gestion;
 
-import java.sql.*;
+import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
-import code.google.com.opengis.gestionDAO.ConectarDBA;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
-import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 
 public class main {
 
 
-	private static VentanaPrincipal vp;
+	public static void main(String[] args) throws SQLException {
+		
+		
+		
+		/* Alta de Usuarios: Juan Carlos García. ¡¡¡¡¡ NO FUNCIONA EL MAIN !!!!!
+		
+		Usuarios a = new Usuarios("53762611-L","Juan Carlos","García del Canto","666673545","C/Albocasser 16,3","Torrent","04/05/1992");
 
-	public static void main(String[]args) throws SQLException {
+		a.validarDatos();
+		
+		Boolean resp = a.getValido();
+		
+		if(resp==true){
+			
+			a.crearUsuario();
+			
+		}
+		
+		*/
+		
+		
+		
+		
 		
 		
 		
@@ -61,6 +74,7 @@ public class main {
 		//UsuariosDAO.borrarUsuario("53758352S");
 		//UsuariosDAO.comprobarUsuario("53858355S");
 	}
-	
+		
 
 }
+
