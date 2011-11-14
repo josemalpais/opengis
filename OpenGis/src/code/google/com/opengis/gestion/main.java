@@ -12,9 +12,9 @@ public class main {
 		
 		
 		
-		/* Alta de Usuarios: Juan Carlos García. ¡¡¡¡¡ NO FUNCIONA EL MAIN !!!!!
+		//Alta de Usuarios: Juan Carlos García. ¡¡¡¡¡ NO FUNCIONA EL MAIN !!!!!
 		
-		Usuarios a = new Usuarios("53762611-L","Juan Carlos","García del Canto","666673545","C/Albocasser 16,3","Torrent","04/05/1992");
+		/*Usuarios a = new Usuarios("53762611L","Juan Carlos","García del Canto","666673545","C/Albocasser 16,3","Torrent","04/05/1992");
 
 		a.validarDatos();
 		
@@ -22,11 +22,11 @@ public class main {
 		
 		if(resp==true){
 			
-			a.crearUsuario();
-			
-		}
+			//a.crearUsuario();
+			//a.borrarUsuario();
+		}*/
 		
-		*/
+		
 		
 		
 		
@@ -54,28 +54,8 @@ public class main {
 		//vp = new VentanaPrincipal();
 		//Lo que está comentado es una consulta para probar la clase conexión. Att. Pepe.
 		
-		/***************************************
-		ConectarDBA dba = new ConectarDBA();
-		dba.acceder();
-		String sentencia = "SELECT * FROM users";
-		ResultSet rs = dba.consulta(sentencia);
-		while (rs.next()){
-			System.out.println(rs.getString(1));
-		}
-		rs.close();
-		dba.cerrarCon();
-		/**************************************/
 		
-		/*************************************
-		ConectarDBA dba = new ConectarDBA();
-		dba.acceder();
-		String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`) VALUES ('53758355S', 'Jose Francisco', 'Lara Fortea', '659677695', 'Cami Reial 40 1', 'Catarroja', '1990-01-25')";
-		dba.modificar(sentencia);
-		dba.cerrarCon();
-		/**************************************/
-		Usuarios a = new Usuarios("53762611-L","Juan Carlos","García del Canto","666673545","C/Albocasser 16,3","Torrent","04/05/1992");
-		a.borrarUsuario();
-		//UsuariosDAO.comprobarUsuario("53858355S");
+		
 	}
 		
 
