@@ -2,6 +2,8 @@ package code.google.com.opengis.gestion;
 
 import java.sql.SQLException;
 
+import code.google.com.opengis.gestionDAO.UsuariosDAO;
+
 
 public class main {
 
@@ -71,7 +73,8 @@ public class main {
 		dba.modificar(sentencia);
 		dba.cerrarCon();
 		/**************************************/
-		//UsuariosDAO.borrarUsuario("53758352S");
+		Usuarios a = new Usuarios("53762611-L","Juan Carlos","García del Canto","666673545","C/Albocasser 16,3","Torrent","04/05/1992");
+		a.borrarUsuario();
 		//UsuariosDAO.comprobarUsuario("53858355S");
 	}
 		
