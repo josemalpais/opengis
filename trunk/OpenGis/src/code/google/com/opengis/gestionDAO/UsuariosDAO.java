@@ -109,17 +109,17 @@ public static void comprobarUsuario(String dni) throws SQLException{
 	public void altaUsuario() throws SQLException{
 		comprobarUsuario(this.Dni);
 		
-		if (existe == false){ 
+		if (existe == true){ 
 		
-			String sentencia = "INSERT INTO usuario VALUES('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', 0)";
+			JOptionPane.showMessageDialog(null,"El DNI ya existe");
+			
+		}else{
+			
+			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0')";
 			dba.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo usuario");
 			
-		}else{
-			
-			
-			JOptionPane.showMessageDialog(null,"El DNI ya existe");
 			
 		}
 		
