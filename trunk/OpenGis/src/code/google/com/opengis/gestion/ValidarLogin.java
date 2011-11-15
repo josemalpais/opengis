@@ -6,8 +6,8 @@ import code.google.com.opengis.gestionDAO.ConectarDBA;
 
 public class ValidarLogin {
 
-	private String User;
-	private String Password;
+	private String user;
+	private String password;
 	boolean validacion;
 
 	private char tipodato;
@@ -19,39 +19,43 @@ public class ValidarLogin {
 
 	//url="http://www.db4free.net/phpMyAdmin/index.php?target=server_databases.php&token=11ac3398ec9e98c883a291c82348fa50#PMAURL:db=dai2opengis&server=1&target=db_structure.php&token=11ac3398ec9e98c883a291c82348fa50"
 	
-	public ValidarLogin(String user, String password) {
-		
+	public ValidarLogin(String user,String password) {
+		this.user = user;
+		this.password = password;
 	}
 
 	
 	public String getUser() {
-		return User;
+		return user;
 	}
 
 
-	public void setUser(String user) {
-		User = user;
+	public void setUser(String user1) {
+		user = user1;
 	}
 
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 
-	public void setPassword(String password) {
-		Password = password;
+	public void setPassword(String password1) {
+		password = password1;
 	}
 
+	/*********************
+	 * metodo que se conecta a la dba selecciona el usuario y la contraseña que se le a dado a la clase
+	 * y elije  el tipo de usuario que es.
+	 ********************/
 	
-	
-	public boolean aceptarUser(String user,String password){
+	public boolean aceptarUser(){
 		try{
 		      
 		     ConectarDBA dba = new ConectarDBA();
 		     dba.acceder();		     
 		     
-		      String sentencia = "SELECT dni_usuario, password, tipo FROM users WHERE dni_usuario LIKE '"+user+"'AND password LIKE '"+password+"'";
+		      String sentencia = "SELECT dni_usuario, password, tipo FROM users WHERE dni_usuario LIKE '"+this.user+"'AND password LIKE '"+this.password+"'";
 		      
 		      ResultSet rs = dba.consulta(sentencia);
 		      while (rs.next()){
@@ -68,7 +72,11 @@ public class ValidarLogin {
 		     }
 	}
 
-	public void validarUser(String user,String password){
+	/*********************
+	 * dado el tipo si es true el resultado de validacion elije un tipo
+	 * que es y te habre una ventana o otra
+	 ********************/
+	public void validarUser(boolean validacion){
 		
 		
 		
@@ -78,19 +86,19 @@ public class ValidarLogin {
         	    //una vez valide los datos elije el tipo de usuario que es para darle permisos
 				switch(tipodato /*sentencia que devuelve el tipo*/){
 				case 't': //t de trabajador
-					
+					System.out.println(" funciona es un trabajador");
 					break;
 				case 'd': //d de dueño
-					
+					System.out.println(" funciona es dueño");
 					break;
 				case 'a': // de administrador
-					
+					System.out.println(" funciona es  Admin");
 				    break;
 				default:
-					
+					System.out.println("no tiene tipo");
 				};}
 	  else 
-				System.out.println("el user no es correcto");
+				System.out.println("el user/contraseña no es correcto");
 				
 			
 			 
