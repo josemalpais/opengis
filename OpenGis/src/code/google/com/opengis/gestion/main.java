@@ -28,7 +28,12 @@ public class main {
 		}
 		*/
 		
-		
+		String user= "26760366G";
+		String password ="passu1";
+		ValidarLogin vl = new ValidarLogin(user,password);
+		boolean val= vl.aceptarUser();
+		vl.validarUser(val);
+
 		
 		
 		
