@@ -123,7 +123,7 @@ public class VentanaPrincipal extends JFrame{
        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
        this.addWindowListener(new WindowAdapter(){
-       	@Override
+
        	public void windowClosing(WindowEvent e) {
      /**
       * dispose();
@@ -132,6 +132,8 @@ public class VentanaPrincipal extends JFrame{
        	}
        });
    }
+   
+   
    
    /**
     * Este método se encarga de cargar todos los componentes de la aplicación. Dependiendo de lo que el usuario 
@@ -143,8 +145,6 @@ public class VentanaPrincipal extends JFrame{
 	   
 	   frmUsuarios = new UsuarioVisual(panelMDI.getWidth() ,panelMDI.getHeight()); // Tamaño completo del Formulario
 	   panelMDI.add(frmUsuarios);
-	   //frmUsuarios.setVisible(true); // Este se tiene que quitar, es solo para ver si aparece
-
 	   
    }
 
