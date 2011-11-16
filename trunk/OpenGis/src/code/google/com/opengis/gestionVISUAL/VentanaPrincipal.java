@@ -161,13 +161,19 @@ public class VentanaPrincipal extends JFrame{
 		   JMenuItem M = (JMenuItem)e.getSource(); // Recogemos el item desde el cual ha sido llamado
 		   
 		   String texto = M.getText();
-		   
 		   	
+		   
 		   if(texto.equals("Gestionar Usuarios")){
+			   
+			   frmUsuarios.dispose();
+			   
+			   cargarFormularios(); // Cargamos los formularios disponibles.
 			   
 			   frmUsuarios.setVisible(true);
 			   
 		   }
+		   
+		   
 		   
 		   if(texto.equals("Salir...")){
 			   
