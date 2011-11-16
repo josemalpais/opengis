@@ -21,6 +21,19 @@ public class Parcela {
 	private String partida; //identificador de parcela a nivel localidad
 	private String dnipropietario; //dni del propietario de la parcela
 	
+	// C O N S T R U C T O R
+	public Parcela(int idparcela, String alias, String provincia, String poblacion, String poligono, String numero,
+					boolean activo, String partida, String dnipropietario){
+		this.setIdParcela(idparcela);
+		this.setAlias(alias);
+		this.setProvincia(provincia);
+		this.setPoblacion(poblacion);
+		this.setPoligono(poligono);
+		this.setNumero(numero);
+		this.setActivo(activo);//opcion de crear el objeto como inactivo
+		this.setPartida(partida);
+		this.setDniPropietario(dnipropietario);
+	}
 	
 	//   M E T O D O S    G E T T E R    &    S E T T E R
 	public int getIdParcela() {
