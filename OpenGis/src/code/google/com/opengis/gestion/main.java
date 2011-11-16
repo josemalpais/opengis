@@ -4,12 +4,17 @@ import java.sql.SQLException;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
+import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 
 
 public class main {
 
 
 	public static void main(String[] args) throws SQLException {
+		
+		
+		VentanaPrincipal a = new VentanaPrincipal();
+		a.setVisible(true);
 		
 		
 		
@@ -28,11 +33,11 @@ public class main {
 		}
 		*/
 		
-		String user= "26760366G";
+		/*String user= "26760366G";
 		String password ="passu1";
 		ValidarLogin vl = new ValidarLogin(user,password);
 		boolean val= vl.aceptarUser();
-		vl.validarUser(val);
+		vl.validarUser(val);*/
 
 		
 		
