@@ -3,6 +3,11 @@
 ******************************************************************************/
 package code.google.com.opengis.gestionVISUAL;
 
+import Main;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
 
@@ -40,8 +45,15 @@ public class VentanaPrincipal extends JFrame{
     */
    private void configVentana(){
        this.setVisible(true);
-       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+       this.addWindowListener(new WindowAdapter(){
+       	@Override
+       	public void windowClosing(WindowEvent e) {
+     /**
+      * dispose();
+      * Insertar aqui el Login Visual para que nos mande allí cuando le hagamos clic en el boton cerrar del JFrame
+      */     		
+       	}
+       });
    }
 
 }
