@@ -15,7 +15,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 
 
@@ -56,7 +58,7 @@ public class VentanaPrincipal extends JFrame{
    public VentanaPrincipal(){
        this.setTitle("OpenGis");
        configVentana();
-       cargarFormularios(); 
+       cargarFormularios();
    }
    
    /**
@@ -66,7 +68,7 @@ public class VentanaPrincipal extends JFrame{
     * @param titulo: Elegiremos el titulo que aparecera en la parte superior de la ventana.
     */
    public VentanaPrincipal(int w,int h,String titulo){
-       this.setSize(w,h);
+	   this.setSize(w,h);
        this.setTitle(titulo);
        configVentana();
        cargarFormularios();
@@ -76,7 +78,7 @@ public class VentanaPrincipal extends JFrame{
     * Método que nos configura la ventana. Vamos a configurarla como un formulario MDI
     */
    private void configVentana(){
-       this.setVisible(true);
+	   this.setVisible(true);
        this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
        this.setResizable(false); // No se puede redimensionar. Solo minimizar.
        
@@ -121,16 +123,22 @@ public class VentanaPrincipal extends JFrame{
        
        
        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-       this.addWindowListener(new WindowAdapter(){
-
-       	public void windowClosing(WindowEvent e) {
-     /**
-      * dispose();
-      * Insertar aqui el Login Visual para que nos mande allí cuando le hagamos clic en el boton cerrar del JFrame
-      */     		
+  	
+    //Pregunta si quiere cerrar la sesión al darle a la "X"	       
+    this.addWindowListener(new WindowAdapter(){
+       	public void windowClosing(WindowEvent e) {       		
+       		dialog_salir();      	 
        	}
        });
+       }
+   
+   public void dialog_salir(){
+		int n = JOptionPane.showConfirmDialog(this, "Esto cerrará la sesión. ¿Está usted seguro?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
+		if (n == JOptionPane.YES_OPTION){
+			this.dispose();
+		}else{
+			this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		}
    }
    
    
