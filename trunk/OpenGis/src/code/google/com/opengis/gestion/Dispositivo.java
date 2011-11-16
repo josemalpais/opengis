@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 
 public class Dispositivo {
-	String iddispositivo;
-	String modelo;
-	String numSerie;
-	boolean disponible;
-	boolean activo;
+	private String iddispositivo;
+	private String modelo;
+	private String numSerie;
+	//private boolean disponible;
+	//private boolean activo;
 	
 	////////////////////////////////GETTERS Y SETTERS///////////////////
 	public String getIddispositivo() {
@@ -56,7 +56,7 @@ public class Dispositivo {
 
 
 
-	public boolean isDisponible() {
+	/*public boolean isDisponible() {
 		System.out.println("Dispositivo.disponible = " + this.disponible + ".");
 		return disponible;
 	}
@@ -80,7 +80,7 @@ public class Dispositivo {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 		System.out.println("Dispositivo.activo (nuevo) = " + this.activo + ".");
-	}
+	}*/
 
 	
 	
@@ -96,8 +96,8 @@ public class Dispositivo {
 		this.iddispositivo = iddispositivo;
 		this.modelo = modelo;
 		this.numSerie = numSerie;
-		this.disponible = disponible;
-		this.activo = activo;
+		//this.disponible = disponible;
+		//this.activo = activo;
 		
 		/*ConectarDBA dba = new ConectarDBA();
 		dba.acceder();
