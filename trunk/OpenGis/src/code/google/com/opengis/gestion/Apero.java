@@ -18,7 +18,9 @@ public class Apero {
 	public boolean activ_Apero;
 	public String idUser;
 	
-//CONSTRUCTOR
+////////////      C O N S T R U C T O R      ////////////////
+	
+	
 	public Apero(int id, String nombre,int tamaño,String descrip,int tarea, boolean activo) {
 		
 	this.idApero=id;
