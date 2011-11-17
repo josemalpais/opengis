@@ -11,12 +11,8 @@ import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 public class main {
 
 
-	public static void main(String[] args) throws SQLException {
-		
-		
+	public static void main(String[] args) throws SQLException {	
 		VentanaPrincipal a = new VentanaPrincipal();
-		a.setVisible(true);
-
 }
 	
 	
