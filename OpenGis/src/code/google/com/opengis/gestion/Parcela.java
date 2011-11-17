@@ -41,11 +41,11 @@ public class Parcela {
 	}
 	/**
 	 * Método que asigna un valor a idparcela, siempre y cuando éste este entre 1 y 8 dígitos.
-	 * @param idparcela
+	 * @param idparcela : identificador único de la parcela
 	 */
 	public void setIdParcela(int idparcela) {
 		String str= idparcela+"";
-		if((str.length()>1)&&(str.length()<9)){ //comprobamos que idparcela este entre 1 y 8
+		if((str.length()>0)&&(str.length()<9)){ //comprobamos que idparcela este entre 1 y 8
 			this.idparcela = idparcela;
 		}else{
 			JOptionPane.showMessageDialog(null, "EL NUMERO ID DEBE ESTAR COMPRENDIDO ENTRE 1 y 8");
@@ -56,10 +56,10 @@ public class Parcela {
 	}
 	/**
 	 * Método para asignar el alias a la parcela, ésta deberá estar comprandida entre 1 y 20 carácteres.
-	 * @param alias
+	 * @param alias : nombre representativo para que el usuario identifique cómodamente la parcela.
 	 */
 	public void setAlias(String alias){
-		if((alias.length()>1)&&(alias.length()<21)){ //comprobamos que el alias este entre 1 y 20
+		if((alias.length()>0)&&(alias.length()<21)){ //comprobamos que el alias este entre 1 y 20
 			this.alias = alias;
 		}else{
 			JOptionPane.showMessageDialog(null, "EL ALIAS DEBE ESTAR COMPRENDIDO ENTRE 1 y 20 CARÁCTERES");
@@ -70,10 +70,10 @@ public class Parcela {
 	}
 	/**
 	 * Método para asignar la provincia a la parcela, ésta deberá estar comprandida entre 1 y 20 carácteres.
-	 * @param provincia
+	 * @param provincia : Provincia de la parcela.
 	 */
 	public void setProvincia(String provincia) {
-		if((provincia.length()>1)&&(provincia.length()<21)){ //comprobamos que el alias este entre 1 y 20
+		if((provincia.length()>0)&&(provincia.length()<21)){ //comprobamos que el alias este entre 1 y 20
 			this.provincia = provincia;
 		}else{
 			JOptionPane.showMessageDialog(null,"LA PROVINCIA DEBE ESTAR COMPRENDIDA ENTRE 1 y 20 CARÁCTERES");
@@ -83,11 +83,11 @@ public class Parcela {
 		return poblacion;
 	}
 	/**
-	 * Método para asignar la población a la población, ésta deberá estar comprandida entre 1 y 30 carácteres.
-	 * @param poblacion
+	 * Método para asignar la población a la parcela, ésta deberá estar comprandida entre 1 y 30 carácteres.
+	 * @param poblacion : Población de la parcela.
 	 */
 	public void setPoblacion(String poblacion) {
-		if((poblacion.length()>1)&&(poblacion.length()<31)){ //comprobamos que el alias este entre 1 y 30
+		if((poblacion.length()>0)&&(poblacion.length()<31)){ //comprobamos que el alias este entre 1 y 30
 			this.poblacion = poblacion;
 		}else{
 			JOptionPane.showMessageDialog(null,"LA POBLACION DEBE ESTAR COMPRENDIDA ENTRE 1 y 30 CARÁCTERES");
@@ -98,10 +98,10 @@ public class Parcela {
 	}
 	/**
 	 * Método para asignar el polígono a la población, éste deberá estar comprandido entre 1 y 10 carácteres.
-	 * @param poligono
+	 * @param poligono : Polígono de la parcela.
 	 */
 	public void setPoligono(String poligono) {
-		if((poligono.length()>1)&&(poligono.length()<11)){ //comprobamos que el alias este entre 1 y 10
+		if((poligono.length()>0)&&(poligono.length()<11)){ //comprobamos que el poligono este entre 1 y 10
 			this.poligono = poligono;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL POLIGONO DEBE ESTAR COMPRENDIDO ENTRE 1 y 10 CARÁCTERES");
@@ -110,25 +110,53 @@ public class Parcela {
 	public String getNumero() {
 		return numero;
 	}
+	/**
+	 * Método para asignar el numero a la parcela, ésta deberá estar comprendida entre 1 y 10 carácteres.
+	 * @param numero : Número de la  de la parcela.
+	 */
 	public void setNumero(String numero) {
-		this.numero = numero;
+		if((numero.length()>0)&&(numero.length()<11)){ //comprobamos que el numero este entre 1 y 10
+			this.numero = numero;
+		}else{
+			JOptionPane.showMessageDialog(null,"EL NUMERO DEBE ESTAR COMPRENDIDO ENTRE 1 y 10 CARÁCTERES");
+		}
 	}
 	public boolean isActivo() {
 		return activo;
 	}
+	/**
+	 * Método para asignar el estado de la parcela.
+	 * @param activo : Estado de la parcela en la base de datos (activo/inactivo).
+	 */
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 	public String getPartida() {
 		return partida;
 	}
+	/**
+	 * Método encargado de asignar la partida a la parcela, ésta deberá estar comprendida entre 1 y 20.
+	 * @param partida : Partida de la parcela.
+	 */
 	public void setPartida(String partida) {
-		this.partida = partida;
+		if((partida.length()<0)&&(partida.length()>21)){//comprobamos que la partida este entre 1 y 20
+			this.partida = partida;
+		}else{
+			JOptionPane.showMessageDialog(null, "LA PARTIDA DEBE ESTAR COMPRENDIDA ENTRE 1 Y 20 CARÁCTERES");
+		}
 	}
 	public String getDniPropietario() {
 		return dnipropietario;
 	}
+	/**
+	 * Método encargado de asignar el dnipropietario a la parcela.
+	 * @param dnipropietario : DNI del propietario de la parcela.
+	 */
 	public void setDniPropietario(String dnipropietario) {
-		this.dnipropietario = dnipropietario;
+		if(dnipropietario.length()==9){
+			this.dnipropietario = dnipropietario;
+		}else{
+			JOptionPane.showMessageDialog(null, "EL NUMERO DEBE SER DE CARÁCTERES");
+		}
 	}
 }
