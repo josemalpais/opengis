@@ -21,7 +21,7 @@ public class Apero {
 ////////////      C O N S T R U C T O R      ////////////////
 	
 	
-	public Apero(int id, String nombre,int tamaño,String descrip,int tarea, boolean activo) {
+	public Apero(int id, String nombre,int tamaño,String descrip,int tarea, boolean activo, String idUser) {
 		
 	this.idApero=id;
 	this.nomApero=nombre;
@@ -29,6 +29,7 @@ public class Apero {
 	this.descApero=descrip;
 	this.idTarea_Apero=tarea;
 	this.activ_Apero=activo;
+	this.idUser=idUser;
 	
 	}
 
@@ -143,7 +144,7 @@ public class Apero {
 			}else{
 				int tam = Integer.parseInt(tamaño);
 				
-				if(!(isInteger(tamaño))||tam<=0||tam>15){
+				if(!(isInteger(tamaño))||tam<=0||tam>500){
 					JOptionPane.showMessageDialog(null, "Error. El tamaño del apero no puede ser alfabético o menor que 0");
 					return false;
 				
@@ -157,6 +158,7 @@ public class Apero {
 							JOptionPane.showMessageDialog(null, "El apero debe estar asignado a una tarea");
 							return false;
 						}else{
+							System.out.println("Validacion OK!");
 							return true;
 						}
 					}
