@@ -28,7 +28,7 @@ public class AperoDAO {
 	
 //////////////      C O N S T R U C T O R      ////////////////
 	
-	public AperoDAO(String id, String nombre,String tamaño,String descrip,String tarea, String activo) {
+	public AperoDAO(String id, String nombre,String tamaño,String descrip,String tarea, String activo,String idUser) {
 		
 	this.idApero=id;
 	this.nomApero=nombre;
@@ -36,6 +36,7 @@ public class AperoDAO {
 	this.descApero=descrip;
 	this.idTarea_Apero=tarea;
 	this.activ_Apero=activo;
+	this.idUser=idUser;
 	
 	}
 	
@@ -75,7 +76,7 @@ public class AperoDAO {
 		if (existe == true){ 
 			JOptionPane.showMessageDialog(null,"El Apero ya existe");
 		}else{
-			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario`) VALUES ('"+ this.idApero +"', '" + this.nomApero  + "','" + this.tamApero +"','" + this.descApero+"','" + this.idTarea_Apero +"','" + this.activ_Apero+ "','" + this.idUser  +"')";
+			String sentencia = "INSERT INTO `dai2opengis`.`apero` (`idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario`) VALUES ('"+ this.idApero +"', '" + this.nomApero  + "','" + this.tamApero +"','" + this.descApero+"','" + this.idTarea_Apero +"','" + this.activ_Apero+ "','" + this.idUser  +"')";
 			dba.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo apero");
 		}
