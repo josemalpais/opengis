@@ -44,6 +44,7 @@ public class VentanaPrincipal extends JFrame{
 	private JMenu menuProductos;
 	private JMenu menuTareas;
 	private JMenu menuDispositivos;
+	private AperoVisual frmAperos;
 	
 	private UsuarioVisual frmUsuarios;
 
@@ -118,6 +119,13 @@ public class VentanaPrincipal extends JFrame{
        menuUsuario.add(menuObjeto);
        menuBar.add(menuUsuario);
        
+       
+       menuAperos = new JMenu("Apero");
+       menuObjeto = new JMenuItem("Gestionar Aperos");
+       menuObjeto.addActionListener(new AccionesDeBoton());
+       menuAperos.add(menuObjeto);
+       menuBar.add(menuAperos);
+       
       
        this.setJMenuBar(menuBar); // Mostramos el JMenuBar en nuestro Formulario MDI
        
@@ -181,6 +189,13 @@ public class VentanaPrincipal extends JFrame{
 			   
 		   }
 		   
+		   
+		   if(texto.equals("Gestionar Aperos")){
+			   cargarFormularios(); // Cargamos los formularios disponibles.
+			   frmAperos = new AperoVisual();
+			   panelMDI.add(frmAperos);
+			   frmAperos.setVisible(true);
+		   }
 		   
 		   
 		   if(texto.equals("Salir...")){
