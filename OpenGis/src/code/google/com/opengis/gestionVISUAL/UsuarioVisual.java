@@ -35,15 +35,15 @@ public class UsuarioVisual extends JInternalFrame {
 	 */
 
 	public UsuarioVisual(int ancho, int alto){
-		
-		   panelUsuarios = new JPanel ();
-		   panelUsuarios.setLayout(null);
-		   this.add(panelUsuarios);
-		   this.setBounds(0,0,ancho,alto);
-		   this.setTitle("Usuario");
-		   this.setClosable(true);
+			super("Usuarios",false, true, true, true);
+			panelUsuarios = new JPanel ();
+			panelUsuarios.setLayout(null);
+			this.add(panelUsuarios);
+			this.setBounds(0,0,ancho,alto);
+			this.setTitle("Usuario");
+			this.setClosable(true);
 		   
-		   nuevosObjetos();
+			nuevosObjetos();
 		
 		
 	}
@@ -70,6 +70,8 @@ public class UsuarioVisual extends JInternalFrame {
 		txtDNI.setVisible(true);
 		txtDNI.setBounds(535,100,250,25);
 		panelUsuarios.add(txtDNI);
+		
+		
 		
 		cmdBuscarUsuario = new JButton("Buscar");
 		cmdBuscarUsuario.setVisible(true);
