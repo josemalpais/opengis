@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="OpenGis/src"/>
 	<classpathentry kind="lib" path="OpenGis/mysql-connector-java-5.1.18-bin.jar"/>
+	<classpathentry kind="lib" path="junit-4.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="C:/Documents and Settings/dai2/Escritorio/junit-4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
