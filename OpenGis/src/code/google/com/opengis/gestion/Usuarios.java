@@ -212,6 +212,21 @@ public class Usuarios {
 		
 	}
 	
+	public void modificarUsuario(){
+		enlace = new UsuariosDAO(this.Dni,this.Nombre,this.Apellidos,this.Telefono,this.Direccion,this.Poblacion,this.Fecha_nac);
+		try {
+			
+			enlace.MoficicarUsuario();
+			
+		} catch (SQLException e) {
+
+			JOptionPane.showMessageDialog(null,"Error al eliminar el nuevo usuario");
+		}
+			
+		}
+		
+	
+	
 	
 	
 	/**
