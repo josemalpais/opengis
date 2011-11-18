@@ -30,6 +30,7 @@ public class UsuarioVisual extends JInternalFrame {
 	
 	private JLabel lblDNI;
 	private JLabel lblEntrada;
+	private JLabel lblEntradaMod;
 	
 	private JTextField txtDNI;
 	
@@ -105,11 +106,26 @@ public class UsuarioVisual extends JInternalFrame {
 		
 		
 	}
+	
+	
+	public void ModificarUsuarios(){
+		lblEntradaMod = new JLabel("Desde esta sección puede modificar el usuario");
+		lblEntradaMod.setVisible(true);
+		lblEntradaMod.setBounds(425,25, 800, 50);
+		panelUsuarios.add(lblEntradaMod);
+		
+		
+		
+	}
+	
 	private class Modificar implements ActionListener
 	   {
 	      // manejar evento de botón
 	      public void actionPerformed( ActionEvent evento )
 	      {
+	    	  if ( cmdModificarUsuario == evento.getSource())
+	    		  UsuarioVisual modi = new UsuarioVisual();
+	    	  
 	         //aqui poner la ventana interface de modificar usuario
 	      }
 
