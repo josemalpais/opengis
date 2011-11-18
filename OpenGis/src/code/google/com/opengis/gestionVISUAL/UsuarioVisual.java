@@ -3,6 +3,9 @@
 ******************************************************************************/
 package code.google.com.opengis.gestionVISUAL;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -92,6 +95,8 @@ public class UsuarioVisual extends JInternalFrame {
 		cmdModificarUsuario.setVisible(true);
 		cmdModificarUsuario.setBounds(this.getWidth() - (this.getWidth() - 700) , this.getHeight() - 150, 110, 30);
 		panelUsuarios.add(cmdModificarUsuario);
+		Modificar mod = new Modificar();
+		cmdModificarUsuario.addActionListener(mod);
 		
 		cmdGuardarUsuario = new JButton("Guardar");
 		cmdGuardarUsuario.setVisible(true);
@@ -100,6 +105,12 @@ public class UsuarioVisual extends JInternalFrame {
 		
 		
 	}
-	
+	private class Modificar implements ActionListener
+	   {
+	      // manejar evento de botón
+	      public void actionPerformed( ActionEvent evento )
+	      {
+	         //aqui poner la ventana interface de modificar usuario
+	      }
 
 }
