@@ -2,8 +2,8 @@
 * Copyright (c) 2011 [OpenGisTeam]                                           *
 ******************************************************************************/
 package code.google.com.opengis.gestion;
-
 import javax.swing.JOptionPane;
+
 
 /**
  * @author knals
@@ -73,7 +73,7 @@ public class Parcela {
 	 * @param provincia : Provincia de la parcela.
 	 */
 	public void setProvincia(String provincia) {
-		if((provincia.length()>0)&&(provincia.length()<21)){ //comprobamos que el alias este entre 1 y 20
+		if((provincia.length()>0)&&(provincia.length()<21)&&(esNumerico(provincia))){ //comprobamos que el alias este entre 1 y 20
 			this.provincia = provincia;
 		}else{
 			JOptionPane.showMessageDialog(null,"LA PROVINCIA DEBE ESTAR COMPRENDIDA ENTRE 1 y 20 CARÁCTERES");
@@ -87,7 +87,7 @@ public class Parcela {
 	 * @param poblacion : Población de la parcela.
 	 */
 	public void setPoblacion(String poblacion) {
-		if((poblacion.length()>0)&&(poblacion.length()<31)){ //comprobamos que el alias este entre 1 y 30
+		if((poblacion.length()>0)&&(poblacion.length()<31)&&(esNumerico(poblacion))){ //comprobamos que el alias este entre 1 y 30
 			this.poblacion = poblacion;
 		}else{
 			JOptionPane.showMessageDialog(null,"LA POBLACION DEBE ESTAR COMPRENDIDA ENTRE 1 y 30 CARÁCTERES");
@@ -111,11 +111,11 @@ public class Parcela {
 		return numero;
 	}
 	/**
-	 * Método para asignar el numero a la parcela, ésta deberá estar comprendida entre 1 y 10 carácteres.
+	 * Método para asignar el numero a la parcela, ésta deberá estar comprendida entre 1 y 10 carácteres y ademas ser numerico.
 	 * @param numero : Número de la  de la parcela.
 	 */
 	public void setNumero(String numero) {
-		if((numero.length()>0)&&(numero.length()<11)){ //comprobamos que el numero este entre 1 y 10
+		if((numero.length()>0)&&(numero.length()<11)&&(esNumerico(numero))){ //comprobamos que sea numerico y entre 1 y 10
 			this.numero = numero;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL NUMERO DEBE ESTAR COMPRENDIDO ENTRE 1 y 10 CARÁCTERES");
@@ -139,7 +139,7 @@ public class Parcela {
 	 * @param partida : Partida de la parcela.
 	 */
 	public void setPartida(String partida) {
-		if((partida.length()<0)&&(partida.length()>21)){//comprobamos que la partida este entre 1 y 20
+		if((partida.length()>0)&&(partida.length()<21)){//comprobamos que la partida este entre 1 y 20
 			this.partida = partida;
 		}else{
 			JOptionPane.showMessageDialog(null, "LA PARTIDA DEBE ESTAR COMPRENDIDA ENTRE 1 Y 20 CARÁCTERES");
@@ -149,14 +149,77 @@ public class Parcela {
 		return dnipropietario;
 	}
 	/**
-	 * Método encargado de asignar el dnipropietario a la parcela.
+	 * Método encargado de asignar el dnipropietario a la parcela, recibiremos un string de 8 carácteres, y cargaremos uno de 9
 	 * @param dnipropietario : DNI del propietario de la parcela.
 	 */
 	public void setDniPropietario(String dnipropietario) {
-		if(dnipropietario.length()==9){
-			this.dnipropietario = dnipropietario;
+		if((dnipropietario.length()>8) && (dnipropietario.length()<11)){
+			validarDni(dnipropietario);
+		}
+	}
+	
+	// M E T O D O S 
+	/**
+	 * Método encargado de decirnos si el string es numérico o no.
+	 * @param str: Es el parametro que facilitaremos para comprobar si es numerico o no.
+	 * @return
+	 */
+	public static boolean esNumerico(String str){
+		int i =0;
+		for(i=0;i<str.length();i++){
+			if(Character.isDigit(str.charAt(i))==false){
+				return  false;
+			}
+		}
+		return true;
+	}	
+	/**
+	 * Método que calcula la letra del dni.
+	 * @return el valor calculado de la letra
+	 */
+	public String calcularDNI(String dni){
+		int pletra;
+		String aux="";
+		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"};
+		for(int x=0;x<8;x++){//este for nos cojera los primeros carácteres y los guardara en el string aux
+			aux=aux + dni.charAt(x);
+		}	
+		pletra= Integer.parseInt(aux);
+		pletra=pletra%23;			
+		aux= aux + arrayLetra[pletra];
+		
+		return dni;
+	}
+	/**
+	 * Clase que valida el DNI, y lo coloca en formato 00000000L
+	 * @param dni
+	 * @return boolean que nos determinará si el dni introducido es verdadero o falso.
+	 */
+	public boolean validarDni(String dni){
+		int pletra;
+		String aux="";
+		String aux2="";
+		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"};
+		
+		for(int x=0;x<8;x++){//este for nos cojera los 8 primeros carácteres y los guardará en el string aux
+			aux=aux + dni.charAt(x);
+		}
+		try {  
+			 pletra= Integer.parseInt(aux); //si no fueran enteros saldriamos del metodo con un false
+		}  
+	    catch(NumberFormatException ex ) {
+			JOptionPane.showMessageDialog(null, "LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
+	        return false;  
+	    }  
+		pletra=pletra%23;
+		aux2=dni.charAt(dni.length()-1)+"";
+		
+		if(arrayLetra[pletra].equalsIgnoreCase(aux2)){
+			dnipropietario= aux + arrayLetra[pletra];//lo colocamos en formato de 9 carácteres
+			return true;
 		}else{
-			JOptionPane.showMessageDialog(null, "EL NUMERO DEBE SER DE CARÁCTERES");
+			JOptionPane.showMessageDialog(null, "EL NUMERO QUE HA INTRODUCIDO NO SE CORRESPONDE CON LA LETRA");
+			return false;
 		}
 	}
 }
