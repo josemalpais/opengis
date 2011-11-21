@@ -18,15 +18,19 @@ import javax.swing.JTextField;
 *
 */
 
-public class UsuarioVisual extends JInternalFrame {
+public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	
 	private JPanel panelUsuarios;
+	private JPanel panelUsuariosmod;
 	
 	private JButton cmdNuevoUsuario;
 	private JButton cmdBajaUsuario;
 	private JButton cmdModificarUsuario;
 	private JButton cmdGuardarUsuario;
 	private JButton cmdBuscarUsuario;
+	
+	private JButton cmdAceptarMod;
+	private JButton cmdCancelarMod;
 	
 	private JLabel lblDNI;
 	private JLabel lblEntrada;
@@ -96,8 +100,7 @@ public class UsuarioVisual extends JInternalFrame {
 		cmdModificarUsuario.setVisible(true);
 		cmdModificarUsuario.setBounds(this.getWidth() - (this.getWidth() - 700) , this.getHeight() - 150, 110, 30);
 		panelUsuarios.add(cmdModificarUsuario);
-		Modificar mod = new Modificar();
-		cmdModificarUsuario.addActionListener(mod);
+		cmdModificarUsuario.addActionListener(this);
 		
 		cmdGuardarUsuario = new JButton("Guardar");
 		cmdGuardarUsuario.setVisible(true);
@@ -106,28 +109,41 @@ public class UsuarioVisual extends JInternalFrame {
 		
 		
 	}
+	/**
+	 *  Este metodo hace que cuando clickes el boton de modificar te lleve a la interface de modificar usuario
+	 */
 	
-	
-	public void ModificarUsuarios(){
-		lblEntradaMod = new JLabel("Desde esta sección puede modificar el usuario");
-		lblEntradaMod.setVisible(true);
-		lblEntradaMod.setBounds(425,25, 800, 50);
-		panelUsuarios.add(lblEntradaMod);
-		
-		
-		
-	}
-	
-	private class Modificar implements ActionListener
-	   {
-	      // manejar evento de botón
-	      public void actionPerformed( ActionEvent evento )
+	public void actionPerformed( ActionEvent evento )
 	      {
 	    	  if ( cmdModificarUsuario == evento.getSource())
-	    		  UsuarioVisual modi = new UsuarioVisual();
-	    	  
-	         //aqui poner la ventana interface de modificar usuario
+	    	  {
+
+	    		  	panelUsuarios.setVisible(false);
+	    		  	panelUsuariosmod = new JPanel ();
+  					panelUsuariosmod.setLayout(null);  	
+  					
+	  				this.setBounds(0,0,this.getWidth(),this.getHeight());
+	  				this.add(panelUsuariosmod);
+	  				this.setTitle("Modificar Usuario");
+	  				this.setClosable(true);
+	  				
+	  				cmdAceptarMod = new JButton("Aceptar");
+	  				cmdAceptarMod.setVisible(true);
+	  				cmdAceptarMod.setBounds(this.getWidth() - (this.getWidth() - 800) , this.getHeight() - 150, 110, 30);
+	  				panelUsuariosmod.add(cmdAceptarMod);
+			    		   	
+	  				cmdCancelarMod = new JButton("Cancelar");
+	  				cmdCancelarMod.setVisible(true);
+	  				cmdCancelarMod.setBounds(this.getWidth() - (this.getWidth() - 1000) , this.getHeight() - 150, 110, 30);
+	  				panelUsuariosmod.add(cmdCancelarMod);
+	  				
+
+	  				lblEntradaMod = new JLabel("Desde esta sección puedes modificar un usuario");
+	  				lblEntradaMod.setVisible(true);
+	  				lblEntradaMod.setBounds(425,25, 800, 50);
+	  				panelUsuariosmod.add(lblEntradaMod);
+	  				
+	    	  }
 	      }
 
-}
 }
