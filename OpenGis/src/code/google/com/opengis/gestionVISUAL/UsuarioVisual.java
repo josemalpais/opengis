@@ -3,6 +3,7 @@
 ******************************************************************************/
 package code.google.com.opengis.gestionVISUAL;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,8 +36,11 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	private JLabel lblDNI;
 	private JLabel lblEntrada;
 	private JLabel lblEntradaMod;
+	private JLabel lblFotoMod;
+	private JLabel lblDNIMod;
 	
 	private JTextField txtDNI;
+	private JTextField txtDNIMod;
 	
 	/**
 	 * Constructor de la clase UsuarioVisual. Se le pasarán los parametros necesarios para construir el alto y el ancho.
@@ -113,36 +117,60 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	 *  Este metodo hace que cuando clickes el boton de modificar te lleve a la interface de modificar usuario
 	 */
 	
+	
+	public void ModificarUsuario()
+	{
+		
+			panelUsuarios.setVisible(false);
+		  	panelUsuariosmod = new JPanel ();
+			panelUsuariosmod.setLayout(null);  	
+			
+			this.setBounds(0,0,this.getWidth(),this.getHeight());
+			this.add(panelUsuariosmod);
+			this.setTitle("Modificar Usuario");
+			this.setClosable(true);
+			
+			cmdAceptarMod = new JButton("Aceptar");
+			cmdAceptarMod.setVisible(true);
+			cmdAceptarMod.setBounds(this.getWidth() - (this.getWidth() - 800) , this.getHeight() - 150, 110, 30);
+			panelUsuariosmod.add(cmdAceptarMod);
+    		   	
+			cmdCancelarMod = new JButton("Cancelar");
+			cmdCancelarMod.setVisible(true);
+			cmdCancelarMod.setBounds(this.getWidth() - (this.getWidth() - 1000) , this.getHeight() - 150, 110, 30);
+			panelUsuariosmod.add(cmdCancelarMod);			
+
+			lblEntradaMod = new JLabel("Desde esta sección puedes modificar un usuario");
+			lblEntradaMod.setVisible(true);
+			lblEntradaMod.setBounds(425,25, 800, 50);
+			panelUsuariosmod.add(lblEntradaMod);		
+			
+			lblFotoMod = new JLabel();
+			lblFotoMod.setVisible(true);
+			lblFotoMod.setBounds(50,25,100,100);
+			lblFotoMod.setBorder(getBorder());
+			panelUsuariosmod.add(lblFotoMod);
+			
+			lblDNIMod = new JLabel("DNI Usuario");
+			lblDNIMod.setVisible(true);
+			lblDNIMod.setBounds(425,75, 80, 25);
+			panelUsuariosmod.add(lblDNIMod);
+			
+			txtDNIMod = new JTextField();
+			txtDNIMod.setVisible(true);
+			txtDNIMod.setBounds(525,75,80,25);
+			panelUsuariosmod.add(txtDNIMod);
+		
+	}
+	
+	
 	public void actionPerformed( ActionEvent evento )
 	      {
 	    	  if ( cmdModificarUsuario == evento.getSource())
 	    	  {
 
-	    		  	panelUsuarios.setVisible(false);
-	    		  	panelUsuariosmod = new JPanel ();
-  					panelUsuariosmod.setLayout(null);  	
-  					
-	  				this.setBounds(0,0,this.getWidth(),this.getHeight());
-	  				this.add(panelUsuariosmod);
-	  				this.setTitle("Modificar Usuario");
-	  				this.setClosable(true);
-	  				
-	  				cmdAceptarMod = new JButton("Aceptar");
-	  				cmdAceptarMod.setVisible(true);
-	  				cmdAceptarMod.setBounds(this.getWidth() - (this.getWidth() - 800) , this.getHeight() - 150, 110, 30);
-	  				panelUsuariosmod.add(cmdAceptarMod);
-			    		   	
-	  				cmdCancelarMod = new JButton("Cancelar");
-	  				cmdCancelarMod.setVisible(true);
-	  				cmdCancelarMod.setBounds(this.getWidth() - (this.getWidth() - 1000) , this.getHeight() - 150, 110, 30);
-	  				panelUsuariosmod.add(cmdCancelarMod);
-	  				
-
-	  				lblEntradaMod = new JLabel("Desde esta sección puedes modificar un usuario");
-	  				lblEntradaMod.setVisible(true);
-	  				lblEntradaMod.setBounds(425,25, 800, 50);
-	  				panelUsuariosmod.add(lblEntradaMod);
-	  				
+	    		  	ModificarUsuario();
+	    		  	
 	    	  }
 	      }
 
