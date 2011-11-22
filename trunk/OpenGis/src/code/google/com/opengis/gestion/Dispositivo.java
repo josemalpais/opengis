@@ -10,6 +10,8 @@ import code.google.com.opengis.gestionDAO.ConectarDBA;
  * 
  * @author Iván Serrano y Jose Alapont
  * 
+ * SALUDOS PAREJA, SOY PEPE, FIJAROS CÓMO OS HE COMENTADO EL CÓDIGO, QUE ES COMO SE HACE, SE ESCRIBE /** SE LE DA AL INTRO
+ * Y EL ECLIPSE NOS ESCRIBE LOS PARÁMETROS QUE HAY QUE COMENTAR, ESO ES IMPORTANTE.
  */
 public class Dispositivo {
 	private String iddispositivo;
@@ -24,28 +26,43 @@ public class Dispositivo {
 				+ ".");
 		return iddispositivo;
 	}
-
+	/**
+	 * 
+	 * @param iddispositivo
+	 */
 	public void setIddispositivo(String iddispositivo) {
 		this.iddispositivo = iddispositivo;
 		System.out.println("Dispositivo.iddispositivo (nuevo) = "
 				+ this.iddispositivo + ".");
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public String getModelo() {
 		System.out.println("Dispositivo.modelo = " + this.modelo + ".");
 		return modelo;
 	}
-
+	/**
+	 * 
+	 * @param modelo
+	 */
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 		System.out.println("Dispositivo.modelo (nuevo) = " + this.modelo + ".");
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public String getNumSerie() {
 		System.out.println("Dispositivo.numSerie = " + this.numSerie + ".");
 		return numSerie;
 	}
-
+	/**
+	 * 
+	 * @param numSerie
+	 */
 	public void setNumSerie(String numSerie) {
 		this.numSerie = numSerie;
 		System.out.println("Dispositivo.numSerie (nuevo) = " + this.numSerie
@@ -55,8 +72,17 @@ public class Dispositivo {
 	/**
 	 * ***************CONSTRUCTOR
 	 */
+	/**
+	 * 
+	 * @param iddispositivo Recibe un id de dispositivo
+	 * @param modelo Recibe un modelo de dispositivo
+	 * @param numSerie Recibe el número de serie del dispositivo
+	 * @param disponible Indica si el dispositivo está disponible o no
+	 * @param activo Indica si el dispositivo se encuentra activo o no
+	 * @throws SQLException Nos devuelve por consola un error de SQL en caso de producirse
+	 */
 	public Dispositivo(String iddispositivo, String modelo, String numSerie,
-			boolean disponible, boolean activo) throws SQLException {
+			boolean disponible, boolean activo){
 		super();
 		boolean b1 = this.validarDatos(iddispositivo, modelo, numSerie);
 		if (b1 = true) {
@@ -76,6 +102,11 @@ public class Dispositivo {
 	/**
 	 * Este método comprobará que los datos introducidos mediante la interfaz
 	 * sean correctos. En cuyo caso, se podrán subir a la base de datos.
+	 * 
+	 * @param iddispositivo Introducimos la cadena con el id del dispositivo a comprobar
+	 * @param modelo	Introducimos la cadena con el modelo del dispositivo
+	 * @param numSerie	Introducimos la cadena con el número de serie del dispositivo
+	 * @return	Devuelve el estado, si True está todo correcto, si devuelve False se han introducido mal los datos.
 	 */
 	public Boolean validarDatos(String iddispositivo, String modelo,
 			String numSerie) {
@@ -149,9 +180,12 @@ public class Dispositivo {
 		}
 	}
 
+
 	/**
 	 * Este método comprueba que un String sea un Número. Si lo es, devuelve
-	 * "True". Si no, devueve "False"
+	 * "True". Si no, devuelve "False"
+	 * @param cadena Aquí escribimos el String a comprobar.
+	 * @return	Devuelve el estado.
 	 */
 	public boolean isInteger(String cadena) {
 		try {
