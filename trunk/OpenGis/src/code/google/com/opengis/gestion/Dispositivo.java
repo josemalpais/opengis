@@ -12,6 +12,7 @@ import code.google.com.opengis.gestionDAO.ConectarDBA;
  * 
  * SALUDOS PAREJA, SOY PEPE, FIJAROS CÓMO OS HE COMENTADO EL CÓDIGO, QUE ES COMO SE HACE, SE ESCRIBE /** SE LE DA AL INTRO
  * Y EL ECLIPSE NOS ESCRIBE LOS PARÁMETROS QUE HAY QUE COMENTAR, ESO ES IMPORTANTE.
+ * Aparte os he corregido un par de cosas en el constructor.
  */
 public class Dispositivo {
 	private String iddispositivo;
