@@ -166,7 +166,7 @@ public static void comprobarUsuario(String dni) throws SQLException{
 			
 		}else{
 			
-			JOptionPane.showMessageDialog(null,"El DNI ya existe");
+			JOptionPane.showMessageDialog(null,"El DNI no existe");
 			
 		}
 		
