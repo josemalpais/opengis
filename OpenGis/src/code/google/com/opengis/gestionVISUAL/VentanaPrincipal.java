@@ -2,6 +2,8 @@
 * Copyright (c) 2011 [OpenGisTeam]                                           *
 ******************************************************************************/
 package code.google.com.opengis.gestionVISUAL;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +12,7 @@ import javax.swing.JDesktopPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
@@ -31,36 +34,23 @@ import javax.swing.WindowConstants;
 public class VentanaPrincipal extends JFrame{
    
 	
-	private JDesktopPane panelMDI;
-	private Insets insets;
-	private JMenuBar menuBar;
-	private JMenu menuArchivo;
-	private JMenuItem menuObjeto;
-	private JMenu menuUsuario;
-	private JMenu menuPrestamos;
-	private JMenu menuInformes;
-	private JMenu menuParcelas;
-	private JMenu menuAperos;
-	private JMenu menuProductos;
-	private JMenu menuTareas;
-	private JMenu menuDispositivos;
-	//private AperoVisual frmAperos;
-	
+	private String tipo;
+	private JPanel panelMDI;
+	private JPanel panelFormularios;
+	private AperoVisual frmAperos;
 	private UsuarioVisual frmUsuarios;
 
+	private JButton cmdPrestamos;
+	private JButton cmdUsuarios;
+	private JButton cmdInformes;
+	private JButton cmdParcelas;
+	private JButton cmdAperos;
+	private JButton cmdProductos;
+	private JButton cmdTareas;
+	private JButton cmdDispositivos;
 	
+	private Dimension dimension = new Dimension(100,25);
 	
-	
-   /**
-    * Constructor de la ventana sin parámetros, por defecto nos creará una ventana con nombre OpenGis. Configura la ventana
-    * para que no se pueda redimensionar y maximizada por defecto. Además carga todos los formularios
-    * que se van a utilzar, y los va mostrando dependiendo de lo que el usuario utilice.
-    */
-   public VentanaPrincipal(){
-       this.setTitle("OpenGis");
-       configVentana();
-       cargarFormularios();
-   }
    
    /**
     * Constructor de la ventana con parámetros.
@@ -68,70 +58,108 @@ public class VentanaPrincipal extends JFrame{
     * @param w: Widht/Anchura: Elegiremos la cantidad de pixels de ancho que tendrá la ventana.
     * @param titulo: Elegiremos el titulo que aparecera en la parte superior de la ventana.
     */
-   public VentanaPrincipal(int w,int h,String titulo){
-	   this.setSize(w,h);
-       this.setTitle(titulo);
-       configVentana();
+   public VentanaPrincipal(char tipoDeUsuario){
+       this.setTitle("OpenGis - Aplicación de Gestión");
+       this.tipo = tipoDeUsuario+"";
+       
+       if (tipo.equals("a")){
+    	   
+    	   configVentanaAdmin();
+    	   
+       }else{
+       
+       
+	       if (tipo.equals("t")){
+	    	   
+	    	   configVentanaTrabajador();
+	    	   
+	       }else{
+	    	   
+	    	   if(tipo.equals("d")){
+	    		   
+	    		   
+	    		   configVentanaDueño();
+	    		   
+	    		   
+	    	   }
+	    	   
+	    	   
+	       }
+       
+       }
+       
        cargarFormularios();
+       
    }
    
    /**
-    * Método que nos configura la ventana. Vamos a configurarla como un formulario MDI
+    * Método que nos configura la ventana del Administrador. Vamos a configurarla como un formulario MDI
     */
-   private void configVentana(){
+   private void configVentanaAdmin(){
 	   this.setVisible(true);
        this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
        this.setResizable(false); // No se puede redimensionar. Solo minimizar.
        
-       panelMDI = new JDesktopPane();
-       panelMDI.setLayout(null);
-       insets = panelMDI.getInsets();
+       
+       panelMDI = new JPanel();
+       panelMDI.setSize(1500,35);
+       FlowLayout fl = new FlowLayout(); // Insertamos el Panel del MDI donde irán los botones
+       panelMDI.setLayout(fl);
        this.add(panelMDI);
        
-       /// Añadimos los Menús Superiores Ej: Archivo, Editar, Usuarios, etc...
+       panelFormularios = new JPanel();
+       panelFormularios.setLayout(null);
+       panelFormularios.setSize(getSize());
+       panelFormularios.setLocation(100,100);
+       this.add(panelFormularios);
        
-       menuBar = new JMenuBar(); // Barra de Menú principal
+       cmdPrestamos = new JButton("Prestamos");
+       cmdPrestamos.addActionListener(new AccionDeBoton());
+       cmdPrestamos.setSize(150, 25);
+
        
-       menuArchivo = new JMenu("Archivo");
-       menuBar.add(menuArchivo);
-       menuObjeto = new JMenuItem("Cerrar Sesión");
-       menuObjeto.addActionListener(new AccionesDeBoton());
-       menuArchivo.add(menuObjeto);
-       menuObjeto = new JMenuItem("Salir...");
-       menuObjeto.addActionListener(new AccionesDeBoton());
-       menuArchivo.add(menuObjeto);
+       cmdUsuarios = new JButton("Gestionar Usuarios");
+       cmdUsuarios.addActionListener(new AccionDeBoton());
+       cmdUsuarios.setSize(dimension);
+
        
+       cmdInformes = new JButton("Generar Informes");
+       cmdInformes.addActionListener(new AccionDeBoton());
+       cmdInformes.setSize(dimension);
        
-       menuPrestamos = new JMenu("Prestamos");
-       menuObjeto = new JMenuItem("Realizar Prestamo");
-       menuObjeto.addActionListener(new AccionesDeBoton());
-       menuPrestamos.add(menuObjeto);
-       menuObjeto = new JMenuItem ("Devolución");
-       menuObjeto.addActionListener(new AccionesDeBoton ());
-       menuPrestamos.add(menuObjeto);
-       menuBar.add(menuPrestamos);
+       cmdParcelas = new JButton("Gestionar Parcelas");
+       cmdParcelas.addActionListener(new AccionDeBoton());
+       cmdParcelas.setSize(dimension);
        
+       cmdAperos = new JButton("Gestionar Aperos");
+       cmdAperos.addActionListener(new AccionDeBoton());
+       cmdAperos.setSize(dimension);
        
+       cmdProductos = new JButton("Gestionar Productos");
+       cmdProductos.addActionListener(new AccionDeBoton());
+       cmdProductos.setSize(dimension);
        
-       menuUsuario = new JMenu("Usuarios");
-       menuObjeto = new JMenuItem("Gestionar Usuarios");
-       menuObjeto.addActionListener(new AccionesDeBoton());
-       menuUsuario.add(menuObjeto);
-       menuBar.add(menuUsuario);
+       cmdTareas = new JButton("Gestionar Tareas");
+       cmdTareas.addActionListener(new AccionDeBoton());
+       cmdTareas.setSize(dimension);
        
+       cmdDispositivos = new JButton("Gestionar Dispositivos");
+       cmdDispositivos.addActionListener(new AccionDeBoton());
+       cmdDispositivos.setSize(dimension);
        
-       menuAperos = new JMenu("Apero");
-       menuObjeto = new JMenuItem("Gestionar Aperos");
-       menuObjeto.addActionListener(new AccionesDeBoton());
-       menuAperos.add(menuObjeto);
-       menuBar.add(menuAperos);
-       
+       panelMDI.add(cmdPrestamos);
+       panelMDI.add(cmdUsuarios);
+       panelMDI.add(cmdInformes);
+       panelMDI.add(cmdParcelas);
+       panelMDI.add(cmdAperos);
+       panelMDI.add(cmdProductos);
+       panelMDI.add(cmdTareas);
+       panelMDI.add(cmdDispositivos);
       
-       this.setJMenuBar(menuBar); // Mostramos el JMenuBar en nuestro Formulario MDI
        
        
-       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-  	
+     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     
     //Pregunta si quiere cerrar la sesión al darle a la "X"	       
     this.addWindowListener(new WindowAdapter(){
        	public void windowClosing(WindowEvent e) {       		
@@ -140,12 +168,70 @@ public class VentanaPrincipal extends JFrame{
        });
        }
    
+   
+   
+   /**
+    * Método que nos configura la ventana del Trabajador. Vamos a configurarla como un formulario MDI
+    */
+   private void configVentanaTrabajador(){
+	   this.setVisible(true);
+       this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
+       this.setResizable(false); // No se puede redimensionar. Solo minimizar.
+       
+       panelMDI = new JPanel();
+       panelMDI.setLayout(null);
+       this.add(panelMDI);
+   
+       
+       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+       
+       //Pregunta si quiere cerrar la sesión al darle a la "X"	       
+       this.addWindowListener(new WindowAdapter(){
+          	public void windowClosing(WindowEvent e) {       		
+          		dialog_salir();      	 
+          	}
+          });
+  }
+   
+   
+   
+   /**
+    * Método que nos configura la ventana del Trabajador. Vamos a configurarla como un formulario MDI
+    */
+   private void configVentanaDueño(){
+	   this.setVisible(true);
+       this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
+       this.setResizable(false); // No se puede redimensionar. Solo minimizar.
+       
+       panelMDI = new JPanel();
+       panelMDI.setLayout(null);
+       this.add(panelMDI);
+   
+       
+       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+       
+       //Pregunta si quiere cerrar la sesión al darle a la "X"	       
+       this.addWindowListener(new WindowAdapter(){
+          	public void windowClosing(WindowEvent e) {       		
+          		dialog_salir();      	 
+          	}
+          });
+  }
+   
+
    public void dialog_salir(){
 		int n = JOptionPane.showConfirmDialog(this, "Esto cerrará la sesión. ¿Está usted seguro?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
 		if (n == JOptionPane.YES_OPTION){
-			this.dispose();
-		}else{
+			
 			this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+			this.dispose();
+			LoginVisual l = new LoginVisual(); // Si dice que si, volvemos al Login del Programa
+			l.setVisible(true);
+			
+			
+		}else{
+			
+			this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // Si dice que no no hacemos nada
 		}
    }
    
@@ -159,8 +245,12 @@ public class VentanaPrincipal extends JFrame{
    
    public void cargarFormularios(){
 	   
-	   frmUsuarios = new UsuarioVisual(panelMDI.getWidth() ,panelMDI.getHeight()); // Tamaño completo del Formulario
-	   panelMDI.add(frmUsuarios);
+	   frmUsuarios = new UsuarioVisual(panelFormularios.getWidth() ,panelFormularios.getHeight()); // Tamaño completo del Formulario
+	   panelFormularios.setLocation(100,100);
+	   panelFormularios.add(frmUsuarios);
+	   
+	   frmAperos = new AperoVisual();
+	   panelFormularios.add(frmAperos);
 	   
    }
 
@@ -170,41 +260,21 @@ public class VentanaPrincipal extends JFrame{
     *
     */
    
-   class AccionesDeBoton implements ActionListener {
+   public class AccionDeBoton implements ActionListener {
 	   
 	   public void actionPerformed(ActionEvent e) {
 		   
-		   JMenuItem M = (JMenuItem)e.getSource(); // Recogemos el item desde el cual ha sido llamado
-		   
-		   String texto = M.getText();
-		   	
-		   
-		   if(texto.equals("Gestionar Usuarios")){
-			   
-			   frmUsuarios.dispose();
-			   
-			   cargarFormularios(); // Cargamos los formularios disponibles.
-			   
-			   frmUsuarios.setVisible(true);
-			   
-		   }
-		   
-		   
-		   if(texto.equals("Gestionar Aperos")){
-			   cargarFormularios(); // Cargamos los formularios disponibles.
-			   //frmAperos = new AperoVisual();
-			   //panelMDI.add(frmAperos);
-			   //frmAperos.setVisible(true);
-		   }
-		   
-		   
-		   if(texto.equals("Salir...")){
-			   
-			   VentanaPrincipal.this.dispose();
-			   
-		   }
-		   
-			   
+		  String comando =  e.getActionCommand(); // Recogemos el valor de el botón pulsado
+		  
+		  if(comando.equals("Gestionar Usuarios")){
+			  
+			  frmUsuarios.setVisible(true);
+			  
+		  }
+		  
+		  
+		  
+		  
 		   
 		   
 	   }
