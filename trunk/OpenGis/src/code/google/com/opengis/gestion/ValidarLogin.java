@@ -17,24 +17,16 @@ public class ValidarLogin extends JFrame {
     String password;
     char tipodato;
 
-	
-	
-	
-	
 
 	
 	public ValidarLogin(String user,String password) throws SQLException {
 		this.user = user;
 		this.password = password;
 		tipoDeUser();
+		
 	}
 
-	
-	
 
-	
-	
-	
 
 	/*********************
 	 * recibe un char de la clase LoginDao y dado el tipo selecciona una opcion
@@ -52,15 +44,18 @@ public class ValidarLogin extends JFrame {
 				switch(tipodato /*sentencia que devuelve el tipo*/){
 				case 't': //t de trabajador
 					System.out.println(" funciona es un trabajador");
-					VentanaPrincipal ln1 = new VentanaPrincipal();
+					VentanaPrincipal ln1 = new VentanaPrincipal(tipodato);
+					this.dispose();
 					break;
 				case 'd': //d de dueño
 					System.out.println(" funciona es dueño");
-					VentanaPrincipal ln2 = new VentanaPrincipal();
+					VentanaPrincipal ln2 = new VentanaPrincipal(tipodato);
+					this.dispose();
 					break;
 				case 'a': // de administrador
 					System.out.println(" funciona es  Admin");
-					VentanaPrincipal ln3 = new VentanaPrincipal();
+					VentanaPrincipal ln3 = new VentanaPrincipal(tipodato);
+					this.dispose();
 				    break;
 				default:
 					
