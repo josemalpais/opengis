@@ -70,7 +70,7 @@ public class LoginVisual extends JFrame{
 				try {
 					new ValidarLogin(user,pass);
 				} catch (SQLException e1) {
-					JOptionPane.showInputDialog("Error De Conecxión");
+					JOptionPane.showMessageDialog(null,"Error De Conexión");
 					e1.printStackTrace();
 				}   
 			}
