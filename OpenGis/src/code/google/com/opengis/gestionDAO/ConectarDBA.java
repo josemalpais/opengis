@@ -4,6 +4,8 @@
 package code.google.com.opengis.gestionDAO;
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 /**
 * @author Danico & Pipepito
 * Clase que establece conexión con la base de datos y realiza las diferentes funciones con esta
@@ -46,14 +48,23 @@ static Statement st;
                 st = conexion.createStatement();
                 System.out.println("conectaBD");
         } catch (IllegalAccessException e) {
+			JOptionPane.showMessageDialog(null,"Error De Conexión");
+
                 System.err.println(e.getMessage());
         } catch (InstantiationException e) {
+			JOptionPane.showMessageDialog(null,"Error De Conexión");
+
                 System.err.println(e.getMessage());
         } catch (ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(null,"Error De Conexión");
+
                 System.err.println(e.getMessage());    
         } catch (SQLException e) {
                 System.out.println("Aquí falla");
+				JOptionPane.showMessageDialog(null,"Error De Conexión");
+
                 System.err.println(e.getMessage());
+                
         }
 }
 /**
