@@ -1,16 +1,19 @@
 package code.google.com.opengis.gestionVISUAL;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
 import javax.swing.*;
 
 import code.google.com.opengis.gestion.ValidarLogin;
+import code.google.com.opengis.gestionDAO.LoginDao;
 
 public class LoginVisual extends JFrame{
 	public LoginVisual(){
 		JFrame ven = new JFrame();
 		cargaObjetos();
+		
 	}
 	
 	private JTextField txtUser;
@@ -38,7 +41,6 @@ public class LoginVisual extends JFrame{
 		JLabel lblRec = new JLabel("RECUPERAR CONTRASEÑA");
 		final JTextField txtUser = new JTextField();
 		final JPasswordField txtPass = new JPasswordField();
-		
 		add(lblUser);
 		add(txtUser);
 		add(lblPass);
@@ -51,6 +53,7 @@ public class LoginVisual extends JFrame{
 		setTitle("Ventana Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setVisible(true);
 		
 	
@@ -78,8 +81,10 @@ public class LoginVisual extends JFrame{
 		
 		btnBor.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
+			
 			txtUser.setText("");
 			txtPass.setText("");
+			
 			}
 		});
 			
