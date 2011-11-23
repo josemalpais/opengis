@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -123,12 +124,11 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 		
 			panelUsuarios.setVisible(false);
 		  	panelUsuariosmod = new JPanel ();
-			panelUsuariosmod.setLayout(null);  	
-			
+			panelUsuariosmod.setLayout(null);			
 			this.setBounds(0,0,this.getWidth(),this.getHeight());
 			this.add(panelUsuariosmod);
 			this.setTitle("Modificar Usuario");
-			this.setClosable(true);
+			//this.setClosable(true);
 			
 			cmdAceptarMod = new JButton("Aceptar");
 			cmdAceptarMod.setVisible(true);
