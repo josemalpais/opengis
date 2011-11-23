@@ -12,6 +12,7 @@ import javax.swing.JDesktopPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -49,7 +50,7 @@ public class VentanaPrincipal extends JFrame{
 	private JButton cmdTareas;
 	private JButton cmdDispositivos;
 	
-	private Dimension dimension = new Dimension(100,25);
+	private Dimension dimension = new Dimension(105,25);
 	
    
    /**
@@ -96,57 +97,63 @@ public class VentanaPrincipal extends JFrame{
     * Método que nos configura la ventana del Administrador. Vamos a configurarla como un formulario MDI
     */
    private void configVentanaAdmin(){
-	   this.setVisible(true);
+       this.setVisible(true);
        this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
        this.setResizable(false); // No se puede redimensionar. Solo minimizar.
-       
-       
+      
+       JPanel pComun = new JPanel();
+       pComun.setLayout(new BoxLayout(pComun,BoxLayout.Y_AXIS));
+      
+      
        panelMDI = new JPanel();
-       panelMDI.setSize(1500,35);
+       Dimension panelMDI_maxd = new Dimension(getWidth(),30);
+       panelMDI.setMaximumSize(panelMDI_maxd);
+      
+      
        FlowLayout fl = new FlowLayout(); // Insertamos el Panel del MDI donde irán los botones
        panelMDI.setLayout(fl);
-       this.add(panelMDI);
-       
+       pComun.add(panelMDI);
+      
        panelFormularios = new JPanel();
        panelFormularios.setLayout(null);
        panelFormularios.setSize(getSize());
        panelFormularios.setLocation(100,100);
-       this.add(panelFormularios);
-       
+       pComun.add(panelFormularios);
+      
        cmdPrestamos = new JButton("Prestamos");
        cmdPrestamos.addActionListener(new AccionDeBoton());
-       cmdPrestamos.setSize(150, 25);
+       cmdPrestamos.setPreferredSize(dimension);
 
-       
-       cmdUsuarios = new JButton("Gestionar Usuarios");
+      
+       cmdUsuarios = new JButton("Usuarios");
        cmdUsuarios.addActionListener(new AccionDeBoton());
-       cmdUsuarios.setSize(dimension);
+       cmdUsuarios.setPreferredSize(dimension);
 
-       
-       cmdInformes = new JButton("Generar Informes");
+      
+       cmdInformes = new JButton("Informes");
        cmdInformes.addActionListener(new AccionDeBoton());
-       cmdInformes.setSize(dimension);
-       
-       cmdParcelas = new JButton("Gestionar Parcelas");
+       cmdInformes.setPreferredSize(dimension);
+      
+       cmdParcelas = new JButton("Parcelas");
        cmdParcelas.addActionListener(new AccionDeBoton());
-       cmdParcelas.setSize(dimension);
-       
-       cmdAperos = new JButton("Gestionar Aperos");
+       cmdParcelas.setPreferredSize(dimension);
+      
+       cmdAperos = new JButton("Aperos");
        cmdAperos.addActionListener(new AccionDeBoton());
-       cmdAperos.setSize(dimension);
-       
-       cmdProductos = new JButton("Gestionar Productos");
+       cmdAperos.setPreferredSize(dimension);
+      
+       cmdProductos = new JButton("Productos");
        cmdProductos.addActionListener(new AccionDeBoton());
-       cmdProductos.setSize(dimension);
-       
-       cmdTareas = new JButton("Gestionar Tareas");
+       cmdProductos.setPreferredSize(dimension);
+      
+       cmdTareas = new JButton("Tareas");
        cmdTareas.addActionListener(new AccionDeBoton());
-       cmdTareas.setSize(dimension);
-       
-       cmdDispositivos = new JButton("Gestionar Dispositivos");
+       cmdTareas.setPreferredSize(dimension);
+      
+       cmdDispositivos = new JButton("Dispositivos");
        cmdDispositivos.addActionListener(new AccionDeBoton());
-       cmdDispositivos.setSize(dimension);
-       
+       cmdDispositivos.setPreferredSize(dimension);
+      
        panelMDI.add(cmdPrestamos);
        panelMDI.add(cmdUsuarios);
        panelMDI.add(cmdInformes);
@@ -155,16 +162,18 @@ public class VentanaPrincipal extends JFrame{
        panelMDI.add(cmdProductos);
        panelMDI.add(cmdTareas);
        panelMDI.add(cmdDispositivos);
-      
-       
-       
-     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
      
-    //Pregunta si quiere cerrar la sesión al darle a la "X"	       
+      
+     this.add(pComun); 
+      
+     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+   
+    
+    //Pregunta si quiere cerrar la sesión al darle a la "X"          
     this.addWindowListener(new WindowAdapter(){
-       	public void windowClosing(WindowEvent e) {       		
-       		dialog_salir();      	 
-       	}
+           public void windowClosing(WindowEvent e) {              
+               dialog_salir();           
+           }
        });
        }
    
@@ -266,7 +275,7 @@ public class VentanaPrincipal extends JFrame{
 		   
 		  String comando =  e.getActionCommand(); // Recogemos el valor de el botón pulsado
 		  
-		  if(comando.equals("Gestionar Usuarios")){
+		  if(comando.equals("Usuarios")){
 			  
 			  frmUsuarios.setVisible(true);
 			  
