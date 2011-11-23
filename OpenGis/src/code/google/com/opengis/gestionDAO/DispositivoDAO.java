@@ -115,7 +115,7 @@ public class DispositivoDAO {
 
 		} else {
 			ConectarDBA.acceder();
-			String sentencia = "INSERT INTO `dai2opengis`.`dispositivo` (`iddispositivo` ,`modelo` ,`numSerie` ,`disponible` ,`activo`) VALUES ('"
+			String sentencia = "INSERT INTO `dai2opengis`.`dispositivo` (`iddispositivo` ,`modelo` ,`num_serie` ,`disponible` ,`activo`) VALUES ('"
 					+ this.iddispositivo
 					+ "', '"
 					+ this.modelo
@@ -156,16 +156,16 @@ public class DispositivoDAO {
 		dba.cerrarCon();
 
 	}
-	public void modificarDispositivo() throws SQLException {
+	public void modificarDispositivo(/*String modelo, String numSerie*/) throws SQLException {
 		comprobarDispositivo(this.iddispositivo);
 		if (existe == true) {
-
-			String sentencia = "UPDATE dispositivo SET `modelo` = '"+this.modelo+"', `num_serie` = "+this.numSerie+"' WHERE `iddispositivo` = '"
-					+ this.iddispositivo + "'";
+			
+			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `modelo` = '"+ this.modelo+"', `num_serie` = '"+this.numSerie+"' WHERE `dispositivo`.`iddispositivo` =10001";
 			dba.modificar(sentencia);
+			//UPDATE `dai2opengis`.`dispositivo` SET `modelo` = 'modelounos' WHERE `dispositivo`.`iddispositivo` =10001;
 
 			JOptionPane.showMessageDialog(null,
-					"Dispositivo dado de baja correctamente");
+					"Dispositivo modificado correctamente");
 
 		} else {
 
