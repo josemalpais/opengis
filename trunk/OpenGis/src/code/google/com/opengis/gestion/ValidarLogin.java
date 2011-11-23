@@ -2,11 +2,15 @@ package code.google.com.opengis.gestion;
 import java.io.FileWriter;
 import java.sql.*;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.LoginDao;
+import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 
 
-public class ValidarLogin {
+public class ValidarLogin extends JFrame {
 
 	
     String user;
@@ -19,10 +23,10 @@ public class ValidarLogin {
 	
 
 	
-	public ValidarLogin(String user,String password) {
+	public ValidarLogin(String user,String password) throws SQLException {
 		this.user = user;
 		this.password = password;
-		
+		tipoDeUser();
 	}
 
 	
@@ -48,15 +52,19 @@ public class ValidarLogin {
 				switch(tipodato /*sentencia que devuelve el tipo*/){
 				case 't': //t de trabajador
 					System.out.println(" funciona es un trabajador");
+					VentanaPrincipal ln1 = new VentanaPrincipal();
 					break;
 				case 'd': //d de dueño
 					System.out.println(" funciona es dueño");
+					VentanaPrincipal ln2 = new VentanaPrincipal();
 					break;
 				case 'a': // de administrador
 					System.out.println(" funciona es  Admin");
+					VentanaPrincipal ln3 = new VentanaPrincipal();
 				    break;
 				default:
-					System.out.println("el user/contraseña no es correcto");
+					
+					JOptionPane.showMessageDialog(this,"Introduzca usuario y contraseña correctamente", "Login no válido", JOptionPane.ERROR_MESSAGE);
 				};
 				
 				
