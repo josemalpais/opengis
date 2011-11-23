@@ -46,17 +46,20 @@ public class ValidarLogin extends JFrame {
 					System.out.println(" funciona es un trabajador");
 					VentanaPrincipal ln1 = new VentanaPrincipal(tipodato);
 					this.dispose();
+					this.dispose();
 					break;
 				case 'd': //d de dueño
 					System.out.println(" funciona es dueño");
 					VentanaPrincipal ln2 = new VentanaPrincipal(tipodato);
+					this.dispose();
 					this.dispose();
 					break;
 				case 'a': // de administrador
 					System.out.println(" funciona es  Admin");
 					VentanaPrincipal ln3 = new VentanaPrincipal(tipodato);
 					this.dispose();
-				    break;
+					this.dispose();
+					break;
 				default:
 					
 					JOptionPane.showMessageDialog(this,"Introduzca usuario y contraseña correctamente", "Login no válido", JOptionPane.ERROR_MESSAGE);
