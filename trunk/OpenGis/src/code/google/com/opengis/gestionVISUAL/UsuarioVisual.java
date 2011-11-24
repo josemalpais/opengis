@@ -87,7 +87,7 @@ public class UsuarioVisual extends JInternalFrame{
 	
 	private static JScrollPane jScrollPaneTablaUsuarios = null;
 	private static JTable jTablaUsuarios = null;
-	static Object[] nombreColumna = {"DNI", "Nombre", "Apellidos", "Dirección", "Poblacion", "Provincia", "Cod. Postal", "Teléfono", "Email", "Tipo"};
+	static Object[] nombreColumna = {"DNI", "Nombre", "Apellidos", "Dirección", "Poblacion", "Provincia", "Cod. Postal", "Teléfono", "Email","Fecha Nacimiento","Tipo"};
 	static DefaultTableModel modelo = new DefaultTableModel(nombreColumna, 0);
 
 	
@@ -96,7 +96,8 @@ public class UsuarioVisual extends JInternalFrame{
 	 */
 
 	public UsuarioVisual(int ancho, int alto){
-			super("Usuarios",false, true, true, true);
+			super("Usuarios",true, true, true, true);
+			super.setIconifiable(true); // Indicamos que se puede minimizar
 			panelUsuarios = new JPanel ();
 			panelUsuarios.setLayout(null);
 			panelUsuariosCrearMod = new JPanel ();
@@ -244,18 +245,23 @@ public class UsuarioVisual extends JInternalFrame{
 		cButtons.insets = new Insets(0,0,0,0);
 		cButtons.gridx = 1;
 		cButtons.gridy = 7;
-		
-		 /*private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-		        int fila = tbNotas.getSelectedRow();
+		boton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {			
+		 
+		        int fila = jTablaUsuarios.getSelectedRow();
 		        if (fila != -1) {
-		            String[] rAlu = new String[4];
+		            String[] rUser = new String[10];
 		            for (int i = 0; i < 4; i++) {
-		                rAlu[i] = tbNotas.getValueAt(fila, i).toString();
+		                rUser[i] = jTablaUsuarios.getValueAt(fila, i).toString();
 		            }
-		            prof.setCampos(rAlu);
-		            ModifNotas modifNotas = new ModifNotas(this, this.prof);
-		            modifNotas.setVisible(true);
-		            setVisible(false);*/
+		            setCampos(rUser);
+		            pane.setVisible(false);
+					cargarNuevoModificar(panelUsuariosCrearMod,true);
+					panelUsuariosCrearMod.setVisible(true);
+		        }
+				
+			}
+		});
 		pane.add(boton, cButtons);
 		
 		boton = new JButton("Desactivar");
@@ -582,6 +588,10 @@ public class UsuarioVisual extends JInternalFrame{
 	
 	public String[] getTipo() {
 		return tipo;
+	}
+	
+	public static void setCampos(String[] rUser){
+		
 	}
 	public void setTipo(String[] tipo) {
 		this.tipo = tipo;
