@@ -29,10 +29,10 @@ public class ProductoDAO {
 	}
 
 //METODOS
-	public static void ComprobarProducto(int idprod) throws SQLException{		
+	public static void comprobarProducto(int idprod) throws SQLException{		
 
 		ConectarDBA.acceder();
-		String sentencia = "SELECT * FROM `producto` WHERE `idprod` LIKE '"+idprod+"'";
+		String sentencia = "SELECT * FROM `producto` WHERE `idprod` LIKE '"+ idprod +"'";
 		ResultSet rs = dba.consulta(sentencia);
 		while(rs.next()){
 			resultado = rs.getString(1);
@@ -46,8 +46,8 @@ public class ProductoDAO {
 	}
 	
 	
-	public void AltaProducto() throws SQLException{
-		ComprobarProducto(this.idprod);
+	public void altaProducto() throws SQLException{
+		comprobarProducto(this.idprod);
 		if (existe == true){ 
 			JOptionPane.showMessageDialog(null,"El producto ya existe");
 		}else{
@@ -57,7 +57,25 @@ public class ProductoDAO {
 		}
 		dba.cerrarCon();
 	}
-	
+	public void borrarProducto() throws SQLException {
+		comprobarProducto(this.idprod);
+		if (existe == true) {
+
+			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"
+					+ this.idprod + "'";
+			dba.modificar(sentencia);
+
+			JOptionPane.showMessageDialog(null,
+					"Producto dado de baja correctamente");
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "El producto no existe");
+		}
+
+		dba.cerrarCon();
+
+	}
 	
 	
 	
