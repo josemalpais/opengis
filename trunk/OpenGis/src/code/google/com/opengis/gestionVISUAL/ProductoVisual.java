@@ -2,6 +2,7 @@ package code.google.com.opengis.gestionVISUAL;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,7 +19,7 @@ import code.google.com.opengis.gestion.Producto;
 import code.google.com.opengis.gestionDAO.ProductoDAO;
 
  
-public class ProductoVisual extends JInternalFrame {
+public class ProductoVisual extends JInternalFrame implements ActionListener {
 
     
 	private JPanel panelProducto;
@@ -32,6 +33,7 @@ public class ProductoVisual extends JInternalFrame {
 	
 	private static JTable tblTabla;
 	private static String[] columnNames = {"ID", "Nombre","Tamaño","Descripción", "Tarea", "Activo"};
+	private static Object[][] data;
 	
 	private static JTextField txtIdprod;
 	private static JTextField txtNombre;
@@ -54,7 +56,8 @@ public ProductoVisual(int ancho, int alto){
 	this.setBounds(0,0,ancho,alto);
 	this.setTitle("Producto");
 	this.setClosable(true);
-	TitledBorder jb = new TitledBorder("Añadir / Modificar");
+	this.setMaximizable(true);
+	TitledBorder jb = new TitledBorder("Gestion de Productos");
 	panelProducto.setBorder(jb);
 	double ii = ancho/1.7;
 	double aa = alto/1.7;
@@ -68,13 +71,11 @@ public ProductoVisual(int ancho, int alto){
 	this.setBounds(0,0,ancho,alto);
 	this.setTitle("Producto");
 	this.setClosable(true);
-	TitledBorder jb2 = new TitledBorder("Añadir / Modificar");
+	TitledBorder jb2 = new TitledBorder("Añadir producto");
 	panelProductoAlt.setBorder(jb2);
 	double ii2 = ancho/1.7;
 	double aa2 = alto/1.7;
-	panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
-	
-	altas(panelProductoAlt);
+	panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii2,(int)aa2));
 	
 }
 
@@ -82,10 +83,7 @@ final static boolean shouldFill = true;
 final static boolean shouldWeightX = true;
 final static boolean RIGHT_TO_LEFT = false;
 
-    public static void addComponentsToPane(Container pane) {
-    	
-     	
-    }
+ 
    /* button = new JButton("5");
     c.fill = GridBagConstraints.HORIZONTAL;
     c.ipady = 0;       //reset to default
@@ -108,7 +106,7 @@ public void principalProducto(Container pane){
 	 cmdCrear =new JButton();
 	 cmdModificar= new JButton();
 	 cmdDesactivar= new JButton();
-	 tblTabla= new JTable();
+	 tblTabla= new JTable(data, columnNames);
      JLabel label;
      txtBuscar= new JTextField();
      
@@ -139,7 +137,8 @@ public void principalProducto(Container pane){
  	c.gridy = 0;
  	pane.add(txtBuscar, c);
  	
- 	//tblTabla= new JTable(, columnNames);
+ 	tblTabla= new JTable(data, columnNames);
+ 	tblTabla.setPreferredScrollableViewportSize(new Dimension(500, 70));
  	c.fill = GridBagConstraints.HORIZONTAL;
  	c.gridx = 0;
  	c.gridy = 1;
@@ -152,7 +151,7 @@ public void principalProducto(Container pane){
  	cmdCrear.addActionListener(new java.awt.event.ActionListener() {
 	public void actionPerformed(java.awt.event.ActionEvent e) {			
 				panelProducto.hide();
-				panelProductoAlt.show();
+				altas(panelProductoAlt);
 		//abre el panel de Altas
 		}
 	});
@@ -321,6 +320,7 @@ public void principalProducto(Container pane){
 	});
  	pane.add(cmdCancelarAlt, c);
  }
+
  /**
   * Create the GUI and show it.  For thread safety,
   * this method should be invoked from the
@@ -329,7 +329,11 @@ public void principalProducto(Container pane){
 
     public static void main(String[] args) {
     	
-    	new ProductoVisual(600,600);
-    	
+ 
     }
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	
+}
 }
