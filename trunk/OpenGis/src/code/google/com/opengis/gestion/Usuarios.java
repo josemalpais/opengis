@@ -151,8 +151,41 @@ public class Usuarios {
 									
 								}else{
 									
+									r = isInteger(this.email);
 									
-									this.valido = true; // En el caso de que todos los datos sean correctos devolveremos True
+									if(this.email.length() ==0 || r.equals(true)){
+										
+										JOptionPane.showMessageDialog(null,"Error. El campo email no puede estar en blanco ni ser numérico");
+										
+									}else{
+										
+										r = isInteger(this.Cp);
+										
+										if(this.Cp.length() != 5 || r.equals(false)){
+											
+											JOptionPane.showMessageDialog(null, "Error. El Código Postal debe tener 5 cifras y ser solo numérico");
+											
+										}else{
+											
+											r = isInteger(this.Provincia);
+											
+											if(this.Provincia.length() == 0 || r.equals(true) ){
+												
+												JOptionPane.showMessageDialog(null,"Error. La provincia no puede esta vacía ni ser numérico");												
+											}else{
+												
+												this.valido = true; // En el caso de que todos los datos sean correctos devolveremos True
+												
+											}
+										
+										
+										
+										}
+										
+									}
+									
+									
+									
 									
 									
 								}

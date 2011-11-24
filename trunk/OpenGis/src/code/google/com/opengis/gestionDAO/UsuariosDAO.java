@@ -115,6 +115,9 @@ public static void comprobarUsuario(String dni) throws SQLException{
 	 */
 
 	public void altaUsuario() throws SQLException{
+		
+		existe = false;
+		
 		comprobarUsuario(this.Dni);
 		
 		if (existe == true){ 
