@@ -3,6 +3,8 @@
 ******************************************************************************/
 package code.google.com.opengis.gestionVISUAL;
 
+
+
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -13,6 +15,7 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -39,10 +42,10 @@ import code.google.com.opengis.gestionDAO.UsuariosDAO;
 *
 */
 
-public class UsuarioVisual extends JInternalFrame implements ActionListener {
+public class UsuarioVisual extends JInternalFrame{
 	
 	private JPanel panelUsuarios;
-	private JPanel panelUsuariosmod;
+	private static JPanel panelUsuariosCrearMod;
 	
 	private JButton cmdNuevoUsuario;
 	private JButton cmdBajaUsuario;
@@ -96,20 +99,26 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			super("Usuarios",false, true, true, true);
 			panelUsuarios = new JPanel ();
 			panelUsuarios.setLayout(null);
+			panelUsuariosCrearMod = new JPanel ();
+			panelUsuariosCrearMod.setLayout(null);
+			this.add(panelUsuariosCrearMod);
+			panelUsuariosCrearMod.setVisible(false);
 			this.add(panelUsuarios);
 			this.setBounds(0,0,ancho,alto);
 			this.setTitle("Usuario");
 			this.setClosable(true);
 			this.setMaximizable(true);
-			TitledBorder jb = new TitledBorder("Añadir / Modificar");
+			TitledBorder jb = new TitledBorder("Gestión de usuarios");
+			TitledBorder jb1 = new TitledBorder("Añadir / Modificar");
 			panelUsuarios.setBorder(jb);
+			panelUsuariosCrearMod.setBorder(jb1);
 			double ii = ancho/1.7;
 			double aa = alto/1.7;
-			panelUsuarios.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
+			panelUsuarios.setBounds(new Rectangle(0,0,ancho,alto));
+			panelUsuariosCrearMod.setBounds(new Rectangle(0,0,800,600));
 		
 			
 			this.getJScrollPaneTablaUsuarios();
-			//cargarNuevoModificar(panelUsuarios,true);
 			cargarUsuariosPrincipal(panelUsuarios);
 		
 	}
@@ -157,7 +166,50 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 		cButtons.insets = new Insets(0,0,0,0);
 		cButtons.gridx = 4;
 		cButtons.gridy = 0;
+		boton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {			
+				 try {
+			            modelo.setColumnCount(0);
+			            modelo.setRowCount(0);
+			            ResultSet rs = UsuariosDAO.buscarUsuario(jCmbCriterio.getSelectedItem().toString(),txtBuscar.getText().toLowerCase());
+			            int nColumnas = rs.getMetaData().getColumnCount();
+			            modelo.setColumnIdentifiers(nombreColumna);
+			            while (rs.next()) {
+			            	Object[] registro = new Object[nColumnas];
+
+
+			            	for (int i = 0; i
+			            			< nColumnas; i++) {
+			            		registro[i] = rs.getObject(i + 1);
+
+			            		}
+			            	modelo.addRow(registro);
+
+
+			            }
+			            rs.close();
+				   } catch (SQLException e1) {
+				        System.out.println(e1);
+
+
+				    }
+				 
+			}
+		});
+		
+
+
+        
+
+        
+
+
+        
+
+ 
 		pane.add(boton, cButtons);
+		
+		
 		
 		
 		jTablaUsuarios.setModel(modelo);
@@ -180,7 +232,9 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 		cButtons.gridy = 7;
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {			
-				cargarNuevoModificar(pane,false);					
+				pane.setVisible(false);
+				cargarNuevoModificar(panelUsuariosCrearMod,false);
+				panelUsuariosCrearMod.setVisible(true);
 			}
 		});
 		pane.add(boton, cButtons);
@@ -190,6 +244,18 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 		cButtons.insets = new Insets(0,0,0,0);
 		cButtons.gridx = 1;
 		cButtons.gridy = 7;
+		
+		 /*private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+		        int fila = tbNotas.getSelectedRow();
+		        if (fila != -1) {
+		            String[] rAlu = new String[4];
+		            for (int i = 0; i < 4; i++) {
+		                rAlu[i] = tbNotas.getValueAt(fila, i).toString();
+		            }
+		            prof.setCampos(rAlu);
+		            ModifNotas modifNotas = new ModifNotas(this, this.prof);
+		            modifNotas.setVisible(true);
+		            setVisible(false);*/
 		pane.add(boton, cButtons);
 		
 		boton = new JButton("Desactivar");
@@ -212,8 +278,8 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
  * @param modificar Indica si vamos a modificar el Usuario (true) o vamos a crear uno nuevo (false)
  */
 	    public static void cargarNuevoModificar(Container pane,boolean modificar) {
-	    	pane.removeAll();
-	    	pane.repaint();
+	    	//pane.removeAll();
+	    	//pane.repaint();
 			JButton boton;
 			JLabel campolbl;
 			pane.setLayout(new GridBagLayout());
@@ -437,8 +503,22 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			});
 			pane.add(boton, cButtons);
 			
-			
-	    
+			boton = new JButton("Volver");
+			cButtons.fill = 0;
+			cButtons.insets = new Insets(15,15,0,0);  //top padding
+			cButtons.gridx = 1;
+			cButtons.gridy = 5;
+			cButtons.anchor = GridBagConstraints.WEST;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
+									
+								
+					JOptionPane.showMessageDialog(null,"Los campos se han restablecido");
+					
+					
+				}
+			});
+			pane.add(boton, cButtons);
 			
 
 	}
@@ -455,7 +535,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	 */
 	
 	
-	public void ModificarUsuario()
+	/*public void ModificarUsuario()
 	{
 		
 			panelUsuarios.setVisible(false);
@@ -498,17 +578,8 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			panelUsuariosmod.add(txtDNIMod);
 		
 	}
+	*/
 	
-	
-	public void actionPerformed( ActionEvent evento )
-	      {
-	    	  if ( cmdModificarUsuario == evento.getSource())
-	    	  {
-
-	    		  	ModificarUsuario();
-	    		  	
-	    	  }
-	      }
 	public String[] getTipo() {
 		return tipo;
 	}

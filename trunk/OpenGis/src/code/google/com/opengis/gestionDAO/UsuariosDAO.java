@@ -34,6 +34,7 @@ public class UsuariosDAO {
 	private String tipo;
 	private String email;
 
+
 /** Constructor de la clase UsuariosDAO
  * 
  * En el momento que llamamos a la clase UsuariosDAO debemos pasarle los siguientes parametros
@@ -103,7 +104,26 @@ public static void comprobarUsuario(String dni) throws SQLException{
 	}
 
 
+ public static ResultSet buscarUsuario(String campo, String criterio){
+	 	ResultSet rs = null;
+	 	ConectarDBA.acceder();
+		String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `email`, `tipo`, `teléfono`, `dirección`, `población`, `provincia`, `cp` FROM `usuario` WHERE  `"+campo+"` LIKE '"+criterio+"'";
+		try{
+		rs = dba.consulta(sentencia);
+		}catch (SQLException e){
+			System.out.println(e);
+		}finally{
+			return rs;
+			
+		}
+		
+		
+		//System.out.println("Ejecutada sentencia "+sentencia);
+	 
+	 
+ }
 
+ 
 
 	/** 
 	 * Este método compara un dni que obtiene por parámetro utilizando el método comprobarUsuario(), si existe, no lo dará de alta en la BD.
