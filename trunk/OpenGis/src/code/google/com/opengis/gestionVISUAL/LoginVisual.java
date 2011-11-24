@@ -46,7 +46,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 		JButton btnBor = new JButton("Borrar");
 		JLabel lblUser = new JLabel("Introduce usuario :");
 		JLabel lblPass = new JLabel("Introduce la contraseña :");
-		JButton btnRec = new JButton("RECUPERAR CONTRASEÑA");
+		JButton btnRec = new JButton("recuperar contraseña");
 		btnRec.setBorderPainted(false);
 		final JTextField txtUser = new JTextField();
 		final JPasswordField txtPass = new JPasswordField();
@@ -88,8 +88,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 		
 		btnBor.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				usuario = txtUser.getText();
-			new EnviarMail(usuario);
+				
 			txtUser.setText("");
 			txtPass.setText("");
 			

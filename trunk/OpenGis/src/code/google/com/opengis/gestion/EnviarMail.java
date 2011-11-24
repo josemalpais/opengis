@@ -16,12 +16,16 @@ public class EnviarMail
 {
 private String emailUsuario;
 private String passUsuario;
+private String nombre;
+private String apellido;
 	public EnviarMail(String user){
 		try
 	        {
 			LoginDao ln = new LoginDao(user);
 	           emailUsuario = ln.email();
 	           passUsuario = ln.pass();
+	           nombre = ln.nombre();
+	           apellido=ln.apellido();
 	            // Propiedades
 	            Properties prop = new Properties();
 	            //Host
@@ -49,7 +53,7 @@ private String passUsuario;
 	            message.setSubject("Recuperación de clave");
 	           
 	            message.setText( 
-	            		"Email de recuperacion tu contraseña es : "+passUsuario
+	            		"Hola "+nombre+" "+apellido+" tu contraseña es : "+passUsuario
 	                );
 
 	            // Envío
