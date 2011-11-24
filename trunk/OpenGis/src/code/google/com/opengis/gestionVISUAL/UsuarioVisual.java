@@ -9,6 +9,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestion.ValidarLogin;
@@ -79,7 +81,11 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			this.setBounds(0,0,ancho,alto);
 			this.setTitle("Usuario");
 			this.setClosable(true);
-		   
+			TitledBorder jb = new TitledBorder("Añadir / Modificar");
+			panelUsuarios.setBorder(jb);
+			panelUsuarios.setBounds(new Rectangle(0,0,ancho,alto));
+
+
 			nuevosObjetos(panelUsuarios);
 		
 		
