@@ -59,6 +59,7 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 		   
 			nuevosObjetos();
 			//this.setVisible(true);
+			cmdBajaDispositivo.addActionListener(this);
 		
 		
 	}
@@ -109,6 +110,7 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 		cmdGuardarDispositivo.setBounds(this.getWidth() - (this.getWidth() - 825) , this.getHeight() - 150, 110, 30);
 		panelDispositivo.add(cmdGuardarDispositivo);
 		
+		cmdBajaDispositivo.addActionListener(this);
 		
 	}
 	/**
@@ -250,13 +252,26 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 					try {
 						if(DispositivoDAO.comprobarDispositivo(txtIddispositivoMod.getText())==true){
 							txtIddispositivoMod.setEnabled(false);
-							txtModeloMod.setText();
+							//txtModeloMod.setText();
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				
+			}
+		}
+			if (cmdBajaDispositivo == evento.getSource())
+			{
+				
+				
+				DispositivoDAO a = new DispositivoDAO(txtIddispositivo.getText(),null,null);
+				try {
+					a.borrarDispositivo();
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
 			}
 			/*RellenarDispositivoMod();
 			else
@@ -266,7 +281,7 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 			
 			
 		}
-	      }
+	}
 
 
 
@@ -274,4 +289,4 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 
 	
 	
-}
+
