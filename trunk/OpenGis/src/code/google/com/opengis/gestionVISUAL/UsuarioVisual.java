@@ -6,6 +6,7 @@ package code.google.com.opengis.gestionVISUAL;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -133,7 +134,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			GridBagConstraints cButtons = new GridBagConstraints();
 			GridBagConstraints cLabels = new GridBagConstraints();
 			
-			
+			Dimension tamañoCaja = new Dimension(150, 25);
 			if (shouldFill){
 				cLabels.fill = GridBagConstraints.HORIZONTAL;
 			}
@@ -142,6 +143,8 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			if (shouldWeightX){
 				cLabels.weightx = 0.005;
 			}
+			cLabels.anchor = GridBagConstraints.EAST;
+			cText.anchor = GridBagConstraints.WEST;
 			cLabels.fill = GridBagConstraints.HORIZONTAL;
 			cLabels.gridx = 0;
 			cLabels.gridy = 0;
@@ -150,7 +153,9 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			
 			cText.weightx = 0.5;
 			cText.ipadx = 100;
-			cText.fill = GridBagConstraints.HORIZONTAL;
+			
+			//cText.fill = GridBagConstraints.HORIZONTAL;
+			txtDNI.setPreferredSize(tamañoCaja);
 			cText.gridx = 1;
 			cText.gridy = 0;
 			txtDNI.setText("");
@@ -162,7 +167,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			cLabels.gridx = 2;
 			cLabels.gridy = 0;
 			pane.add(campolbl, cLabels);
-						
+			txtNombre.setPreferredSize(tamañoCaja);			
 			cText.gridx = 3;
 			cText.gridy = 0;
 			pane.add(txtNombre, cText);
