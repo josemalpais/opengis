@@ -107,15 +107,15 @@ public static void comprobarUsuario(String dni) throws SQLException{
  public static ResultSet buscarUsuario(String campo, String criterio){
 	 	ResultSet rs = null;
 	 	ConectarDBA.acceder();
-		String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `email`, `tipo`, `teléfono`, `dirección`, `población`, `provincia`, `cp` FROM `usuario` WHERE  `"+campo+"` LIKE '"+criterio+"%'";
+		String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia` , `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`    FROM `usuario` WHERE  `"+campo+"` LIKE '"+criterio+"%'";
 		try{
 		rs = dba.consulta(sentencia);
 		}catch (SQLException e){
 			System.out.println(e);
-		}finally{
+		}
 			return rs;
 			
-		}
+		
 		
 		
 		//System.out.println("Ejecutada sentencia "+sentencia);
