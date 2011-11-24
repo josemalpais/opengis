@@ -109,7 +109,7 @@ public class Dispositivo {
 	 * @param numSerie	Introducimos la cadena con el número de serie del dispositivo
 	 * @return	Devuelve el estado, si True está todo correcto, si devuelve False se han introducido mal los datos.
 	 */
-	public Boolean validarDatos(String iddispositivo, String modelo,
+	public static Boolean validarDatos(String iddispositivo, String modelo,
 			String numSerie) {
 
 		if (iddispositivo.length() != 5) {
@@ -180,6 +180,21 @@ public class Dispositivo {
 			}
 		}
 	}
+	
+	public static Boolean validarDatos(String iddispositivo) {
+
+		if (iddispositivo.length() != 5) {
+			/**
+			 * Longitud del id de dispositivo, que ha de ser de 5 caracteres.
+			 **/
+
+			JOptionPane
+					.showMessageDialog(null,
+							"Error. El identificador de dispositivo ha de ser de 5 caracteres.");
+			return false;
+		}
+		else{return true;}
+	}
 
 
 	/**
@@ -188,7 +203,7 @@ public class Dispositivo {
 	 * @param cadena Aquí escribimos el String a comprobar.
 	 * @return	Devuelve el estado.
 	 */
-	public boolean isInteger(String cadena) {
+	public static boolean isInteger(String cadena) {
 		try {
 			Integer.parseInt(cadena);
 			return true;
