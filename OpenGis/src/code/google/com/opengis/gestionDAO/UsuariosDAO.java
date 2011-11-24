@@ -28,7 +28,10 @@ public class UsuariosDAO {
 	private String Direccion;
 	private String Poblacion;
 	private String Fecha_nac;
-
+	private String Contraseña;
+	private String Provincia;
+	private String Cp;
+	private String tipo;
 
 
 /** Constructor de la clase UsuariosDAO
@@ -44,7 +47,7 @@ public class UsuariosDAO {
  * @param fecha_nac La fecha de Nacimiento del Usuario que vamos a introducir
  */
 
-	public UsuariosDAO(String Dni,String Nombre,String Apellidos,String Telefono,String Direccion,String Poblacion, String fecha_nac){
+	public UsuariosDAO(String Dni,String Nombre,String Apellidos,String Telefono,String Direccion,String Poblacion, String fecha_nac, String contraseña, String Provincia, String Cp, String tipo){
 		
 		this.Dni = Dni;
 		this.Nombre = Nombre;
@@ -53,6 +56,10 @@ public class UsuariosDAO {
 		this.Direccion = Direccion;
 		this.Poblacion = Poblacion;
 		this.Fecha_nac = fecha_nac;
+		this.Contraseña = contraseña;
+		this.Provincia = Provincia;
+		this.Cp = Cp;
+		this.tipo = tipo;
 	
 		
 	}
@@ -115,7 +122,7 @@ public static void comprobarUsuario(String dni) throws SQLException{
 			
 		}else{
 			
-			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0')";
+			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`, `contraseña`, `provincia`, `cp`, `tipo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0','"+this.Contraseña+"','"+this.Provincia+"','"+this.Cp+"','"+this.tipo+"')";
 			dba.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo usuario");
@@ -178,3 +185,4 @@ public static void comprobarUsuario(String dni) throws SQLException{
 	
 	
 }
+
