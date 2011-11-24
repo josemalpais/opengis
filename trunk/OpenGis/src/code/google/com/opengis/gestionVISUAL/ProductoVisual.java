@@ -1,4 +1,4 @@
-//package code.google.com.opengis.gestionVISUAL;
+package code.google.com.opengis.gestionVISUAL;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -12,8 +12,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-//import code.google.com.opengis.gestion.Producto;
-//import code.google.com.opengis.gestionDAO.ProductoDAO;
+
+
+import code.google.com.opengis.gestion.Producto;
+import code.google.com.opengis.gestionDAO.ProductoDAO;
 
  
 public class ProductoVisual extends JInternalFrame {
@@ -28,7 +30,7 @@ public class ProductoVisual extends JInternalFrame {
 	private JButton cmdModificar;
 	private JButton cmdDesactivar;
 	
-	private JTable tblTabla;
+	private static JTable tblTabla;
 	private static String[] columnNames = {"ID", "Nombre","Tamaño","Descripción", "Tarea", "Activo"};
 	
 	private static JTextField txtIdprod;
@@ -60,6 +62,20 @@ public ProductoVisual(int ancho, int alto){
 	
 	principalProducto(panelProducto);
 	
+	panelProductoAlt = new JPanel ();
+	panelProductoAlt.setLayout(null);
+	this.add(panelProductoAlt);
+	this.setBounds(0,0,ancho,alto);
+	this.setTitle("Producto");
+	this.setClosable(true);
+	TitledBorder jb2 = new TitledBorder("Añadir / Modificar");
+	panelProductoAlt.setBorder(jb2);
+	double ii2 = ancho/1.7;
+	double aa2 = alto/1.7;
+	panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
+	
+	altas(panelProductoAlt);
+	
 }
 
 final static boolean shouldFill = true;
@@ -81,21 +97,7 @@ final static boolean RIGHT_TO_LEFT = false;
     c.gridy = 2;       //third row
     pane.add(button, c);
     }*/
- public void secundarioProducto(int ancho, int alto){
-		panelProductoAlt = new JPanel ();
-		panelProductoAlt.setLayout(null);
-		this.add(panelProductoAlt);
-		this.setBounds(0,0,ancho,alto);
-		this.setTitle("Producto");
-		this.setClosable(true);
-		TitledBorder jb = new TitledBorder("Añadir / Modificar");
-		panelProductoAlt.setBorder(jb);
-		double ii = ancho/1.7;
-		double aa = alto/1.7;
-		panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
-		
-		altas(panelProductoAlt);
- }
+ 
 
 public void principalProducto(Container pane){
 	 if (RIGHT_TO_LEFT) {
@@ -150,7 +152,7 @@ public void principalProducto(Container pane){
  	cmdCrear.addActionListener(new java.awt.event.ActionListener() {
 	public void actionPerformed(java.awt.event.ActionEvent e) {			
 				panelProducto.hide();
-				secundarioProducto();
+				panelProductoAlt.show();
 		//abre el panel de Altas
 		}
 	});
@@ -198,6 +200,10 @@ public void principalProducto(Container pane){
 	 txtTipo= new JTextField();
      txtDescripcion= new JTextArea();
      cmbTarea= new JComboBox();
+    
+    		 
+     
+     
      chkActivo= new JCheckBox();
      
      pane.setLayout(new GridBagLayout());
@@ -294,8 +300,9 @@ public void principalProducto(Container pane){
  	c.gridx = 1;
  	c.gridy = 5;
  	cmdAceptarAlt.addActionListener(new java.awt.event.ActionListener() {
- 		public void actionPerformed(java.awt.event.ActionEvent e) {			
-				Producto p = new Producto(txtIdprod.getText(), txtNombre.getText(), txtTipo.getText(), txtDescripcion.getText(), cmbTarea.get(), chkActivo.getAction());	
+ 		public void actionPerformed(java.awt.event.ActionEvent e) {	
+ 			String cadena= (String) cmbTarea.getSelectedItem();
+			//	Producto p = new Producto(, txtNombre.getText(), txtTipo.getText(), txtDescripcion.getText(), cadena , chkActivo.get());	
 		//da de altas el producto	
 			//altaProducto();
  		}
@@ -308,9 +315,8 @@ public void principalProducto(Container pane){
  	c.gridy = 5;
  	cmdCancelarAlt.addActionListener(new java.awt.event.ActionListener() {
 		public void actionPerformed(java.awt.event.ActionEvent e) {			
-					
-		//volver a productoVisual1	
-			
+			panelProducto.show();
+			panelProductoAlt.hide();
 		}
 	});
  	pane.add(cmdCancelarAlt, c);
@@ -320,25 +326,10 @@ public void principalProducto(Container pane){
   * this method should be invoked from the
   * event-dispatching thread.
   */
- private static void createAndShowGUI() {
-     //Create and set up the window.
-     JFrame frame = new JFrame("GridBagLayoutDemo");
-     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-     //Set up the content pane.
-     addComponentsToPane(frame.getContentPane());
-
-     //Display the window.
-     frame.pack();
-     frame.setVisible(true);
- }
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+    	
+    	new ProductoVisual(600,600);
+    	
     }
 }
