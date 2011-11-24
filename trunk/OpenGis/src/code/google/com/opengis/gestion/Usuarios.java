@@ -263,7 +263,7 @@ public class Usuarios {
 			
 		} catch (SQLException e) {
 
-			JOptionPane.showMessageDialog(null,"Error al eliminar el nuevo usuario");
+			JOptionPane.showMessageDialog(null,"Error al Modificar el usuario");
 		}
 			
 		}
