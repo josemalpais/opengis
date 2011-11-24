@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -62,6 +63,9 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	private static JTextField txtTlf;
 	private static JTextField txtEmail;
 	private static JTextField txtDNIMod;
+	private static JTextField txtCon;
+	private static JList jListTipo;
+	private static String[] tipo = {"Administrador", "Usuario"} ;
 	
 	/**
 	 * Constructor de la clase UsuarioVisual. Se le pasarán los parametros necesarios para construir el alto y el ancho.
@@ -107,6 +111,8 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			txtCp = new JTextField();
 			txtTlf = new JTextField();
 			txtEmail = new JTextField();
+			txtCon = new JTextField();
+			jListTipo = new JList(tipo);
 			JLabel campolbl;
 			pane.setLayout(new GridBagLayout());
 			
@@ -174,19 +180,26 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			cText.gridy = 1;
 			pane.add(txtFNac, cText);
 			
-			campolbl = new JLabel("Dirección:");
+			//Añade JLabel de Teléfono y JTextField de teléfono
+			campolbl = new JLabel("Teléfono:");
 			cLabels.gridx = 2;
 			cLabels.gridy = 1;
 			pane.add(campolbl, cLabels);
 			
-			
-			cText.gridwidth = 2;
 			cText.gridx = 3;
 			cText.gridy = 1;
+			pane.add(txtTlf, cText);
+			
+			campolbl = new JLabel("Dirección:");
+			cLabels.gridx = 4;
+			cLabels.gridy = 1;
+			pane.add(campolbl, cLabels);
+									
+			cText.gridx = 5;
+			cText.gridy = 1;
 			pane.add(txtDir, cText);
-			cText.gridwidth = 1;
-			
-			
+
+					
 			
 			campolbl = new JLabel("Población:");
 			cLabels.gridx = 0;
@@ -229,16 +242,25 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			pane.add(txtEmail, cText);
 			
 			
-			//Añade JLabel de Teléfono y JTextField de teléfono
-			campolbl = new JLabel("Teléfono:");
+			
+			
+			campolbl = new JLabel("Contraseña:");
 			cLabels.gridx = 2;
 			cLabels.gridy = 3;
 			pane.add(campolbl, cLabels);
 			
 			cText.gridx = 3;
 			cText.gridy = 3;
-			pane.add(txtTlf, cText);
+			pane.add(txtCon, cText);
 			
+			campolbl = new JLabel("Tipo de usuario");
+			cLabels.gridx = 4;
+			cLabels.gridy = 3;
+			pane.add(campolbl, cLabels);
+			
+			cText.gridx = 5;
+			cText.gridy = 3;
+			pane.add(jListTipo,cText);
 			
 			boton = new JButton("Guardar");
 			cButtons.fill = 0;
@@ -262,12 +284,35 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			});
 			pane.add(boton, cButtons);
 			
+			
+			
+			
 			boton = new JButton("Limpiar");
 			cButtons.fill = 0;
 			cButtons.insets = new Insets(15,15,0,0);  //top padding
 			cButtons.gridx = 1;
 			cButtons.gridy = 5;
 			cButtons.anchor = GridBagConstraints.WEST;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
+									
+					txtDNI.setText("");
+					txtNombre.setText("");
+					txtApellidos.setText("");
+					txtFNac.setText("");
+					txtDir.setText("");
+					txtPob.setText("");
+					txtProv.setText("");
+					txtCp.setText("");
+					txtTlf.setText("");
+					txtEmail.setText("");
+					txtCon.setText("");
+					
+					JOptionPane.showMessageDialog(null,"Los campos se han restablecido");
+					
+					
+				}
+			});
 			pane.add(boton, cButtons);
 			
 			
@@ -377,5 +422,11 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	    		  	
 	    	  }
 	      }
+	public String[] getTipo() {
+		return tipo;
+	}
+	public void setTipo(String[] tipo) {
+		this.tipo = tipo;
+	}
 
 }
