@@ -2,7 +2,8 @@
     * Copyright (c) 2011 [OpenGisTeam]                                           *
     ******************************************************************************/
     package code.google.com.opengis.gestionVISUAL;
-    import java.awt.Dimension;
+    import java.awt.Color;
+import java.awt.Dimension;
     import java.awt.FlowLayout;
     import java.awt.Insets;
     import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@
     import javax.swing.JMenuItem;
     import javax.swing.JOptionPane;
     import javax.swing.JPanel;
-    import javax.swing.WindowConstants;
+import javax.swing.WindowConstants;
      
      
      
@@ -37,7 +38,7 @@
            
             private String tipo;
             private JPanel panelMDI;
-            private JPanel panelFormularios;
+            private JDesktopPane panelFormularios;
             private AperoVisual frmAperos;
             private UsuarioVisual frmUsuarios;
             private ProductoVisual frmProductos;
@@ -115,8 +116,11 @@
            FlowLayout fl = new FlowLayout(); // Insertamos el Panel del MDI donde irán los botones
            panelMDI.setLayout(fl);
            pComun.add(panelMDI);
+           
+           Color color = panelMDI.getBackground(); // Seleccionamos el color de fondo del MDI
          
-           panelFormularios = new JPanel();
+           panelFormularios = new JDesktopPane();
+           panelFormularios.setBackground(color);
            panelFormularios.setLayout(null);
            panelFormularios.setSize(getSize());
            panelFormularios.setLocation(100,100);
@@ -201,8 +205,11 @@
            FlowLayout fl = new FlowLayout(); // Insertamos el Panel del MDI donde irán los botones
            panelMDI.setLayout(fl);
            pComun.add(panelMDI);
+           
+           Color color = panelMDI.getBackground(); // Seleccionamos el color de fondo del MDI
          
-           panelFormularios = new JPanel();
+           panelFormularios = new JDesktopPane();
+           panelFormularios.setBackground(color);
            panelFormularios.setLayout(null);
            panelFormularios.setSize(getSize());
            panelFormularios.setLocation(100,100);
