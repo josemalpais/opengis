@@ -19,10 +19,11 @@ public class ValidarLogin extends JFrame {
 
 
 	
-	public ValidarLogin(String user,String password) throws SQLException {
+	public ValidarLogin(JFrame ven, String user,String password) throws SQLException {
 		this.user = user;
 		this.password = password;
-		tipoDeUser();
+		
+		tipoDeUser(ven);
 		
 	}
 
@@ -32,7 +33,7 @@ public class ValidarLogin extends JFrame {
 	 * recibe un char de la clase LoginDao y dado el tipo selecciona una opcion
 	 * @throws SQLException 
 	 ********************/
-	public void tipoDeUser() throws SQLException{
+	public void tipoDeUser(JFrame ven) throws SQLException{
 		
 		
 		LoginDao lgo = new LoginDao(this.user, this.password);
@@ -45,20 +46,21 @@ public class ValidarLogin extends JFrame {
 				case 't': //t de trabajador
 					System.out.println(" funciona es un trabajador");
 					VentanaPrincipal ln1 = new VentanaPrincipal(tipodato);
-					this.dispose();
-					this.dispose();
+					ven.dispose();
+					
 					break;
 				case 'd': //d de dueño
 					System.out.println(" funciona es dueño");
 					VentanaPrincipal ln2 = new VentanaPrincipal(tipodato);
-					this.dispose();
-					this.dispose();
+					ven.dispose();
+
 					break;
 				case 'a': // de administrador
 					System.out.println(" funciona es  Admin");
 					VentanaPrincipal ln3 = new VentanaPrincipal(tipodato);
-					this.dispose();
-					this.dispose();
+					
+					ven.dispose();
+
 					break;
 				default:
 					
