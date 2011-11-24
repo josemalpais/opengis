@@ -78,13 +78,13 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			panelUsuarios = new JPanel ();
 			panelUsuarios.setLayout(null);
 			this.add(panelUsuarios);
-			this.setBounds(0,0,ancho,alto);
+			this.setBounds(0,0,parseInt(ancho/1.2),alto/1.2);
 			this.setTitle("Usuario");
 			this.setClosable(true);
 			TitledBorder jb = new TitledBorder("Añadir / Modificar");
 			panelUsuarios.setBorder(jb);
-			panelUsuarios.setBounds(new Rectangle(0,0,ancho,alto));
-
+			panelUsuarios.setBounds(new Rectangle(0,0,ancho/2,alto/2));
+			int i = parseInt(2.1);
 
 			nuevosObjetos(panelUsuarios);
 		
