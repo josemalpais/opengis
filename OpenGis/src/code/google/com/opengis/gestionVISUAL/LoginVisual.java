@@ -12,28 +12,27 @@ import code.google.com.opengis.gestion.ValidarLogin;
 import code.google.com.opengis.gestionDAO.LoginDao;
 
 public class LoginVisual extends JFrame implements KeyListener{
-	public LoginVisual(){
-		JFrame ven = new JFrame();
-		cargaObjetos();
-		
-	}
 	
-	private JTextField txtUser;
-	private JPasswordField txtPass;
+	public JFrame ven ;
+	private String pass;
+	public JTextField txtUser = new JTextField();
+	public JPasswordField txtPass = new JPasswordField();
 	private JLabel lblUser;
 	private JLabel lblPass;
-	private JLabel lblRec;
 	private JButton btnVal;
+	private JButton btnRec;
 	private JButton btnBor;
-	static String usuario;
-	static String contraseña;
-
+	private String usuario;
 	
-	public void pulsar(KeyEvent evento)
-    {
-      String g = "" + evento.getKeyText( evento.getKeyCode() );
-       System.out.println(g);
-    }
+	
+	public LoginVisual(){
+		
+		
+		cargaObjetos();
+		
+		
+	}
+
 	/**
 	 * Creamos los botones y demas objetos  el  grindlayout tiene4 filas y 2 columnas
 	 * el boton validar saca la pass de estar encriptada a letras normales
@@ -41,15 +40,15 @@ public class LoginVisual extends JFrame implements KeyListener{
 	 **/
 	public void cargaObjetos(){
 
+		ven = this;
 		setLayout(new GridLayout(4,2));
-		JButton btnVal = new JButton("Validar");
-		JButton btnBor = new JButton("Borrar");
-		JLabel lblUser = new JLabel("Introduce usuario :");
-		JLabel lblPass = new JLabel("Introduce la contraseña :");
-		JButton btnRec = new JButton("recuperar contraseña");
-		btnRec.setBorderPainted(false);
-		final JTextField txtUser = new JTextField();
-		final JPasswordField txtPass = new JPasswordField();
+		 btnVal = new JButton("Validar");
+		 btnBor = new JButton("Borrar");
+		 lblUser = new JLabel("Introduce usuario :");
+		 lblPass = new JLabel("Introduce la contraseña :");
+		 btnRec = new JButton("recuperar contraseña");
+		 btnRec.setBorderPainted(false);
+		
 		add(lblUser);
 		add(txtUser);
 		add(lblPass);
@@ -67,16 +66,18 @@ public class LoginVisual extends JFrame implements KeyListener{
 		setResizable(false);
 		setVisible(true);
 		
-	
+		
 		btnVal.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				//COPY PASTE
-				
-				String pass = new String(txtPass.getPassword());
-				System.out.println(pass);
-				 usuario = txtUser.getText();
+				pass = new String(txtPass.getPassword());
+				usuario = txtUser.getText();
+				 
+				System.out.println(usuario+pass);
+				 
 				 try {
-						new ValidarLogin(usuario,pass);
+						new ValidarLogin(ven,usuario,pass);
+						
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null,"Error De Conexión");
 						e1.printStackTrace();
@@ -107,26 +108,28 @@ public class LoginVisual extends JFrame implements KeyListener{
 		
 		
 		
-		
 }
 	@Override
 	public void keyPressed(KeyEvent evento) {
-	/*	int l =  evento.getKeyCode();
-		System.out.println(l);
-		if(l == 10){
+	Integer l =  evento.getKeyCode();
+		//System.out.println(l);
+usuario = txtUser.getText();		
+pass = new String(txtPass.getPassword());
 
-			String pass = new String(txtPass.getPassword());
-			System.out.println(pass);
-			 usuario = txtUser.getText();
+		if(l == 10){
 			 try {
-					new ValidarLogin(usuario,pass);
+				 
+					new ValidarLogin(ven,usuario,pass);
+					
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null,"Error De Conexión");
 					e1.printStackTrace();
 				} 
 		
-		}*/
+		
 		}
+		}
+	
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
