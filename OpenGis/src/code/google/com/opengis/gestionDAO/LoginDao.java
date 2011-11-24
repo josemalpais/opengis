@@ -96,5 +96,28 @@ package code.google.com.opengis.gestionDAO;
 		    	 }
 		     return lol;
 		}
+		public String nombre() throws SQLException{
+			ConectarDBA dba = new ConectarDBA();
+		    dba.acceder();		     
+		    
+		    
+		     String sentencia = "SELECT usuario.nombre FROM dai2opengis.usuario WHERE dni LIKE '"+this.user+"'";
+		     ResultSet rs = dba.consulta(sentencia);
+		     while (rs.next()){
+		    	  lol = rs.getString(1);
+		    	 }
+		     return lol;
+		}
+		public String apellido() throws SQLException{
+			ConectarDBA dba = new ConectarDBA();
+		    dba.acceder();		     
+		    
+		    
+		     String sentencia = "SELECT usuario.apellidos FROM dai2opengis.usuario WHERE dni LIKE '"+this.user+"'";
+		     ResultSet rs = dba.consulta(sentencia);
+		     while (rs.next()){
+		    	  lol = rs.getString(1);
+		    	 }
+		     return lol;}
 	}
 	
