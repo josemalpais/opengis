@@ -37,7 +37,7 @@ private String passUsuario;
 
 	            // Mensaje
 	            if ( (emailUsuario == null) || (emailUsuario.equals("")) ){
-	            	JOptionPane.showMessageDialog(null,"Inserte un DNI Valido");
+	            	JOptionPane.showMessageDialog(null,"Inserte un DNI Valido,si el DNI es correcto hable con el administrador");
 	            }else{
 	            
 	            MimeMessage message = new MimeMessage(session);
@@ -49,13 +49,14 @@ private String passUsuario;
 	            message.setSubject("Recuperación de clave");
 	           
 	            message.setText( 
-	            		"danico te dice, tu pass es : "+passUsuario
+	            		"Email de recuperacion tu contraseña es : "+passUsuario
 	                );
 
 	            // Envío
 	            Transport t = session.getTransport("smtp");
 	            t.connect("opengis@pipepito.es", "dai20112012");
 	            t.sendMessage(message, message.getAllRecipients());
+	            JOptionPane.showMessageDialog(null,"se ha mandado un correo a "+emailUsuario+" compruébelo");
 
 	            t.close();}
 	        }
