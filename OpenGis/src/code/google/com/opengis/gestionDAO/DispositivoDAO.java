@@ -4,6 +4,8 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestion.Dispositivo;
+
 /**
  * Esta clase permite insertar, modificar, y dar de baja dispositivos
  * 
@@ -77,10 +79,10 @@ public class DispositivoDAO {
 	 * ESTE MÉTODO COMPROBARÁ QUE NO EXISTA EL DISPOSITIVO.
 	 */
 
-	public static void comprobarDispositivo(String iddispositivo)throws SQLException 
+	public static boolean comprobarDispositivo(String iddispositivo)throws SQLException 
 	{
 		ConectarDBA.acceder();
-		String sentencia = "SELECT * FROM `dispositivo` WHERE `iddispositivo` ";
+		String sentencia = "SELECT * FROM `dispositivo` WHERE `iddispositivo` LIKE '"+iddispositivo+"'";
 		ResultSet rs = dba.consulta(sentencia);
 		while (rs.next()) {
 			resultado = rs.getString(1);
@@ -98,6 +100,7 @@ public class DispositivoDAO {
 			System.out.println("El estado de existe es: " + existe);
 		}
 		rs.close();
+		return existe;
 	}
 
 	/**
@@ -156,13 +159,12 @@ public class DispositivoDAO {
 		dba.cerrarCon();
 
 	}
-	public void modificarDispositivo(/*String modelo, String numSerie*/) throws SQLException {
+	public void modificarDispositivo(String modelo, String numSerie) throws SQLException {
 		comprobarDispositivo(this.iddispositivo);
 		if (existe == true) {
 			
-			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `modelo` = '"+ this.modelo+"', `num_serie` = '"+this.numSerie+"' WHERE `dispositivo`.`iddispositivo` =10001";
+			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `modelo` = '"+modelo+"', `num_serie` = '"+numSerie+"' WHERE `dispositivo`.`iddispositivo` =" + this.iddispositivo;
 			dba.modificar(sentencia);
-			//UPDATE `dai2opengis`.`dispositivo` SET `modelo` = 'modelounos' WHERE `dispositivo`.`iddispositivo` =10001;
 
 			JOptionPane.showMessageDialog(null,
 					"Dispositivo modificado correctamente");
@@ -175,4 +177,52 @@ public class DispositivoDAO {
 		dba.cerrarCon();
 
 	}
+	public void disponibleNo() throws SQLException {
+		comprobarDispositivo(this.iddispositivo);
+		if (existe == true) {
+			
+			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '0' WHERE `dispositivo`.`iddispositivo` =" + this.iddispositivo;
+			dba.modificar(sentencia);
+			
+			JOptionPane.showMessageDialog(null,
+					"Dispositivo modificado correctamente. Ahora no está disponible.");
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "El dispositivo no existe");
+		}
+
+		dba.cerrarCon();
+
+	}
+	public void disponibleSi() throws SQLException {
+		comprobarDispositivo(this.iddispositivo);
+		if (existe == true) {
+			
+			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '1' WHERE `dispositivo`.`iddispositivo` =" + this.iddispositivo;
+			dba.modificar(sentencia);
+			
+			JOptionPane.showMessageDialog(null,
+					"Dispositivo modificado correctamente. Ahora sí está disponible.");
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "El dispositivo no existe");
+		}
+
+		dba.cerrarCon();
+		}
+	
+	public static void cojerDatos(String iddispositivo){
+		if (Dispositivo.validarDatos(iddispositivo)==true){
+			try {
+				if (DispositivoDAO.comprobarDispositivo(iddispositivo)==true){
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }
