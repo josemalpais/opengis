@@ -68,7 +68,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	private static JTextField txtDNIMod;
 	private static JTextField txtCon;
 	private static JComboBox jCmbTipo;
-	private static String[] tipo = {"Administrador", "Usuario"} ;
+	private static String[] tipo = {"Administrador", "Trabajador"} ;
 	
 	/**
 	 * Constructor de la clase UsuarioVisual. Se le pasarán los parametros necesarios para construir el alto y el ancho.
