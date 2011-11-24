@@ -252,13 +252,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 					Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(), txtFNac.getText());
 					u.validarDatos();
 					if (u.getValido()) {
-						UsuariosDAO uDAO = new UsuariosDAO(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(), txtFNac.getText());
-						try {
-							uDAO.altaUsuario();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						u.crearUsuario();
 					}else{
 						JOptionPane.showMessageDialog(null,"Error al introducir los datos, compruebe los campos");
 					}
