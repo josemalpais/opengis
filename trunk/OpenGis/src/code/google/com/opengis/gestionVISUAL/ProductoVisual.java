@@ -1,135 +1,74 @@
-package code.google.com.opengis.gestionVISUAL;
+//package code.google.com.opengis.gestionVISUAL;
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
-import code.google.com.opengis.gestion.Producto;
-
+//import code.google.com.opengis.gestion.Producto;
+//import code.google.com.opengis.gestionDAO.ProductoDAO;
 
  
-public class ProductoVisual {
-    final static boolean shouldFill = true;
-    final static boolean shouldWeightX = true;
-    final static boolean RIGHT_TO_LEFT = false;
- 
+public class ProductoVisual extends JInternalFrame {
+
+    
+	private JPanel panelProducto;
+	private JPanel panelProductoAlt;
+	
+	private JButton cmdAceptarAlt;
+	private JButton cmdCancelarAlt;
+	private JButton cmdCrear;
+	private JButton cmdModificar;
+	private JButton cmdDesactivar;
+	
+	private JTable tblTabla;
+	private static String[] columnNames = {"ID", "Nombre","Tamaño","Descripción", "Tarea", "Activo"};
+	
+	private static JTextField txtIdprod;
+	private static JTextField txtNombre;
+	private static JTextField txtTipo;
+	private static JTextField txtBuscar;
+	
+	private static JTextArea txtDescripcion;
+	
+	private static JComboBox cmbTarea;
+	private static String[] tipo = { "Arar", "Abonar", "Sembrar"};
+	
+	private static JCheckBox chkActivo;
+	
+public ProductoVisual(int ancho, int alto){
+	super("Producto",false, true, true, true);
+	
+	panelProducto = new JPanel ();
+	panelProducto.setLayout(null);
+	this.add(panelProducto);
+	this.setBounds(0,0,ancho,alto);
+	this.setTitle("Producto");
+	this.setClosable(true);
+	TitledBorder jb = new TitledBorder("Añadir / Modificar");
+	panelProducto.setBorder(jb);
+	double ii = ancho/1.7;
+	double aa = alto/1.7;
+	panelProducto.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
+	
+	principalProducto(panelProducto);
+	
+}
+
+final static boolean shouldFill = true;
+final static boolean shouldWeightX = true;
+final static boolean RIGHT_TO_LEFT = false;
+
     public static void addComponentsToPane(Container pane) {
-        if (RIGHT_TO_LEFT) {
-            pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        }
- 
-        JButton button;
-        JLabel label;
-        JTextField texto;
-        JTextArea textarea;
-        JComboBox combo;
-        JCheckBox check;
-        
-    pane.setLayout(new GridBagLayout());
-    GridBagConstraints c = new GridBagConstraints();
-    if (shouldFill) {
-    //natural height, maximum width
-    c.fill = GridBagConstraints.HORIZONTAL;
-    }
-    c.insets = new Insets(8,8,8,8);
-   // button = new JButton("Button 1");
-    if (shouldWeightX) {
-    c.weightx = 0.5;
-    }
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 0;
-    c.gridy = 0;
-    //pane.add(button, c);
-   
-    label = new JLabel("Producto ID:");
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 1;
-    c.gridy = 0;
-    pane.add(label,c);
-   
-    texto = new JTextField(10);
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 2;
-    c.gridy = 0;
-    pane.add(texto, c);
- 
-    label = new JLabel("Nombre del Producto:");
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 1;
-    c.gridy = 1;
-    pane.add(label,c);
-   
-    texto = new JTextField();
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 2;
-    c.gridy = 1;
-    pane.add(texto, c);
-
-    label = new JLabel("Tipo:");
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 1;
-    c.gridy = 2;
-    pane.add(label,c);
-   
-    texto = new JTextField();
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 2;
-    c.gridy = 2;
-    pane.add(texto, c);
-   
-    label = new JLabel("Descripción:");
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 1;
-    c.gridy = 4;
-    pane.add(label,c);
-   
-    textarea = new JTextArea("",5,10);
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 2;
-    c.gridy = 4;
-    pane.add(textarea, c);
-
-    label = new JLabel ("Tarea:");
-    c.fill= GridBagConstraints.HORIZONTAL;
-    c.gridx = 3;
-    c.gridy= 0;
-    pane.add(label,c);
-    
-    String[] petStrings = { "Arar", "Abonar", "Sembrar"};
-    combo= new JComboBox(petStrings);
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx= 4;
-    c.gridy= 0;
-    pane.add(combo, c);
-    
-    label= new JLabel("Activo");
-    c.fill=GridBagConstraints.HORIZONTAL ;
-    c.gridx=3;
-    c.gridy=1;
-    pane.add(label,c);
-    
-    check =new JCheckBox ();
-    c.fill=GridBagConstraints.HORIZONTAL;
-    c.gridx = 4;
-    c.gridy= 1;
-    pane.add(check,c);
-    
-    button = new JButton("Confirmar");
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 1;
-    c.gridy = 5;
-    pane.add(button, c);
-    
-    button = new JButton("Cancelar");
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 2;
-    c.gridy = 5;
-    pane.add(button, c);
+    	
+     	
     }
    /* button = new JButton("5");
     c.fill = GridBagConstraints.HORIZONTAL;
@@ -142,25 +81,257 @@ public class ProductoVisual {
     c.gridy = 2;       //third row
     pane.add(button, c);
     }*/
+ public void secundarioProducto(int ancho, int alto){
+		panelProductoAlt = new JPanel ();
+		panelProductoAlt.setLayout(null);
+		this.add(panelProductoAlt);
+		this.setBounds(0,0,ancho,alto);
+		this.setTitle("Producto");
+		this.setClosable(true);
+		TitledBorder jb = new TitledBorder("Añadir / Modificar");
+		panelProductoAlt.setBorder(jb);
+		double ii = ancho/1.7;
+		double aa = alto/1.7;
+		panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
+		
+		altas(panelProductoAlt);
+ }
+
+public void principalProducto(Container pane){
+	 if (RIGHT_TO_LEFT) {
+         pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+     }
+
+	
+	 cmdCrear =new JButton();
+	 cmdModificar= new JButton();
+	 cmdDesactivar= new JButton();
+	 tblTabla= new JTable();
+     JLabel label;
+     txtBuscar= new JTextField();
+     
+     pane.setLayout(new GridBagLayout());
+     GridBagConstraints c = new GridBagConstraints();
+     if (shouldFill) {
+     //natural height, maximum width
+     c.fill = GridBagConstraints.HORIZONTAL;
+     }
+     c.insets = new Insets(8,8,8,8);
+    // button = new JButton("Button 1");
+     if (shouldWeightX) {
+     c.weightx = 0.5;
+     } 
+     c.fill = GridBagConstraints.HORIZONTAL;
+  	 c.gridx = 0;
+  	 c.gridy = 0;
+     
+  	label = new JLabel("Buscar");
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 0;
+ 	c.gridy = 0;
+ 	pane.add(label,c);
+ 	
+ 	txtBuscar = new JTextField(10);
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 1;
+ 	c.gridy = 0;
+ 	pane.add(txtBuscar, c);
+ 	
+ 	//tblTabla= new JTable(, columnNames);
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 0;
+ 	c.gridy = 1;
+ 	pane.add(tblTabla, c);
+ 	
+ 	cmdCrear =new JButton();
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 0;
+ 	c.gridy = 2;
+ 	cmdCrear.addActionListener(new java.awt.event.ActionListener() {
+	public void actionPerformed(java.awt.event.ActionEvent e) {			
+				panelProducto.hide();
+				secundarioProducto();
+		//abre el panel de Altas
+		}
+	});
+ 	pane.add(cmdCrear, c);
+ 	
+	 cmdModificar= new JButton();
+	 c.fill = GridBagConstraints.HORIZONTAL;
+	 c.gridx = 1;
+	 c.gridy = 2;
+	 cmdModificar.addActionListener(new java.awt.event.ActionListener() {
+	 public void actionPerformed(java.awt.event.ActionEvent e) {			
+						
+		//abre el panel de Modificar
+				
+		}
+	 });
+	 pane.add(cmdModificar, c);
+	 
+	 cmdDesactivar= new JButton();
+	 c.fill = GridBagConstraints.HORIZONTAL;
+	 c.gridx = 2;
+	 c.gridy = 2;
+	 cmdDesactivar.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent e) {			
+						
+			//desactiva el producto	
+				//bajaProducto();
+		}
+	});
+	 pane.add(cmdDesactivar, c);
+ 	
+ 	
+}
+ public void altas(Container pane){
+	 if (RIGHT_TO_LEFT) {
+         pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+     }
+
+     
+	 cmdAceptarAlt= new JButton();
+	 cmdCancelarAlt= new JButton();
+     JLabel label;
+	 txtIdprod= new JTextField();
+	 txtNombre= new JTextField();
+	 txtTipo= new JTextField();
+     txtDescripcion= new JTextArea();
+     cmbTarea= new JComboBox();
+     chkActivo= new JCheckBox();
+     
+     pane.setLayout(new GridBagLayout());
+     GridBagConstraints c = new GridBagConstraints();
+     if (shouldFill) {
+    	 //natural height, maximum width
+    	 c.fill = GridBagConstraints.HORIZONTAL;
+     }
+     c.insets = new Insets(8,8,8,8);
+ 	// button = new JButton("Button 1");
+     if (shouldWeightX) {
+    	 c.weightx = 0.5;
+     }
+     c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 0;
+ 	c.gridy = 0;
+ 	//pane.add(button, c);
+
+ 	label = new JLabel("Producto ID:");
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 1;
+ 	c.gridy = 0;
+ 	pane.add(label,c);
+
+ 	txtIdprod= new JTextField(10);
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 2;
+ 	c.gridy = 0;
+ 	pane.add(txtIdprod, c);
+
+ 	label = new JLabel("Nombre del Producto:");
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 1;
+ 	c.gridy = 1;
+ 	pane.add(label,c);
+
+ 	txtNombre = new JTextField();
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 2;
+ 	c.gridy = 1;
+ 	pane.add(txtNombre, c);
+
+ 	label = new JLabel("Tipo:");
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 1;
+ 	c.gridy = 2;
+ 	pane.add(label,c);
+
+ 	txtTipo = new JTextField();
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 2;
+ 	c.gridy = 2;
+ 	pane.add(txtTipo, c);
+
+ 	label = new JLabel("Descripción:");
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 1;
+ 	c.gridy = 4;
+ 	pane.add(label,c);
+
+ 	txtDescripcion = new JTextArea("",5,10);
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 2;
+ 	c.gridy = 4;
+ 	pane.add(txtDescripcion, c);
+
+ 	label = new JLabel ("Tarea:");
+ 	c.fill= GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 3;
+ 	c.gridy= 0;
+ 	pane.add(label,c);
  
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
-     */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("GridBagLayoutDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 	
+ 	cmbTarea= new JComboBox(tipo);
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx= 4;
+ 	c.gridy= 0;
+ 	pane.add(cmbTarea, c);
  
-        //Set up the content pane.
-        addComponentsToPane(frame.getContentPane());
+ 	label= new JLabel("Activo");
+ 	c.fill=GridBagConstraints.HORIZONTAL ;
+ 	c.gridx=3;
+ 	c.gridy=1;
+ 	pane.add(label,c);
  
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
+ 	chkActivo =new JCheckBox ();
+ 	c.fill=GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 4;
+ 	c.gridy= 1;
+ 	pane.add(chkActivo,c);
  
+ 	cmdAceptarAlt = new JButton("Confirmar");
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 1;
+ 	c.gridy = 5;
+ 	cmdAceptarAlt.addActionListener(new java.awt.event.ActionListener() {
+ 		public void actionPerformed(java.awt.event.ActionEvent e) {			
+				Producto p = new Producto(txtIdprod.getText(), txtNombre.getText(), txtTipo.getText(), txtDescripcion.getText(), cmbTarea.get(), chkActivo.getAction());	
+		//da de altas el producto	
+			//altaProducto();
+ 		}
+	});
+ 	pane.add(cmdAceptarAlt, c);
+ 	
+ 	cmdCancelarAlt = new JButton("Cancelar");
+ 	c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.gridx = 2;
+ 	c.gridy = 5;
+ 	cmdCancelarAlt.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent e) {			
+					
+		//volver a productoVisual1	
+			
+		}
+	});
+ 	pane.add(cmdCancelarAlt, c);
+ }
+ /**
+  * Create the GUI and show it.  For thread safety,
+  * this method should be invoked from the
+  * event-dispatching thread.
+  */
+ private static void createAndShowGUI() {
+     //Create and set up the window.
+     JFrame frame = new JFrame("GridBagLayoutDemo");
+     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+     //Set up the content pane.
+     addComponentsToPane(frame.getContentPane());
+
+     //Display the window.
+     frame.pack();
+     frame.setVisible(true);
+ }
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
