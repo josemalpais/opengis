@@ -331,7 +331,31 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			
 			
 	    
-		
+			boton = new JButton("Modificar");
+			cButtons.fill = 0;
+			cButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
+			cButtons.insets = new Insets(15,200,0,0);  //top padding
+			cButtons.gridx = 0;
+			cButtons.gridy = 5;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
+									
+					Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
+					u.validarDatos();
+					System.out.println(jCmbTipo.getSelectedItem().toString());
+					if (u.getValido()) {
+						u.modificarUsuario();
+					}
+					
+					
+				}
+			});
+			pane.add(boton, cButtons);
+			
+			
+			
+			
+			
 		/*lblEntrada = new JLabel("Desde esta sección puede gestionar los Usuarios que utilizarán nuestro sistema OpenGis");
 		lblEntrada.setVisible(true);
 		lblEntrada.setBounds(425,25, 800, 50);
