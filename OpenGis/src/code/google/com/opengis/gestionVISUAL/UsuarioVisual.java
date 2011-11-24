@@ -83,6 +83,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			this.setBounds(0,0,ancho,alto);
 			this.setTitle("Usuario");
 			this.setClosable(true);
+			this.setMaximizable(true);
 			TitledBorder jb = new TitledBorder("Añadir / Modificar");
 			panelUsuarios.setBorder(jb);
 			double ii = ancho/1.7;
@@ -91,7 +92,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 		
 		
 
-			nuevosObjetos(panelUsuarios);
+			cargarNuevoModificar(panelUsuarios,true);
 		
 		
 	}
@@ -107,7 +108,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	    final static boolean shouldWeightX = true;
 	    final static boolean RIGHT_TO_LEFT = false;
 
-	    public static void nuevosObjetos(Container pane) {
+	    public static void cargarNuevoModificar(Container pane,boolean modificar) {
 	    	if (RIGHT_TO_LEFT) {
 				pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 			}
@@ -277,6 +278,9 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			cText.gridy = 3;
 			pane.add(jCmbTipo,cText);
 			
+			if (modificar != true){
+				
+			
 			boton = new JButton("Guardar");
 			cButtons.fill = 0;
 			cButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
@@ -297,9 +301,28 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 				}
 			});
 			pane.add(boton, cButtons);
-			
-			
-			
+			}else{
+				boton = new JButton("Modificar");
+				cButtons.fill = 0;
+				cButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
+				cButtons.insets = new Insets(15,0,0,0);  //top padding
+				cButtons.gridx = 0;
+				cButtons.gridy = 5;
+				boton.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(java.awt.event.ActionEvent e) {			
+										
+						Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
+						u.validarDatos();
+						System.out.println(jCmbTipo.getSelectedItem().toString());
+						if (u.getValido()) {
+							u.modificarUsuario();
+						}
+						
+						
+					}
+				});
+				pane.add(boton, cButtons);
+			}
 			
 			boton = new JButton("Limpiar");
 			cButtons.fill = 0;
@@ -331,75 +354,8 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			
 			
 	    
-			boton = new JButton("Modificar");
-			cButtons.fill = 0;
-			cButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
-			cButtons.insets = new Insets(15,200,0,0);  //top padding
-			cButtons.gridx = 0;
-			cButtons.gridy = 5;
-			boton.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {			
-									
-					Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
-					u.validarDatos();
-					System.out.println(jCmbTipo.getSelectedItem().toString());
-					if (u.getValido()) {
-						u.modificarUsuario();
-					}
-					
-					
-				}
-			});
-			pane.add(boton, cButtons);
 			
-			
-			
-			
-			
-		/*lblEntrada = new JLabel("Desde esta sección puede gestionar los Usuarios que utilizarán nuestro sistema OpenGis");
-		lblEntrada.setVisible(true);
-		lblEntrada.setBounds(425,25, 800, 50);
-		panelUsuarios.add(lblEntrada);
-		
-		lblDNI = new JLabel("DNI:");
-		lblDNI.setVisible(true);
-		lblDNI.setBounds(500,100,100,25);
-		panelUsuarios.add(lblDNI);
-		
-		txtDNI = new JTextField();
-		txtDNI.setVisible(true);
-		txtDNI.setBounds(535,100,250,25);
-		panelUsuarios.add(txtDNI);
-		
-		
-		
-		cmdBuscarUsuario = new JButton("Buscar");
-		cmdBuscarUsuario.setVisible(true);
-		cmdBuscarUsuario.setBounds(810,97,110,30);
-		panelUsuarios.add(cmdBuscarUsuario);
-		
-		cmdNuevoUsuario = new JButton("Nuevo");
-		cmdNuevoUsuario.setVisible(true);
-		cmdNuevoUsuario.setBounds(this.getWidth() - (this.getWidth() - 450) , this.getHeight() - 150, 110, 30);
-		panelUsuarios.add(cmdNuevoUsuario);
-		
-		cmdBajaUsuario = new JButton("Baja");
-		cmdBajaUsuario.setVisible(true);
-		cmdBajaUsuario.setBounds(this.getWidth() - (this.getWidth() - 575) , this.getHeight() - 150, 110, 30);
-		panelUsuarios.add(cmdBajaUsuario);
-		
-		cmdModificarUsuario = new JButton("Modificar");
-		cmdModificarUsuario.setVisible(true);
-		cmdModificarUsuario.setBounds(this.getWidth() - (this.getWidth() - 700) , this.getHeight() - 150, 110, 30);
-		panelUsuarios.add(cmdModificarUsuario);
-		cmdModificarUsuario.addActionListener(this);
-		
-		cmdGuardarUsuario = new JButton("Guardar");
-		cmdGuardarUsuario.setVisible(true);
-		cmdGuardarUsuario.setBounds(this.getWidth() - (this.getWidth() - 825) , this.getHeight() - 150, 110, 30);
-		panelUsuarios.add(cmdGuardarUsuario);
-		
-		*/
+
 	}
 	/**
 	 *  Este metodo hace que cuando clickes el boton de modificar te lleve a la interface de modificar usuario
@@ -468,3 +424,5 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	}
 
 }
+
+
