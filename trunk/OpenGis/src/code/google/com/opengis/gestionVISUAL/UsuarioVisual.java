@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -66,7 +67,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 	private static JTextField txtEmail;
 	private static JTextField txtDNIMod;
 	private static JTextField txtCon;
-	private static JList jListTipo;
+	private static JComboBox jCmbTipo;
 	private static String[] tipo = {"Administrador", "Usuario"} ;
 	
 	/**
@@ -121,7 +122,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			txtTlf = new JTextField();
 			txtEmail = new JTextField();
 			txtCon = new JTextField();
-			jListTipo = new JList(tipo);
+			jCmbTipo = new JComboBox(tipo);
 			JLabel campolbl;
 			pane.setLayout(new GridBagLayout());
 			
@@ -269,7 +270,7 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			
 			cText.gridx = 5;
 			cText.gridy = 3;
-			pane.add(jListTipo,cText);
+			pane.add(jCmbTipo,cText);
 			
 			boton = new JButton("Guardar");
 			cButtons.fill = 0;
@@ -280,12 +281,11 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			boton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {			
 									
-					Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(), txtFNac.getText());
+					Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
 					u.validarDatos();
+					System.out.println(jCmbTipo.getSelectedItem().toString());
 					if (u.getValido()) {
 						u.crearUsuario();
-					}else{
-						JOptionPane.showMessageDialog(null,"Error al introducir los datos, compruebe los campos");
 					}
 					
 					

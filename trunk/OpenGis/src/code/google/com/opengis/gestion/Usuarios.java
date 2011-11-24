@@ -27,7 +27,12 @@ public class Usuarios {
 	private String Direccion;
 	private String Poblacion;
 	private String Fecha_nac;
+	private String Contraseña;
+	private String Provincia;
+	private String Cp;
+	private String tipo;
 	private Boolean valido;
+	private String email;
 	private UsuariosDAO enlace;
 	
 	
@@ -44,7 +49,7 @@ public class Usuarios {
 	 * @param fecha_nac La fecha de Nacimiento del Usuario que vamos a introducir
 	 */
 	
-	public Usuarios(String Dni,String Nombre,String Apellidos,String Telefono,String Direccion,String Poblacion, String fecha_nac){
+	public Usuarios(String Dni,String Nombre,String Apellidos,String Telefono,String Direccion,String Poblacion, String Provincia, String Cp, String fecha_nac, String contraseña, String tipo, String email){
 		
 		this.Dni = Dni;
 		this.Nombre = Nombre;
@@ -53,6 +58,11 @@ public class Usuarios {
 		this.Direccion = Direccion;
 		this.Poblacion = Poblacion;
 		this.Fecha_nac = fecha_nac;
+		this.Contraseña = contraseña;
+		this.Cp = Cp;
+		this.tipo = tipo;
+		this.Provincia = Provincia;
+		this.email = email;
 		this.valido = false;
 		
 	}
@@ -177,7 +187,7 @@ public class Usuarios {
 	public void crearUsuario(){
 		
 
-		enlace = new UsuariosDAO(this.Dni,this.Nombre,this.Apellidos,this.Telefono,this.Direccion,this.Poblacion,this.Fecha_nac);
+		enlace = new UsuariosDAO(this.Dni,this.Nombre,this.Apellidos,this.Telefono,this.Direccion,this.Poblacion,this.Provincia, this.Cp, this.Fecha_nac, this.Contraseña, this.tipo, this.email);
 		try {
 			
 			enlace.altaUsuario();
@@ -199,7 +209,7 @@ public class Usuarios {
 	public void borrarUsuario(){
 		
 
-		enlace = new UsuariosDAO(this.Dni,this.Nombre,this.Apellidos,this.Telefono,this.Direccion,this.Poblacion,this.Fecha_nac);
+		enlace = new UsuariosDAO(this.Dni,this.Nombre,this.Apellidos,this.Telefono,this.Direccion,this.Poblacion,this.Provincia, this.Cp, this.Fecha_nac, this.Contraseña, this.tipo, this.email);
 		
 		try {
 			
@@ -213,7 +223,7 @@ public class Usuarios {
 	}
 	
 	public void modificarUsuario(){
-		enlace = new UsuariosDAO(this.Dni,this.Nombre,this.Apellidos,this.Telefono,this.Direccion,this.Poblacion,this.Fecha_nac);
+		enlace = new UsuariosDAO(this.Dni,this.Nombre,this.Apellidos,this.Telefono,this.Direccion,this.Poblacion,this.Provincia, this.Cp, this.Fecha_nac, this.Contraseña, this.tipo, this.email);
 		try {
 			
 			enlace.MoficicarUsuario();

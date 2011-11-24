@@ -32,7 +32,7 @@ public class UsuariosDAO {
 	private String Provincia;
 	private String Cp;
 	private String tipo;
-
+	private String email;
 
 /** Constructor de la clase UsuariosDAO
  * 
@@ -47,7 +47,7 @@ public class UsuariosDAO {
  * @param fecha_nac La fecha de Nacimiento del Usuario que vamos a introducir
  */
 
-	public UsuariosDAO(String Dni,String Nombre,String Apellidos,String Telefono,String Direccion,String Poblacion, String fecha_nac, String contraseña, String Provincia, String Cp, String tipo){
+	public UsuariosDAO(String Dni,String Nombre,String Apellidos,String Telefono,String Direccion,String Poblacion, String Provincia, String Cp, String fecha_nac, String contraseña, String tipo, String email){
 		
 		this.Dni = Dni;
 		this.Nombre = Nombre;
@@ -60,6 +60,7 @@ public class UsuariosDAO {
 		this.Provincia = Provincia;
 		this.Cp = Cp;
 		this.tipo = tipo;
+		this.email = email;
 	
 		
 	}
@@ -121,8 +122,7 @@ public static void comprobarUsuario(String dni) throws SQLException{
 			JOptionPane.showMessageDialog(null,"El DNI ya existe");
 			
 		}else{
-			
-			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`, `contraseña`, `provincia`, `cp`, `tipo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0','"+this.Contraseña+"','"+this.Provincia+"','"+this.Cp+"','"+this.tipo+"')";
+			String sentencia= "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '"+this.Nombre+"', '"+this.Apellidos+"', '"+this.email+"', '"+this.Contraseña+"', '"+this.tipo+"', '0', '"+this.Telefono+"', '"+this.Direccion+"', '"+this.Poblacion+"', '"+this.Provincia+"', '"+this.Cp+"', '"+this.Fecha_nac+"', '0')";
 			dba.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo usuario");
