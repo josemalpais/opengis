@@ -41,6 +41,7 @@
             private AperoVisual frmAperos;
             private UsuarioVisual frmUsuarios;
             private ProductoVisual frmProductos;
+            private DispositivoVisual frmDispositivos;
      
             private JButton cmdPrestamos;
             private JButton cmdUsuarios;
@@ -264,6 +265,8 @@
                frmProductos = new ProductoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
                panelFormularios.add(frmProductos);
                
+               frmDispositivos = new DispositivoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
+               panelFormularios.add(frmDispositivos);
                
        }
      
@@ -293,6 +296,12 @@
                               frmProductos.setVisible(true);
                              
                              
+                      }
+                      
+                      if(comando.equals("Dispositivos")){
+                    	  
+                    	  frmDispositivos.setVisible(true);
+                    	  
                       }
                      
                      
