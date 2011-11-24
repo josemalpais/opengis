@@ -158,7 +158,8 @@ public static void comprobarUsuario(String dni) throws SQLException{
 		comprobarUsuario(this.Dni);
 		if (existe == true){
 			
-			String sentencia = "UPDATE INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0')";
+			//String sentencia = "UPDATE INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0')";
+			String sentencia = "UPDATE INTO `dai2opengis`.`usuario` SET `nombre` = '"+this.Nombre+"', `apellido` = '"+this.Apellidos+"', `telefono` = '"+this.Telefono+"',`direccion` = '"+this.Direccion+"',`poblacion` = '"+this.Poblacion+"',`fecha_nacimiento` = '"+this.Fecha_nac+"','0' WHERE `dni` = '"+this.Dni+"'";
 			dba.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,"Se ha modificado el usuario");
