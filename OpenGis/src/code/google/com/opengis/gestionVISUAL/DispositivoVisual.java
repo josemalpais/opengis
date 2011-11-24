@@ -1,6 +1,7 @@
 package code.google.com.opengis.gestionVISUAL;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -34,14 +35,20 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 	
 	private JLabel lblIddispositivo;
 	private JLabel lblIddispositivoMod;
+	private JLabel lblModelo;
 	private JLabel lblModeloMod;
+	private JLabel lblNumSerie;
 	private JLabel lblNumSerieMod;
 	
 	
 	private JTextField txtIddispositivo;
 	private JTextField txtIddispositivoMod;
+	private JTextField txtModelo;
 	private JTextField txtModeloMod;
+	private JTextField txtNumSerie;
 	private JTextField txtNumSerieMod;
+	
+
 	
 	
 	/**
@@ -111,6 +118,7 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 		panelDispositivo.add(cmdGuardarDispositivo);
 		
 		cmdBajaDispositivo.addActionListener(this);
+		cmdNuevoDispositivo.addActionListener(this);
 		
 	}
 	/**
@@ -180,35 +188,45 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 	}
 	
 	public void NuevoDispositivo() {
-		
-		panelDispositivo.setVisible(false);
-	  	panelDispositivo = new JPanel ();
-		panelDispositivo.setLayout(null);			
-		this.setBounds(0,0,this.getWidth(),this.getHeight());
-		this.add(panelDispositivo);
-		this.setTitle("Nuevo Dispositivo");
-		this.setClosable(true);
-		
-		cmdGuardarDispositivo = new JButton("Aceptar");
+
+		cmdGuardarDispositivo = new JButton("Aceptar Alta");
 		cmdGuardarDispositivo.setVisible(true);
-		cmdGuardarDispositivo.setBounds(this.getWidth() - (this.getWidth() - 800) , this.getHeight() - 150, 110, 30);
+		cmdGuardarDispositivo.setBounds(this.getWidth() - (this.getWidth() - 800) , this.getHeight() - 200, 110, 30);
 		panelDispositivo.add(cmdGuardarDispositivo);
 		   	
 		cmdCancelarAlta = new JButton("Cancelar");
 		cmdCancelarAlta.setVisible(true);
-		cmdCancelarAlta.setBounds(this.getWidth() - (this.getWidth() - 1000) , this.getHeight() - 150, 110, 30);
+		cmdCancelarAlta.setBounds(this.getWidth() - (this.getWidth() - 1000) , this.getHeight() - 200, 110, 30);
 		panelDispositivo.add(cmdCancelarAlta);			
 		
-		lblIddispositivo = new JLabel("ID de Dispositivo:");
-		lblIddispositivo.setVisible(true);
-		lblIddispositivo.setBounds(500,100,100,25);
-		panelDispositivo.add(lblIddispositivo);
+		cmdBuscarDispositivo.setVisible(false);
 		
-		txtIddispositivo = new JTextField();
-		txtIddispositivo.setVisible(true);
-		txtIddispositivo.setBounds(610,100,100,25);
-		panelDispositivo.add(txtIddispositivo);
-
+		//txtIddispositivo.setBounds(610,100,100,25);
+		
+		lblModelo = new JLabel("Modelo:");
+		lblModelo.setVisible(true);
+		lblModelo.setBounds(500, 135, 100, 25);
+		panelDispositivo.add(lblModelo);
+		
+		txtModelo = new JTextField();
+		txtModelo.setVisible(true);
+		txtModelo.setBounds(610,135,100,25);
+		panelDispositivo.add(txtModelo);
+		
+		lblNumSerie = new JLabel("Número de Serie:");
+		lblNumSerie.setVisible(true);
+		lblNumSerie.setBounds(500, 175, 100, 25);
+		panelDispositivo.add(lblNumSerie);	
+		
+		txtNumSerie = new JTextField();
+		txtNumSerie.setVisible(true);
+		txtNumSerie.setBounds(610,175,100,25);
+		panelDispositivo.add(txtNumSerie);
+		
+		panelDispositivo.repaint();
+		
+		cmdGuardarDispositivo.addActionListener(this);
+		cmdCancelarAlta.addActionListener(this);
 		
 	}
 	
@@ -226,7 +244,7 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 	}
 
 	
-	
+
 	public void actionPerformed( ActionEvent evento )
 	      {
 		
@@ -255,9 +273,14 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 							//txtModeloMod.setText();
 						}
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+
+					/*RellenarDispositivoMod();
+					else
+					{
+						
+					}*/
 				
 			}
 		}
@@ -273,12 +296,23 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 					e.printStackTrace();
 				}
 			}
-			/*RellenarDispositivoMod();
-			else
+			if (cmdNuevoDispositivo == evento.getSource())
 			{
-				
-			}*/
-			
+				NuevoDispositivo();
+			}
+			if (cmdGuardarDispositivo==evento.getSource())
+			{
+				if (Dispositivo.validarDatos(txtIddispositivo.getText(), txtModelo.getText(), txtNumSerie.getText()) == true){
+					DispositivoDAO a = new DispositivoDAO(txtIddispositivo.getText(), txtModelo.getText(), txtNumSerie.getText());
+					try {
+						a.altaDispositivo();
+						}
+					
+					catch (SQLException e) {
+						e.printStackTrace();
+						}
+					}
+			}
 			
 		}
 	}
