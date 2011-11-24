@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -270,21 +271,18 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 					try {
 						if(DispositivoDAO.comprobarDispositivo(txtIddispositivoMod.getText())==true){
 							txtIddispositivoMod.setEnabled(false);
+							RellenarDispositivoMod();
 							//txtModeloMod.setText();
 						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-
-					/*RellenarDispositivoMod();
-					else
+					} 
+					catch (SQLException e) 
 					{
-						
-					}*/
-				
+						e.printStackTrace();
+						}
+					
 			}
 		}
-			if (cmdBajaDispositivo == evento.getSource())
+			if ( cmdBajaDispositivo == evento.getSource())
 			{
 				
 				
@@ -296,25 +294,48 @@ public class DispositivoVisual extends JInternalFrame implements ActionListener 
 					e.printStackTrace();
 				}
 			}
-			if (cmdNuevoDispositivo == evento.getSource())
+			if ( cmdNuevoDispositivo == evento.getSource())
 			{
 				NuevoDispositivo();
 			}
-			if (cmdGuardarDispositivo==evento.getSource())
+			if ( cmdGuardarDispositivo==evento.getSource())
 			{
+				boolean paso; //booleano que me indicará si he podido convertir el número de serie y el ID de Dispositivo a números enteros
+				int numeroSerie = 0; //donde intentaré convertir el número de serie introducido a un número entero
+				int numID = 0; //donde intentaré convertir el ID de Dispositivo introducido a un número entero
+				
 				if (Dispositivo.validarDatos(txtIddispositivo.getText(), txtModelo.getText(), txtNumSerie.getText()) == true){
-					DispositivoDAO a = new DispositivoDAO(txtIddispositivo.getText(), txtModelo.getText(), txtNumSerie.getText());
+					//intento convertir el número de serie a un número entero.
 					try {
-						a.altaDispositivo();
-						}
-					
-					catch (SQLException e) {
-						e.printStackTrace();
+						numeroSerie = Integer.parseInt(txtNumSerie.getText());
+						paso = true;
+					}
+					catch (Exception e1){
+						JOptionPane.showMessageDialog(null,"Error convirtiendo el número de serie del dispositivo. Introduce sólo números.");
+						paso = false;
+					}
+					//intento convertir el ID de Dispositivo a un número entero.
+					try {
+						numID = Integer.parseInt(txtIddispositivo.getText());
+						paso = true;
+					}
+					catch (Exception e1){
+						JOptionPane.showMessageDialog(null,"Error convirtiendo el ID de dispositivo. Introduce sólo números.");
+						paso = false;
+					}
+					if (paso==true){
+						DispositivoDAO a = new DispositivoDAO(numID+"", txtModelo.getText(), numeroSerie+"");
+						try {
+							a.altaDispositivo();
+							}
+						
+						catch (SQLException e) {
+							e.printStackTrace();
+							}
 						}
 					}
+				}
 			}
-			
-		}
 	}
 
 
