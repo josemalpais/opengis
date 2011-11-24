@@ -7,6 +7,7 @@ package code.google.com.opengis.gestionDAO;
 	String user;
 	String password;
 	char tipodato;
+	 String lol;
 	
 	/***
 	 *CONSTRUCTOR
@@ -14,6 +15,11 @@ package code.google.com.opengis.gestionDAO;
 	public LoginDao(String user, String password){
 		this.user= user;
 		this.password = password;
+		
+	}
+	public LoginDao(String user){
+		this.user= user;
+		this.password = null;
 		
 	}
 	/***
@@ -53,7 +59,7 @@ package code.google.com.opengis.gestionDAO;
 	    dba.acceder();		     
 	    
 	    
-	     String sentencia = "SELECT dni_usuario, password, tipo FROM users WHERE dni_usuario LIKE '"+this.user+"'AND password LIKE '"+this.password+"'";
+	     String sentencia = "SELECT dni, password, tipo FROM usuario WHERE dni LIKE '"+this.user+"'AND password LIKE '"+this.password+"'";
 	     ResultSet rs = dba.consulta(sentencia);
 	     
 	     while (rs.next()){
@@ -65,6 +71,30 @@ package code.google.com.opengis.gestionDAO;
 	     return tipodato;
 		}
 		
-		
+		public String email() throws SQLException{
+			ConectarDBA dba = new ConectarDBA();
+		    dba.acceder();		     
+		    
+		    
+		     String sentencia = "SELECT usuario.email FROM dai2opengis.usuario WHERE dni LIKE '"+this.user+"'";
+		     ResultSet rs = dba.consulta(sentencia);
+		    
+		     while (rs.next()){
+		    	  lol = rs.getString(1);
+		    	 }
+		     return lol;
+		}
+		public String pass() throws SQLException{
+			ConectarDBA dba = new ConectarDBA();
+		    dba.acceder();		     
+		    
+		    
+		     String sentencia = "SELECT usuario.password FROM dai2opengis.usuario WHERE dni LIKE '"+this.user+"'";
+		     ResultSet rs = dba.consulta(sentencia);
+		     while (rs.next()){
+		    	  lol = rs.getString(1);
+		    	 }
+		     return lol;
+		}
 	}
 	

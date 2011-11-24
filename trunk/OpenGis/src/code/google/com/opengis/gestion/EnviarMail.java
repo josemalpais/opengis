@@ -7,14 +7,21 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
+
+import code.google.com.opengis.gestionDAO.LoginDao;
 
 
 public class EnviarMail
 {
-
-	public EnviarMail(){
+private String emailUsuario;
+private String passUsuario;
+	public EnviarMail(String user){
 		try
 	        {
+			LoginDao ln = new LoginDao(user);
+	           emailUsuario = ln.email();
+	           passUsuario = ln.pass();
 	            // Propiedades
 	            Properties prop = new Properties();
 	            //Host
@@ -29,23 +36,28 @@ public class EnviarMail
 	            Session session = Session.getDefaultInstance(prop);
 
 	            // Mensaje
+	            if ( (emailUsuario == null) || (emailUsuario.equals("")) ){
+	            	JOptionPane.showMessageDialog(null,"Inserte un DNI Valido");
+	            }else{
+	            
 	            MimeMessage message = new MimeMessage(session);
 	            message.setFrom(new InternetAddress("opengis@pipepito.es"));
 	            message.addRecipient(
 	                Message.RecipientType.TO,
 	                //MAIL DEL USUARIO 
-	                new InternetAddress("eduardo.moret.morales@gmail.com"));
+	                new InternetAddress(emailUsuario));
 	            message.setSubject("Recuperación de clave");
-	            message.setText(
-	            	//MENSAJE QUE SE QUIERE ENVIAR
-	                "ESTOY JUANKEANDO EL INTERNET!");
+	           
+	            message.setText( 
+	            		"danico te dice, tu pass es : "+passUsuario
+	                );
 
 	            // Envío
 	            Transport t = session.getTransport("smtp");
 	            t.connect("opengis@pipepito.es", "dai20112012");
 	            t.sendMessage(message, message.getAllRecipients());
 
-	            t.close();
+	            t.close();}
 	        }
 	        catch (Exception e)
 	        {
@@ -54,8 +66,5 @@ public class EnviarMail
 		
 	}
 	
-    public static void main(String[] args)
-    {
-       new EnviarMail();
-    }
+   
 }

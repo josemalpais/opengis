@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+import code.google.com.opengis.gestion.EnviarMail;
 import code.google.com.opengis.gestion.ValidarLogin;
 import code.google.com.opengis.gestionDAO.LoginDao;
 
@@ -45,7 +46,8 @@ public class LoginVisual extends JFrame implements KeyListener{
 		JButton btnBor = new JButton("Borrar");
 		JLabel lblUser = new JLabel("Introduce usuario :");
 		JLabel lblPass = new JLabel("Introduce la contraseña :");
-		JLabel lblRec = new JLabel("RECUPERAR CONTRASEÑA");
+		JButton btnRec = new JButton("RECUPERAR CONTRASEÑA");
+		btnRec.setBorderPainted(false);
 		final JTextField txtUser = new JTextField();
 		final JPasswordField txtPass = new JPasswordField();
 		add(lblUser);
@@ -55,7 +57,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 		add(btnVal);
 		add(btnBor);
 		add(new Label(""));
-		add(lblRec);
+		add(btnRec);
 		txtUser.addKeyListener(this);
 		txtPass.addKeyListener(this);
 		setSize(330,150);
@@ -86,10 +88,20 @@ public class LoginVisual extends JFrame implements KeyListener{
 		
 		btnBor.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-			
+				usuario = txtUser.getText();
+			new EnviarMail(usuario);
 			txtUser.setText("");
 			txtPass.setText("");
 			
+			}
+		});
+		btnRec.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				usuario = txtUser.getText();
+				
+			     new EnviarMail(usuario);
+				
+					
 			}
 		});
 			
