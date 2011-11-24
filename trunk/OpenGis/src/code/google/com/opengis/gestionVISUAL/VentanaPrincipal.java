@@ -185,29 +185,77 @@
         * Método que nos configura la ventana del Trabajador. Vamos a configurarla como un formulario MDI
         */
        private void configVentanaTrabajador(){
-               this.setVisible(true);
+    	   this.setVisible(true);
            this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
            this.setResizable(false); // No se puede redimensionar. Solo minimizar.
-           
+         
+           JPanel pComun = new JPanel();
+           pComun.setLayout(new BoxLayout(pComun,BoxLayout.Y_AXIS));
+         
+         
            panelMDI = new JPanel();
-           panelMDI.setLayout(null);
-           this.add(panelMDI);
+           Dimension panelMDI_maxd = new Dimension(getWidth(),30);
+           panelMDI.setMaximumSize(panelMDI_maxd);
+         
+         
+           FlowLayout fl = new FlowLayout(); // Insertamos el Panel del MDI donde irán los botones
+           panelMDI.setLayout(fl);
+           pComun.add(panelMDI);
+         
+           panelFormularios = new JPanel();
+           panelFormularios.setLayout(null);
+           panelFormularios.setSize(getSize());
+           panelFormularios.setLocation(100,100);
+           pComun.add(panelFormularios);
+     
+           cmdUsuarios = new JButton("Editar Datos");
+           cmdUsuarios.addActionListener(new AccionDeBoton());
+           cmdUsuarios.setPreferredSize(dimension);
+     
+         
+           cmdInformes = new JButton("Informes");
+           cmdInformes.addActionListener(new AccionDeBoton());
+           cmdInformes.setPreferredSize(dimension);
+         
+         
+           cmdAperos = new JButton("Aperos");
+           cmdAperos.addActionListener(new AccionDeBoton());
+           cmdAperos.setPreferredSize(dimension);
+         
+           cmdProductos = new JButton("Productos");
+           cmdProductos.addActionListener(new AccionDeBoton());
+           cmdProductos.setPreferredSize(dimension);
+         
+           cmdTareas = new JButton("Tareas");
+           cmdTareas.addActionListener(new AccionDeBoton());
+           cmdTareas.setPreferredSize(dimension);
+         
+         
+           panelMDI.add(cmdUsuarios);
+           panelMDI.add(cmdInformes);
+           panelMDI.add(cmdAperos);
+           panelMDI.add(cmdProductos);
+           panelMDI.add(cmdTareas);
+
+         
+         
+         this.add(pComun);
+         
+         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
        
-           
-           this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-           
-           //Pregunta si quiere cerrar la sesión al darle a la "X"        
-           this.addWindowListener(new WindowAdapter(){
-                    public void windowClosing(WindowEvent e) {                     
-                            dialog_salir();          
-                    }
-              });
+       
+        //Pregunta si quiere cerrar la sesión al darle a la "X"          
+        this.addWindowListener(new WindowAdapter(){
+               public void windowClosing(WindowEvent e) {              
+                   dialog_salir();          
+               }
+           });
       }
        
        
        
        /**
-        * Método que nos configura la ventana del Trabajador. Vamos a configurarla como un formulario MDI
+        * Método que nos configura la ventana del Dueño. Vamos a configurarla como un formulario MDI
         */
        private void configVentanaDueño(){
                this.setVisible(true);
