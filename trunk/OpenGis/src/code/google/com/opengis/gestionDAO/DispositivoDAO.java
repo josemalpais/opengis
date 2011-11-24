@@ -90,13 +90,14 @@ public class DispositivoDAO {
 		}
 		System.out.println("Enviado: " + iddispositivo + " esperado: "
 				+ resultado);
-		if (resultado == null) {
-			existe = false;
-			System.out.println("El estado de existe es: " + existe);
-		}
-		else if (resultado.equals(iddispositivo)) 
+
+		if (resultado.equals(iddispositivo)) 
 		{
 			existe = true;
+			System.out.println("El estado de existe es: " + existe);
+		}
+		else {
+			existe = false;
 			System.out.println("El estado de existe es: " + existe);
 		}
 		rs.close();
