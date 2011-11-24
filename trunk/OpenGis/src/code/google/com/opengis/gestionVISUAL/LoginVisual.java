@@ -1,6 +1,7 @@
 package code.google.com.opengis.gestionVISUAL;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
@@ -9,7 +10,7 @@ import javax.swing.*;
 import code.google.com.opengis.gestion.ValidarLogin;
 import code.google.com.opengis.gestionDAO.LoginDao;
 
-public class LoginVisual extends JFrame{
+public class LoginVisual extends JFrame implements KeyListener{
 	public LoginVisual(){
 		JFrame ven = new JFrame();
 		cargaObjetos();
@@ -23,16 +24,22 @@ public class LoginVisual extends JFrame{
 	private JLabel lblRec;
 	private JButton btnVal;
 	private JButton btnBor;
+	static String usuario;
+	static String contraseña;
 
 	
-	
+	public void pulsar(KeyEvent evento)
+    {
+      String g = "" + evento.getKeyText( evento.getKeyCode() );
+       System.out.println(g);
+    }
 	/**
 	 * Creamos los botones y demas objetos  el  grindlayout tiene4 filas y 2 columnas
 	 * el boton validar saca la pass de estar encriptada a letras normales
 	 * llama a la clase ValidarLogin
 	 **/
 	public void cargaObjetos(){
-		
+
 		setLayout(new GridLayout(4,2));
 		JButton btnVal = new JButton("Validar");
 		JButton btnBor = new JButton("Borrar");
@@ -49,6 +56,8 @@ public class LoginVisual extends JFrame{
 		add(btnBor);
 		add(new Label(""));
 		add(lblRec);
+		txtUser.addKeyListener(this);
+		txtPass.addKeyListener(this);
 		setSize(330,150);
 		setTitle("Ventana Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,23 +68,19 @@ public class LoginVisual extends JFrame{
 	
 		btnVal.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				String pass;
-				String user;
-				char passArray[] = txtPass.getPassword();
-		        for (int i = 0; i < passArray.length; i++) {
-		            char c = passArray[i];
+				//COPY PASTE
 				
-					}
-		         pass = new String(passArray);
-				 user = txtUser.getText();
-
-		        
-				try {
-					new ValidarLogin(user,pass);
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null,"Error De Conexión");
-					e1.printStackTrace();
-				}   
+				String pass = new String(txtPass.getPassword());
+				System.out.println(pass);
+				 usuario = txtUser.getText();
+				 try {
+						new ValidarLogin(usuario,pass);
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null,"Error De Conexión");
+						e1.printStackTrace();
+					} 
+				
+				
 			}
 		});
 		
@@ -88,5 +93,43 @@ public class LoginVisual extends JFrame{
 			}
 		});
 			
+		
+		
+		
+		
 }
+	@Override
+	public void keyPressed(KeyEvent evento) {
+	/*	int l =  evento.getKeyCode();
+		System.out.println(l);
+		if(l == 10){
+
+			String pass = new String(txtPass.getPassword());
+			System.out.println(pass);
+			 usuario = txtUser.getText();
+			 try {
+					new ValidarLogin(usuario,pass);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null,"Error De Conexión");
+					e1.printStackTrace();
+				} 
+		
+		}*/
+		}
+	
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+		
 	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+		
+	}
+
+    
+	   //peta en el array char... XD
+
+
+}
