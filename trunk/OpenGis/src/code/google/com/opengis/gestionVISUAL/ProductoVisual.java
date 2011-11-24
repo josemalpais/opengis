@@ -1,134 +1,173 @@
 package code.google.com.opengis.gestionVISUAL;
+import java.awt.ComponentOrientation;
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class ProductoVisual extends JInternalFrame implements ActionListener  {
+import code.google.com.opengis.gestion.Producto;
 
-	private JPanel panelProducto;
-	private JPanel panelAltModifProducto;
-		
-	private JLabel lblIdprod;
-	private JLabel lblNombre;
-	private JLabel lblDescripcion;
-	private JLabel lblIdtarea;
-	private JLabel lblTipo;
-	private JLabel lblActivo;
-		
-	private JButton cmdAltas;
-	private JButton cmdBajas;
-	private JButton cmdModificar;
-	private JButton cmdConfirmar;
-	private JButton cmdCancelar;
 
-	private JTextField txtIdprod;
-	private JTextField txtNombre;
-	private JTextField txtDescripcion;
-	private JTextField txtIdtarea;
-	private JTextField txtTipo;
-    //private JTextField txtActivo;
-	private JTextField txtBuscar;
+ 
+public class ProductoVisual {
+    final static boolean shouldFill = true;
+    final static boolean shouldWeightX = true;
+    final static boolean RIGHT_TO_LEFT = false;
+ 
+    public static void addComponentsToPane(Container pane) {
+        if (RIGHT_TO_LEFT) {
+            pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        }
+ 
+        JButton button;
+        JLabel label;
+        JTextField texto;
+        JTextArea textarea;
+        JComboBox combo;
+        JCheckBox check;
+        
+    pane.setLayout(new GridBagLayout());
+    GridBagConstraints c = new GridBagConstraints();
+    if (shouldFill) {
+    //natural height, maximum width
+    c.fill = GridBagConstraints.HORIZONTAL;
+    }
+    c.insets = new Insets(8,8,8,8);
+   // button = new JButton("Button 1");
+    if (shouldWeightX) {
+    c.weightx = 0.5;
+    }
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 0;
+    c.gridy = 0;
+    //pane.add(button, c);
+   
+    label = new JLabel("Producto ID:");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 1;
+    c.gridy = 0;
+    pane.add(label,c);
+   
+    texto = new JTextField(10);
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 2;
+    c.gridy = 0;
+    pane.add(texto, c);
+ 
+    label = new JLabel("Nombre del Producto:");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 1;
+    c.gridy = 1;
+    pane.add(label,c);
+   
+    texto = new JTextField();
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 2;
+    c.gridy = 1;
+    pane.add(texto, c);
 
-public ProductoVisual(int alto, int ancho){
-	super("Usuarios",false, true, true, true);
-	panelProducto =new JPanel();
-	panelProducto.setLayout(null);
-	this.add(panelProducto);
-	
-	
-	
-}
-public void a(){
-	
-//   TEXT FIELD
-	txtIdprod= new JTextField ();
-	txtIdprod.setVisible(true);
-	txtIdprod.setBounds(0,0,0,0);
-	panelAltModifProducto.add(txtIdprod);
-	
-	txtNombre= new JTextField ();
-	txtNombre.setVisible(true);
-	txtNombre.setBounds(0,0,0,0);
-	panelAltModifProducto.add(txtNombre);
-	
-	txtDescripcion= new JTextField ();
-	txtDescripcion.setVisible(true);
-	txtDescripcion.setBounds(0,0,0,0);
-	panelAltModifProducto.add(txtDescripcion);
-	
-	txtIdtarea= new JTextField ();
-	txtIdtarea.setVisible(true);
-	txtIdtarea.setBounds(0,0,0,0);
-	panelAltModifProducto.add(txtIdtarea);
-	
-	txtTipo= new JTextField ();
-	txtTipo.setVisible(true);
-	txtTipo.setBounds(0,0,0,0);
-	panelAltModifProducto.add(txtTipo);
-	
-	txtBuscar= new JTextField ();
-	txtBuscar.setVisible(true);
-	txtBuscar.setBounds(0,0,0,0);
-	panelProducto.add(txtBuscar);
-	
-// BUTTON
-	cmdAltas= new JButton ("Crear");
-	cmdAltas.setVisible(true);
-	cmdAltas.setBounds(0,0,0,0);
-	panelProducto.add(cmdAltas);
-	
-	cmdBajas= new JButton ("Desactivar");
-	cmdBajas.setVisible(true);
-	cmdBajas.setBounds(0,0,0,0);
-	panelProducto.add(cmdBajas);
-	
-	cmdModificar= new JButton ("Modificar");
-	cmdModificar.setVisible(true);
-	cmdModificar.setBounds(0,0,0,0);
-	panelProducto.add(cmdModificar);
-	
-	cmdConfirmar= new JButton ("Confirmar");
-	cmdConfirmar.setVisible(true);
-	cmdConfirmar.setBounds(0,0,0,0);
-	panelAltModifProducto.add(cmdConfirmar);
-	
-	cmdCancelar= new JButton ("Cancelar");
-	cmdCancelar.setVisible(true);
-	cmdCancelar.setBounds(0,0,0,0);
-	panelAltModifProducto.add(cmdCancelar);
-	
-// LABEL
-	lblIdprod = new JLabel ("ID Producto");
-	lblIdprod.setVisible(true);
-	lblIdprod.setBounds(0,0,0,0);
-	panelAltModifProducto.add(lblIdprod);
-	
-	lblNombre = new JLabel ("Nombre");
-	lblNombre.setVisible(true);
-	lblNombre.setBounds(0,0,0,0);
-	panelAltModifProducto.add(lblNombre);
-	
-	lblDescripcion = new JLabel ("Descripcion");
-	lblDescripcion.setVisible(true);
-	lblDescripcion.setBounds(0,0,0,0);
-	panelAltModifProducto.add(lblDescripcion);
-	
-	lblIdtarea = new JLabel ("ID Tarea");
-	lblIdtarea.setVisible(true);
-	lblIdtarea.setBounds(0,0,0,0);
-	panelAltModifProducto.add(lblIdtarea);
-	
-	lblTipo = new JLabel ("Tipo");
-	lblTipo.setVisible(true);
-	lblTipo.setBounds(0,0,0,0);
-	panelAltModifProducto.add(lblTipo);
-	
-}
-@Override
-public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
-	
-}
+    label = new JLabel("Tipo:");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 1;
+    c.gridy = 2;
+    pane.add(label,c);
+   
+    texto = new JTextField();
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 2;
+    c.gridy = 2;
+    pane.add(texto, c);
+   
+    label = new JLabel("Descripción:");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 1;
+    c.gridy = 4;
+    pane.add(label,c);
+   
+    textarea = new JTextArea("",5,10);
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 2;
+    c.gridy = 4;
+    pane.add(textarea, c);
 
+    label = new JLabel ("Tarea:");
+    c.fill= GridBagConstraints.HORIZONTAL;
+    c.gridx = 3;
+    c.gridy= 0;
+    pane.add(label,c);
+    
+    String[] petStrings = { "Arar", "Abonar", "Sembrar"};
+    combo= new JComboBox(petStrings);
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx= 4;
+    c.gridy= 0;
+    pane.add(combo, c);
+    
+    label= new JLabel("Activo");
+    c.fill=GridBagConstraints.HORIZONTAL ;
+    c.gridx=3;
+    c.gridy=1;
+    pane.add(label,c);
+    
+    check =new JCheckBox ();
+    c.fill=GridBagConstraints.HORIZONTAL;
+    c.gridx = 4;
+    c.gridy= 1;
+    pane.add(check,c);
+    
+    button = new JButton("Confirmar");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 1;
+    c.gridy = 5;
+    pane.add(button, c);
+    
+    button = new JButton("Cancelar");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.gridx = 2;
+    c.gridy = 5;
+    pane.add(button, c);
+    }
+   /* button = new JButton("5");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.ipady = 0;       //reset to default
+    c.weighty = 1.0;   //request any extra vertical space
+    c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+    c.insets = new Insets(10,0,0,0);  //top padding
+    c.gridx = 1;       //aligned with button 2
+    c.gridwidth = 2;   //2 columns wide
+    c.gridy = 2;       //third row
+    pane.add(button, c);
+    }*/
+ 
+    /**
+     * Create the GUI and show it.  For thread safety,
+     * this method should be invoked from the
+     * event-dispatching thread.
+     */
+    private static void createAndShowGUI() {
+        //Create and set up the window.
+        JFrame frame = new JFrame("GridBagLayoutDemo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 
+        //Set up the content pane.
+        addComponentsToPane(frame.getContentPane());
+ 
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+ 
+    public static void main(String[] args) {
+        //Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
 }
