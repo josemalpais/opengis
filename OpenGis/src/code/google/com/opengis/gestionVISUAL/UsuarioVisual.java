@@ -107,14 +107,14 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 			double aa = alto/1.7;
 			panelUsuarios.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
 		
-		
+			
 			this.getJScrollPaneTablaUsuarios();
 			//cargarNuevoModificar(panelUsuarios,true);
 			cargarUsuariosPrincipal(panelUsuarios);
 		
 	}
 	
-	public static void cargarUsuariosPrincipal(Container pane){
+	public static void cargarUsuariosPrincipal(final Container pane){
 		JButton boton;
 		JLabel campolbl;
 		pane.setLayout(new GridBagLayout());
@@ -178,6 +178,11 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
 		cButtons.insets = new Insets(0,0,0,0);
 		cButtons.gridx = 0;
 		cButtons.gridy = 7;
+		boton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {			
+				cargarNuevoModificar(pane,false);					
+			}
+		});
 		pane.add(boton, cButtons);
 		
 		boton = new JButton("Modificar");
@@ -207,7 +212,8 @@ public class UsuarioVisual extends JInternalFrame implements ActionListener {
  * @param modificar Indica si vamos a modificar el Usuario (true) o vamos a crear uno nuevo (false)
  */
 	    public static void cargarNuevoModificar(Container pane,boolean modificar) {
-	    	
+	    	pane.removeAll();
+	    	pane.repaint();
 			JButton boton;
 			JLabel campolbl;
 			pane.setLayout(new GridBagLayout());
