@@ -82,9 +82,9 @@ public class Dispositivo {
 	 * @param activo Indica si el dispositivo se encuentra activo o no
 	 * @throws SQLException Nos devuelve por consola un error de SQL en caso de producirse
 	 */
-	public Dispositivo(String iddispositivo, String modelo, String numSerie,
-			boolean disponible, boolean activo){
-		super();
+	public Dispositivo(String iddispositivo, String modelo, String numSerie
+			/*boolean disponible, boolean activo*/){
+		//super();
 		boolean b1 = this.validarDatos(iddispositivo, modelo, numSerie);
 		if (b1 = true) {
 

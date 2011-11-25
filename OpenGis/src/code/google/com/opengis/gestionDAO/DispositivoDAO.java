@@ -142,23 +142,32 @@ public class DispositivoDAO {
 	 */
 	
 	public void borrarDispositivo() throws SQLException {
-		comprobarDispositivo(this.iddispositivo);
-		if (existe == true) {
+		int confirmado = JOptionPane.showConfirmDialog(null,"¿Dar de baja el dispositivo seleccionado?");
+		if (JOptionPane.OK_OPTION == confirmado)
+		{
+			comprobarDispositivo(this.iddispositivo);
+			if (existe == true) {
 
-			String sentencia = "UPDATE dispositivo SET `activo` = '0' , `disponible`= '0' WHERE `iddispositivo` = '"
-					+ this.iddispositivo + "'";
-			dba.modificar(sentencia);
+				String sentencia = "UPDATE dispositivo SET `activo` = '0' , `disponible`= '0' WHERE `iddispositivo` = '"
+						+ this.iddispositivo + "'";
+				dba.modificar(sentencia);
 
-			JOptionPane.showMessageDialog(null,
-					"Dispositivo dado de baja correctamente");
+				JOptionPane.showMessageDialog(null,
+						"Dispositivo dado de baja correctamente");
 
-		} else {
+			} else {
 
-			JOptionPane.showMessageDialog(null, "El dispositivo no existe");
+				JOptionPane.showMessageDialog(null, "El dispositivo no existe");
+			}
+
+			dba.cerrarCon();
 		}
-
-		dba.cerrarCon();
-
+		else
+		{
+			JOptionPane.showMessageDialog(null, "El dispositivo no ha sido dado de baja.");
+		}
+		
+		
 	}
 	public void modificarDispositivo(String modelo, String numSerie) throws SQLException {
 		comprobarDispositivo(this.iddispositivo);
@@ -213,18 +222,15 @@ public class DispositivoDAO {
 
 		dba.cerrarCon();
 		}
-	
-	public static void cojerDatos(String iddispositivo){
-		if (Dispositivo.validarDatos(iddispositivo)==true){
-			try {
-				if (DispositivoDAO.comprobarDispositivo(iddispositivo)==true){
-					
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+	 public static ResultSet buscarDispositivo(String campo, String criterio){
+		 	ResultSet rs = null;
+		 	ConectarDBA.acceder();
+			String sentencia = "SELECT `iddispositivo`, `modelo`, `num_serie`, `disponible`, `activo` FROM `dispositivo` WHERE  `"+campo+"` LIKE '"+criterio+"%'";
+			try{
+			rs = dba.consulta(sentencia);
+			}catch (SQLException e){
+				System.out.println(e);
 			}
-		}
-	}
-	//
-	
+				return rs;	 
+	 }
 }
