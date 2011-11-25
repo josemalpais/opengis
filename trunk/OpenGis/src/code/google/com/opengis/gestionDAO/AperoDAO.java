@@ -97,4 +97,29 @@ public class AperoDAO {
 		}
 		dba.cerrarCon();	
 	}
+	 public static ResultSet buscarApero(String campo, String criterio) throws SQLException{
+		 	ResultSet rs = null;
+		 	ConectarDBA.acceder();
+			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario` FROM `apero` WHERE  `"+campo+"` LIKE '%"+criterio+"%'";
+			try{
+			rs = dba.consulta(sentencia);
+			}catch (SQLException e){
+				System.out.println(e);
+			}	
+			return rs;
+				
+	 }
+		public static void DesactivarApero(String id) throws SQLException{
+			comprobarApero(id);
+			if (existe == true){
+				String sentencia = "UPDATE `apero` SET `activo` = '1' WHERE `idapero` LIKE '"+id+"'";
+				dba.modificar(sentencia);
+				JOptionPane.showMessageDialog(null,"Se ha desactivado el usuario");
+			}
+		}
+			
+			
+			//System.out.println("Ejecutada sentencia "+sentencia);
+		 
+		 
 }
