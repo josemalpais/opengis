@@ -3,6 +3,7 @@ package code.google.com.opengis.gestionVISUAL;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import javax.swing.*;
@@ -46,8 +47,8 @@ public class LoginVisual extends JFrame implements KeyListener{
 		 btnBor = new JButton("Borrar");
 		 lblUser = new JLabel("Introduce usuario :");
 		 lblPass = new JLabel("Introduce la contraseña :");
-		 btnRec = new JButton("recuperar contraseña");
-		 btnRec.setBorderPainted(false);
+		 btnRec = new JButton("Recuperar contraseña");
+		 btnRec.setBorderPainted(true);
 		
 		add(lblUser);
 		add(txtUser);
@@ -95,13 +96,50 @@ public class LoginVisual extends JFrame implements KeyListener{
 			
 			}
 		});
-		btnRec.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent e) {
+		
+		
+		btnRec.addMouseListener(new java.awt.event.MouseListener() {
+
+			////// NO TE ASUSTES DANI! xDD
+			///// Le he puesto MouseListener para cuando le cliques cambie el texto del botón a Enviando... y que el usuario no crea que se ha quedado pillado...
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				
+			
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				btnRec.setText("Enviando...");
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			
+				
 				usuario = txtUser.getText();
 				
 			     new EnviarMail(usuario);
+			     
 				
-					
+				btnRec.setText("Recuperar contraseña");
+				
+				
 			}
 		});
 			
