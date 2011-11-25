@@ -1,15 +1,10 @@
 package code.google.com.opengis.gestionVISUAL;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -269,6 +264,7 @@ public void principalProducto(Container pane){
         pane.add(label,c);
 
         txtDescripcion = new JTextArea("",5,10);
+        txtDescripcion.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 4;
