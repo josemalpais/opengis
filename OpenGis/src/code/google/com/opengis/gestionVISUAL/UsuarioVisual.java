@@ -5,25 +5,21 @@ package code.google.com.opengis.gestionVISUAL;
 
 
 
-import java.awt.Color;
-import java.awt.ComponentOrientation;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,7 +29,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import code.google.com.opengis.gestion.Usuarios;
-import code.google.com.opengis.gestion.ValidarLogin;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 /**
@@ -44,23 +39,14 @@ import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 public class UsuarioVisual extends JInternalFrame{
 	
-	private JPanel panelUsuarios;
-	private static JPanel panelUsuariosCrearMod;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static JPanel panelUsuarios;
+	private static JPanel panelUsuariosCrear;
+	private static JPanel panelUsuariosMod;
 	
-	private JButton cmdNuevoUsuario;
-	private JButton cmdBajaUsuario;
-	private JButton cmdModificarUsuario;
-	private JButton cmdGuardarUsuario;
-	private JButton cmdBuscarUsuario;
-	
-	private JButton cmdAceptarMod;
-	private JButton cmdCancelarMod;
-	
-	private JLabel lblDNI;
-	private JLabel lblEntrada;
-	private JLabel lblEntradaMod;
-	private JLabel lblFotoMod;
-	private JLabel lblDNIMod;
 	
 	private static JTextField txtDNI = new JTextField();
 	private static JTextField txtNombre = new JTextField();
@@ -72,9 +58,7 @@ public class UsuarioVisual extends JInternalFrame{
 	private static JTextField txtCp = new JTextField();
 	private static JTextField txtTlf = new JTextField();
 	private static JTextField txtEmail = new JTextField();
-	private static JTextField txtDNIMod = new JTextField();
 	private static JTextField txtCon = new JTextField();
-	
 	
 	
 	
@@ -100,27 +84,34 @@ public class UsuarioVisual extends JInternalFrame{
 			super.setIconifiable(true); // Indicamos que se puede minimizar
 			panelUsuarios = new JPanel ();
 			panelUsuarios.setLayout(null);
-			panelUsuariosCrearMod = new JPanel ();
-			panelUsuariosCrearMod.setLayout(null);
-			this.add(panelUsuariosCrearMod);
-			panelUsuariosCrearMod.setVisible(false);
+			panelUsuariosCrear = new JPanel ();
+			panelUsuariosCrear.setLayout(null);
+			this.add(panelUsuariosCrear);
+			panelUsuariosCrear.setVisible(false);
+			panelUsuariosMod = new JPanel ();
+			panelUsuariosMod.setLayout(null);
+			this.add(panelUsuariosMod);
+			panelUsuariosMod.setVisible(false);
 			this.add(panelUsuarios);
 			this.setBounds(0,0,ancho,alto);
 			this.setTitle("Usuario");
 			this.setClosable(true);
 			this.setMaximizable(true);
 			TitledBorder jb = new TitledBorder("Gestión de usuarios");
-			TitledBorder jb1 = new TitledBorder("Añadir / Modificar");
+			TitledBorder jb1 = new TitledBorder("Añadir usuarios");
+			TitledBorder jb2 = new TitledBorder("Modificar usuarios");
 			panelUsuarios.setBorder(jb);
-			panelUsuariosCrearMod.setBorder(jb1);
-			double ii = ancho/1.7;
-			double aa = alto/1.7;
+			panelUsuariosCrear.setBorder(jb1);
+			panelUsuariosMod.setBorder(jb2);
 			panelUsuarios.setBounds(new Rectangle(0,0,ancho,alto));
-			panelUsuariosCrearMod.setBounds(new Rectangle(0,0,800,600));
-		
+			panelUsuariosCrear.setBounds(new Rectangle(0,0,800,600));
+			panelUsuariosMod.setBounds(new Rectangle(0,0,800,600));
 			
 			this.getJScrollPaneTablaUsuarios();
 			cargarUsuariosPrincipal(panelUsuarios);
+			panelUsuarios.setVisible(true);
+			cargarNuevoUser(panelUsuariosCrear);
+			cargarModUser(panelUsuariosMod);
 		
 	}
 	
@@ -197,17 +188,6 @@ public class UsuarioVisual extends JInternalFrame{
 				 
 			}
 		});
-		
-
-
-        
-
-        
-
-
-        
-
- 
 		pane.add(boton, cButtons);
 		
 		
@@ -234,8 +214,8 @@ public class UsuarioVisual extends JInternalFrame{
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {			
 				pane.setVisible(false);
-				cargarNuevoModificar(panelUsuariosCrearMod,false);
-				panelUsuariosCrearMod.setVisible(true);
+				cargarNuevoUser(panelUsuariosCrear);
+				panelUsuariosCrear.setVisible(true);
 			}
 		});
 		pane.add(boton, cButtons);
@@ -251,13 +231,17 @@ public class UsuarioVisual extends JInternalFrame{
 		        int fila = jTablaUsuarios.getSelectedRow();
 		        if (fila != -1) {
 		            String[] rUser = new String[10];
-		            for (int i = 0; i < 4; i++) {
+		            for (int i = 0; i < rUser.length; i++) {
 		                rUser[i] = jTablaUsuarios.getValueAt(fila, i).toString();
 		            }
-		            setCampos(rUser);
+		            
 		            pane.setVisible(false);
-					cargarNuevoModificar(panelUsuariosCrearMod,true);
-					panelUsuariosCrearMod.setVisible(true);
+					cargarNuevoUser(panelUsuariosMod);
+					setCampos(rUser);
+					panelUsuariosMod.setVisible(true);
+					limpiarTabla(modelo.getRowCount());
+					
+					
 		        }
 				
 			}
@@ -271,6 +255,22 @@ public class UsuarioVisual extends JInternalFrame{
 		cButtons.gridy = 7;
 		pane.add(boton, cButtons);
 		
+		boton = new JButton("Limpiar Tabla");
+		cButtons.anchor = GridBagConstraints.LINE_START;
+		cButtons.insets = new Insets(0,0,0,0);
+		cButtons.gridx = 4;
+		cButtons.gridy = 7;
+		pane.add(boton, cButtons);
+		boton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {			
+		 
+		        
+					limpiarTabla(modelo.getRowCount());
+					
+		        
+				
+			}
+		});
 			
 		
 
@@ -283,9 +283,221 @@ public class UsuarioVisual extends JInternalFrame{
  * @param pane Indica el contenedor de todos
  * @param modificar Indica si vamos a modificar el Usuario (true) o vamos a crear uno nuevo (false)
  */
-	    public static void cargarNuevoModificar(Container pane,boolean modificar) {
-	    	//pane.removeAll();
-	    	//pane.repaint();
+	    public static void cargarNuevoUser(final Container pane) {
+	    	pane.removeAll();
+	    	pane.repaint();
+			JButton boton;
+			JLabel campolbl;
+			pane.setLayout(new GridBagLayout());
+			Dimension tamañoCaja = new Dimension(100, 20);
+			txtDNI.setPreferredSize(tamañoCaja);
+			txtNombre.setPreferredSize(tamañoCaja);
+			txtApellidos.setPreferredSize(tamañoCaja);
+			txtFNac.setPreferredSize(tamañoCaja);
+			txtDir.setPreferredSize(tamañoCaja);
+			txtPob.setPreferredSize(tamañoCaja);
+			txtProv.setPreferredSize(tamañoCaja);
+			txtCp.setPreferredSize(tamañoCaja);
+			txtCon.setPreferredSize(tamañoCaja);
+			txtTlf.setPreferredSize(tamañoCaja);
+			txtEmail.setPreferredSize(tamañoCaja);
+			
+			//Se crean 3 constraints, uno para cada uso.
+			GridBagConstraints cNText = new GridBagConstraints(); //Cajas de texto
+			GridBagConstraints cNButtons = new GridBagConstraints(); //Botones
+			GridBagConstraints cNLabels = new GridBagConstraints(); //Labels
+			
+			
+			
+						
+			cNLabels.insets = new Insets(8,8,8,8);  //top padding
+			cNLabels.anchor = GridBagConstraints.EAST;
+			cNText.anchor = GridBagConstraints.WEST;
+			cNText.weightx = 0.5;
+			cNText.ipadx = 100;	
+			
+			campolbl = new JLabel("DNI:");
+			cNLabels.weightx = 0.005;
+			cNLabels.gridx = 0;
+			cNLabels.gridy = 0;
+			pane.add(campolbl, cNLabels);
+									
+			cNText.gridx = 1;
+			cNText.gridy = 0;
+			pane.add(txtDNI, cNText);
+
+			
+			campolbl = new JLabel("Nombre:");
+			cNLabels.weightx = 0.005;
+			cNLabels.gridx = 2;
+			cNLabels.gridy = 0;
+			pane.add(campolbl, cNLabels);
+
+			cNText.gridx = 3;
+			cNText.gridy = 0;
+			pane.add(txtNombre, cNText);
+				
+			
+			campolbl = new JLabel("Apellidos:");
+			cNLabels.gridx = 4;
+			cNLabels.gridy = 0;
+			pane.add(campolbl, cNLabels);
+						
+			cNText.gridx = 5;
+			cNText.gridy = 0;
+			pane.add(txtApellidos, cNText);
+			
+			
+			campolbl = new JLabel("Fecha de Nacimiento:");
+			cNLabels.gridx = 0;
+			cNLabels.gridy = 1;
+			pane.add(campolbl, cNLabels);
+						
+			cNText.gridx = 1;
+			cNText.gridy = 1;
+			pane.add(txtFNac, cNText);
+			
+			
+			//Añade JLabel de Teléfono y JTextField de teléfono
+			campolbl = new JLabel("Teléfono:");
+			cNLabels.gridx = 2;
+			cNLabels.gridy = 1;
+			pane.add(campolbl, cNLabels);
+			
+			cNText.gridx = 3;
+			cNText.gridy = 1;
+			pane.add(txtTlf, cNText);
+			
+			
+			campolbl = new JLabel("Dirección:");
+			cNLabels.gridx = 4;
+			cNLabels.gridy = 1;
+			pane.add(campolbl, cNLabels);
+									
+			cNText.gridx = 5;
+			cNText.gridy = 1;
+			pane.add(txtDir, cNText);
+								
+			
+			campolbl = new JLabel("Población:");
+			cNLabels.gridx = 0;
+			cNLabels.gridy = 2;
+			pane.add(campolbl, cNLabels);
+			
+			cNText.gridx = 1;
+			cNText.gridy = 2;
+			pane.add(txtPob, cNText);
+			
+						
+			campolbl = new JLabel("Provincia:");
+			cNLabels.gridx = 2;
+			cNLabels.gridy = 2;
+			pane.add(campolbl, cNLabels);
+						
+			cNText.gridx = 3;
+			cNText.gridy = 2;
+			pane.add(txtProv, cNText);
+			
+			
+			campolbl = new JLabel("CP:");
+			cNLabels.gridx = 4;
+			cNLabels.gridy = 2;
+			pane.add(campolbl, cNLabels);
+						
+			cNText.gridx = 5;
+			cNText.gridy = 2;
+			pane.add(txtCp, cNText);
+			
+			
+			campolbl = new JLabel("Email:");
+			cNLabels.gridx = 0;
+			cNLabels.gridy = 3;
+			pane.add(campolbl, cNLabels);
+			
+			cNText.gridx = 1;
+			cNText.gridy = 3;
+			pane.add(txtEmail, cNText);
+									
+			
+			campolbl = new JLabel("Contraseña:");
+			cNLabels.gridx = 2;
+			cNLabels.gridy = 3;
+			pane.add(campolbl, cNLabels);
+			
+			cNText.gridx = 3;
+			cNText.gridy = 3;
+			pane.add(txtCon, cNText);
+			
+			
+			campolbl = new JLabel("Tipo de usuario");
+			cNLabels.gridx = 4;
+			cNLabels.gridy = 3;
+			pane.add(campolbl, cNLabels);
+			
+			cNText.gridx = 5;
+			cNText.gridy = 3;
+			pane.add(jCmbTipo,cNText);
+			
+			
+			boton = new JButton("Guardar");
+			cNButtons.fill = 0;
+			cNButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
+			cNButtons.insets = new Insets(15,0,0,0);  //top padding
+			cNButtons.gridx = 0;
+			cNButtons.gridy = 5;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
+									
+					Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
+					u.validarDatos();
+					System.out.println(jCmbTipo.getSelectedItem().toString());
+					if (u.getValido()) {
+						u.crearUsuario();
+					}					
+				}
+			});
+			pane.add(boton, cNButtons);
+		
+			
+			boton = new JButton("Limpiar");
+			cNButtons.fill = 0;
+			cNButtons.insets = new Insets(15,15,0,0);  //top padding
+			cNButtons.gridx = 1;
+			cNButtons.gridy = 5;
+			cNButtons.anchor = GridBagConstraints.WEST;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
+									
+					
+					restablecerCampos();
+					JOptionPane.showMessageDialog(null,"Los campos se han restablecido");
+					
+					
+				}
+			});
+			pane.add(boton, cNButtons);
+			
+			boton = new JButton("Volver");
+			cNButtons.fill = 0;
+			cNButtons.insets = new Insets(15,15,0,0);  //top padding
+			cNButtons.gridx = 2;
+			cNButtons.gridy = 5;
+			cNButtons.anchor = GridBagConstraints.WEST;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
+					pane.setVisible(false);
+					panelUsuarios.setVisible(true);	
+					restablecerCampos();
+				}
+			});
+			pane.add(boton, cNButtons);
+			
+
+	}
+	    
+	    public static void cargarModUser(final Container pane) {
+	    	pane.removeAll();
+	    	pane.repaint();
 			JButton boton;
 			JLabel campolbl;
 			pane.setLayout(new GridBagLayout());
@@ -439,47 +651,28 @@ public class UsuarioVisual extends JInternalFrame{
 			pane.add(jCmbTipo,cText);
 			
 			
-			if (modificar != true){
-				boton = new JButton("Guardar");
-				cButtons.fill = 0;
-				cButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
-				cButtons.insets = new Insets(15,0,0,0);  //top padding
-				cButtons.gridx = 0;
-				cButtons.gridy = 5;
-				boton.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent e) {			
-									
-						Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
-						u.validarDatos();
-						System.out.println(jCmbTipo.getSelectedItem().toString());
-						if (u.getValido()) {
-							u.crearUsuario();
-						}					
-					}
-				});
-				pane.add(boton, cButtons);
-			}else{
-				boton = new JButton("Modificar");
-				cButtons.fill = 0;
-				cButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
-				cButtons.insets = new Insets(15,0,0,0);  //top padding
-				cButtons.gridx = 0;
-				cButtons.gridy = 5;
-				boton.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent e) {			
+			
+			boton = new JButton("Modificar");
+			cButtons.fill = 0;
+			cButtons.anchor = GridBagConstraints.PAGE_END; //bottom of space
+			cButtons.insets = new Insets(15,0,0,0);  //top padding
+			cButtons.gridx = 0;
+			cButtons.gridy = 5;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
 										
-						Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
-						u.validarDatos();
-						System.out.println(jCmbTipo.getSelectedItem().toString());
-						if (u.getValido()) {
-							u.modificarUsuario();
-						}
-						
-						
+					Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(), txtDir.getText(), txtPob.getText(),txtProv.getText(), txtCp.getText(), txtFNac.getText(), txtCon.getText(), jCmbTipo.getSelectedItem().toString().toLowerCase(), txtEmail.getText());
+					u.validarDatos();
+					System.out.println(jCmbTipo.getSelectedItem().toString());
+					if (u.getValido()) {
+						u.modificarUsuario();
 					}
-				});
-				pane.add(boton, cButtons);
-			}
+						
+						
+				}
+			});
+			pane.add(boton, cButtons);
+			
 			
 			boton = new JButton("Limpiar");
 			cButtons.fill = 0;
@@ -490,18 +683,7 @@ public class UsuarioVisual extends JInternalFrame{
 			boton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {			
 									
-					txtDNI.setText("");
-					txtNombre.setText("");
-					txtApellidos.setText("");
-					txtFNac.setText("");
-					txtDir.setText("");
-					txtPob.setText("");
-					txtProv.setText("");
-					txtCp.setText("");
-					txtTlf.setText("");
-					txtEmail.setText("");
-					txtCon.setText("");
-					
+					restablecerCampos();					
 					JOptionPane.showMessageDialog(null,"Los campos se han restablecido");
 					
 					
@@ -512,16 +694,14 @@ public class UsuarioVisual extends JInternalFrame{
 			boton = new JButton("Volver");
 			cButtons.fill = 0;
 			cButtons.insets = new Insets(15,15,0,0);  //top padding
-			cButtons.gridx = 1;
+			cButtons.gridx = 2;
 			cButtons.gridy = 5;
 			cButtons.anchor = GridBagConstraints.WEST;
 			boton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {			
-									
-								
-					JOptionPane.showMessageDialog(null,"Los campos se han restablecido");
-					
-					
+					pane.setVisible(false);
+					panelUsuarios.setVisible(true);	
+					restablecerCampos();
 				}
 			});
 			pane.add(boton, cButtons);
@@ -529,77 +709,56 @@ public class UsuarioVisual extends JInternalFrame{
 
 	}
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	/**
-	 *  Este metodo hace que cuando clickes el boton de modificar te lleve a la interface de modificar usuario
-	 */
+  
 	
-	
-	/*public void ModificarUsuario()
-	{
-		
-			panelUsuarios.setVisible(false);
-		  	panelUsuariosmod = new JPanel ();
-			panelUsuariosmod.setLayout(null);			
-			this.setBounds(0,0,this.getWidth(),this.getHeight());
-			this.add(panelUsuariosmod);
-			this.setTitle("Modificar Usuario");
-			//this.setClosable(true);
-			
-			cmdAceptarMod = new JButton("Aceptar");
-			cmdAceptarMod.setVisible(true);
-			cmdAceptarMod.setBounds(this.getWidth() - (this.getWidth() - 800) , this.getHeight() - 150, 110, 30);
-			panelUsuariosmod.add(cmdAceptarMod);
-    		   	
-			cmdCancelarMod = new JButton("Cancelar");
-			cmdCancelarMod.setVisible(true);
-			cmdCancelarMod.setBounds(this.getWidth() - (this.getWidth() - 1000) , this.getHeight() - 150, 110, 30);
-			panelUsuariosmod.add(cmdCancelarMod);			
-
-			lblEntradaMod = new JLabel("Desde esta sección puedes modificar un usuario");
-			lblEntradaMod.setVisible(true);
-			lblEntradaMod.setBounds(425,25, 800, 50);
-			panelUsuariosmod.add(lblEntradaMod);		
-			
-			lblFotoMod = new JLabel();
-			lblFotoMod.setVisible(true);
-			lblFotoMod.setBounds(50,25,100,100);
-			lblFotoMod.setBorder(getBorder());
-			panelUsuariosmod.add(lblFotoMod);
-			
-			lblDNIMod = new JLabel("DNI Usuario");
-			lblDNIMod.setVisible(true);
-			lblDNIMod.setBounds(425,75, 80, 25);
-			panelUsuariosmod.add(lblDNIMod);
-			
-			txtDNIMod = new JTextField();
-			txtDNIMod.setVisible(true);
-			txtDNIMod.setBounds(525,75,80,25);
-			panelUsuariosmod.add(txtDNIMod);
-		
-	}
-	*/
 	
 	public String[] getTipo() {
 		return tipo;
 	}
 	
 	public static void setCampos(String[] rUser){
-		
+		txtDNI.setText(rUser[0]);
+		txtNombre.setText(rUser[1]);
+		txtApellidos.setText(rUser[2]);
+		txtDir.setText(rUser[3]);
+		txtPob.setText(rUser[4]);
+		txtProv.setText(rUser[5]);
+		txtCp.setText(rUser[6]);		
+		txtTlf.setText(rUser[7]);
+		txtEmail.setText(rUser[8]);
+		txtFNac.setText(rUser[9]);
+		txtCon.setText("");
+		for(int i = 0; i < rUser.length; i++){
+			System.out.println(rUser[i]);
+		}
+	}
+	
+	public static void restablecerCampos(){
+		txtDNI.setText("");
+		txtNombre.setText("");
+		txtApellidos.setText("");
+		txtFNac.setText("");
+		txtDir.setText("");
+		txtPob.setText("");
+		txtProv.setText("");
+		txtCp.setText("");
+		txtTlf.setText("");
+		txtEmail.setText("");
+		txtCon.setText("");
 	}
 	public void setTipo(String[] tipo) {
 		this.tipo = tipo;
 	}
 	
+	public static void limpiarTabla(int filas){
+		for (int i = 0; i < filas; i++){
+			modelo.removeRow(0);
+		}
+	}
+	
 	private JScrollPane getJScrollPaneTablaUsuarios() {
 		if (jScrollPaneTablaUsuarios == null) {
-			jScrollPaneTablaUsuarios = new JScrollPane();
+			jScrollPaneTablaUsuarios = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 			//jScrollPaneTablaUsuarios.setBounds(new Rectangle(9, 73, 638, 117));
 			jScrollPaneTablaUsuarios.setViewportView(getJTablaUsuarios());
 		}
