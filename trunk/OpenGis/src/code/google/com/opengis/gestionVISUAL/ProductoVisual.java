@@ -112,7 +112,7 @@ public void principalProducto(Container pane){
      GridBagConstraints c = new GridBagConstraints();
      GridBagConstraints cTabla = new GridBagConstraints();
      if (shouldFill) {
-     //natural height, maximum width
+     
      c.fill = GridBagConstraints.HORIZONTAL;
      }
      c.insets = new Insets(8,8,8,8);
@@ -152,7 +152,9 @@ public void principalProducto(Container pane){
         public void actionPerformed(java.awt.event.ActionEvent e) {                     
                                 panelProducto.hide();
                                 cargarAlta();
-                //abre el panel de Altas
+                                
+                                ProductoDAO.genCodigo();
+                
                 }
         });
         pane.add(cmdCrear, c);
@@ -178,7 +180,7 @@ public void principalProducto(Container pane){
                 public void actionPerformed(java.awt.event.ActionEvent e) {                     
                                                 
                         //desactiva el producto 
-                                //bajaProducto();
+                                
                 }
         });
          pane.add(cmdDesactivar, c);
@@ -228,6 +230,7 @@ public void principalProducto(Container pane){
         pane.add(label,c);
 
         txtIdprod= new JTextField(10);
+      //  txtIdprod.setEditable(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 0;
@@ -301,10 +304,12 @@ public void principalProducto(Container pane){
         c.gridy = 5;
         cmdAceptarAlt.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {     
-                        String cadena= (String) cmbTarea.getSelectedItem();
-                        //      Producto p = new Producto(, txtNombre.getText(), txtTipo.getText(), txtDescripcion.getText(), cadena , chkActivo.get());        
-                //da de altas el producto       
-                        //altaProducto();
+                        
+                        Producto p = new Producto(txtIdprod.getText(), txtNombre.getText(), txtDescripcion.getText(), cmbTarea.getSelectedItem().toString(), txtTipo.getText(), chkActivo.isSelected());        
+                        p.validarDatos();
+                        if (p.getCorrecto()) {
+							p.crearProducto();
+						}					
                 }
         });
         pane.add(cmdAceptarAlt, c);
