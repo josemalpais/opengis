@@ -100,7 +100,7 @@ public class ParcelaDAO extends Parcela{
 	 * Método con el que realizaremos las Modificaciones de parcela
 	 * @throws SQLException
 	 */
-	public void MoficicarUsuario() throws SQLException{
+	public void MoficicarParcela() throws SQLException{
 		comprobar(this.getIdParcela());
 		if (existe == true){
 			consulta = "UPDATE INTO `dai2opengis`.`parcela` (`idparcela` ,`alias` ,`provincia` ,`poblacion` ,`poligono` ,`numero` ,`activo`," +
