@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -31,8 +32,13 @@ public class ProductoVisual extends JInternalFrame {
         private JButton cmdModificar;
         private JButton cmdDesactivar;
         
-        private static JTable tblTabla;
+        private static JTable tblTabla = null;
         private static String[] columnNames = {"ID", "Nombre","Tamaño","Descripción", "Tarea", "Activo"};
+        private static JScrollPane jScrollPaneTablaProductos = null;        
+        static DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+
+
+
         
         private static JTextField txtIdprod;
         private static JTextField txtNombre;
@@ -61,7 +67,7 @@ public ProductoVisual(int ancho, int alto){
         double ii = ancho/1.7;
         double aa = alto/1.7;
         panelProducto.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
-        
+        this.getJScrollPaneTablaUsuarios();
         principalProducto(panelProducto);
    
 }
@@ -85,7 +91,7 @@ final static boolean RIGHT_TO_LEFT = false;
 	        double aa = alto/1.7;
 	        panelProductoAlt.setOpaque(false);
 	        panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
-	        
+
 	        
 	        altas(panelProductoAlt);
 	}
@@ -109,6 +115,7 @@ public void principalProducto(Container pane){
      
      pane.setLayout(new GridBagLayout());
      GridBagConstraints c = new GridBagConstraints();
+     GridBagConstraints cTabla = new GridBagConstraints();
      if (shouldFill) {
      //natural height, maximum width
      c.fill = GridBagConstraints.HORIZONTAL;
@@ -134,16 +141,18 @@ public void principalProducto(Container pane){
         c.gridy = 0;
         pane.add(txtBuscar, c);
         
-        //tblTabla= new JTable(, columnNames);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
-        pane.add(tblTabla, c);
+        tblTabla.setModel(modelo);
+        cTabla.fill = GridBagConstraints.HORIZONTAL;
+        cTabla.gridx = 0;
+        cTabla.gridy = 1;
+        cTabla.gridwidth = 5;
+        cTabla.gridheight = 5;
+        pane.add(jScrollPaneTablaProductos, cTabla);
         
         cmdCrear =new JButton("Nuevo Producto");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 7;
         cmdCrear.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent e) {                     
                                 panelProducto.hide();
@@ -156,7 +165,7 @@ public void principalProducto(Container pane){
          cmdModificar= new JButton("Modificar Producto");
          c.fill = GridBagConstraints.HORIZONTAL;
          c.gridx = 1;
-         c.gridy = 2;
+         c.gridy = 7;
          cmdModificar.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent e) {                    
                                                 
@@ -169,7 +178,7 @@ public void principalProducto(Container pane){
          cmdDesactivar= new JButton("Desactivar Producto");
          c.fill = GridBagConstraints.HORIZONTAL;
          c.gridx = 2;
-         c.gridy = 2;
+         c.gridy = 7;
          cmdDesactivar.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {                     
                                                 
@@ -316,5 +325,24 @@ public void principalProducto(Container pane){
         });
         pane.add(cmdCancelarAlt, c);
  }
+ private JScrollPane getJScrollPaneTablaUsuarios() {
+     if (jScrollPaneTablaProductos == null) {
+             jScrollPaneTablaProductos = new JScrollPane();
+             //jScrollPaneTablaUsuarios.setBounds(new Rectangle(9, 73, 638, 117));
+             jScrollPaneTablaProductos.setViewportView(gettblTabla());
+     }
+     return jScrollPaneTablaProductos;
+}
+ private JTable gettblTabla() {
+     
+     
+     tblTabla = new JTable();
+     tblTabla.setModel(modelo);
+                     
+     
+     
+
+return tblTabla;
+}
 
 }
