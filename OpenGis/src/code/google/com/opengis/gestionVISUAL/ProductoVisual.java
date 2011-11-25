@@ -66,7 +66,7 @@ public ProductoVisual(int ancho, int alto){
         this.setTitle("Producto");
         this.setClosable(true);
         this.setMaximizable(true);
-        TitledBorder jb = new TitledBorder("Añadir / Modificar");
+        TitledBorder jb = new TitledBorder("Gestion de productos");
         panelProducto.setBorder(jb);
         double ii = ancho/1.7;
         double aa = alto/1.7;
@@ -89,12 +89,12 @@ final static boolean RIGHT_TO_LEFT = false;
 	        this.setTitle("Producto");
 	        this.setClosable(true);
 	        this.setMaximizable(true);
-	        TitledBorder jb2 = new TitledBorder("Añadir / Modificar");
+	        TitledBorder jb2 = new TitledBorder("Crear producto");
 	        panelProductoAlt.setBorder(jb2);
-	        double ii = ancho/1.7;
-	        double aa = alto/1.7;
+	        double ii2 = ancho/1.7;
+	        double aa2 = alto/1.7;
 	        panelProductoAlt.setOpaque(false);
-	        panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
+	        panelProductoAlt.setBounds(new Rectangle(0,0,(int)ii2,(int)aa2));
 
 	        
 	        altas(panelProductoAlt);
