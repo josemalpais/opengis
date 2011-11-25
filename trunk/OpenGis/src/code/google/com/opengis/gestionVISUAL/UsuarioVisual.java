@@ -139,7 +139,7 @@ public class UsuarioVisual extends JInternalFrame{
 		cText.gridx = 0;
 		cText.gridy = 0;
 		cText.gridwidth = 2;
-		txtBuscar.setText("Introduzca aquí el criterio");
+		txtBuscar.setText("Introduzca aquí el criterio a buscar");
 		pane.add(txtBuscar, cText);
 		cText.gridwidth = 1;
 		
@@ -264,6 +264,7 @@ public class UsuarioVisual extends JInternalFrame{
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {			
 		 
+					txtBuscar.setText("Introduzca aquí el criterio a buscar");
 		        
 					limpiarTabla(modelo.getRowCount());
 					
@@ -683,7 +684,8 @@ public class UsuarioVisual extends JInternalFrame{
 			boton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {			
 									
-					restablecerCampos();					
+					restablecerCampos();
+					
 					JOptionPane.showMessageDialog(null,"Los campos se han restablecido");
 					
 					
