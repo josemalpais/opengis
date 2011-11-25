@@ -23,7 +23,11 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
+
 import code.google.com.opengis.gestion.Dispositivo;
+import code.google.com.opengis.gestion.Usuarios;
+import code.google.com.opengis.gestionDAO.DispositivoDAO;
 import code.google.com.opengis.gestionDAO.DispositivoDAO;
 
 /**
@@ -118,11 +122,11 @@ public class DispositivoVisual extends JInternalFrame {
 		pane.setLayout(new GridBagLayout());
 		txtBuscar.setPreferredSize(new Dimension(120, 20));
 
-		// Se crean 3 constraints, uno para cada uso.
+		// Se crean 4 constraints, uno para cada uso.
 		GridBagConstraints cText = new GridBagConstraints(); // Cajas de texto
 		GridBagConstraints cButtons = new GridBagConstraints(); // Botones
 		GridBagConstraints cLabels = new GridBagConstraints(); // Labels
-		GridBagConstraints cTabla = new GridBagConstraints();
+		GridBagConstraints cTabla = new GridBagConstraints(); //Tabla
 
 		cLabels.insets = new Insets(8, 8, 8, 8); // top padding
 
@@ -203,53 +207,38 @@ public class DispositivoVisual extends JInternalFrame {
 			}
 		});
 		pane.add(cmdNuevoDispositivo, cButtons);
-
 		
+		//Modificar Dispositivos
 		cmdModificarDispositivo = new JButton("Modificar");
 		cButtons.anchor = GridBagConstraints.WEST;
-		cButtons.insets = new Insets(0, 0, 0, 0);
+		cButtons.insets = new Insets(0,0,0,0);
 		cButtons.gridx = 1;
 		cButtons.gridy = 7;
 		cmdModificarDispositivo.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent e) {
+			public void actionPerformed(java.awt.event.ActionEvent e) {			
 				int fila = jTablaDispositivo.getSelectedRow();
 				if (fila != -1) {
-					String[] rDispositivo = new String[10];
-					int o = 0;
-					for (int i = 0; i < rDispositivo.length; i++) {
-						System.out.println("i = "+i);
-						rDispositivo[i] = jTablaDispositivo.getValueAt(fila, i)
-								.toString();
-						o=i;
+					String[] rDisp = new String[5];
+					
+				for (int i = 0; i < rDisp.length; i++) {
+					rDisp[i] = jTablaDispositivo.getValueAt(fila, i).toString();
 					}
-					o=o+1;
-					System.out.println("o = "+o);
-
-					pane.setVisible(false);
-					o = o+1;
-					System.out.println("o = "+o);
-					cargarModDispositivo(panelDispositivoMod);
-					o = o+1;
-					System.out.println("o = "+o);
-					setCampos(rDispositivo);
-					o = o+1;
-					System.out.println("o = "+o);
-					panelDispositivoMod.setVisible(true);
-					o = o+1;
-					System.out.println("o = "+o);
-					limpiarTabla(modelo.getRowCount());
-					o = o+1;
-					System.out.println("o = "+o);
-					panelDispositivoMod.setVisible(true);
-					o = o+1;
-					System.out.println("o = "+o);
+				panelDispositivo.setVisible(false);
+				panelDispositivoMod.setVisible(true);
+				
+				txtIddispositivo.setText(rDisp[0]);
+				
+				txtIddispositivo.setEditable(false);
+				txtModelo.setText(rDisp[1]);
+				txtNumSerie.setText(rDisp[2]);
+				
 				}
-
+				}
 			}
-		});
+		);
 		pane.add(cmdModificarDispositivo, cButtons);
 
-		
+		//Baja dispositivo
 		cmdBajaDispositivo = new JButton("Desactivar");
 		cButtons.anchor = GridBagConstraints.LINE_START;
 		cButtons.insets = new Insets(0, 0, 0, 0);
@@ -257,12 +246,22 @@ public class DispositivoVisual extends JInternalFrame {
 		cButtons.gridy = 7;
 		cmdBajaDispositivo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				/*DispositivoDAO a = new DispositivoDAO(tabl
+				int fila = jTablaDispositivo.getSelectedRow();
+				if (fila != -1) {
+					String[] rDisp = new String[5];
+					
+				for (int i = 0; i < rDisp.length; i++) {
+					rDisp[i] = jTablaDispositivo.getValueAt(fila, i).toString();
+				}
 				try {
-					a.borrarDispositivo();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}*/
+					DispositivoDAO.borrarDispositivo(rDisp[0]);
+				}
+			 catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+					
+		        }
+				
 			}
 		});
 		
@@ -448,8 +447,11 @@ public class DispositivoVisual extends JInternalFrame {
 	}
 
 	public static void cargarModDispositivo(final Container pane) {
+
+
 		pane.removeAll();
 		pane.repaint();
+		pane.setVisible(false);
 		
 		JButton cmdAceptarMod;
 		JButton cmdCancelarMod;
@@ -483,7 +485,6 @@ public class DispositivoVisual extends JInternalFrame {
 
 		cText.gridx = 1;
 		cText.gridy = 0;
-		txtIddispositivo.setEditable(false);
 		pane.add(txtIddispositivo, cText);
 
 		//creamos el Label y el Campo de texto del "Modelo de dispositivo"
@@ -582,7 +583,11 @@ public class DispositivoVisual extends JInternalFrame {
 	}
 
 	public static void restablecerCampos() {
-		txtIddispositivo.setText("");
+		if (txtIddispositivo.isEditable()==true){
+			txtIddispositivo.setText("");
+			}
+		else{
+		}
 		txtModelo.setText("");
 		txtNumSerie.setText("");
 	}
