@@ -312,7 +312,7 @@ import javax.swing.WindowConstants;
                frmUsuarios = new UsuarioVisual(panelFormularios.getWidth() ,panelFormularios.getHeight()); // Tamaño completo del Formulario
                panelFormularios.add(frmUsuarios);
                
-               frmAperos = new AperoVisual();
+               frmAperos = new AperoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
                panelFormularios.add(frmAperos);
                
                frmProductos = new ProductoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
@@ -359,6 +359,12 @@ import javax.swing.WindowConstants;
 	                    	  cargarFormularios();
 	                    	  frmDispositivos.setVisible(true);
                     	  
+                      }
+                      if(comando.equals("Aperos")){
+                    	  
+                    	  cargarFormularios();
+                    	  frmAperos.setVisible(true);
+                	  
                       }
                      
                      
