@@ -25,31 +25,34 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sun.org.apache.bcel.internal.generic.DDIV;
 
+import code.google.com.opengis.gestion.Apero;
+import code.google.com.opengis.gestionDAO.AperoDAO;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 
 public class AperoVisual extends JInternalFrame implements ActionListener {
 
 	private static final String border = null;
 	private JTextField txtBuscar, txtIdApero, txtNomApero, txtTamApero,
-			txtDescApero;
-	private JComboBox jcbTareaApero;
+			txtDescApero, txtUserApero;
+	private JComboBox jcbTareaApero,jcbBuscarPor;
 	private JButton btnBuscar, btnCrear, btnModificar, btnDesactivar,
 			btnConfirmar, btnCancelar;
-	private JLabel lblBuscar, lblId, lblNom, lblTam, lblDesc, lblTarea;
+	private JLabel lblBuscar, lblId, lblNom, lblTam, lblDesc, lblTarea, lblUser;
 	private DefaultTableModel dtm;
 	private JTable aperos;
 	private JScrollPane scroll;
 	private JPanel jp;
 	private final String[] titulos = { "ID", "Nombre", "Tamaño", "Descripcion",
-			"Tarea" };
+			"Tarea", "Active", "Usuario"};
 	ConectarDBA dba = new ConectarDBA();
 	private JPanel panelBorde;
+	public int contador=0;
 
 	/**
 	 * C O N S T R U C T O R
 	 */
 	public AperoVisual(int ancho, int alto) {
-		super("Aperos", false, true, true, true);
+		super("Aperos", true, true, true, true);
 		// super("Gestion de Academia");
 		// System.out.println("Creado Apero Visual");
 		this.setBounds(new Rectangle(0, 2, ancho, alto));
@@ -74,8 +77,10 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		lblTam.setText("Tamaño:");
 		lblTarea = new JLabel();
 		lblTarea.setText("Tarea:");
+		lblUser = new JLabel();
+		lblUser.setText("Usuario:");
 
-		// COMBOBOX TAREA
+		// COMBOBOX
 		jcbTareaApero = new JComboBox();
 		dba.acceder();
 		String senten = new String("SELECT * FROM tareas");
@@ -93,6 +98,14 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		jcbBuscarPor = new JComboBox();
+		jcbBuscarPor.addItem("IdApero");
+		jcbBuscarPor.addItem("Nombre");
+		jcbBuscarPor.addItem("Tamaño");
+		jcbBuscarPor.addItem("Descripcion");
+		jcbBuscarPor.addItem("Idtarea");
+		jcbBuscarPor.addItem("Dni_Usuario");
 
 		/**
 		 * @author kAStRo Aqui debe haber un metodo que rellene el combobox
@@ -114,6 +127,7 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 
 		// TEXTFIELDS
 		txtBuscar = new JTextField();
+		txtUserApero = new JTextField();
 		txtIdApero = new JTextField();
 		txtNomApero = new JTextField();
 		txtTamApero = new JTextField();
@@ -131,6 +145,7 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		gbc.gridheight = 1;
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
+		gbc.insets = new Insets(0, 0, 5, 0);
 		panelBorde.add(lblId, gbc);
 
 		gbc.gridx = 3;
@@ -138,7 +153,7 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		panelBorde.add(lblNom, gbc);
 
 		gbc.gridx = 0;
-		gbc.gridy = 5;
+		gbc.gridy = 4;
 		panelBorde.add(lblDesc, gbc);
 
 		gbc.gridx = 0;
@@ -148,6 +163,11 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		gbc.gridx = 3;
 		gbc.gridy = 3;
 		panelBorde.add(lblTarea, gbc);
+		
+		gbc.gridx = 3;
+		gbc.gridy = 4;
+		//gbc.anchor = GridBagConstraints.NORTH;
+		panelBorde.add(lblUser, gbc);
 
 		gbc.gridx = 1;
 		gbc.gridy = 1;
@@ -155,6 +175,7 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		Dimension tamtxt = new Dimension(100, 20);
 		txtIdApero.setPreferredSize(tamtxt);
 		panelBorde.add(txtIdApero, gbc);
+		txtIdApero.setEnabled(false);
 
 		gbc.gridx = 4;
 		gbc.gridy = 1;
@@ -169,8 +190,8 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		panelBorde.add(txtTamApero, gbc);
 
 		gbc.gridx = 1;
-		gbc.gridy = 5;
-		gbc.gridwidth = 4;
+		gbc.gridy = 4;
+		gbc.gridwidth = 2;
 		gbc.gridheight = 2;
 		tamtxt = new Dimension(300, 60);
 		txtDescApero.setPreferredSize(tamtxt);
@@ -183,6 +204,11 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		tamtxt = new Dimension(150, 20);
 		jcbTareaApero.setPreferredSize(tamtxt);
 		panelBorde.add(jcbTareaApero, gbc);
+		
+		gbc.gridx=4;
+		gbc.gridy=4;
+		txtUserApero.setPreferredSize(tamtxt);
+		panelBorde.add(txtUserApero,gbc);
 
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.gridx = 3;
@@ -215,23 +241,36 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 
 		gbc2.gridx = 2;
 		gbc2.gridy = 1;
-		gbc2.gridwidth = 3;
+		gbc2.gridwidth = 2;
 		gbc2.gridheight = 1;
-		tamtxt2 = new Dimension(400, 20);
-		gbc2.fill = GridBagConstraints.HORIZONTAL;
+		gbc2.anchor = GridBagConstraints.WEST;
+		tamtxt2 = new Dimension(200, 20);
+		//gbc2.fill = GridBagConstraints.HORIZONTAL;
 		txtBuscar.setPreferredSize(tamtxt2);
 		jp.add(txtBuscar, gbc2);
 
-		gbc2.gridx = 5;
+		gbc2.gridx = 3;
 		gbc2.gridy = 1;
 		gbc2.gridwidth = 1;
 		gbc2.gridheight = 1;
+		gbc2.insets = new Insets(0,5,0,0);
 		tamtxt2 = new Dimension(100, 20);
 		gbc2.anchor = GridBagConstraints.WEST;
 		gbc2.fill = GridBagConstraints.NONE;
 		btnBuscar.setPreferredSize(tamtxt2);
 		jp.add(btnBuscar, gbc2);
-
+		
+		gbc2.gridx = 2;
+		gbc2.gridy = 1;
+		gbc2.gridwidth = 1;
+		gbc2.gridheight = 1;
+		tamtxt2 = new Dimension(100, 20);
+		gbc2.anchor = GridBagConstraints.EAST;
+		gbc2.fill = GridBagConstraints.NONE;
+		gbc2.insets = new Insets(0,100,0,0);
+		jcbBuscarPor.setPreferredSize(tamtxt2);
+		jp.add(jcbBuscarPor, gbc2);
+		gbc2.insets = new Insets(0,0,0,0);
 		gbc2.gridx = 1;
 		gbc2.gridy = 8;
 		gbc2.gridwidth = 1;
@@ -244,18 +283,20 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		gbc2.gridy = 8;
 		gbc2.gridwidth = 1;
 		gbc2.gridheight = 1;
+		gbc2.insets = new Insets(0,5,0,0);
 		gbc2.anchor = GridBagConstraints.WEST;
 		btnModificar.setPreferredSize(tamtxt2);
 		jp.add(btnModificar, gbc2);
-
+		
 		gbc2.gridx = 4;
 		gbc2.gridy = 8;
 		gbc2.gridwidth = 1;
 		gbc2.gridheight = 1;
 		gbc2.anchor = GridBagConstraints.EAST;
 		btnDesactivar.setPreferredSize(tamtxt2);
+		gbc2.insets = new Insets(0,0,0,50);
 		jp.add(btnDesactivar, gbc2);
-
+		gbc2.insets = new Insets(0,0,0,0);
 		TitledBorder jb = new TitledBorder("Añadir / Modificar");
 		int ancho = jp.getWidth();
 		int alto = jp.getHeight();
@@ -278,30 +319,96 @@ public class AperoVisual extends JInternalFrame implements ActionListener {
 		aperos.setBounds(70, 120, 500, 150);
 		scroll = new JScrollPane(aperos);
 		scroll.setBounds(70, 120, 650, 200);
-		aperos.setEnabled(false);
+		//aperos.setEnabled(false);
 		gbc2.gridx = 1;
 		gbc2.gridy = 3;
 		gbc2.gridwidth = 5;
 		gbc2.gridheight = 5;
 		jp.add(scroll, gbc2);
 		this.add(jp);
-		// llenar();
+	}
+	
+	public void llenar(){
+		try {
+			dtm.setColumnCount(0);
+			dtm.setRowCount(0);
+			dtm.setColumnIdentifiers(titulos);
+			ResultSet rs = AperoDAO.buscarApero(jcbBuscarPor.getSelectedItem().toString().toLowerCase(), txtBuscar.getText());
+			int nColumnas = rs.getMetaData().getColumnCount();
+			while (rs.next()) {
+				Object[] fila = {rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4), rs.getObject(5), rs.getObject(6), rs.getObject(7)};
+				
+            	dtm.addRow(fila);
+            }
+            rs.close();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCrear) {
 			panelBorde.setVisible(true);
+			txtIdApero.requestFocus(true);
+			try {
+				String snt = "SELECT MAX(idapero) FROM `apero`";
+				dba.acceder();
+				ResultSet rs2 = dba.consulta(snt);
+				while(rs2.next()){
+					txtIdApero.setText((rs2.getInt(1)+1)+"");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == btnCancelar) {
 			panelBorde.setVisible(false);
 		} else if (e.getSource() == btnModificar) {
 			panelBorde.setVisible(true);
 		} else if (e.getSource() == btnConfirmar) {
-
+			Apero ap = new Apero(Integer.parseInt(txtIdApero.getText()), txtNomApero.getText(), Integer.parseInt(txtTamApero.getText()), txtDescApero.getText(), jcbTareaApero.getSelectedIndex()+1, true, txtUserApero.getText());
+			if(ap.validarDatos(txtIdApero.getText(), txtNomApero.getText(), txtTamApero.getText(), txtDescApero.getText(), (jcbTareaApero.getSelectedIndex()+1)+"", "0", txtUserApero.getText())){
+				System.out.println("vaaaaaaaaa");
+				AperoDAO adao = new AperoDAO(txtIdApero.getText(), txtNomApero.getText(), txtTamApero.getText(), txtDescApero.getText(), (jcbTareaApero.getSelectedIndex()+1)+"", "0", txtUserApero.getText());
+				try {
+					adao.altaApero();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			txtIdApero.setText("");
+			txtNomApero.setText("");
+			txtTamApero.setText("");
+			txtDescApero.setText("");
+			txtUserApero.setText("");
+			panelBorde.setVisible(false);
+			this.llenar();
+			}
+			
 		} else if (e.getSource() == btnDesactivar) {
-
+			int lin = aperos.getSelectedRow();
+			if (lin != -1) {
+				String[] rUser = new String[7];
+				for (int i = 0; i < rUser.length; i++) {
+					rUser[i] = aperos.getValueAt(lin, i).toString();
+				}
+				try {
+					AperoDAO.DesactivarApero(rUser[0]);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				this.llenar();
+			} else if (e.getSource() == btnBuscar) {
+				this.llenar();
+			}
 		} else if (e.getSource() == btnBuscar) {
-
+			this.llenar();
 		}
 
 	}
