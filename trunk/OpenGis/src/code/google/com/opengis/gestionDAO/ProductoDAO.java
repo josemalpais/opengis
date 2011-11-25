@@ -3,21 +3,23 @@ package code.google.com.opengis.gestionDAO;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
+import code.google.com.opengis.gestion.Producto;
+import code.google.com.opengis.gestionVISUAL.ProductoVisual;
 
 public class ProductoDAO {
 	static boolean existe;
 	static String resultado;
 	static ConectarDBA dba = new ConectarDBA();
 	
-	public String idprod;
-	public String nombre;
-	public String descripcion;
-	public String nomtarea;
-	public String tipo;
-	public int activo;
+	private int idprod;
+	private String nombre;
+	private String descripcion;
+	private String nomtarea;
+	private String tipo;
+	private int activo;
 	
 //CONSTRUCTOR
-	public ProductoDAO(String idprod, String nombre, String descripcion, String nomtarea, String tipo, int activo){
+	public ProductoDAO(int idprod, String nombre, String descripcion, String nomtarea, String tipo, int activo){
 	
 	this.idprod=idprod;
 	this.nombre=nombre;
@@ -29,7 +31,7 @@ public class ProductoDAO {
 
 //METODOS
 	//metodo comprobar para modificar
-	public static void comprobarProducto(String idprod) throws SQLException{		
+	public static void comprobarProducto(int idprod) throws SQLException{		
 
 		ConectarDBA.acceder();
 		String sentencia = "SELECT * FROM `producto` WHERE `idprod` LIKE '"+ idprod +"'";
@@ -47,16 +49,14 @@ public class ProductoDAO {
 	
 	//metodo para hacer la sentencia que crea productos
 	public void altaProducto() throws SQLException{
-		comprobarProducto(this.idprod);
-		if (existe == true){ 
-			JOptionPane.showMessageDialog(null,"El producto ya existe");
-		}else{
+		
+		
 			
 			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`tipo` ,`activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.tipo +"','" + this.activo + "')";
 			dba.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
-		}
-		dba.cerrarCon();
+		
+		
 	}
 	
 	//metodo para hacer la sentencia que oculta
@@ -81,36 +81,8 @@ public class ProductoDAO {
 	}
 	
 	//metodos en pruebas, generacion automática de código.
-    public static String genCodigo() {
-        ResultSet rs = buscar(" idprod", "idprod LIKE '%' ORDER BY idprod");
-        String idprod = "";
-        try {
-            rs.last();
-            idprod = rs.getString(1).substring(1);
-            int num=Integer.parseInt(idprod);
-            num++;
-            idprod="P"+num;
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            return idprod;
-        }
-    }
-    public static  ResultSet buscar(String salida, String criterio) {
-    	ConectarDBA.acceder();
-    	ResultSet rs = null;
-        String sentencia = "SELECT " + salida + " FROM producto WHERE " + criterio;
-       
-        try {
-           rs = dba.consulta(sentencia);
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            return rs;
-        }
 
-    }
+
 	
 ////////////////////////
 	
