@@ -46,7 +46,7 @@ public class ProductoVisual extends JInternalFrame {
         private static int variableint=1;
         
 public ProductoVisual(int ancho, int alto){
-        super("Producto",false, true, true, true);
+        
         this.ancho = ancho;
         this.alto = alto;
         panelProducto = new JPanel ();
