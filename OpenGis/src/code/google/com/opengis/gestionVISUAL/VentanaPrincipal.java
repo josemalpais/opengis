@@ -123,7 +123,6 @@ import javax.swing.WindowConstants;
            panelFormularios.setBackground(color);
            panelFormularios.setLayout(null);
            panelFormularios.setSize(getSize());
-           panelFormularios.setLocation(100,100);
            pComun.add(panelFormularios);
          
            cmdPrestamos = new JButton("Prestamos");
@@ -212,7 +211,6 @@ import javax.swing.WindowConstants;
            panelFormularios.setBackground(color);
            panelFormularios.setLayout(null);
            panelFormularios.setSize(getSize());
-           panelFormularios.setLocation(100,100);
            pComun.add(panelFormularios);
      
            cmdUsuarios = new JButton("Editar Datos");
@@ -340,6 +338,8 @@ import javax.swing.WindowConstants;
                       System.out.println(comando);
                      
                       if(comando.equals("Usuarios")){
+                    	
+                    	  	  cargarFormularios();
                              
                               frmUsuarios.setVisible(true);
                              
@@ -348,6 +348,7 @@ import javax.swing.WindowConstants;
                       if(comando.equals("Productos")){
                              
                              
+                    	  	  cargarFormularios();
                               frmProductos.setVisible(true);
                              
                              
@@ -355,7 +356,8 @@ import javax.swing.WindowConstants;
                       
                       if(comando.equals("Dispositivos")){
                     	  
-                    	  frmDispositivos.setVisible(true);
+	                    	  cargarFormularios();
+	                    	  frmDispositivos.setVisible(true);
                     	  
                       }
                      
