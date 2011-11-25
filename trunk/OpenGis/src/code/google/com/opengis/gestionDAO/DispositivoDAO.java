@@ -141,15 +141,15 @@ public class DispositivoDAO {
 	 * EXISTA, Y MODIFICANDO SU CAMPO "ACTIVO" A FALSO.
 	 */
 	
-	public void borrarDispositivo() throws SQLException {
+	public static void borrarDispositivo(String id) throws SQLException {
 		int confirmado = JOptionPane.showConfirmDialog(null,"¿Dar de baja el dispositivo seleccionado?");
 		if (JOptionPane.OK_OPTION == confirmado)
 		{
-			comprobarDispositivo(this.iddispositivo);
+			comprobarDispositivo(id);
 			if (existe == true) {
 
 				String sentencia = "UPDATE dispositivo SET `activo` = '0' , `disponible`= '0' WHERE `iddispositivo` = '"
-						+ this.iddispositivo + "'";
+						+ id+ "'";
 				dba.modificar(sentencia);
 
 				JOptionPane.showMessageDialog(null,
