@@ -2,19 +2,29 @@ package code.google.com.opengis.gestionVISUAL;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.Document;
 
 
 
 import code.google.com.opengis.gestion.Producto;
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.ProductoDAO;
 
  
 public class ProductoVisual extends JInternalFrame {
+	
+		static String resultado;
+		static ConectarDBA dba = new ConectarDBA();
+		
+		private int limit;
+	    private boolean toUppercase = false;
 
 		private int ancho;
 		private int alto;
@@ -70,7 +80,6 @@ final static boolean shouldWeightX = true;
 final static boolean RIGHT_TO_LEFT = false;
 
 	public void cargarAlta(){
-			
 		    panelProductoAlt = new JPanel ();
 	        panelProductoAlt.setLayout(null);
 	        panelProductoAlt.getBounds(panelProducto.getBounds());
@@ -148,10 +157,29 @@ public void principalProducto(Container pane){
         c.gridy = 7;
         cmdCrear.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent e) {                     
-                                panelProducto.hide();
+                          		panelProducto.hide();
                                 cargarAlta();
                                 
-                                ProductoDAO.genCodigo();
+                                
+            try {
+           	 
+           	 	dba.acceder();
+                ResultSet rs = dba.consulta("SELECT MAX(idprod) FROM producto");
+                Integer idprod;
+                
+                rs.next();
+                idprod = rs.getInt(1);
+                
+                if(idprod==null){
+               	 
+               	 idprod = 0;
+               	 
+                }
+                txtIdprod.setText(idprod+1+"");
+            } catch (SQLException e2) {
+                System.out.println(e2.getMessage());
+            }
+                                
                 
                 }
         });
@@ -224,7 +252,7 @@ public void principalProducto(Container pane){
         pane.add(label,c);
 
         txtIdprod= new JTextField(10);
-      //  txtIdprod.setEditable(false);
+        txtIdprod.setEditable(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 0;
@@ -262,10 +290,14 @@ public void principalProducto(Container pane){
 
         txtDescripcion = new JTextArea("",5,10);
         txtDescripcion.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        c.fill = GridBagConstraints.HORIZONTAL;
+        txtDescripcion.setLineWrap(true);
+        txtDescripcion.setPreferredSize(new Dimension(300, 20));
+        
+        c.fill = GridBagConstraints.NONE;
         c.gridx = 2;
         c.gridy = 4;
         pane.add(txtDescripcion, c);
+        
 
         label = new JLabel ("Tarea:");
         c.fill= GridBagConstraints.HORIZONTAL;
@@ -301,13 +333,19 @@ public void principalProducto(Container pane){
                         if (chkActivo.isSelected()){
                         	variableint=0;
                         }else{
-                        	variableint=0;
+                        	variableint=1;
                         }
-                        Producto p = new Producto(txtIdprod.getText(), txtNombre.getText(), txtDescripcion.getText(), cmbTarea.getSelectedItem().toString(), txtTipo.getText(), variableint);        
+                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbTarea.getSelectedItem().toString(), txtTipo.getText(), variableint);        
                         p.validarDatos();
                         if (p.getCorrecto()) {
 							p.crearProducto();
-						}					
+						}	
+                        try {
+							dba.cerrarCon();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
                 }
         });
         pane.add(cmdAceptarAlt, c);
@@ -338,10 +376,8 @@ public void principalProducto(Container pane){
      tblTabla = new JTable();
      tblTabla.setModel(modelo);
                      
-     
-     
-
 return tblTabla;
 }
 
-}
+     
+ }
