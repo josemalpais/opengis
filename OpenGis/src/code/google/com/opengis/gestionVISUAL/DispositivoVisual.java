@@ -112,6 +112,7 @@ public class DispositivoVisual extends JInternalFrame {
 		JButton cmdLimpiar;
 		JButton cmdOcupar;
 		JButton cmdLiberar;
+		JButton cmdReactivarDispositivo;
 		
 		JLabel campolbl;
 		pane.setLayout(new GridBagLayout());
@@ -242,8 +243,9 @@ public class DispositivoVisual extends JInternalFrame {
 		cmdBajaDispositivo = new JButton("Desactivar");
 		cButtons.anchor = GridBagConstraints.LINE_START;
 		cButtons.insets = new Insets(0, 0, 0, 0);
+		cmdBajaDispositivo.setPreferredSize(new Dimension(100,26));
 		cButtons.gridx = 3;
-		cButtons.gridy = 7;
+		cButtons.gridy = 8;
 		cmdBajaDispositivo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				int fila = jTablaDispositivo.getSelectedRow();
@@ -266,6 +268,36 @@ public class DispositivoVisual extends JInternalFrame {
 		});
 		
 		pane.add(cmdBajaDispositivo, cButtons);
+		
+		//Reactivación dispositivo
+		cmdReactivarDispositivo = new JButton("Reactivar");
+		cButtons.anchor = GridBagConstraints.LINE_START;
+		cButtons.insets = new Insets(0, 0, 0, 0);
+		cButtons.gridx = 3;
+		cButtons.gridy = 7;
+		cmdReactivarDispositivo.setPreferredSize(new Dimension(100,26));
+		cmdReactivarDispositivo.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				int fila = jTablaDispositivo.getSelectedRow();
+				if (fila != -1) {
+					String[] rDisp = new String[5];
+					
+				for (int i = 0; i < rDisp.length; i++) {
+					rDisp[i] = jTablaDispositivo.getValueAt(fila, i).toString();
+				}
+				try {
+					DispositivoDAO.reactivarDispositivo(rDisp[0]);
+				}
+			 catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+					
+		        }
+				
+			}
+		});
+		
+		pane.add(cmdReactivarDispositivo, cButtons);
 
 		
 		cmdLimpiar = new JButton("Limpiar Tabla");
@@ -312,6 +344,7 @@ public class DispositivoVisual extends JInternalFrame {
 		cButtons.insets = new Insets(0,87, 0, 0);
 		cButtons.gridx = 1;
 		cButtons.gridy = 8;
+		cmdLiberar.setPreferredSize(new Dimension(156,26));
 		pane.add(cmdLiberar, cButtons);
 		cmdLiberar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
