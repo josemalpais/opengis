@@ -6,8 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -23,11 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
 import code.google.com.opengis.gestion.Dispositivo;
-import code.google.com.opengis.gestion.Usuarios;
-import code.google.com.opengis.gestionDAO.DispositivoDAO;
 import code.google.com.opengis.gestionDAO.DispositivoDAO;
 
 /**
@@ -79,22 +73,27 @@ public class DispositivoVisual extends JInternalFrame {
 		super.setIconifiable(true); // Indicamos que se puede minimizar
 		panelDispositivo = new JPanel();
 		panelDispositivo.setLayout(null);
+		this.add(panelDispositivo);
+		
 		panelDispositivoCrear = new JPanel();
 		panelDispositivoCrear.setLayout(null);
 		this.add(panelDispositivoCrear);
 		panelDispositivoCrear.setVisible(false);
+		
 		panelDispositivoMod = new JPanel();
 		panelDispositivoMod.setLayout(null);
 		this.add(panelDispositivoMod);
 		panelDispositivoMod.setVisible(false);
-		this.add(panelDispositivo);
+		
 		this.setBounds(0, 0, ancho, alto);
 		this.setTitle("Dispositivo");
 		this.setClosable(true);
 		this.setMaximizable(true);
+		
 		TitledBorder jb = new TitledBorder("Gestión de Dispositivo");
 		TitledBorder jb1 = new TitledBorder("Añadir Dispositivo");
 		TitledBorder jb2 = new TitledBorder("Modificar Dispositivo");
+		
 		panelDispositivo.setBorder(jb);
 		panelDispositivoCrear.setBorder(jb1);
 		panelDispositivoMod.setBorder(jb2);
@@ -111,7 +110,8 @@ public class DispositivoVisual extends JInternalFrame {
 	}
 
 	public static void cargarDispositivosPrincipal(final Container pane) {
-		
+		pane.removeAll();
+		pane.repaint();
 		JButton cmdBuscar;
 		JButton cmdNuevoDispositivo;
 		JButton cmdModificarDispositivo;
@@ -223,14 +223,18 @@ public class DispositivoVisual extends JInternalFrame {
 				for (int i = 0; i < rDisp.length; i++) {
 					rDisp[i] = jTablaDispositivo.getValueAt(fila, i).toString();
 					}
+				cargarModDispositivo(panelDispositivoMod);
 				panelDispositivo.setVisible(false);
 				panelDispositivoMod.setVisible(true);
+						
+				
 				
 				txtIddispositivo.setText(rDisp[0]);
 				
 				txtIddispositivo.setEditable(false);
 				txtModelo.setText(rDisp[1]);
 				txtNumSerie.setText(rDisp[2]);
+				
 				
 				}
 				}
@@ -447,16 +451,14 @@ public class DispositivoVisual extends JInternalFrame {
 	}
 
 	public static void cargarModDispositivo(final Container pane) {
-
-
 		pane.removeAll();
 		pane.repaint();
-		pane.setVisible(false);
 		
+		//Botones para la alta de dispositivos
 		JButton cmdAceptarMod;
-		JButton cmdCancelarMod;
+		JButton cmdCancelarAlta;
 		JButton cmdLimpiar;
-
+		
 		JLabel campolbl;
 		pane.setLayout(new GridBagLayout());
 		Dimension tamañoCaja = new Dimension(100, 20);
@@ -464,57 +466,60 @@ public class DispositivoVisual extends JInternalFrame {
 		txtModelo.setPreferredSize(tamañoCaja);
 		txtNumSerie.setPreferredSize(tamañoCaja);
 
-
 		// Se crean 3 constraints, uno para cada uso.
-		GridBagConstraints cText = new GridBagConstraints(); // Cajas de texto
-		GridBagConstraints cButtons = new GridBagConstraints(); // Botones
-		GridBagConstraints cLabels = new GridBagConstraints(); // Labels
+		GridBagConstraints cNText = new GridBagConstraints(); // Cajas de texto
+		GridBagConstraints cNButtons = new GridBagConstraints(); // Botones
+		GridBagConstraints cNLabels = new GridBagConstraints(); // Labels
 
-		cLabels.insets = new Insets(8, 8, 8, 8); // top padding
-		cLabels.anchor = GridBagConstraints.EAST;
-		cText.anchor = GridBagConstraints.WEST;
-		cText.weightx = 0.5;
-		cText.ipadx = 100;
+		cNLabels.insets = new Insets(8, 8, 8, 8); // top padding
+		cNLabels.anchor = GridBagConstraints.EAST;
+		cNText.anchor = GridBagConstraints.WEST;
+		cNText.weightx = 0.5;
+		cNText.ipadx = 100;
 
-		//creamos el Label y el Campo de texto del "ID de dispositivo"
 		campolbl = new JLabel("ID de Dispositivo:");
-		cLabels.weightx = 0.005;
-		cLabels.gridx = 0;
-		cLabels.gridy = 0;
-		pane.add(campolbl, cLabels);
+		cNLabels.weightx = 0.005;
+		cNLabels.gridx = 0;
+		cNLabels.gridy = 0;
+		pane.add(campolbl, cNLabels);
 
-		cText.gridx = 1;
-		cText.gridy = 0;
-		pane.add(txtIddispositivo, cText);
+		cNText.gridx = 1;
+		cNText.gridy = 0;
+		txtIddispositivo.setEditable(true);
+		pane.add(txtIddispositivo, cNText);
 
-		//creamos el Label y el Campo de texto del "Modelo de dispositivo"
 		campolbl = new JLabel("Modelo:");
-		cLabels.weightx = 0.005;
-		cLabels.gridx = 2;
-		cLabels.gridy = 0;
-		pane.add(campolbl, cLabels);
+		cNLabels.weightx = 0.005;
+		cNLabels.gridx = 2;
+		cNLabels.gridy = 0;
+		pane.add(campolbl, cNLabels);
 
-		cText.gridx = 3;
-		cText.gridy = 0;
-		pane.add(txtModelo, cText);
+		cNText.gridx = 3;
+		cNText.gridy = 0;
+		pane.add(txtModelo, cNText);
 
-		//creamos el Label y el Campo de texto del "Número de Serie de dispositivo"
-		campolbl = new JLabel("Número de Serie:");
-		cLabels.gridx = 4;
-		cLabels.gridy = 0;
-		pane.add(campolbl, cLabels);
+		campolbl = new JLabel("Numero de Serie:");
+		cNLabels.gridx = 4;
+		cNLabels.gridy = 0;
+		pane.add(campolbl, cNLabels);
 
-		cText.gridx = 5;
-		cText.gridy = 0;
-		pane.add(txtNumSerie, cText);
+		cNText.gridx = 5;
+		cNText.gridy = 0;
+		pane.add(txtNumSerie, cNText);
 
-		//activamos el botón que aceptará los cambios en el Dispositivo
-		cmdAceptarMod = new JButton("Modificar");
-		cButtons.fill = 0;
-		cButtons.anchor = GridBagConstraints.PAGE_END; // bottom of space
-		cButtons.insets = new Insets(15, 0, 0, 0); // top padding
-		cButtons.gridx = 0;
-		cButtons.gridy = 5;
+		
+		cNText.gridx = 5;
+		cNText.gridy = 3;
+
+		
+		//activo el botón "Aceptar" de la alta de dispositivo
+		cmdAceptarMod = new JButton("Guardar");
+		cNButtons.fill = 0;
+		cNButtons.anchor = GridBagConstraints.PAGE_END; // bottom of space
+		cNButtons.insets = new Insets(15, 0, 0, 0); // top padding
+		cNButtons.gridx = 0;
+		cNButtons.gridy = 5;
+		
 		cmdAceptarMod.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 
@@ -536,15 +541,17 @@ public class DispositivoVisual extends JInternalFrame {
 
 			}
 		});
-		pane.add(cmdAceptarMod, cButtons);
+		
+		pane.add(cmdAceptarMod, cNButtons);
 
-		//activamos el botón que limpiará los campos de texto
+		
+		//activo el botón limpiar campos de alta de dispositivo
 		cmdLimpiar = new JButton("Limpiar");
-		cButtons.fill = 0;
-		cButtons.insets = new Insets(15, 15, 0, 0); // top padding
-		cButtons.gridx = 1;
-		cButtons.gridy = 5;
-		cButtons.anchor = GridBagConstraints.WEST;
+		cNButtons.fill = 0;
+		cNButtons.insets = new Insets(15, 15, 0, 0); // top padding
+		cNButtons.gridx = 1;
+		cNButtons.gridy = 5;
+		cNButtons.anchor = GridBagConstraints.WEST;
 		cmdLimpiar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 
@@ -554,23 +561,27 @@ public class DispositivoVisual extends JInternalFrame {
 
 			}
 		});
-		pane.add(cmdLimpiar, cButtons);
+		
+		pane.add(cmdLimpiar, cNButtons);
 
-		//activamos el botón que Cancelará la modificación de dispositivo
-		cmdCancelarMod = new JButton("Volver");
-		cButtons.fill = 0;
-		cButtons.insets = new Insets(15, 15, 0, 0); // top padding
-		cButtons.gridx = 2;
-		cButtons.gridy = 5;
-		cButtons.anchor = GridBagConstraints.WEST;
-		cmdCancelarMod.addActionListener(new java.awt.event.ActionListener() {
+		
+		//activo el botón "Volver" de la alta de dispositivo
+		cmdCancelarAlta = new JButton("Volver");
+		cNButtons.fill = 0;
+		cNButtons.insets = new Insets(15, 15, 0, 0); // top padding
+		cNButtons.gridx = 2;
+		cNButtons.gridy = 5;
+		cNButtons.anchor = GridBagConstraints.WEST;
+		cmdCancelarAlta.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				pane.setVisible(false);
 				panelDispositivo.setVisible(true);
 				restablecerCampos();
+				pane.removeAll();
 			}
 		});
-		pane.add(cmdCancelarMod, cButtons);
+		pane.add(cmdCancelarAlta, cNButtons);
+
 	}
 
 	public static void setCampos(String[] rUser) {
