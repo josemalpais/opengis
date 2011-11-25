@@ -13,6 +13,7 @@ import code.google.com.opengis.gestion.Dispositivo;
  * 
  */
 
+
 public class DispositivoDAO {
 
 	static boolean existe;
@@ -22,6 +23,7 @@ public class DispositivoDAO {
 	private String iddispositivo;
 	private String modelo;
 	private String numSerie;
+	
 
 	/**
 	 * ***************GETTERS Y SETTERS
@@ -84,6 +86,7 @@ public class DispositivoDAO {
 		ConectarDBA.acceder();
 		String sentencia = "SELECT * FROM `dispositivo` WHERE `iddispositivo` LIKE '"+iddispositivo+"'";
 		ResultSet rs = dba.consulta(sentencia);
+		
 		while (rs.next()) {
 			resultado = rs.getString(1);
 			System.out.println(resultado);
@@ -187,11 +190,11 @@ public class DispositivoDAO {
 		dba.cerrarCon();
 
 	}
-	public void disponibleNo() throws SQLException {
-		comprobarDispositivo(this.iddispositivo);
+	public static void disponibleNo(String id) throws SQLException {
+		comprobarDispositivo(id);
 		if (existe == true) {
 			
-			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '0' WHERE `dispositivo`.`iddispositivo` =" + this.iddispositivo;
+			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '0' WHERE `dispositivo`.`iddispositivo` =" + id;
 			dba.modificar(sentencia);
 			
 			JOptionPane.showMessageDialog(null,
@@ -205,11 +208,11 @@ public class DispositivoDAO {
 		dba.cerrarCon();
 
 	}
-	public void disponibleSi() throws SQLException {
-		comprobarDispositivo(this.iddispositivo);
+	public static void disponibleSi(String id) throws SQLException {
+		comprobarDispositivo(id);
 		if (existe == true) {
 			
-			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '1' WHERE `dispositivo`.`iddispositivo` =" + this.iddispositivo;
+			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '1' WHERE `dispositivo`.`iddispositivo` =" + id;
 			dba.modificar(sentencia);
 			
 			JOptionPane.showMessageDialog(null,

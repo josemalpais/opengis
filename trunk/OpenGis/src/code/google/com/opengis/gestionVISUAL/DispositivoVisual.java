@@ -56,13 +56,6 @@ public class DispositivoVisual extends JInternalFrame {
 	static Object[] nombreColumna = { "Id Dispositivo", "Modelo", "Numero Serie", "Disponible", "Activo" };
 	static DefaultTableModel modelo = new DefaultTableModel(nombreColumna, 0);
 
-	//botones de gestión de dispositivos
-	
-	private JButton cmdLiberarDispositivo;
-	private JButton cmdOcuparDispositivo;
-	
-	
-
 	/**
 	 * Constructor de la clase DisopsitivoVisual. Se le pasarán los parametros
 	 * necesarios para construir el alto y el ancho.
@@ -117,6 +110,8 @@ public class DispositivoVisual extends JInternalFrame {
 		JButton cmdModificarDispositivo;
 		JButton cmdBajaDispositivo;
 		JButton cmdLimpiar;
+		JButton cmdOcupar;
+		JButton cmdLiberar;
 		
 		JLabel campolbl;
 		pane.setLayout(new GridBagLayout());
@@ -160,6 +155,7 @@ public class DispositivoVisual extends JInternalFrame {
 		cButtons.gridy = 0;
 		cmdBuscar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
+				
 				try {
 					modelo.setColumnCount(0);
 					modelo.setRowCount(0);
@@ -181,7 +177,6 @@ public class DispositivoVisual extends JInternalFrame {
 					System.out.println(e1);
 
 				}
-
 			}
 		});
 		pane.add(cmdBuscar, cButtons);
@@ -285,6 +280,56 @@ public class DispositivoVisual extends JInternalFrame {
 
 			}
 		});
+		
+		cmdOcupar = new JButton("Ocupar Dispositivo");
+		cButtons.anchor = GridBagConstraints.LINE_START;
+		cButtons.insets = new Insets(0, 0, 0, 0);
+		cButtons.gridwidth = 2;
+		cButtons.gridx = 0;
+		cButtons.gridy = 8;
+		cmdOcupar.setPreferredSize(new Dimension(156,26));
+		pane.add(cmdOcupar, cButtons);
+		cmdOcupar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+
+				int fila = jTablaDispositivo.getSelectedRow();
+				if (fila != -1) {
+					String rDisp ;
+					rDisp = jTablaDispositivo.getValueAt(fila, 0).toString();
+					
+				try {
+					DispositivoDAO.disponibleNo(rDisp);
+				}
+			 catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+			}
+			}});
+		cmdLiberar = new JButton("Liberar Dispositivo");
+		cButtons.anchor = GridBagConstraints.LINE_START;
+		cButtons.insets = new Insets(0,87, 0, 0);
+		cButtons.gridx = 1;
+		cButtons.gridy = 8;
+		pane.add(cmdLiberar, cButtons);
+		cmdLiberar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+
+				int fila = jTablaDispositivo.getSelectedRow();
+				if (fila != -1) {
+					String rDisp ;
+					rDisp = jTablaDispositivo.getValueAt(fila, 0).toString();
+					
+				try {
+					DispositivoDAO.disponibleSi(rDisp);
+					
+				}
+			 catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+			}
+			}});
 
 	}
 
@@ -632,4 +677,6 @@ public class DispositivoVisual extends JInternalFrame {
 		return jTablaDispositivo;
 	}
 
+	
+	
 }
