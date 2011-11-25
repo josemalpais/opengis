@@ -19,7 +19,7 @@ public class Parcela {
 	private String numero; //numero de la parcela
 	private boolean activo; //nos avisara si la parcela esta activa o no, a los ojos del usuario
 	private String partida; //identificador de parcela a nivel localidad
-	private String dnipropietario; //dni del propietario de la parcela
+	private String dniPropietario; //dni del propietario de la parcela
 	
 	// C O N S T R U C T O R
 	public Parcela(int idparcela, String alias, String provincia, String poblacion, String poligono, String numero,
@@ -146,7 +146,7 @@ public class Parcela {
 		}
 	}
 	public String getDniPropietario() {
-		return dnipropietario;
+		return dniPropietario;
 	}
 	/**
 	 * Método encargado de asignar el dnipropietario a la parcela, recibiremos un string de 8 carácteres, y cargaremos uno de 9
@@ -215,7 +215,7 @@ public class Parcela {
 		aux2=dni.charAt(dni.length()-1)+"";
 		
 		if(arrayLetra[pletra].equalsIgnoreCase(aux2)){
-			dnipropietario= aux + arrayLetra[pletra];//lo colocamos en formato de 9 carácteres
+			dniPropietario= aux + arrayLetra[pletra];//lo colocamos en formato de 9 carácteres
 			return true;
 		}else{
 			JOptionPane.showMessageDialog(null, "EL NUMERO QUE HA INTRODUCIDO NO SE CORRESPONDE CON LA LETRA");
