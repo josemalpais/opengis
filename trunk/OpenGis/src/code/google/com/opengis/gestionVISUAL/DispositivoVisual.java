@@ -198,6 +198,7 @@ public class DispositivoVisual extends JInternalFrame {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				pane.setVisible(false);
 				cargarNuevoDispositivo(panelDispositivoCrear);
+				txtIddispositivo.setText("");
 				panelDispositivoCrear.setVisible(true);
 			}
 		});
