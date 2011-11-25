@@ -43,7 +43,8 @@ import javax.swing.WindowConstants;
             private UsuarioVisual frmUsuarios;
             private ProductoVisual frmProductos;
             private DispositivoVisual frmDispositivos;
-     
+            private ParcelaVisual frmParcelas;
+            
             private JButton cmdPrestamos;
             private JButton cmdUsuarios;
             private JButton cmdInformes;
@@ -321,6 +322,8 @@ import javax.swing.WindowConstants;
                frmDispositivos = new DispositivoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
                panelFormularios.add(frmDispositivos);
                
+               frmParcelas = new ParcelaVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
+               panelFormularios.add(frmParcelas);            
        }
      
        /**
@@ -366,7 +369,12 @@ import javax.swing.WindowConstants;
                     	  frmAperos.setVisible(true);
                 	  
                       }
-                     
+                      if(comando.equals("Parcelas")){
+                    	  
+                    	  cargarFormularios();
+                    	  frmParcelas.setVisible(true);
+                	  
+                      }
                      
                      
                      
