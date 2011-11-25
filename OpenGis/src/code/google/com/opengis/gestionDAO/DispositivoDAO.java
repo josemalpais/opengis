@@ -87,6 +87,7 @@ public class DispositivoDAO {
 		String sentencia = "SELECT * FROM `dispositivo` WHERE `iddispositivo` LIKE '"+iddispositivo+"'";
 		ResultSet rs = dba.consulta(sentencia);
 		
+		resultado = "";
 		while (rs.next()) {
 			resultado = rs.getString(1);
 			System.out.println(resultado);
