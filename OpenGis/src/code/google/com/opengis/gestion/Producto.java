@@ -8,7 +8,7 @@ import code.google.com.opengis.gestionDAO.ProductoDAO;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 public class Producto {
-	private String idprod;
+	private int idprod;
 	private String nombre;
 	private String descripcion;
 	private String nomtarea;
@@ -17,7 +17,7 @@ public class Producto {
 	private ProductoDAO x;
 	private Boolean correcto;
 //CONSTRUCTOR
-	public Producto(String idprod, String nombre,String descripcion,String nomtarea, String tipo, int activo) {
+	public Producto(int idprod, String nombre,String descripcion,String nomtarea, String tipo, int activo) {
 		
 	this.idprod=idprod;
 	this.nombre=nombre;
@@ -30,11 +30,11 @@ public class Producto {
 	
 //   G E T T E R    &    S E T T E R
 	//IDPRODUCTO
-	public String getIdprod() {
+	public int getIdprod() {
 		return idprod;
 	}
 
-	public void setIdprod(String idprod) {
+	public void setIdprod(int idprod) {
 		String str= idprod+"";
 		if((str.length()>1)&&(str.length()<9)){ //comprobamos que idprod tenga entre 1 y 8 digitos
 			this.idprod = idprod;
@@ -68,7 +68,7 @@ public class Producto {
 		}
 	}
 	
-	//IDTAREA 
+	//NomTarea
 	public String getNomtarea() {
 		return nomtarea;
 	}
