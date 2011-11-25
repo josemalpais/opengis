@@ -452,7 +452,7 @@ public class UsuarioVisual extends JInternalFrame{
 					u.validarDatos();
 					System.out.println(jCmbTipo.getSelectedItem().toString());
 					if (u.getValido()) {
-						u.crearUsuario();
+						u.modificarUsuario();
 					}					
 				}
 			});
