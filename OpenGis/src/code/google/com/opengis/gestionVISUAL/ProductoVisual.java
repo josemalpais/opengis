@@ -65,6 +65,7 @@ public ProductoVisual(int ancho, int alto){
         this.setBounds(0,0,ancho,alto);
         this.setTitle("Producto");
         this.setClosable(true);
+        this.setMaximizable(true);
         TitledBorder jb = new TitledBorder("Añadir / Modificar");
         panelProducto.setBorder(jb);
         double ii = ancho/1.7;
@@ -87,6 +88,7 @@ final static boolean RIGHT_TO_LEFT = false;
 	        this.setBounds(0,0,ancho,alto);
 	        this.setTitle("Producto");
 	        this.setClosable(true);
+	        this.setMaximizable(true);
 	        TitledBorder jb2 = new TitledBorder("Añadir / Modificar");
 	        panelProductoAlt.setBorder(jb2);
 	        double ii = ancho/1.7;
