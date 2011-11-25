@@ -14,10 +14,10 @@ public class ProductoDAO {
 	public String descripcion;
 	public String nomtarea;
 	public String tipo;
-	public boolean activo;
+	public int activo;
 	
 //CONSTRUCTOR
-	public ProductoDAO(String idprod, String nombre, String descripcion, String nomtarea, String tipo, boolean activo){
+	public ProductoDAO(String idprod, String nombre, String descripcion, String nomtarea, String tipo, int activo){
 	
 	this.idprod=idprod;
 	this.nombre=nombre;
@@ -28,6 +28,7 @@ public class ProductoDAO {
 	}
 
 //METODOS
+	//metodo comprobar para modificar
 	public static void comprobarProducto(String idprod) throws SQLException{		
 
 		ConectarDBA.acceder();
@@ -44,12 +45,13 @@ public class ProductoDAO {
 		rs.close();
 	}
 	
-	
+	//metodo para hacer la sentencia que crea productos
 	public void altaProducto() throws SQLException{
 		comprobarProducto(this.idprod);
 		if (existe == true){ 
 			JOptionPane.showMessageDialog(null,"El producto ya existe");
 		}else{
+			
 			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`tipo` ,`activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.tipo +"','" + this.activo + "')";
 			dba.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
@@ -57,7 +59,7 @@ public class ProductoDAO {
 		dba.cerrarCon();
 	}
 	
-	
+	//metodo para hacer la sentencia que oculta
 	public void borrarProducto() throws SQLException {
 		comprobarProducto(this.idprod);
 		if (existe == true) {
@@ -78,7 +80,7 @@ public class ProductoDAO {
 
 	}
 	
-	
+	//metodos en pruebas, generacion automática de código.
     public static String genCodigo() {
         ResultSet rs = buscar(" idprod", "idprod LIKE '%' ORDER BY idprod");
         String idprod = "";
@@ -110,7 +112,7 @@ public class ProductoDAO {
 
     }
 	
-	
+////////////////////////
 	
 	
 	
