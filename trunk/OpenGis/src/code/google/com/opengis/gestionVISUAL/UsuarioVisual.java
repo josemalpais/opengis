@@ -253,7 +253,31 @@ public class UsuarioVisual extends JInternalFrame{
 		cButtons.insets = new Insets(0,0,0,0);
 		cButtons.gridx = 3;
 		cButtons.gridy = 7;
+		boton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {			
+		 
+		        int fila = jTablaUsuarios.getSelectedRow();
+		        if (fila != -1) {
+		            String[] rUser = new String[10];
+		            for (int i = 0; i < rUser.length; i++) {
+		                rUser[i] = jTablaUsuarios.getValueAt(fila, i).toString();
+		            }
+		            try {
+						UsuariosDAO.DesactivarUsuario(rUser[0]);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		           
+					
+					
+		        }
+				
+			}
+		});
 		pane.add(boton, cButtons);
+		
+		
 		
 		boton = new JButton("Limpiar Tabla");
 		cButtons.anchor = GridBagConstraints.LINE_START;

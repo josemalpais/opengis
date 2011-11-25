@@ -18,7 +18,8 @@ import javax.swing.JOptionPane;
 public class UsuariosDAO {
 
 	static boolean existe;
-	static String resultado;
+	static boolean activo;
+	static String resultado[];
 	static ConectarDBA dba = new ConectarDBA();
 	
 	private String Dni;
@@ -80,20 +81,32 @@ public static void comprobarUsuario(String dni) throws SQLException{
 		
 		
 		ConectarDBA.acceder();
-		String sentencia = "SELECT * FROM `usuario` WHERE `dni` LIKE '"+dni+"'";
+		String sentencia = "SELECT `dni`, `activo` FROM `usuario` WHERE `dni` LIKE '"+dni+"'";
 		ResultSet rs = dba.consulta(sentencia);
+		resultado = new String[2];
+		activo = false;
 		while(rs.next()){
 			System.out.println("Ejecuto el while");
-			resultado = rs.getString(1);
+			
+				resultado[0] = rs.getString(1);
+				System.out.println(resultado[0]);
+				resultado[1] = rs.getString(2);
+				System.out.println(resultado[1]);
+
+			
 
 		}
 			
-			System.out.println("Enviado: "+dni+" esperado: "+resultado);
-			if(resultado == null){
+			System.out.println("Enviado: "+dni+" esperado: "+resultado[0].toString());
+			if(resultado[0] == null){
 				existe = false;
 				System.out.println("El estado de existe es: "+existe);
-			}else if (resultado.equals(dni)){
+			}else if (resultado[0].equals(dni)){
 				existe = true;
+				if (resultado[1].equals("0")){
+					activo = true;	
+				}
+				System.out.println("El estado de activo es: "+activo);
 				System.out.println("El estado de existe es: "+existe);
 			}
 		
@@ -104,16 +117,16 @@ public static void comprobarUsuario(String dni) throws SQLException{
 	}
 
 
- public static ResultSet buscarUsuario(String campo, String criterio){
+ public static ResultSet buscarUsuario(String campo, String criterio) throws SQLException{
 	 	ResultSet rs = null;
 	 	ConectarDBA.acceder();
-		String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia` , `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`    FROM `usuario` WHERE  `"+campo+"` LIKE '"+criterio+"%'";
+		String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia` , `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`    FROM `usuario` WHERE  `"+campo+"` LIKE '"+criterio+"%' AND `activo` LIKE '0'";
 		try{
 		rs = dba.consulta(sentencia);
 		}catch (SQLException e){
 			System.out.println(e);
-		}
-			return rs;
+		}	
+		return rs;
 			
 		
 		
@@ -200,10 +213,18 @@ public static void comprobarUsuario(String dni) throws SQLException{
 			JOptionPane.showMessageDialog(null,"El DNI no existe");
 			
 		}
-		
+		dba.cerrarCon();
 	}
 
-	
+	public static void DesactivarUsuario(String dni) throws SQLException{
+		System.out.println(dni);
+		comprobarUsuario(dni);
+		if (existe == true && activo == true){
+			String sentencia = "UPDATE `usuario` SET `activo` = '1' WHERE `dni` LIKE '"+dni+"'";
+			dba.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,"Se ha desactivado el usuario");
+		}
+	}
 	
 	
 	
