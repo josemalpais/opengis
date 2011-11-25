@@ -32,9 +32,6 @@ public class ProductoVisual extends JInternalFrame {
         private static JScrollPane jScrollPaneTablaProductos = null;        
         static DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
 
-
-
-        
         private static JTextField txtIdprod;
         private static JTextField txtNombre;
         private static JTextField txtTipo;
@@ -46,6 +43,7 @@ public class ProductoVisual extends JInternalFrame {
         private static String[] tipo = { "Arar", "Abonar", "Sembrar"};
         
         private static JCheckBox chkActivo;
+        private static int variableint=1;
         
 public ProductoVisual(int ancho, int alto){
         super("Producto",false, true, true, true);
@@ -201,16 +199,12 @@ public void principalProducto(Container pane){
          txtTipo= new JTextField();
      txtDescripcion= new JTextArea();
      cmbTarea= new JComboBox();
-    
-                 
-     
-     
+   
      chkActivo= new JCheckBox();
      
      pane.setLayout(new GridBagLayout());
      GridBagConstraints c = new GridBagConstraints();
      if (shouldFill) {
-         //natural height, maximum width
          c.fill = GridBagConstraints.HORIZONTAL;
      }
      c.insets = new Insets(8,8,8,8);
@@ -304,8 +298,12 @@ public void principalProducto(Container pane){
         c.gridy = 5;
         cmdAceptarAlt.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {     
-                        
-                        Producto p = new Producto(txtIdprod.getText(), txtNombre.getText(), txtDescripcion.getText(), cmbTarea.getSelectedItem().toString(), txtTipo.getText(), chkActivo.isSelected());        
+                        if (chkActivo.isSelected()){
+                        	variableint=0;
+                        }else{
+                        	variableint=0;
+                        }
+                        Producto p = new Producto(txtIdprod.getText(), txtNombre.getText(), txtDescripcion.getText(), cmbTarea.getSelectedItem().toString(), txtTipo.getText(), variableint);        
                         p.validarDatos();
                         if (p.getCorrecto()) {
 							p.crearProducto();
