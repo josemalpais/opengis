@@ -173,6 +173,30 @@ public class DispositivoDAO {
 		
 		
 	}
+	public static void reactivarDispositivo(String id) throws SQLException {
+		
+		
+			comprobarDispositivo(id);
+			if (existe == true) {
+
+				String sentencia = "UPDATE dispositivo SET `activo` = '1' , `disponible`= '1' WHERE `iddispositivo` = '"
+						+ id+ "'";
+				dba.modificar(sentencia);
+
+				JOptionPane.showMessageDialog(null,
+						"Dispositivo reactivado correctamente");
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "El dispositivo no existe");
+			}
+
+			dba.cerrarCon();
+		}
+		
+		
+		
+	
 	public void modificarDispositivo(String modelo, String numSerie) throws SQLException {
 		comprobarDispositivo(this.iddispositivo);
 		if (existe == true) {
