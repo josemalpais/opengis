@@ -13,11 +13,11 @@ public class Producto {
 	private String descripcion;
 	private String nomtarea;
 	private String tipo;
-	private boolean activo;
+	private int activo;
 	private ProductoDAO x;
 	private Boolean correcto;
 //CONSTRUCTOR
-	public Producto(String idprod, String nombre,String descripcion,String nomtarea, String tipo, boolean activo) {
+	public Producto(String idprod, String nombre,String descripcion,String nomtarea, String tipo, int activo) {
 		
 	this.idprod=idprod;
 	this.nombre=nombre;
@@ -82,11 +82,11 @@ public class Producto {
 		}
 	}
 	//ACTIVO
-	public boolean isActiv_Apero() {
+	public int isActiv_Apero() {
 		return activo;
 	}
 
-	public void setActiv_Apero(boolean activo) {
+	public void setActiv_Apero(int activo) {
 		this.activo = activo;
 	}
 //Datos correctos
