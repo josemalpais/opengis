@@ -135,7 +135,7 @@ public class DispositivoVisual extends JInternalFrame {
 		cText.gridx = 0;
 		cText.gridy = 0;
 		cText.gridwidth = 2;
-		txtBuscar.setText("Introduzca aquí el criterio");
+		txtBuscar.setText("");
 		pane.add(txtBuscar, cText);
 		cText.gridwidth = 1;
 
@@ -157,27 +157,7 @@ public class DispositivoVisual extends JInternalFrame {
 		cmdBuscar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				
-				try {
-					modelo.setColumnCount(0);
-					modelo.setRowCount(0);
-					ResultSet rs = DispositivoDAO.buscarDispositivo(jCmbCriterio.getSelectedItem().toString(), txtBuscar.getText().toLowerCase());
-					int nColumnas = rs.getMetaData().getColumnCount();
-					modelo.setColumnIdentifiers(nombreColumna);
-					while (rs.next()) {
-						Object[] registro = new Object[nColumnas];
-
-						for (int i = 0; i < nColumnas; i++) {
-							registro[i] = rs.getObject(i + 1);
-
-						}
-						modelo.addRow(registro);
-
-					}
-					rs.close();
-				} catch (SQLException e1) {
-					System.out.println(e1);
-
-				}
+				actualizar();
 			}
 		});
 		pane.add(cmdBuscar, cButtons);
@@ -257,6 +237,7 @@ public class DispositivoVisual extends JInternalFrame {
 				}
 				try {
 					DispositivoDAO.borrarDispositivo(rDisp[0]);
+					actualizar();
 				}
 			 catch (SQLException e1) {
 				e1.printStackTrace();
@@ -287,6 +268,7 @@ public class DispositivoVisual extends JInternalFrame {
 				}
 				try {
 					DispositivoDAO.reactivarDispositivo(rDisp[0]);
+					actualizar();
 				}
 			 catch (SQLException e1) {
 				e1.printStackTrace();
@@ -332,6 +314,7 @@ public class DispositivoVisual extends JInternalFrame {
 					
 				try {
 					DispositivoDAO.disponibleNo(rDisp);
+					actualizar();
 				}
 			 catch (SQLException e1) {
 				e1.printStackTrace();
@@ -356,7 +339,7 @@ public class DispositivoVisual extends JInternalFrame {
 					
 				try {
 					DispositivoDAO.disponibleSi(rDisp);
-					
+					actualizar();
 				}
 			 catch (SQLException e1) {
 				e1.printStackTrace();
@@ -523,6 +506,7 @@ public class DispositivoVisual extends JInternalFrame {
 				pane.setVisible(false);
 				panelDispositivo.setVisible(true);
 				restablecerCampos();
+				actualizar();
 			}
 		});
 		pane.add(cmdCancelarAlta, cNButtons);
@@ -657,6 +641,7 @@ public class DispositivoVisual extends JInternalFrame {
 				panelDispositivo.setVisible(true);
 				restablecerCampos();
 				pane.removeAll();
+				actualizar();
 			}
 		});
 		pane.add(cmdCancelarAlta, cNButtons);
@@ -711,6 +696,29 @@ public class DispositivoVisual extends JInternalFrame {
 		return jTablaDispositivo;
 	}
 
-	
+	public static void actualizar(){
+		
+		try {
+			modelo.setColumnCount(0);
+			modelo.setRowCount(0);
+			ResultSet rs = DispositivoDAO.buscarDispositivo(jCmbCriterio.getSelectedItem().toString(), txtBuscar.getText().toLowerCase());
+			int nColumnas = rs.getMetaData().getColumnCount();
+			modelo.setColumnIdentifiers(nombreColumna);
+			while (rs.next()) {
+				Object[] registro = new Object[nColumnas];
+
+				for (int i = 0; i < nColumnas; i++) {
+					registro[i] = rs.getObject(i + 1);
+
+				}
+				modelo.addRow(registro);
+
+			}
+			rs.close();
+		} catch (SQLException e1) {
+			System.out.println(e1);
+
+		}
+	}
 	
 }
