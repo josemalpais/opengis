@@ -11,12 +11,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -24,6 +27,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import code.google.com.opengis.gestion.Parcela;
 import code.google.com.opengis.gestionDAO.ProductoDAO;
 /**
  * Clase Visual de Parcela, con la que realizaremos altas, bajas y modificaciones.
@@ -47,6 +51,7 @@ public class ParcelaVisual extends JInternalFrame {
 	private JButton btnModi;
 	private JButton btnDesactivar;
 	private boolean b=false;
+	private Font miFuente= new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16);
 	
 	private String[] columnas = {"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"};
 	private Object[][]data={{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"}};
@@ -56,13 +61,15 @@ public class ParcelaVisual extends JInternalFrame {
 	private JButton btnAltaPa=new JButton("Alta");
 	private JButton btnVolverPa=new JButton("Volver");
 
-	private JComboBox estadoCB,modeloCB;
+	private JComboBox provinciaCB;
+	private JComboBox modeloCB;
 	private JLabel tituloAlta=new JLabel("ALTA   PARCELA");
 	private JLabel id=new JLabel("Id Parcela:");
     private JLabel alias=new JLabel("Alias:");
     private JLabel provincia=new JLabel("Provincia:");
     private JLabel poblacion=new JLabel("Población");
     private JLabel poligono=new JLabel("Polígono:");
+    private JLabel partida=new JLabel("Partida:");
     private JLabel numero=new JLabel("Número:");
     private JLabel estado=new JLabel("Estado:");
     private JLabel dnip= new JLabel("DNI:");
@@ -71,9 +78,10 @@ public class ParcelaVisual extends JInternalFrame {
     private JTextField textalias=new JTextField();
     private JTextField textpoblacion=new JTextField();
     private JTextField textpoligono=new JTextField();
+    private JTextField textpartida=new JTextField();
     private JTextField textnumero=new JTextField();
 	private JTextField textdnip= new JTextField();
-    private DefaultComboBoxModel dc1,dc2;
+    private DefaultComboBoxModel dc1;
 	private GridBagLayout gbl;
 	
 	//PMODIFICACION
@@ -90,15 +98,19 @@ public class ParcelaVisual extends JInternalFrame {
     private JLabel poligonom=new JLabel("Polígono:");
     private JLabel numerom=new JLabel("Número:");
     private JLabel estadom=new JLabel("Estado:");
+    private JLabel partidam=new JLabel("Partida:");
     private JLabel dnipm= new JLabel("DNI:");
+    private JCheckBox chkActivo=new JCheckBox("Activo",true);
     
-    private JTextField textIdm=new JTextField();
-    private JTextField textaliasm=new JTextField();
-    private JTextField textpoblacionm=new JTextField();
-    private JTextField textpoligonom=new JTextField();
-    private JTextField textnumerom=new JTextField();
-	private JTextField textdnipm= new JTextField();
+    private JTextField textIdm=new JTextField("");
+    private JTextField textaliasm=new JTextField("");
+    private JTextField textpoblacionm=new JTextField("");
+    private JTextField textpoligonom=new JTextField("");
+    private JTextField textnumerom=new JTextField("");
+    private JTextField textpartidam=new JTextField();
+	private JTextField textdnipm= new JTextField("");
     private DefaultComboBoxModel dc1m,dc2m;
+    private JCheckBox chkActivom=new JCheckBox("Activo",true);
 	private GridBagLayout gblm;
 	
 	/**
@@ -114,92 +126,34 @@ public class ParcelaVisual extends JInternalFrame {
 		//this.add(tabbed);
 		panelGestion= new JPanel();
 		//this.JTabbedPanePrincipal();
-		
 		dibujarPanelAlta();
 		dibujarPanelModificacion();
 		dibujarPanelGestion();
-		this.add(panelGestion);	
 	}
-	
 	//public void JTabbedPanePrincipal(){
 	    //tabbed.add("GESTION PARCELA",panelGestion);
     	//tabbed.add("ALTA PARCELA",panelAlta);
 	//}
 	
-
-	//PANEL GESTION
 	/**
-	 * Clase sin parametros que nos dibuja el contenido del Panel Gestión.
+	 * Vaciar el contenido de los campos del formulario
 	 */
-	private void dibujarPanelGestion() {
-		resolucionOS();
-		txtbuscar = new JTextField();
-		scrollPane1 = new JScrollPane(tablabuscar,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		tablabuscar = new JTable(data,columnas);
-		btnBuscar = new JButton("BUSCAR");
-		btnAlta = new JButton("ALTA");
-		btnModi = new JButton("MODIFICACION");
-		btnDesactivar = new JButton("BAJA");
-		
-		int anchuraTabla = getAnchura()-300;
-		int alturaTabla=getAltura()-500;
-		int anchuraTxtBuscar=360;
-	    int fila1= (((getAltura())/2)-(alturaTabla/2)); // Fila de inicio
-	    int columna1=((getAnchura()/2)-(anchuraTabla/2));//columna de inicio
-
-	    panelGestion.setLayout(null);
-	    
-	  //CARGAMOS LOS COMPONENTES
-	    panelGestion.add(titulo);
-		titulo.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 26));
-		titulo.setBounds(getAnchura()/2-70 ,getAnchura()-getAnchura()+20, 770, 20);
-
-		panelGestion.add(txtbuscar);
-		txtbuscar.setBounds(columna1, fila1-20-30, anchuraTxtBuscar, 30);
-		
-			scrollPane1.setViewportView(tablabuscar);
-			panelGestion.add(scrollPane1);
-		scrollPane1.setBounds(columna1, fila1, anchuraTabla, alturaTabla);
-		
-		panelGestion.add(btnBuscar);
-		btnBuscar.setBounds(columna1+anchuraTabla-100, fila1-20-30, 100, 30);
-		btnBuscar.addActionListener(new java.awt.event.ActionListener() {	
-	        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-
-	        	
-	    }});
-
-		panelGestion.add(btnAlta);
-		btnAlta.setBounds(columna1, fila1+alturaTabla+20, 65, 30);                  
-		btnAlta.addActionListener(new java.awt.event.ActionListener() {	
-        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-        	panelGestion.setVisible(false);	
-        	add(panelAlta);
-        	panelAlta.setVisible(true);
-        }});  
-		
-		panelGestion.add(btnModi);
-		btnModi.setBounds(columna1+ 75,fila1+alturaTabla+20, 110, 30);
-		btnModi.addActionListener(new java.awt.event.ActionListener() {	
-	        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-	        	panelGestion.setVisible(false);	
-	        	add(panelModificacion);
-	        	panelModificacion.setVisible(true);
-	        	
-	    }});
-		
-		panelGestion.add(btnDesactivar);
-		btnDesactivar.setBounds(columna1+anchuraTabla-65, fila1+alturaTabla+20, 65, 30);
-		btnDesactivar.addActionListener(new java.awt.event.ActionListener() {	
-	        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-
-	        	
-	    }});
-		
+	public void limpiarFormMod(){
+    	textIdm.setText("");
+    	textaliasm.setText("");
+    	textpoblacionm.setText("");
+    	textpoligonom.setText("");
+    	textnumerom.setText("");
+    	textdnipm.setText("");
 	}
-	
+	public void limpiarFormAltas(){
+    	textId.setText("");
+    	textalias.setText("");
+    	textpoblacion.setText("");
+    	textpoligono.setText("");
+    	textnumero.setText("");
+    	textdnip.setText("");
+	}
 	/**
 	 * Método que nos calcula la resolución del sistema Operativo.
 	 */
@@ -216,38 +170,84 @@ public class ParcelaVisual extends JInternalFrame {
 		return anchura;
 	}
 	
-	
-	//Alta
 	/**
 	 * Método que nos dibuja el contenido del Panel ALta.
 	 */
 	public void dibujarPanelAlta(){
 		panelAlta= new JPanel();
 		this.add(panelAlta);
-		panelAlta.setVisible(false);
+		//panelAlta.setVisible(false);
 		
 		//COMBOBOX DE MODELO
-		dc1 = new DefaultComboBoxModel();//POR HACER
-		dc1.addElement("Valencia");
-		dc1.addElement("Madrid");
-		dc1.addElement("Barcelona");
-		estadoCB=new JComboBox(dc1);
 		
-		dc2 = new DefaultComboBoxModel();
-		dc2.addElement("Activo");
-		dc2.addElement("Inactivo");
-		modeloCB=new JComboBox(dc2);
+		dc1 = new DefaultComboBoxModel();
+		dc1.addElement("Álava");
+		dc1.addElement("Albacete");
+		dc1.addElement("Alicante");
+		dc1.addElement("Almería");
+		dc1.addElement("Asturias");
+		dc1.addElement("Avila");
+		dc1.addElement("Badajoz");
+		dc1.addElement("Barcelona");
+		dc1.addElement("Burgos");
+		dc1.addElement("Cáceres");
+		dc1.addElement("Cadiz");
+		dc1.addElement("Cantabria");
+		dc1.addElement("Castellón");
+		dc1.addElement("Ceuta");
+		dc1.addElement("Ciudad Real");
+		dc1.addElement("Córdoba");
+		dc1.addElement("Cuenca");
+		dc1.addElement("Gerona");
+		dc1.addElement("Granada");
+		dc1.addElement("Guadalajara");
+		dc1.addElement("Guipúzcoa");
+		dc1.addElement("Huelva");
+		dc1.addElement("Huesca");
+		dc1.addElement("Islas Baleares");
+		dc1.addElement("Jaén");
+		dc1.addElement("La Coruña");
+		dc1.addElement("La Rioja");
+		dc1.addElement("Las Palmas");
+		dc1.addElement("León");
+		dc1.addElement("Lérida");
+		dc1.addElement("Lugo");
+		dc1.addElement("Madrid");
+		dc1.addElement("Málaga");
+		dc1.addElement("Melilla");
+		dc1.addElement("Murcia");
+		dc1.addElement("Navarra");
+		dc1.addElement("Orense");
+		dc1.addElement("Palencia");
+		dc1.addElement("Pontevedra");
+		dc1.addElement("Tenerife");
+		dc1.addElement("Salamanca");
+		dc1.addElement("Segovia");
+		dc1.addElement("Sevilla");
+		dc1.addElement("Soria");
+		dc1.addElement("Tarragona");
+		dc1.addElement("Teruel");
+		dc1.addElement("Toledo");
+		dc1.addElement("Valencia");
+		dc1.addElement("Valladolid");
+		dc1.addElement("Vizcaya");
+		dc1.addElement("Zamora");
+		dc1.addElement("Zaragoza");
+		
+		
+		provinciaCB=new JComboBox(dc1);
 		
 		//DISEÑO FUENTES
 	    tituloAlta.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 26));
-		id.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-		alias.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-		provincia.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-		poblacion.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-		poligono.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-		numero.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-		estado.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-		dnip.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
+		id.setFont(miFuente);
+		alias.setFont(miFuente);
+		provincia.setFont(miFuente);
+		poblacion.setFont(miFuente);
+		poligono.setFont(miFuente);
+		numero.setFont(miFuente);
+		partida.setFont(miFuente);
+		estado.setFont(miFuente);
+		dnip.setFont(miFuente);
 		
 	    gbl = new GridBagLayout();
 	    GridBagConstraints gbc=new GridBagConstraints();
@@ -273,10 +273,10 @@ public class ParcelaVisual extends JInternalFrame {
 	    gbc.anchor=GridBagConstraints.EAST;
 	    gbc.gridwidth=3;
 	    gbc.ipadx = 100;
-	    gbc.insets=new Insets(10,10,10,10);
-	    panelAlta.add(id, gbc);
+	    //gbc.insets=new Insets(10,10,10,10);
+	    //panelAlta.add(id, gbc);
 	    gbc.gridwidth = GridBagConstraints.REMAINDER;
-	    panelAlta.add(textId, gbc);
+	    //panelAlta.add(textId, gbc);
 	    
 	    //FILA 2 ALIAS
 	    gbc.gridwidth = 3;
@@ -288,7 +288,7 @@ public class ParcelaVisual extends JInternalFrame {
 	    gbc.gridwidth = 3;
 	    panelAlta.add(provincia, gbc);
 	    gbc.gridwidth = GridBagConstraints.REMAINDER;
-	    panelAlta.add(estadoCB, gbc);
+	    panelAlta.add(provinciaCB, gbc);
 
 	    //FILA 4 POBLACIÓN
 	    gbc.gridwidth = 3;
@@ -308,27 +308,58 @@ public class ParcelaVisual extends JInternalFrame {
 	    gbc.gridwidth = GridBagConstraints.REMAINDER;
 	    panelAlta.add(textnumero, gbc);
 	    
+	    //FILA 6 NUMERO
+	    gbc.gridwidth = 3;
+	    panelAlta.add(partida, gbc);
+	    gbc.gridwidth = GridBagConstraints.REMAINDER;
+	    panelAlta.add(textpartida, gbc);
+	    
 	    //FILA 7 ESTADO
 	    gbc.gridwidth = 3;
-	    panelAlta.add(estado, gbc);
-	    gbc.gridwidth = GridBagConstraints.REMAINDER;
-	    panelAlta.add(modeloCB, gbc); 
+	    panelAlta.add(dnip, gbc);
+	    gbc.gridwidth = GridBagConstraints.REMAINDER; 
+	    panelAlta.add(textdnip, gbc); 
 	    
 	    //FILA 8 DNI
 	    gbc.gridwidth = 3;
-	    panelAlta.add(dnip, gbc);
+	    panelAlta.add(estado, gbc);
 	    gbc.gridwidth = GridBagConstraints.REMAINDER;
-	    panelAlta.add(textdnip, gbc); 
+	    panelAlta.add(chkActivo, gbc);
 	    
 	    
 	    //ULTIMA FILA BOTONES
 	    gbc.gridwidth = 3;
 	    panelAlta.add(btnAltaPa, gbc);
 	    btnAltaPa.addActionListener(new java.awt.event.ActionListener() {	
-	        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-
+	        public void actionPerformed(java.awt.event.ActionEvent e) {                 
+	        		int intbol=0;
+	        		if(chkActivo.isSelected()==true){
+	        			intbol=1;
+	        		}
+	        		
+					Parcela p1=new Parcela(0,textalias.getText(),(String) provinciaCB.getSelectedItem(),textpoblacion.getText(),
+							textpoligono.getText(),textnumero.getText(),intbol,textpartida.getText(),textdnip.getText());
+					if(Parcela.isValido()==true){
+						
+						//COMPROBAR QUE ENVIA LOS DATOS CORRECTAMENTE
+						
+						try {
+							p1.altaParcela();
+						System.out.println(textalias.getText()+"prueba"+textpoblacion.getText()+
+						textpoligono.getText()+textnumero.getText()+true+textpartida.getText()+textdnip.getText()+ 300);
+													
+							JOptionPane.showMessageDialog(null, textalias.getText()+"prueba"+textpoblacion.getText()+
+							textpoligono.getText()+textnumero.getText()+true+textpartida.getText()+textdnip.getText()+ 300);
+							System.out.println("CONSULTA INSERTADA CORRECTAMENTE");
+						} catch (SQLException e1) {
+							System.out.println("ERROR DE INSERCION");
+							 //TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 	    }});
-		
+	
+	    
 	    gbc.gridwidth = GridBagConstraints.REMAINDER;
 	    panelAlta.add(btnVolverPa, gbc);
 	    btnVolverPa.addActionListener(new java.awt.event.ActionListener() {	
@@ -337,7 +368,7 @@ public class ParcelaVisual extends JInternalFrame {
 		        	add(panelGestion);
 		        	panelGestion.setVisible(true);
 		}});    	  
-		}
+		}//CIERRA PANEL ALTAS
 	
 	//Moficacion
 	/**
@@ -350,26 +381,72 @@ public class ParcelaVisual extends JInternalFrame {
 			
 			//COMBOBOX DE MODELO
 			dc1m = new DefaultComboBoxModel();//POR HACER
-			dc1m.addElement("Valencia");
-			dc1m.addElement("Madrid");
-			dc1m.addElement("Barcelona");
+			dc1.addElement("Álava");
+			dc1.addElement("Albacete");
+			dc1.addElement("Alicante");
+			dc1.addElement("Almería");
+			dc1.addElement("Asturias");
+			dc1.addElement("Avila");
+			dc1.addElement("Badajoz");
+			dc1.addElement("Barcelona");
+			dc1.addElement("Burgos");
+			dc1.addElement("Cáceres");
+			dc1.addElement("Cadiz");
+			dc1.addElement("Cantabria");
+			dc1.addElement("Castellón");
+			dc1.addElement("Ceuta");
+			dc1.addElement("Ciudad Real");
+			dc1.addElement("Córdoba");
+			dc1.addElement("Cuenca");
+			dc1.addElement("Gerona");
+			dc1.addElement("Granada");
+			dc1.addElement("Guadalajara");
+			dc1.addElement("Guipúzcoa");
+			dc1.addElement("Huelva");
+			dc1.addElement("Huesca");
+			dc1.addElement("Islas Baleares");
+			dc1.addElement("Jaén");
+			dc1.addElement("La Coruña");
+			dc1.addElement("La Rioja");
+			dc1.addElement("Las Palmas");
+			dc1.addElement("León");
+			dc1.addElement("Lérida");
+			dc1.addElement("Lugo");
+			dc1.addElement("Madrid");
+			dc1.addElement("Málaga");
+			dc1.addElement("Melilla");
+			dc1.addElement("Murcia");
+			dc1.addElement("Navarra");
+			dc1.addElement("Orense");
+			dc1.addElement("Palencia");
+			dc1.addElement("Pontevedra");
+			dc1.addElement("Tenerife");
+			dc1.addElement("Salamanca");
+			dc1.addElement("Segovia");
+			dc1.addElement("Sevilla");
+			dc1.addElement("Soria");
+			dc1.addElement("Tarragona");
+			dc1.addElement("Teruel");
+			dc1.addElement("Toledo");
+			dc1.addElement("Valencia");
+			dc1.addElement("Valladolid");
+			dc1.addElement("Vizcaya");
+			dc1.addElement("Zamora");
+			dc1.addElement("Zaragoza");
 			estadoCBm=new JComboBox(dc1);
 			
-			dc2m = new DefaultComboBoxModel();
-			dc2m.addElement("Activo");
-			dc2m.addElement("Inactivo");
-			modeloCBm=new JComboBox(dc2m);
 			
 			//DISEÑO FUENTES
 		    tituloMod.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 26));
-			idm.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-			aliasm.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-			provinciam.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-			poblacionm.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-			poligonom.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-			numerom.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-			estadom.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
-			dnipm.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16));
+			idm.setFont(miFuente);
+			aliasm.setFont(miFuente);
+			provinciam.setFont(miFuente);
+			poblacionm.setFont(miFuente);
+			poligonom.setFont(miFuente);
+			numerom.setFont(miFuente);
+			partidam.setFont(miFuente);
+			estadom.setFont(miFuente);
+			dnipm.setFont(miFuente);
 			
 		    gblm = new GridBagLayout();
 		    GridBagConstraints gbcm=new GridBagConstraints();
@@ -394,7 +471,7 @@ public class ParcelaVisual extends JInternalFrame {
 		    gbcm.anchor=GridBagConstraints.EAST;
 		    gbcm.gridwidth=3;
 		    gbcm.ipadx = 100;
-		    gbcm.insets=new Insets(10,10,10,10);
+		    //gbc.insets=new Insets(10,10,10,10);
 		    panelModificacion.add(idm, gbcm);
 		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
 		    panelModificacion.add(textIdm, gbcm);
@@ -429,17 +506,23 @@ public class ParcelaVisual extends JInternalFrame {
 		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
 		    panelModificacion.add(textnumerom, gbcm);
 		    
+		    //FILA 6 NUMERO
+		    gbcm.gridwidth = 3;
+		    panelModificacion.add(partidam, gbcm);
+		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
+		    panelModificacion.add(textpartidam, gbcm);
+		    
 		    //FILA 7 ESTADO
 		    gbcm.gridwidth = 3;
-		    panelModificacion.add(estadom, gbcm);
-		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
-		    panelModificacion.add(modeloCBm, gbcm); 
+		    panelModificacion.add(dnipm, gbcm);
+		    gbcm.gridwidth = GridBagConstraints.REMAINDER; 
+		    panelModificacion.add(textdnipm, gbcm); 
 		    
 		    //FILA 8 DNI
 		    gbcm.gridwidth = 3;
-		    panelModificacion.add(dnipm, gbcm);
+		    panelModificacion.add(estadom, gbcm);
 		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
-		    panelModificacion.add(textdnipm, gbcm); 
+		    panelModificacion.add(chkActivom, gbcm);
 		    
 		    
 		    //ULTIMA FILA BOTONES
@@ -459,4 +542,81 @@ public class ParcelaVisual extends JInternalFrame {
 			        	panelGestion.setVisible(true);
 			}});    	  
 			}
-	}
+	
+		//PANEL GESTION
+		/**
+		 * Clase sin parametros que nos dibuja el contenido del Panel Gestión.
+		 */
+		private void dibujarPanelGestion() {
+			this.add(panelGestion);
+			resolucionOS();
+			txtbuscar = new JTextField();
+			scrollPane1 = new JScrollPane(tablabuscar,
+					JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+					JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			tablabuscar = new JTable(data,columnas);
+			btnBuscar = new JButton("BUSCAR");
+			btnAlta = new JButton("ALTA");
+			btnModi = new JButton("MODIFICACION");
+			btnDesactivar = new JButton("BAJA");
+			
+			
+			int anchuraTabla = getAnchura()-300;
+			int alturaTabla=getAltura()-500;
+			int anchuraTxtBuscar=360;
+		    int fila1= (((getAltura())/2)-(alturaTabla/2)); // Fila de inicio
+		    int columna1=((getAnchura()/2)-(anchuraTabla/2));//columna de inicio
+
+		    panelGestion.setLayout(null);
+		    
+		  //CARGAMOS LOS COMPONENTES
+		    panelGestion.add(titulo);
+			titulo.setFont(new Font("Times-Roman", Font.BOLD + Font.ITALIC, 26));
+			titulo.setBounds(getAnchura()/2-70 ,getAnchura()-getAnchura()+20, 770, 20);
+
+			panelGestion.add(txtbuscar);
+			txtbuscar.setBounds(columna1, fila1-20-30, anchuraTxtBuscar, 30);
+			
+			scrollPane1.setViewportView(tablabuscar);
+			panelGestion.add(scrollPane1);
+			scrollPane1.setBounds(columna1, fila1, anchuraTabla, alturaTabla);
+			
+			panelGestion.add(btnBuscar);
+			btnBuscar.setBounds(columna1+anchuraTabla-100, fila1-20-30, 100, 30);
+			btnBuscar.addActionListener(new java.awt.event.ActionListener() {	
+		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
+
+		        	
+		    }});
+
+			panelGestion.add(btnAlta);
+			btnAlta.setBounds(columna1, fila1+alturaTabla+20, 65, 30);                  
+			btnAlta.addActionListener(new java.awt.event.ActionListener() {	
+	        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
+	        	panelGestion.setVisible(false);	
+	        	add(panelAlta);
+	        	panelAlta.setVisible(true);
+	        	limpiarFormAltas();
+
+	        }});  
+			
+			panelGestion.add(btnModi);
+			btnModi.setBounds(columna1+ 75,fila1+alturaTabla+20, 110, 30);
+			btnModi.addActionListener(new java.awt.event.ActionListener() {	
+		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
+		        	panelGestion.setVisible(false);	
+		        	add(panelModificacion);
+		        	panelModificacion.setVisible(true);
+		        	
+		    }});
+			
+			panelGestion.add(btnDesactivar);
+			btnDesactivar.setBounds(columna1+anchuraTabla-65, fila1+alturaTabla+20, 65, 30);
+			btnDesactivar.addActionListener(new java.awt.event.ActionListener() {	
+		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
+
+		        	
+		    }});
+			
+		}
+}
