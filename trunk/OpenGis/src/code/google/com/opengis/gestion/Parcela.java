@@ -2,7 +2,12 @@
 * Copyright (c) 2011 [OpenGisTeam]                                           *
 ******************************************************************************/
 package code.google.com.opengis.gestion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 
 
 /**
@@ -17,14 +22,21 @@ public class Parcela {
 	private String poblacion; //poblacion de la parcela
 	private String poligono; //poligono de la parcela
 	private String numero; //numero de la parcela
-	private boolean activo; //nos avisara si la parcela esta activa o no, a los ojos del usuario
+	private int activo; //nos avisara si la parcela esta activa o no, a los ojos del usuario
 	private String partida; //identificador de parcela a nivel localidad
 	private String dniPropietario; //dni del propietario de la parcela
+	private String sentencia; //String en el cual almacenaremos las consultas.
+	
+	private static ConectarDBA dba; //Objeto clase Connector, para realizar las consultas
+	private static String resultado[];
+	private static boolean existe;
+	private static boolean valido=true;
 	
 	// C O N S T R U C T O R
-	public Parcela(int idparcela, String alias, String provincia, String poblacion, String poligono, String numero,
-					boolean activo, String partida, String dnipropietario){
-		this.setIdParcela(idparcela);
+	public Parcela(int idparcela,String alias, String provincia, String poblacion, String poligono, String numero,
+			int activo, String partida, String dnipropietario){
+		valido=true;
+		//this.setIdParcela(idparcela);
 		this.setAlias(alias);
 		this.setProvincia(provincia);
 		this.setPoblacion(poblacion);
@@ -37,20 +49,22 @@ public class Parcela {
 	
 	//   M E T O D O S    G E T T E R    &    S E T T E R
 	public int getIdParcela() {
+		idparcela=(Integer) null;
 		return idparcela;
 	}
 	/**
 	 * Método que asigna un valor a idparcela, siempre y cuando éste este entre 1 y 8 dígitos.
 	 * @param idparcela : identificador único de la parcela
 	 */
-	public void setIdParcela(int idparcela) {
-		String str= idparcela+"";
-		if((str.length()>0)&&(str.length()<9)){ //comprobamos que idparcela este entre 1 y 8
-			this.idparcela = idparcela;
-		}else{
-			JOptionPane.showMessageDialog(null, "EL NUMERO ID DEBE ESTAR COMPRENDIDO ENTRE 1 y 8");
-		}
-	}
+	//public void setIdParcela(int idparcela) {
+		//String str= idparcela+"";
+		//if((str.length()>0)&&(str.length()<9)){ //comprobamos que idparcela este entre 1 y 8
+			//this.idparcela = idparcela;
+		//}else{
+			//JOptionPane.showMessageDialog(null, "EL NUMERO ID DEBE ESTAR COMPRENDIDO ENTRE 1 y 8");
+			//valido=false;
+		//}
+	//}
 	public String getAlias(){
 		return alias;
 	}
@@ -63,6 +77,7 @@ public class Parcela {
 			this.alias = alias;
 		}else{
 			JOptionPane.showMessageDialog(null, "EL ALIAS DEBE ESTAR COMPRENDIDO ENTRE 1 y 20 CARÁCTERES");
+			valido=false;
 		}
 	}
 	public String getProvincia() {
@@ -73,10 +88,11 @@ public class Parcela {
 	 * @param provincia : Provincia de la parcela.
 	 */
 	public void setProvincia(String provincia) {
-		if((provincia.length()>0)&&(provincia.length()<21)&&(esNumerico(provincia))){ //comprobamos que el alias este entre 1 y 20
+		if((provincia.length()>0)&&(provincia.length()<21)){ //comprobamos que el alias este entre 1 y 20
 			this.provincia = provincia;
 		}else{
 			JOptionPane.showMessageDialog(null,"LA PROVINCIA DEBE ESTAR COMPRENDIDA ENTRE 1 y 20 CARÁCTERES");
+			valido=false;
 		}
 	}
 	public String getPoblacion() {
@@ -86,11 +102,12 @@ public class Parcela {
 	 * Método para asignar la población a la parcela, ésta deberá estar comprandida entre 1 y 30 carácteres.
 	 * @param poblacion : Población de la parcela.
 	 */
-	public void setPoblacion(String poblacion) {
-		if((poblacion.length()>0)&&(poblacion.length()<31)&&(esNumerico(poblacion))){ //comprobamos que el alias este entre 1 y 30
+	public void setPoblacion(String poblacion) {//&&(esNumerico(poblacion)==false)
+		if((poblacion.length()>0)&&(poblacion.length()<31)){ //comprobamos que el alias este entre 1 y 30
 			this.poblacion = poblacion;
 		}else{
 			JOptionPane.showMessageDialog(null,"LA POBLACION DEBE ESTAR COMPRENDIDA ENTRE 1 y 30 CARÁCTERES");
+			valido=false;
 		}
 	}
 	public String getPoligono() {
@@ -105,6 +122,7 @@ public class Parcela {
 			this.poligono = poligono;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL POLIGONO DEBE ESTAR COMPRENDIDO ENTRE 1 y 10 CARÁCTERES");
+			valido=false;
 		}
 	}
 	public String getNumero() {
@@ -118,17 +136,18 @@ public class Parcela {
 		if((numero.length()>0)&&(numero.length()<11)&&(esNumerico(numero))){ //comprobamos que sea numerico y entre 1 y 10
 			this.numero = numero;
 		}else{
-			JOptionPane.showMessageDialog(null,"EL NUMERO DEBE ESTAR COMPRENDIDO ENTRE 1 y 10 CARÁCTERES");
+			JOptionPane.showMessageDialog(null,"DEBE SER NUMÉRICO Y ADEMÁS ESTAR COMPRENDIDO ENTRE 1 y 10 DE LONGITUD");
+			valido=false;
 		}
 	}
-	public boolean isActivo() {
+	public int isActivo() {
 		return activo;
 	}
 	/**
 	 * Método para asignar el estado de la parcela.
 	 * @param activo : Estado de la parcela en la base de datos (activo/inactivo).
 	 */
-	public void setActivo(boolean activo) {
+	public void setActivo(int activo) {
 		this.activo = activo;
 	}
 	public String getPartida() {
@@ -143,6 +162,7 @@ public class Parcela {
 			this.partida = partida;
 		}else{
 			JOptionPane.showMessageDialog(null, "LA PARTIDA DEBE ESTAR COMPRENDIDA ENTRE 1 Y 20 CARÁCTERES");
+			valido=false;
 		}
 	}
 	public String getDniPropietario() {
@@ -153,9 +173,19 @@ public class Parcela {
 	 * @param dnipropietario : DNI del propietario de la parcela.
 	 */
 	public void setDniPropietario(String dnipropietario) {
-		if((dnipropietario.length()>8) && (dnipropietario.length()<11)){
-			validarDni(dnipropietario);
+		if((dnipropietario.length() ==9)){
+			try{	
+				validarDni(dnipropietario);
+			}catch(NumberFormatException ex){
+				JOptionPane.showMessageDialog(null,"DNI INCORRECTO");
+				valido=false;
+			}
+		}else{
+			JOptionPane.showMessageDialog(null,"EL DNI DEBE CONTENER UNA LONGITUD EXACTA DE 9 (00000000L)");
+			valido=false;
 		}
+			
+		
 	}
 	
 	// M E T O D O S 
@@ -209,6 +239,7 @@ public class Parcela {
 		}  
 	    catch(NumberFormatException ex ) {
 			JOptionPane.showMessageDialog(null, "LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
+			valido=false;
 	        return false;  
 	    }  
 		pletra=pletra%23;
@@ -219,7 +250,149 @@ public class Parcela {
 			return true;
 		}else{
 			JOptionPane.showMessageDialog(null, "EL NUMERO QUE HA INTRODUCIDO NO SE CORRESPONDE CON LA LETRA");
+			valido=false;
 			return false;
 		}
 	}
+
+	
+	//PARCELADAO
+	
+	public void comprobarParcela(String s) throws SQLException{
+		ConectarDBA.acceder();
+		sentencia = "SELECT `alias`, `activo` FROM `parcela` WHERE `alias` LIKE '"+s+"'";
+		ResultSet rs = dba.consulta(sentencia);
+		resultado = new String[2];
+		activo = 0;
+		while(rs.next()){
+			System.out.println("Ejecuto el while");
+				resultado[0] = rs.getString(1);
+				System.out.println(resultado[0]);
+				resultado[1] = rs.getString(2);
+				System.out.println(resultado[1]);
+		}
+			System.out.println("Enviado: "+alias+" esperado: "+resultado[0].toString());
+			if(resultado[0] == null){
+				existe = false;
+				System.out.println("El estado de existe es: "+existe);
+			}else if (resultado[0].equals(alias)){
+				existe = true;
+				if (resultado[1].equals("0")){
+					activo = 1;	
+				}
+				System.out.println("El estado de activo es: "+activo);
+				System.out.println("El estado de existe es: "+existe);
+			}
+		rs.close();
+	}
+	
+/**
+ * Método que realiza las busquedas de parcela
+ * @param campo:
+ * @param criterio
+ * @return
+ * @throws SQLException
+ */
+public ResultSet buscarParcela(String campo, String criterio) throws SQLException{
+ 	ResultSet rs = null;
+ 	ConectarDBA.acceder();
+	String sentencia ="Select  `dai2opengis`.`parcela` (`idparcela` ,`alias` ,`provincia` ,`poblacion` ,`poligono` ,`numero` ,`activo`," +
+	 		" `activo`) FROM ('"+ idparcela +"', '" + alias  + "','" + provincia +"','" +
+			 poblacion +"','" + poligono +"','" + numero + "','" + activo + partida 
+			 + dniPropietario +"')";
+	try{
+		System.out.println("Ejecutada sentencia "+ sentencia);
+	rs = dba.consulta(sentencia);
+	}catch (SQLException e){
+		System.out.println(e);
+	}
+	return rs;
+	
+}
+
+	/**
+	 * Método con el que realizaremos las Altas de parcela
+	 * @throws SQLException
+	 */
+	public void altaParcela() throws SQLException{
+		ConectarDBA.acceder();
+		existe = false;
+		//comprobarParcela(alias);
+
+		String sentencia = "INSERT INTO `dai2opengis`.`parcela` (`idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `activo`, `partida`, `dni_propietario`) VALUES (NULL,'" + this.alias  + "','" + this.provincia +"','" +this.poblacion +"','" + this.poligono +"','" + this.numero +"','"  + this.activo +"','"+ this.partida +"','"+ this.dniPropietario +"')";
+		//sentencia= "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '"+this.Nombre+"', '"+this.Apellidos+"', '"+this.email+"', '"+this.Contraseña+"', '"+this.tipo+"', '0', '"+this.Telefono+"', '"+this.Direccion+"', '"+this.Poblacion+"', '"+this.Provincia+"', '"+this.Cp+"', '"+this.Fecha_nac+"',' 0')";
+		if (existe == true){ 	
+			 JOptionPane.showMessageDialog(null,"El Id Parcela que intenta introducir ya existe");
+		}else{
+			dba.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,"Parcela insertada correctamente");
+		}
+		dba.cerrarCon();
+	}
+	
+	
+	
+	/**
+	 * Método con el que relizaremos las Bajas de parcela
+	 * @throws SQLException
+	 */
+
+	public void bajaParcela() throws SQLException{
+		comprobarParcela(alias);
+		if (existe == true){ 
+		
+			String sentencia = "DELETE FROM `parcela` WHERE `idparcela` = '"+idparcela+"'";
+			dba.modificar(sentencia);
+
+			JOptionPane.showMessageDialog(null,"Parcela eliminada correctamente");
+			
+		}else{
+			
+			JOptionPane.showMessageDialog(null,"La parcela no existe");
+		}
+		dba.cerrarCon();
+	}
+	
+	/**
+	 * Método con el que realizaremos las Modificaciones de parcela
+	 * @throws SQLException
+	 */
+	public void MoficicarParcela() throws SQLException{
+		//comprobarParcela(alias);
+		if (existe == true){
+			sentencia = "UPDATE INTO `dai2opengis`.`parcela` (`alias` ,`provincia` ,`poblacion` ,`poligono` ,`numero` ,`activo`," +
+					"`activo`,`partida`,`dni_propietario`) VALUES ('" + alias  + "','" + provincia +"','" +
+					 poblacion +"','" + poligono +"','" + numero + "','" + activo + partida 
+					 + dniPropietario +"')";
+			dba.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,"Se ha modificado la parcela correctamente");
+		}else{
+			JOptionPane.showMessageDialog(null,"La Parcela no existe");
+		}
+	}
+
+		
+	public void calcularPosicion() throws SQLException{
+		int count=0;
+		ConectarDBA.acceder();
+		sentencia="Select * FROM `parcela`";
+		ResultSet rs = dba.consulta(sentencia);
+		while(rs.next()){
+			count=count+1;
+		}
+		rs.close();
+		JOptionPane.showMessageDialog(null, count);
+	}
+	
+
+	public static boolean isValido() {
+		return valido;
+	}
+
+	public static void setValido(boolean valido) {
+		Parcela.valido = valido;
+	}
+
+	
+	
 }
