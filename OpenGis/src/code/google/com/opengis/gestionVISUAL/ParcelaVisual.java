@@ -11,6 +11,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
@@ -26,8 +28,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import code.google.com.opengis.gestion.Parcela;
+import code.google.com.opengis.gestionDAO.AperoDAO;
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.ProductoDAO;
 /**
  * Clase Visual de Parcela, con la que realizaremos altas, bajas y modificaciones.
@@ -39,6 +44,7 @@ public class ParcelaVisual extends JInternalFrame {
 	//private JTabbedPane tabbed;
 	
 	//PG
+	
 	private Toolkit tk;
 	private Dimension t;
 	private int altura,anchura;
@@ -46,6 +52,7 @@ public class ParcelaVisual extends JInternalFrame {
 	private JTextField txtbuscar;
 	private JScrollPane scrollPane1;
 	private JTable tablabuscar;
+	private DefaultTableModel dtmbuscar;
 	private JButton btnBuscar;
 	private JButton btnAlta;
 	private JButton btnModi;
@@ -53,8 +60,9 @@ public class ParcelaVisual extends JInternalFrame {
 	private boolean b=false;
 	private Font miFuente= new Font("Times-Roman", Font.BOLD + Font.ITALIC, 16);
 	
+	
 	private String[] columnas = {"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"};
-	private Object[][]data={{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"}};
+	//private Object[][]data={{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"},{"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"}};
 	
 	//PA
 	private GridBagConstraints gbc;
@@ -89,7 +97,7 @@ public class ParcelaVisual extends JInternalFrame {
 	private JButton btnModPa=new JButton("Modificar");
 	private JButton btnVolverPam=new JButton("Volver");
 
-	private JComboBox estadoCBm,modeloCBm;
+	private JComboBox estadoCBm,provinciaCBm;
 	private JLabel tituloMod=new JLabel("MODIFICAR   PARCELA");
 	private JLabel idm=new JLabel("Id Parcela:");
     private JLabel aliasm=new JLabel("Alias:");
@@ -266,8 +274,8 @@ public class ParcelaVisual extends JInternalFrame {
 	    gbc.gridwidth=GridBagConstraints.REMAINDER;
 	    panelAlta.add(tituloAlta, gbc);
 	    
-
-		
+	    
+	    //gbc.anchor=GridBagConstraints.SOUTH;
 		//FILA 1 ID
 	    gbc.fill=GridBagConstraints.HORIZONTAL;
 	    gbc.anchor=GridBagConstraints.EAST;
@@ -325,6 +333,7 @@ public class ParcelaVisual extends JInternalFrame {
 	    panelAlta.add(estado, gbc);
 	    gbc.gridwidth = GridBagConstraints.REMAINDER;
 	    panelAlta.add(chkActivo, gbc);
+	    chkActivo.setEnabled(false);
 	    
 	    
 	    //ULTIMA FILA BOTONES
@@ -339,17 +348,10 @@ public class ParcelaVisual extends JInternalFrame {
 	        		
 					Parcela p1=new Parcela(0,textalias.getText(),(String) provinciaCB.getSelectedItem(),textpoblacion.getText(),
 							textpoligono.getText(),textnumero.getText(),intbol,textpartida.getText(),textdnip.getText());
+					
 					if(Parcela.isValido()==true){
-						
-						//COMPROBAR QUE ENVIA LOS DATOS CORRECTAMENTE
-						
 						try {
 							p1.altaParcela();
-						System.out.println(textalias.getText()+"prueba"+textpoblacion.getText()+
-						textpoligono.getText()+textnumero.getText()+true+textpartida.getText()+textdnip.getText()+ 300);
-													
-							JOptionPane.showMessageDialog(null, textalias.getText()+"prueba"+textpoblacion.getText()+
-							textpoligono.getText()+textnumero.getText()+true+textpartida.getText()+textdnip.getText()+ 300);
 							System.out.println("CONSULTA INSERTADA CORRECTAMENTE");
 						} catch (SQLException e1) {
 							System.out.println("ERROR DE INSERCION");
@@ -523,13 +525,32 @@ public class ParcelaVisual extends JInternalFrame {
 		    panelModificacion.add(estadom, gbcm);
 		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
 		    panelModificacion.add(chkActivom, gbcm);
+		    chkActivom.setEnabled(false);
 		    
 		    
 		    //ULTIMA FILA BOTONES
 		    gbcm.gridwidth = 3;
 		    panelModificacion.add(btnModPa, gbcm);
 		    btnModPa.addActionListener(new java.awt.event.ActionListener() {	
-		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
+		        public void actionPerformed(java.awt.event.ActionEvent e) {
+	        		// CONSULTA MODIFICAR
+
+					Parcela p1=new Parcela(Integer.parseInt(textIdm.getText()),textaliasm.getText(),provinciaCB.getSelectedItem().toString(),textpoblacionm.getText(),
+							textpoligonom.getText(),textnumerom.getText(),1,textpartidam.getText(),textdnipm.getText());
+					
+					JOptionPane.showMessageDialog(null, Integer.parseInt(textIdm.getText())+" "+textaliasm.getText()+""+provinciaCB.getSelectedItem().toString()+" "+textpoblacionm.getText()+
+							textpoligonom.getText()+" "+textnumerom.getText()+" "+1+" "+textpartidam.getText()+" "+textdnipm.getText() );
+					
+					if(Parcela.isValido()==true){
+						try {
+							p1.modificarParcela();
+							System.out.println("PARCELA MODIFICADA CORRECTAMENTE");
+						} catch (SQLException e1) {
+							System.out.println("ERROR DE INSERCION");
+							 //TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 
 		    }});
 			
@@ -550,11 +571,18 @@ public class ParcelaVisual extends JInternalFrame {
 		private void dibujarPanelGestion() {
 			this.add(panelGestion);
 			resolucionOS();
+			tablabuscar = new JTable(dtmbuscar);
+			tablabuscar.getTableHeader().setReorderingAllowed(true);
+			
 			txtbuscar = new JTextField();
 			scrollPane1 = new JScrollPane(tablabuscar,
 					JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 					JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			tablabuscar = new JTable(data,columnas);
+			
+			
+			dtmbuscar = new DefaultTableModel();
+			dtmbuscar.setColumnIdentifiers(columnas);
+			tablabuscar = new JTable(dtmbuscar);
 			btnBuscar = new JButton("BUSCAR");
 			btnAlta = new JButton("ALTA");
 			btnModi = new JButton("MODIFICACION");
@@ -584,8 +612,14 @@ public class ParcelaVisual extends JInternalFrame {
 			panelGestion.add(btnBuscar);
 			btnBuscar.setBounds(columna1+anchuraTabla-100, fila1-20-30, 100, 30);
 			btnBuscar.addActionListener(new java.awt.event.ActionListener() {	
-		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-
+		        public void actionPerformed(java.awt.event.ActionEvent e) {
+					//vaciamos la tabla de datos al realizar una nueva busqueda
+					for (int i = tablabuscar.getRowCount() -1; i >= 0; i--){
+						dtmbuscar.removeRow(i);
+						} 
+		        	llenar( txtbuscar.getText());
+		        		
+		        	
 		        	
 		    }});
 
@@ -597,26 +631,86 @@ public class ParcelaVisual extends JInternalFrame {
 	        	add(panelAlta);
 	        	panelAlta.setVisible(true);
 	        	limpiarFormAltas();
-
 	        }});  
 			
 			panelGestion.add(btnModi);
 			btnModi.setBounds(columna1+ 75,fila1+alturaTabla+20, 110, 30);
 			btnModi.addActionListener(new java.awt.event.ActionListener() {	
 		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-		        	panelGestion.setVisible(false);	
-		        	add(panelModificacion);
-		        	panelModificacion.setVisible(true);
+		        	
+		        	
+		        		panelGestion.setVisible(false);	
+		        		add(panelModificacion);
+		        		panelModificacion.setVisible(true);
+
+		        		textIdm.setText((tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 0)).toString());
+		            	textaliasm.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 1) );
+		            
+		            	 //Recorremos provinciaCB y tomamos el que sea equivalente
+		            	for(int x=0;x<provinciaCB.getItemCount();x++){
+		            		if (provinciaCB.getItemAt(x).equals(
+		            				(String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 2) 
+		            				)){
+		            			provinciaCB.setSelectedIndex(x);
+		            		}
+		            	}
+		            	textpoblacionm.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 3) );
+		            	textpoligonom.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 4) );
+		            	textnumerom.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 5) ); 
+		            	textpartidam.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 6) );
+		            	textdnipm.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 7) );
+
 		        	
 		    }});
 			
 			panelGestion.add(btnDesactivar);
 			btnDesactivar.setBounds(columna1+anchuraTabla-65, fila1+alturaTabla+20, 65, 30);
 			btnDesactivar.addActionListener(new java.awt.event.ActionListener() {	
-		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-
-		        	
+		        public void actionPerformed(java.awt.event.ActionEvent e) {
+		        	ConectarDBA dba = null;
+		        	String id=tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 0).toString();
+		        	ConectarDBA.acceder();
+		        	try {
+		        		int confirmar=JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el registro "+id);
+		        		if(JOptionPane.OK_OPTION==confirmar){
+						dba.modificar("UPDATE `dai2opengis`.`parcela` SET `activo`= 0 WHERE `idparcela` LIKE "+id);
+						JOptionPane.showMessageDialog(null,"El numero de registro "+id+" ha sido desactivado correctamente.");
+		        		}
+		        	} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					}
 		    }});
+	
+		}
+		
+
+		/**
+		 * Método que nos permitira rellenar la tabla con los registros que correspondan
+		 * @param criterio: Criterio de busqueda para la consulta sql
+		 */
+		public void llenar(String criterio){
+			try {
+				int x=0;
+				int y=0;
+					dtmbuscar.setColumnCount(0);
+					dtmbuscar.setRowCount(0);
+					dtmbuscar.setColumnIdentifiers(columnas);
+				
+					ResultSet rs = Parcela.buscar(criterio);
+					while (rs.next()) {
+						Object[]fila = {rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4), rs.getObject(5),
+							rs.getObject(6), rs.getObject(7), rs.getObject(8)};
+						dtmbuscar.addRow(fila);
+					}
+					rs.close();		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public void tomarDatosTabla(){
 			
 		}
 }
