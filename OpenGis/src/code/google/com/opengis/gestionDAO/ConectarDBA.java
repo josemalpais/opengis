@@ -74,7 +74,7 @@ static Statement st;
  * @return ResultSet devuelve el resultado de la consulta.
  * @throws SQLException devuelve un error en caso de producirse
  */
-	public ResultSet consulta(String sentenciaSQL) throws SQLException
+	public static ResultSet consulta(String sentenciaSQL) throws SQLException
 	{
 	//   Creamos un tipo Statement que maneja las consultas 
 	   
@@ -87,7 +87,7 @@ static Statement st;
 	 * @param sentenciaSQL String con el insert/update que vamos a ejecutar
 	 * @throws SQLException devuelve un error en caso de producirse
 	 */
-	public void modificar(String sentenciaSQL) throws SQLException
+	public static void modificar(String sentenciaSQL) throws SQLException
 	{
 	//   Creamos un tipo Statement que maneja las consultas 
 	   
@@ -99,7 +99,7 @@ static Statement st;
 	 * Método que cierra la conexión con la base de datos y lo statements.
 	 * @throws SQLException
 	 */
-	public void cerrarCon() throws SQLException{
+	public static void cerrarCon() throws SQLException{
 		st.close();
 		conexion.close();
 		System.out.println("Conexión cerrada");
