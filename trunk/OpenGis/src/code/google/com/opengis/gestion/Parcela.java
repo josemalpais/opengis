@@ -21,7 +21,7 @@ public class Parcela {
 	private String provincia;  //provincia de la parcela
 	private String poblacion; //poblacion de la parcela
 	private String poligono; //poligono de la parcela
-	private String numero; //numero de la parcela
+	private  String numero; //numero de la parcela
 	private int activo; //nos avisara si la parcela esta activa o no, a los ojos del usuario
 	private String partida; //identificador de parcela a nivel localidad
 	private String dniPropietario; //dni del propietario de la parcela
@@ -36,7 +36,7 @@ public class Parcela {
 	public Parcela(int idparcela,String alias, String provincia, String poblacion, String poligono, String numero,
 			int activo, String partida, String dnipropietario){
 		valido=true;
-		//this.setIdParcela(idparcela);
+		this.setIdParcela(idparcela);
 		this.setAlias(alias);
 		this.setProvincia(provincia);
 		this.setPoblacion(poblacion);
@@ -47,7 +47,13 @@ public class Parcela {
 		this.setDniPropietario(dnipropietario);
 	}
 	
+
+
 	//   M E T O D O S    G E T T E R    &    S E T T E R
+	
+	private void setIdParcela(int idparcela2) {
+		this.idparcela= idparcela2;	
+	}
 	public int getIdParcela() {
 		idparcela=(Integer) null;
 		return idparcela;
@@ -258,7 +264,7 @@ public class Parcela {
 	
 	//PARCELADAO
 	
-	public void comprobarParcela(String s) throws SQLException{
+	public void comprobarParcela(int s) throws SQLException{
 		ConectarDBA.acceder();
 		sentencia = "SELECT `alias`, `activo` FROM `parcela` WHERE `alias` LIKE '"+s+"'";
 		ResultSet rs = dba.consulta(sentencia);
@@ -287,19 +293,20 @@ public class Parcela {
 	}
 	
 /**
- * Método que realiza las busquedas de parcela
- * @param campo:
- * @param criterio
- * @return
+ * Método que realiza las busquedas de parcela 
+ * @param criterio: criterio con el que buscaremos en todas las columnas de la base de datos.
+ * @return ResultSet con las tuplas encontradas
  * @throws SQLException
  */
-public ResultSet buscarParcela(String campo, String criterio) throws SQLException{
+public static ResultSet buscar(String criterio) throws SQLException{
  	ResultSet rs = null;
  	ConectarDBA.acceder();
-	String sentencia ="Select  `dai2opengis`.`parcela` (`idparcela` ,`alias` ,`provincia` ,`poblacion` ,`poligono` ,`numero` ,`activo`," +
-	 		" `activo`) FROM ('"+ idparcela +"', '" + alias  + "','" + provincia +"','" +
-			 poblacion +"','" + poligono +"','" + numero + "','" + activo + partida 
-			 + dniPropietario +"')";
+	String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (`idparcela` = '"+criterio+"' Or `alias` = '"
+			+criterio+"' Or `provincia` = '"+criterio+"' Or  `poblacion` = '"+criterio+"' Or `poligono` = '"
+			+criterio+"' Or  `numero` = '"+criterio+"' Or  `partida` = '"
+			+criterio+"' Or  `dni_propietario`= '"+criterio+"' ) AND  `activo` <> '0'";
+	
+
 	try{
 		System.out.println("Ejecutada sentencia "+ sentencia);
 	rs = dba.consulta(sentencia);
@@ -307,7 +314,6 @@ public ResultSet buscarParcela(String campo, String criterio) throws SQLExceptio
 		System.out.println(e);
 	}
 	return rs;
-	
 }
 
 	/**
@@ -317,10 +323,9 @@ public ResultSet buscarParcela(String campo, String criterio) throws SQLExceptio
 	public void altaParcela() throws SQLException{
 		ConectarDBA.acceder();
 		existe = false;
-		//comprobarParcela(alias);
 
 		String sentencia = "INSERT INTO `dai2opengis`.`parcela` (`idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `activo`, `partida`, `dni_propietario`) VALUES (NULL,'" + this.alias  + "','" + this.provincia +"','" +this.poblacion +"','" + this.poligono +"','" + this.numero +"','"  + this.activo +"','"+ this.partida +"','"+ this.dniPropietario +"')";
-		//sentencia= "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '"+this.Nombre+"', '"+this.Apellidos+"', '"+this.email+"', '"+this.Contraseña+"', '"+this.tipo+"', '0', '"+this.Telefono+"', '"+this.Direccion+"', '"+this.Poblacion+"', '"+this.Provincia+"', '"+this.Cp+"', '"+this.Fecha_nac+"',' 0')";
+		
 		if (existe == true){ 	
 			 JOptionPane.showMessageDialog(null,"El Id Parcela que intenta introducir ya existe");
 		}else{
@@ -338,18 +343,11 @@ public ResultSet buscarParcela(String campo, String criterio) throws SQLExceptio
 	 */
 
 	public void bajaParcela() throws SQLException{
-		comprobarParcela(alias);
-		if (existe == true){ 
-		
-			String sentencia = "DELETE FROM `parcela` WHERE `idparcela` = '"+idparcela+"'";
+			sentencia = "UPDATE `dai2opengis`.`parcela` SET `activo`= `"+this.activo+"` WHERE `idparcela` LIKE `"+this.idparcela+"`)";
 			dba.modificar(sentencia);
 
-			JOptionPane.showMessageDialog(null,"Parcela eliminada correctamente");
+			JOptionPane.showMessageDialog(null,"Parcela dada de baja correctamente");
 			
-		}else{
-			
-			JOptionPane.showMessageDialog(null,"La parcela no existe");
-		}
 		dba.cerrarCon();
 	}
 	
@@ -357,18 +355,14 @@ public ResultSet buscarParcela(String campo, String criterio) throws SQLExceptio
 	 * Método con el que realizaremos las Modificaciones de parcela
 	 * @throws SQLException
 	 */
-	public void MoficicarParcela() throws SQLException{
-		//comprobarParcela(alias);
-		if (existe == true){
-			sentencia = "UPDATE INTO `dai2opengis`.`parcela` (`alias` ,`provincia` ,`poblacion` ,`poligono` ,`numero` ,`activo`," +
-					"`activo`,`partida`,`dni_propietario`) VALUES ('" + alias  + "','" + provincia +"','" +
-					 poblacion +"','" + poligono +"','" + numero + "','" + activo + partida 
-					 + dniPropietario +"')";
-			dba.modificar(sentencia);
+	public void modificarParcela() throws SQLException{	
+			sentencia = "UPDATE `dai2opengis`.`parcela` SET `idparcela`= `"+this.idparcela+"`,`alias`=`"+this.alias+"`," +
+					" `provincia`= `"+this.provincia+"`, `poblacion`= `"+this.poblacion+"`,`poligono`= `"+this.poligono+"`," +
+							"`numero`= `"+this.numero+"`,`partida`= `"+this.partida+"`,`dni_propietario`= `"+this.dniPropietario+
+							"`  WHERE `idparcela` LIKE `"+this.idparcela+"`)";
+	
+					dba.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Se ha modificado la parcela correctamente");
-		}else{
-			JOptionPane.showMessageDialog(null,"La Parcela no existe");
-		}
 	}
 
 		
