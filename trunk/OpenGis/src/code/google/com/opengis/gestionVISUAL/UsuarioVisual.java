@@ -660,6 +660,15 @@ public class UsuarioVisual extends JInternalFrame {
 		cText.gridx = 3;
 		cText.gridy = 3;
 		pane.add(txtCon, cText);
+		
+		campolbl = new JLabel("Confirmar contraseña:");
+		cLabels.gridx = 4;
+		cLabels.gridy = 3;
+		pane.add(campolbl, cLabels);
+
+		cText.gridx = 5;
+		cText.gridy = 3;
+		pane.add(txtConfCon, cText);
 
 		campolbl = new JLabel("Tipo de usuario");
 		cLabels.gridx = 4;
