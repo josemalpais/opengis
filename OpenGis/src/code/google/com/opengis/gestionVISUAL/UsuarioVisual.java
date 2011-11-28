@@ -478,18 +478,31 @@ public class UsuarioVisual extends JInternalFrame {
 				char[] contra = txtCon.getPassword();
 				String pass = new String(contra);
 				
+				char[] contra2 = txtConfCon.getPassword();
+				String pass2 = new String(contra2);
 				
-				Usuarios u = new Usuarios(txtDNI.getText(),
-						txtNombre.getText(), txtApellidos.getText(), txtTlf
-								.getText(), txtDir.getText(), txtPob.getText(),
-						txtProv.getText(), txtCp.getText(), txtFNac.getText(),
-						pass, jCmbTipo.getSelectedItem().toString()
-								.toLowerCase(), txtEmail.getText());
-				u.validarDatos();
-				System.out.println(jCmbTipo.getSelectedItem().toString());
-				if (u.getValido()) {
-					u.crearUsuario();
+				if(pass.equals(pass2)){
+					
+					Usuarios u = new Usuarios(txtDNI.getText(),
+							txtNombre.getText(), txtApellidos.getText(), txtTlf
+									.getText(), txtDir.getText(), txtPob.getText(),
+							txtProv.getText(), txtCp.getText(), txtFNac.getText(),
+							pass, jCmbTipo.getSelectedItem().toString()
+									.toLowerCase(), txtEmail.getText());
+					u.validarDatos();
+					System.out.println(jCmbTipo.getSelectedItem().toString());
+					if (u.getValido()) {
+						u.crearUsuario();
+					}
+					
+					
+				}else{
+					
+					JOptionPane.showMessageDialog(null, "Error. Las contraseñas no coinciden");
+					
 				}
+				
+
 			}
 		});
 		pane.add(boton, cNButtons);
