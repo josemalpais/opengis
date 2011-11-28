@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ProductoDAO;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
+
 
 public class Producto {
 	private int idprod;
@@ -97,21 +97,17 @@ public class Producto {
 	}
 //Enlazar Producto con ProductoDAO, cadena de metodos.	
 	public void crearProducto() {
-		x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.tipo,this.activo);
+	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.tipo,this.activo);
 		try {
-			
-			x.altaProducto();
-			
+			x.altaProducto();			
 		} catch (SQLException e) {
-
 			JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
 		}
 		
 	}
 //Valida datos	
 public void validarDatos(){
-		
-		
+
 		if(this.nombre.length() <1){ 
 			
 			JOptionPane.showMessageDialog(null, "Error. El nombre no puede estar vacio ");
