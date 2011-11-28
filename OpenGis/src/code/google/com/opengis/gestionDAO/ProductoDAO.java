@@ -35,7 +35,7 @@ public class ProductoDAO {
 
 		ConectarDBA.acceder();
 		String sentencia = "SELECT * FROM `producto` WHERE `idprod` LIKE '"+ idprod +"'";
-		ResultSet rs = dba.consulta(sentencia);
+		ResultSet rs = ConectarDBA.consulta(sentencia);
 		while(rs.next()){
 			resultado = rs.getString(1);
 		}
@@ -49,11 +49,9 @@ public class ProductoDAO {
 	
 	//metodo para hacer la sentencia que crea productos
 	public void altaProducto() throws SQLException{
-		
-		
-			
+
 			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`tipo` ,`activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.tipo +"','" + this.activo + "')";
-			dba.modificar(sentencia);
+			ConectarDBA.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
 		
 		
@@ -66,7 +64,7 @@ public class ProductoDAO {
 
 			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"
 					+ this.idprod + "'";
-			dba.modificar(sentencia);
+			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
 					"Producto dado de baja correctamente");
@@ -76,7 +74,7 @@ public class ProductoDAO {
 			JOptionPane.showMessageDialog(null, "El producto no existe");
 		}
 
-		dba.cerrarCon();
+		ConectarDBA.cerrarCon();
 
 	}
 	
