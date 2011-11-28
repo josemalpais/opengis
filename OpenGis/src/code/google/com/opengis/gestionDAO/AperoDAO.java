@@ -117,9 +117,22 @@ public class AperoDAO {
 				JOptionPane.showMessageDialog(null,"Se ha desactivado el usuario");
 			}
 		}
-			
-			
-			//System.out.println("Ejecutada sentencia "+sentencia);
-		 
-		 
+		
+		public void MoficicarApero() throws SQLException{
+			comprobarApero(this.idApero);
+			if (existe == true){
+				//String sentencia = "UPDATE INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0')";
+				String sentencia = "UPDATE `dai2opengis`.`apero` SET `nombre` = '"+this.nomApero+"', `tamaño` = '"+this.tamApero+"', `descripcion` = '"+this.descApero+"',`idtarea` = '"+this.idTarea_Apero+"',`activo` = '"+this.activ_Apero+"',`dni_usuario` = '"+this.idUser+"' WHERE `idapero` LIKE '"+this.idApero+"'";
+				System.out.println("por ahora funciona");
+				dba.modificar(sentencia);
+				JOptionPane.showMessageDialog(null,"Se ha modificado el Apero");
+				
+				
+			}else{
+				
+				JOptionPane.showMessageDialog(null,"El ID de Apero no existe");
+				
+			}
+			dba.cerrarCon();
+		}		 
 }
