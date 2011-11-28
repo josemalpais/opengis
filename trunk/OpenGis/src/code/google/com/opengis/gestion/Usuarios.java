@@ -4,6 +4,7 @@
 ******************************************************************************/
 package code.google.com.opengis.gestion;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
@@ -148,9 +149,14 @@ public class Usuarios {
 							}else{
 							
 								
-								if(this.Fecha_nac.length() != 10){
+								Date fechaAhora = new Date();
+								@SuppressWarnings("deprecation")
+								Date fechaNacimiento = new Date(this.Fecha_nac);
+								
+								
+								if(this.Fecha_nac.length() != 10 || fechaNacimiento.getTime() > fechaAhora.getTime() ){
 									
-									JOptionPane.showMessageDialog(null, "Error. El formato de la fecha es incorrecto");
+									JOptionPane.showMessageDialog(null, "Error. La fecha indicada no es correcta");
 									this.valido = false;
 									
 								}else{
