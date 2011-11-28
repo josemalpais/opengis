@@ -13,9 +13,13 @@ import java.awt.Rectangle;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DateFormatter;
 
 import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
@@ -50,7 +55,9 @@ public class UsuarioVisual extends JInternalFrame {
 	private static JTextField txtDNI = new JTextField();
 	private static JTextField txtNombre = new JTextField();
 	private static JTextField txtApellidos = new JTextField();
-	private static JTextField txtFNac = new JTextField();
+	private static DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+	private static DateFormatter mascaraFecha = new DateFormatter(formato);
+	private static JFormattedTextField txtFNac = new JFormattedTextField(mascaraFecha);
 	private static JTextField txtDir = new JTextField();
 	private static JTextField txtPob = new JTextField();
 	private static JTextField txtProv = new JTextField();
@@ -104,7 +111,7 @@ public class UsuarioVisual extends JInternalFrame {
 		panelUsuarios.setBounds(new Rectangle(0, 0, ancho, alto));
 		panelUsuariosCrear.setBounds(new Rectangle(0, 0, 800, 600));
 		panelUsuariosMod.setBounds(new Rectangle(0, 0, 800, 600));
-
+		txtFNac.setValue(new Date());
 
 		
 		panelUsuarios.setVisible(true);
@@ -159,39 +166,7 @@ public class UsuarioVisual extends JInternalFrame {
 		cButtons.gridy = 0;
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				try {
-					modelo.setColumnCount(0);
-					modelo.setRowCount(0);
-					ResultSet rs = UsuariosDAO.buscarUsuario(jCmbCriterio
-							.getSelectedItem().toString(), txtBuscar.getText()
-							.toLowerCase());
-					int nColumnas = rs.getMetaData().getColumnCount();
-					modelo.setColumnIdentifiers(nombreColumna);
-					while (rs.next()) {
-						Object[] registro = new Object[nColumnas];
-
-						for (int i = 0; i < nColumnas; i++) {
-							registro[i] = rs.getObject(i + 1);
-							System.out.println(registro[i]);
-
-						}
-						for (int i2 = 0; i2 < registro.length; i2++) {
-
-							if (registro[i2].toString().equals("true")) {
-								registro[i2] = "Inactivo";
-							} else if (registro[i2].toString().equals("false")) {
-								registro[i2] = "Activo";
-							}
-							System.out.println(registro[i2]);
-						}
-						modelo.addRow(registro);
-
-					}
-					rs.close();
-				} catch (SQLException e1) {
-					System.out.println(e1);
-
-				}
+				buscar();
 
 			}
 		});
@@ -269,6 +244,7 @@ public class UsuarioVisual extends JInternalFrame {
 					}
 					try {
 						UsuariosDAO.ActivarUsuario(rUser[0]);
+						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -297,6 +273,7 @@ public class UsuarioVisual extends JInternalFrame {
 					}
 					try {
 						UsuariosDAO.DesactivarUsuario(rUser[0]);
+						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -317,7 +294,7 @@ public class UsuarioVisual extends JInternalFrame {
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 
-				txtBuscar.setText("Introduzca aquí el criterio a buscar");
+				txtBuscar.setText("");
 
 				limpiarTabla(modelo.getRowCount());
 
@@ -786,7 +763,43 @@ public class UsuarioVisual extends JInternalFrame {
 			modelo.removeRow(0);
 		}
 	}
+	
+	public static void buscar(){
+		try {
+			modelo.setColumnCount(0);
+			modelo.setRowCount(0);
+			ResultSet rs = UsuariosDAO.buscarUsuario(jCmbCriterio
+					.getSelectedItem().toString(), txtBuscar.getText()
+					.toLowerCase());
+			int nColumnas = rs.getMetaData().getColumnCount();
+			modelo.setColumnIdentifiers(nombreColumna);
+			while (rs.next()) {
+				Object[] registro = new Object[nColumnas];
 
+				for (int i = 0; i < nColumnas; i++) {
+					registro[i] = rs.getObject(i + 1);
+					System.out.println(registro[i]);
+
+				}
+				for (int i2 = 0; i2 < registro.length; i2++) {
+
+					if (registro[i2].toString().equals("true")) {
+						registro[i2] = "Inactivo";
+					} else if (registro[i2].toString().equals("false")) {
+						registro[i2] = "Activo";
+					}
+					System.out.println(registro[i2]);
+				}
+				modelo.addRow(registro);
+
+			}
+			rs.close();
+		} catch (SQLException e1) {
+			System.out.println(e1);
+
+		}
+		
+	}
 	
 
 }
