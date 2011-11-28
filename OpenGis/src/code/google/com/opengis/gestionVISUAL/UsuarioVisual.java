@@ -20,6 +20,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -56,7 +57,7 @@ public class UsuarioVisual extends JInternalFrame {
 	private static JTextField txtCp = new JTextField();
 	private static JTextField txtTlf = new JTextField();
 	private static JTextField txtEmail = new JTextField();
-	private static JTextField txtCon = new JTextField();
+	private static JPasswordField txtCon = new JPasswordField();
 
 	private static String[] tipo = { "Trabajador", "Administrador" };
 	private static JComboBox jCmbTipo = new JComboBox(tipo);
@@ -487,11 +488,15 @@ public class UsuarioVisual extends JInternalFrame {
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 
+				char[] contra = txtCon.getPassword();
+				String pass = new String(contra);
+				
+				
 				Usuarios u = new Usuarios(txtDNI.getText(),
 						txtNombre.getText(), txtApellidos.getText(), txtTlf
 								.getText(), txtDir.getText(), txtPob.getText(),
 						txtProv.getText(), txtCp.getText(), txtFNac.getText(),
-						txtCon.getText(), jCmbTipo.getSelectedItem().toString()
+						pass, jCmbTipo.getSelectedItem().toString()
 								.toLowerCase(), txtEmail.getText());
 				u.validarDatos();
 				System.out.println(jCmbTipo.getSelectedItem().toString());
