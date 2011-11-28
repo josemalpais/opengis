@@ -238,7 +238,7 @@ public class UsuarioVisual extends JInternalFrame {
 					}
 
 					panelUsuarios.setVisible(false);
-					cargarNuevoUser(panelUsuariosMod);
+					cargarModUser(panelUsuariosMod);
 					restablecerCampos();
 					setCampos(rUser);
 					txtDNI.setEditable(false);
