@@ -342,6 +342,8 @@ import javax.swing.WindowConstants;
                      
                       if(comando.equals("Usuarios")){
                     	
+                    	  	  frmUsuarios.setVisible(false);
+                    	  
                     	  	  cargarFormularios();
                              
                               frmUsuarios.setVisible(true);
@@ -350,7 +352,7 @@ import javax.swing.WindowConstants;
                      
                       if(comando.equals("Productos")){
                              
-                             
+                    	      frmProductos.setVisible(false);
                     	  	  cargarFormularios();
                               frmProductos.setVisible(true);
                              
@@ -359,18 +361,21 @@ import javax.swing.WindowConstants;
                       
                       if(comando.equals("Dispositivos")){
                     	  
+                    	      frmDispositivos.setVisible(false);
 	                    	  cargarFormularios();
 	                    	  frmDispositivos.setVisible(true);
                     	  
                       }
                       if(comando.equals("Aperos")){
                     	  
+                    	  frmAperos.setVisible(false);
                     	  cargarFormularios();
                     	  frmAperos.setVisible(true);
                 	  
                       }
                       if(comando.equals("Parcelas")){
                     	  
+                    	  frmParcelas.setVisible(false);
                     	  cargarFormularios();
                     	  frmParcelas.setVisible(true);
                 	  

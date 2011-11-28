@@ -171,11 +171,22 @@ public class Usuarios {
 											
 											if(this.Provincia.length() == 0 || r.equals(true) ){
 												
-												JOptionPane.showMessageDialog(null,"Error. La provincia no puede esta vacía ni ser numérico");												
+												JOptionPane.showMessageDialog(null,"Error. La provincia no puede esta vacía ni ser numérico");		
+												
+												
 											}else{
 												
-												this.valido = true; // En el caso de que todos los datos sean correctos devolveremos True
+												r = isInteger(this.Contraseña);
 												
+												if(this.Contraseña.length() ==0 || r.equals(true)){
+												
+													JOptionPane.showMessageDialog(null,"Error. La Contraseña es obligatoria y debe ser alfanumérica");
+												
+												}else{
+													
+													this.valido = true; // En el caso de que todos los datos sean correctos devolveremos True
+													
+												}
 											}
 										
 										

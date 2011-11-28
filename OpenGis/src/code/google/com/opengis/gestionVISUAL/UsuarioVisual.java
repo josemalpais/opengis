@@ -760,7 +760,6 @@ public class UsuarioVisual extends JInternalFrame {
 	}
 
 	public static void restablecerCampos() {
-		txtDNI.setText("");
 		txtNombre.setText("");
 		txtApellidos.setText("");
 		txtFNac.setText("");
