@@ -47,7 +47,7 @@ public class DispositivoVisual extends JInternalFrame {
 
 	//sección buscar
 	private static JTextField txtBuscar = new JTextField();
-	private static String[] criterio = { "Iddispositivo", "Modelo", "NumSerie", "Disponible", "Activo" };
+	private static String[] criterio = { "Iddispositivo", "Modelo", "Num_Serie", "Disponible", "Activo" };
 	private static JComboBox jCmbCriterio = new JComboBox(criterio);
 
 	//tabla de dispositivos
