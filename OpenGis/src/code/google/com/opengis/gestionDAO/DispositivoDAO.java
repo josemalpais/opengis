@@ -4,8 +4,6 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
-import code.google.com.opengis.gestion.Dispositivo;
-
 /**
  * Esta clase permite insertar, modificar, y dar de baja dispositivos
  * 
@@ -13,22 +11,20 @@ import code.google.com.opengis.gestion.Dispositivo;
  * 
  */
 
-
 public class DispositivoDAO {
 
 	static boolean existe;
 	static String resultado;
-	static ConectarDBA dba = new ConectarDBA();
+	static ConectarDBA ConectarDBA = new ConectarDBA();
 
 	private String iddispositivo;
 	private String modelo;
 	private String numSerie;
-	
 
 	/**
 	 * ***************GETTERS Y SETTERS
 	 */
-	
+
 	public static String getResultado() {
 		return resultado;
 	}
@@ -61,7 +57,6 @@ public class DispositivoDAO {
 		this.numSerie = numSerie;
 	}
 
-	
 	/**
 	 * ***************CONSTRUCTOR
 	 */
@@ -76,17 +71,17 @@ public class DispositivoDAO {
 	 ******************************** MÉTODOS*************************************
 	 ****************************************************************************/
 
-	
 	/**
 	 * ESTE MÉTODO COMPROBARÁ QUE NO EXISTA EL DISPOSITIVO.
 	 */
 
-	public static boolean comprobarDispositivo(String iddispositivo)throws SQLException 
-	{
+	public static boolean comprobarDispositivo(String iddispositivo)
+			throws SQLException {
 		ConectarDBA.acceder();
-		String sentencia = "SELECT * FROM `dispositivo` WHERE `iddispositivo` LIKE '"+iddispositivo+"'";
-		ResultSet rs = dba.consulta(sentencia);
-		
+		String sentencia = "SELECT * FROM `dispositivo` WHERE `iddispositivo` LIKE '"
+				+ iddispositivo + "'";
+		ResultSet rs = ConectarDBA.consulta(sentencia);
+
 		resultado = "";
 		while (rs.next()) {
 			resultado = rs.getString(1);
@@ -95,12 +90,10 @@ public class DispositivoDAO {
 		System.out.println("Enviado: " + iddispositivo + " esperado: "
 				+ resultado);
 
-		if (resultado.equals(iddispositivo)) 
-		{
+		if (resultado.equals(iddispositivo)) {
 			existe = true;
 			System.out.println("El estado de existe es: " + existe);
-		}
-		else {
+		} else {
 			existe = false;
 			System.out.println("El estado de existe es: " + existe);
 		}
@@ -112,9 +105,10 @@ public class DispositivoDAO {
 	 * ESTE MÉTODO DARÁ DE ALTA EL DISPOSITIVO INDICADO, COMPROBANDO QUE NO
 	 * EXISTA.
 	 */
-	
-	public void altaDispositivo() throws SQLException {
-		comprobarDispositivo(this.iddispositivo);
+
+	public static void altaDispositivo(String iddispositivo, String modelo,
+			String numSerie) throws SQLException {
+		comprobarDispositivo(iddispositivo);
 
 		if (existe == true) {
 
@@ -124,19 +118,20 @@ public class DispositivoDAO {
 		} else {
 			ConectarDBA.acceder();
 			String sentencia = "INSERT INTO `dai2opengis`.`dispositivo` (`iddispositivo` ,`modelo` ,`num_serie` ,`disponible` ,`activo`) VALUES ('"
-					+ this.iddispositivo
+					+ iddispositivo
 					+ "', '"
-					+ this.modelo
+					+ modelo
 					+ "','"
-					+ this.numSerie + "','1','1')";
-			dba.modificar(sentencia);
+					+ numSerie
+					+ "','1','1')";
+			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
 					"Se ha dado de alta el nuevo dispositivo");
 
 		}
 
-		dba.cerrarCon();
+		ConectarDBA.cerrarCon();
 
 	}
 
@@ -144,65 +139,99 @@ public class DispositivoDAO {
 	 * ESTE MÉTODO DARÁ DE BAJA EL DISPOSITIVO INDICADO, COMPROBANDO QUE YA
 	 * EXISTA, Y MODIFICANDO SU CAMPO "ACTIVO" A FALSO.
 	 */
-	
+
 	public static void borrarDispositivo(String id) throws SQLException {
-		int confirmado = JOptionPane.showConfirmDialog(null,"¿Dar de baja el dispositivo seleccionado?");
-		if (JOptionPane.OK_OPTION == confirmado)
-		{
-			comprobarDispositivo(id);
-			if (existe == true) {
+		int confirmado = JOptionPane.showConfirmDialog(null,
+				"¿Dar de baja el dispositivo seleccionado?");
+		if (JOptionPane.OK_OPTION == confirmado) {
+			if (comprobarDispositivo(id) == true) {
+				try {
+					// compruebo si el dispositivo está activo
+					ConectarDBA.acceder();
+					ResultSet rs = ConectarDBA
+							.consulta("SELECT `activo` FROM dispositivo WHERE `iddispositivo` = '"
+									+ id + "'");
+					String aux;
+					rs.next();
+					aux = rs.getString(1);
 
-				String sentencia = "UPDATE dispositivo SET `activo` = '0' , `disponible`= '0' WHERE `iddispositivo` = '"
-						+ id+ "'";
-				dba.modificar(sentencia);
-
-				JOptionPane.showMessageDialog(null,
-						"Dispositivo dado de baja correctamente");
-
+					if ((aux == "0") || (aux == "false")) {
+						JOptionPane.showMessageDialog(null,
+								"El dispositivo ya estaba desactivado.");
+					} else {
+						String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '0', `disponible` = '0' WHERE `dispositivo`.`iddispositivo` ="
+								+ id;
+						ConectarDBA.modificar(sentencia);
+						JOptionPane
+								.showMessageDialog(null,
+										"Dispositivo modificado correctamente. Se ha desactivado el dispositivo.");
+					}
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
 			} else {
-
 				JOptionPane.showMessageDialog(null, "El dispositivo no existe");
 			}
-
-			dba.cerrarCon();
+			;
+			ConectarDBA.cerrarCon();
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"El dispositivo no ha sido dado de baja.");
 		}
-		else
-		{
-			JOptionPane.showMessageDialog(null, "El dispositivo no ha sido dado de baja.");
-		}
-		
-		
 	}
+
 	public static void reactivarDispositivo(String id) throws SQLException {
-		
-		
-			comprobarDispositivo(id);
-			if (existe == true) {
 
-				String sentencia = "UPDATE dispositivo SET `activo` = '1' , `disponible`= '1' WHERE `iddispositivo` = '"
-						+ id+ "'";
-				dba.modificar(sentencia);
+		if (comprobarDispositivo(id) == true) {
+			try {
+				// compruebo si el dispositivo está activo
+				ConectarDBA.acceder();
+				ResultSet rs = ConectarDBA
+						.consulta("SELECT `activo` FROM dispositivo WHERE `iddispositivo` = '"
+								+ id + "'");
+				int aux;
+				rs.next();
+				aux = rs.getInt(1);
 
-				JOptionPane.showMessageDialog(null,
-						"Dispositivo reactivado correctamente");
-
-			} else {
-
-				JOptionPane.showMessageDialog(null, "El dispositivo no existe");
+				if (aux == 1) {
+					JOptionPane.showMessageDialog(null,
+							"El dispositivo ya estaba activado.");
+				} else {
+					String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '1' WHERE `dispositivo`.`iddispositivo` ="
+							+ id;
+					ConectarDBA.modificar(sentencia);
+					JOptionPane
+							.showMessageDialog(null,
+									"Dispositivo modificado correctamente. Se ha reactivado el dispositivo.");
+					int confirmado = JOptionPane.showConfirmDialog(null,
+							"¿Liberar dispositivo?");
+					if (JOptionPane.OK_OPTION == confirmado) {
+						sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '1' WHERE `dispositivo`.`iddispositivo` ="
+								+ id;
+						ConectarDBA.modificar(sentencia);
+						JOptionPane.showMessageDialog(null,
+								"Dispositivo liberado.");
+					}
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
 			}
-
-			dba.cerrarCon();
 		}
-		
-		
-		
-	
-	public void modificarDispositivo(String modelo, String numSerie) throws SQLException {
-		comprobarDispositivo(this.iddispositivo);
+		;
+		ConectarDBA.cerrarCon();
+	}
+
+	public static void modificarDispositivo(String iddispositivo,
+			String modelo, String numSerie) throws SQLException {
+		comprobarDispositivo(iddispositivo);
 		if (existe == true) {
-			
-			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `modelo` = '"+modelo+"', `num_serie` = '"+numSerie+"' WHERE `dispositivo`.`iddispositivo` =" + this.iddispositivo;
-			dba.modificar(sentencia);
+
+			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `modelo` = '"
+					+ modelo
+					+ "', `num_serie` = '"
+					+ numSerie
+					+ "' WHERE `dispositivo`.`iddispositivo` =" + iddispositivo;
+			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
 					"Dispositivo modificado correctamente");
@@ -212,53 +241,134 @@ public class DispositivoDAO {
 			JOptionPane.showMessageDialog(null, "El dispositivo no existe");
 		}
 
-		dba.cerrarCon();
+		ConectarDBA.cerrarCon();
 
 	}
+
 	public static void disponibleNo(String id) throws SQLException {
-		comprobarDispositivo(id);
-		if (existe == true) {
-			
-			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '0' WHERE `dispositivo`.`iddispositivo` =" + id;
-			dba.modificar(sentencia);
-			
-			JOptionPane.showMessageDialog(null,
-					"Dispositivo modificado correctamente. Ahora no está disponible.");
+		if (comprobarDispositivo(id) == true) {
+			try {
+				// compruebo si el dispositivo está activo
+				ConectarDBA.acceder();
+				ResultSet rs = ConectarDBA
+						.consulta("SELECT `activo` FROM dispositivo WHERE `iddispositivo` = '"
+								+ id + "'");
+				int aux;
+				rs.next();
+				aux = rs.getInt(1);
 
-		} else {
+				// compruebo que el dispositivo esté disponible
+				rs = ConectarDBA
+						.consulta("SELECT `disponible` FROM dispositivo WHERE `iddispositivo` = '"
+								+ id + "'");
+				int aux2;
+				rs.next();
+				aux2 = rs.getInt(1);
 
-			JOptionPane.showMessageDialog(null, "El dispositivo no existe");
-		}
-
-		dba.cerrarCon();
-
-	}
-	public static void disponibleSi(String id) throws SQLException {
-		comprobarDispositivo(id);
-		if (existe == true) {
-			
-			String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '1' WHERE `dispositivo`.`iddispositivo` =" + id;
-			dba.modificar(sentencia);
-			
-			JOptionPane.showMessageDialog(null,
-					"Dispositivo modificado correctamente. Ahora sí está disponible.");
-
-		} else {
-
-			JOptionPane.showMessageDialog(null, "El dispositivo no existe");
-		}
-
-		dba.cerrarCon();
-		}
-	 public static ResultSet buscarDispositivo(String campo, String criterio){
-		 	ResultSet rs = null;
-		 	ConectarDBA.acceder();
-			String sentencia = "SELECT `iddispositivo`, `modelo`, `num_serie`, `disponible`, `activo` FROM `dispositivo` WHERE  `"+campo+"` LIKE '"+criterio+"%'";
-			try{
-			rs = dba.consulta(sentencia);
-			}catch (SQLException e){
-				System.out.println(e);
+				if (aux == 1) {
+					if (aux2 == 0) {
+						JOptionPane.showMessageDialog(null,
+								"El dispositivo no estaba disponible.");
+					} else {
+						String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '0' WHERE `dispositivo`.`iddispositivo` ="
+								+ id;
+						ConectarDBA.modificar(sentencia);
+						JOptionPane
+								.showMessageDialog(null,
+										"Dispositivo modificado correctamente. Ahora ya no está disponible.");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"El dispositivo no está activo");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
 			}
-				return rs;	 
-	 }
+		}
+		;
+		ConectarDBA.cerrarCon();
+	}
+
+	public static void disponibleSi(String id) throws SQLException {
+		if (comprobarDispositivo(id) == true) {
+			try {
+				// compruebo si el dispositivo está activo
+				ConectarDBA.acceder();
+				ResultSet rs = ConectarDBA
+						.consulta("SELECT `activo` FROM dispositivo WHERE `iddispositivo` = '"
+								+ id + "'");
+				int aux;
+				rs.next();
+				aux = rs.getInt(1);
+
+				// compruebo que el dispositivo no esté disponible
+				rs = ConectarDBA
+						.consulta("SELECT `disponible` FROM dispositivo WHERE `iddispositivo` = '"
+								+ id + "'");
+				int aux2;
+				rs.next();
+				aux2 = rs.getInt(1);
+
+				if (aux == 1) {
+					if (aux2 == 1) {
+						JOptionPane.showMessageDialog(null,
+								"El dispositivo ya estaba disponible.");
+					} else {
+						String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '1' WHERE `dispositivo`.`iddispositivo` ="
+								+ id;
+						ConectarDBA.modificar(sentencia);
+						JOptionPane
+								.showMessageDialog(null,
+										"Dispositivo modificado correctamente. Ahora sí está disponible.");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"El dispositivo no está activo");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		;
+		ConectarDBA.cerrarCon();
+	}
+
+	public static ResultSet buscarDispositivo(String campo, String criterio) {
+		ResultSet rs = null;
+		ConectarDBA.acceder();
+		String sentencia = "SELECT `iddispositivo`, `modelo`, `num_serie`, `disponible`, `activo` FROM `dispositivo` WHERE  `"
+				+ campo + "` LIKE '" + criterio + "%'";
+		try {
+			rs = ConectarDBA.consulta(sentencia);
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return rs;
+	}
+
+	public static int calcularNuevoID() {
+		int iddispositivo = 0;
+		try {
+
+			ConectarDBA.acceder();
+			ResultSet rs = ConectarDBA
+					.consulta("SELECT MAX(iddispositivo) FROM dispositivo");
+			String aux;
+
+			rs.next();
+			aux = rs.getString(1);
+
+			if (aux == "") {
+
+				iddispositivo = 0;
+			} else {
+				iddispositivo = rs.getInt(1);
+			}
+			iddispositivo = iddispositivo + 1;
+			return (iddispositivo);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return iddispositivo;
+	}
 }

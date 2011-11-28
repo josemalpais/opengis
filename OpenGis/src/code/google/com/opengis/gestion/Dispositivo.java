@@ -10,32 +10,33 @@ import code.google.com.opengis.gestionDAO.ConectarDBA;
  * 
  * @author Iván Serrano y Jose Alapont
  * 
- * SALUDOS PAREJA, SOY PEPE, FIJAROS CÓMO OS HE COMENTADO EL CÓDIGO, QUE ES COMO SE HACE, SE ESCRIBE /** SE LE DA AL INTRO
- * Y EL ECLIPSE NOS ESCRIBE LOS PARÁMETROS QUE HAY QUE COMENTAR, ESO ES IMPORTANTE.
- * Aparte os he corregido un par de cosas en el constructor.
+ *         SALUDOS PAREJA, SOY PEPE, FIJAROS CÓMO OS HE COMENTADO EL CÓDIGO, QUE
+ *         ES COMO SE HACE, SE ESCRIBE /** SE LE DA AL INTRO Y EL ECLIPSE NOS
+ *         ESCRIBE LOS PARÁMETROS QUE HAY QUE COMENTAR, ESO ES IMPORTANTE.
+ *         Aparte os he corregido un par de cosas en el constructor.
  */
 public class Dispositivo {
-	private String iddispositivo;
+	// private String iddispositivo;
 	private String modelo;
 	private String numSerie;
 
 	/**
 	 * ***************GETTERS Y SETTERS
 	 */
-	public String getIddispositivo() {
-		System.out.println("Dispositivo.iddispositivo = " + this.iddispositivo
-				+ ".");
-		return iddispositivo;
-	}
+	/*
+	 * public String getIddispositivo() {
+	 * System.out.println("Dispositivo.iddispositivo = " + this.iddispositivo +
+	 * "."); return iddispositivo; }
+	 */
 	/**
 	 * 
 	 * @param iddispositivo
 	 */
-	public void setIddispositivo(String iddispositivo) {
-		this.iddispositivo = iddispositivo;
-		System.out.println("Dispositivo.iddispositivo (nuevo) = "
-				+ this.iddispositivo + ".");
-	}
+	/*
+	 * public void setIddispositivo(String iddispositivo) { this.iddispositivo =
+	 * iddispositivo; System.out.println("Dispositivo.iddispositivo (nuevo) = "
+	 * + this.iddispositivo + "."); }
+	 */
 	/**
 	 * 
 	 * @return
@@ -44,6 +45,7 @@ public class Dispositivo {
 		System.out.println("Dispositivo.modelo = " + this.modelo + ".");
 		return modelo;
 	}
+
 	/**
 	 * 
 	 * @param modelo
@@ -52,6 +54,7 @@ public class Dispositivo {
 		this.modelo = modelo;
 		System.out.println("Dispositivo.modelo (nuevo) = " + this.modelo + ".");
 	}
+
 	/**
 	 * 
 	 * @return
@@ -60,6 +63,7 @@ public class Dispositivo {
 		System.out.println("Dispositivo.numSerie = " + this.numSerie + ".");
 		return numSerie;
 	}
+
 	/**
 	 * 
 	 * @param numSerie
@@ -75,20 +79,32 @@ public class Dispositivo {
 	 */
 	/**
 	 * 
-	 * @param iddispositivo Recibe un id de dispositivo
-	 * @param modelo Recibe un modelo de dispositivo
-	 * @param numSerie Recibe el número de serie del dispositivo
-	 * @param disponible Indica si el dispositivo está disponible o no
-	 * @param activo Indica si el dispositivo se encuentra activo o no
-	 * @throws SQLException Nos devuelve por consola un error de SQL en caso de producirse
+	 * @param iddispositivo
+	 *            Recibe un id de dispositivo
+	 * @param modelo
+	 *            Recibe un modelo de dispositivo
+	 * @param numSerie
+	 *            Recibe el número de serie del dispositivo
 	 */
-	public Dispositivo(String iddispositivo, String modelo, String numSerie
-			/*boolean disponible, boolean activo*/){
-		//super();
-		boolean b1 = this.validarDatos(iddispositivo, modelo, numSerie);
+	/*
+	 * public Dispositivo(String iddispositivo, String modelo, String numSerie){
+	 * //super(); boolean b1 = this.validarDatos(iddispositivo, modelo,
+	 * numSerie); if (b1 = true) {
+	 * 
+	 * this.iddispositivo = iddispositivo; this.modelo = modelo; this.numSerie =
+	 * numSerie; } else { JOptionPane.showMessageDialog(null,
+	 * "Los datos son incorrectos. Compruebe los datos."); } }
+	 */
+	/**
+	 * 
+	 * @param modelo
+	 * @param numSerie
+	 */
+	public Dispositivo(String modelo, String numSerie) {
+		// super();
+		boolean b1 = this.validarDatos(modelo, numSerie);
 		if (b1 = true) {
 
-			this.iddispositivo = iddispositivo;
 			this.modelo = modelo;
 			this.numSerie = numSerie;
 		} else {
@@ -98,110 +114,90 @@ public class Dispositivo {
 	}
 
 	/***************************************************************************
-	********************************MÉTODOS*************************************
-	****************************************************************************/
+	 ******************************** MÉTODOS*************************************
+	 ****************************************************************************/
 	/**
 	 * Este método comprobará que los datos introducidos mediante la interfaz
 	 * sean correctos. En cuyo caso, se podrán subir a la base de datos.
 	 * 
-	 * @param iddispositivo Introducimos la cadena con el id del dispositivo a comprobar
-	 * @param modelo	Introducimos la cadena con el modelo del dispositivo
-	 * @param numSerie	Introducimos la cadena con el número de serie del dispositivo
-	 * @return	Devuelve el estado, si True está todo correcto, si devuelve False se han introducido mal los datos.
+	 * @param iddispositivo
+	 *            Introducimos la cadena con el id del dispositivo a comprobar
+	 * @param modelo
+	 *            Introducimos la cadena con el modelo del dispositivo
+	 * @param numSerie
+	 *            Introducimos la cadena con el número de serie del dispositivo
+	 * @return Devuelve el estado, si True está todo correcto, si devuelve False
+	 *         se han introducido mal los datos.
 	 */
-	public static Boolean validarDatos(String iddispositivo, String modelo,
-			String numSerie) {
 
-		if (iddispositivo.length() != 5) {
+	public static Boolean validarDatos(String modelo, String numSerie) {
+		boolean b = false;
+		if (modelo.length() > 15) {
 			/**
-			 * Longitud del id de dispositivo, que ha de ser de 5 caracteres.
+			 * Longitud del modelo, que ha de ser de 15 caracteres como máximo.
 			 **/
-
 			JOptionPane
 					.showMessageDialog(null,
-							"Error. El identificador de dispositivo ha de ser de 5 caracteres.");
+							"Error. La longitud del modelo no puede superar los 15 caracteres.");
 			return false;
 
 		} else {
 
-			Boolean b = isInteger(iddispositivo);
-
-			if (b = false) {
+			if ((numSerie.length() < 10) || (numSerie.length() > 30)) {
 
 				JOptionPane
 						.showMessageDialog(null,
-								"Error. El identificador de dispositivo ha de ser numérico.");
+								"Error. El número de serie tiene que tener entre 10 y 30 dígitos.");
 				return false;
 
 			} else {
+				try {
+					numSerie = numSerie.toString();
+					b = true;
+				} catch (Exception e) {
+					b = false;
+				}
 
-				if (modelo.length() > 15) {
-					/**
-					 * Longitud del modelo, que ha de ser de 15 caracteres como
-					 * máximo.
-					 **/
+				if (b = false) {
 
 					JOptionPane
 							.showMessageDialog(null,
-									"Error. La longitud del modelo no puede superar los 15 caracteres.");
+									"Error. El número de serie es incorrecto. Introduce datos correctos.");
 					return false;
 
-				} else {
+				}
 
-					if (numSerie.length() != 5) {
+				else {
 
-						JOptionPane
-								.showMessageDialog(null,
-										"Error. El número de serie tiene que tener 5 dígitos.");
-						return false;
-
-					} else {
-
-						b = isInteger(numSerie);
-
-						if (b = false) {
-
-							JOptionPane
-									.showMessageDialog(null,
-											"Error. El número de serie ha de ser numérico.");
-							return false;
-
-						}
-
-						else {
-
-							return true;
-							/**
-							 * Si todos los datos son correctos devuelve True.
-							 */
-						}
-					}
+					return true;
+					/**
+					 * Si todos los datos son correctos devuelve True.
+					 */
 				}
 			}
 		}
 	}
-	
-	public static Boolean validarDatos(String iddispositivo) {
 
-		if (iddispositivo.length() != 5) {
-			/**
-			 * Longitud del id de dispositivo, que ha de ser de 5 caracteres.
-			 **/
+	/*
+	 * public static Boolean validarDatos(String iddispositivo) {
+	 * 
+	 * if (iddispositivo.length() != 5) { /** Longitud del id de dispositivo,
+	 * que ha de ser de 5 caracteres.
+	 */
 
-			JOptionPane
-					.showMessageDialog(null,
-							"Error. El identificador de dispositivo ha de ser de 5 caracteres.");
-			return false;
-		}
-		else{return true;}
-	}
-
+	/*
+	 * JOptionPane .showMessageDialog(null,
+	 * "Error. El identificador de dispositivo ha de ser de 5 caracteres.");
+	 * return false; } else{return true;} }
+	 */
 
 	/**
 	 * Este método comprueba que un String sea un Número. Si lo es, devuelve
 	 * "True". Si no, devuelve "False"
-	 * @param cadena Aquí escribimos el String a comprobar.
-	 * @return	Devuelve el estado.
+	 * 
+	 * @param cadena
+	 *            Aquí escribimos el String a comprobar.
+	 * @return Devuelve el estado.
 	 */
 	public static boolean isInteger(String cadena) {
 		try {
