@@ -165,8 +165,8 @@ public void principalProducto(Container pane){
                                 
             try {
            	 
-           	 	dba.acceder();
-                ResultSet rs = dba.consulta("SELECT MAX(idprod) FROM producto");
+           	 	ConectarDBA.acceder();
+                ResultSet rs = ConectarDBA.consulta("SELECT MAX(idprod) FROM producto");
                 Integer idprod;
                 
                 rs.next();
@@ -290,7 +290,7 @@ public void principalProducto(Container pane){
         c.gridy = 4;
         pane.add(label,c);
 
-        txtDescripcion = new JTextArea("",5,10);
+        txtDescripcion = new JTextArea("",5,15);
         txtDescripcion.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setPreferredSize(new Dimension(300, 20));
@@ -341,13 +341,19 @@ public void principalProducto(Container pane){
                         p.validarDatos();
                         if (p.getCorrecto()) {
 							p.crearProducto();
-						}	
-                        try {
-							dba.cerrarCon();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+							 try {	
+					                ResultSet rs = ConectarDBA.consulta("SELECT MAX(idprod) FROM producto");
+					                Integer idprod; 
+					                rs.next();
+					                idprod = rs.getInt(1); 
+					                if(idprod==null){	 
+					               	 idprod = 0;
+					                }
+					                txtIdprod.setText(idprod+1+"");
+							 } catch (SQLException e2) {
+					                System.out.println(e2.getMessage());
+					            }
+                        }  
                 }
         });
         pane.add(cmdAceptarAlt, c);
@@ -358,7 +364,13 @@ public void principalProducto(Container pane){
         c.gridy = 5;
         cmdCancelarAlt.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {                     
-                        panelProducto.show();
+                        try {
+							ConectarDBA.cerrarCon();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                		panelProducto.show();
                         panelProductoAlt.hide();
                 }
         });
