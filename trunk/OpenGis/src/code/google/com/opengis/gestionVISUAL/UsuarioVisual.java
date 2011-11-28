@@ -65,6 +65,7 @@ public class UsuarioVisual extends JInternalFrame {
 	private static JTextField txtTlf = new JTextField();
 	private static JTextField txtEmail = new JTextField();
 	private static JPasswordField txtCon = new JPasswordField();
+	private static JPasswordField txtConfCon = new JPasswordField();
 
 	private static String[] tipo = { "Trabajador", "Administrador" };
 	private static JComboBox jCmbTipo = new JComboBox(tipo);
@@ -446,14 +447,23 @@ public class UsuarioVisual extends JInternalFrame {
 		cNText.gridx = 3;
 		cNText.gridy = 3;
 		pane.add(txtCon, cNText);
-
-		campolbl = new JLabel("Tipo de usuario");
+		
+		campolbl = new JLabel("Confirmar contraseña:");
 		cNLabels.gridx = 4;
 		cNLabels.gridy = 3;
 		pane.add(campolbl, cNLabels);
 
 		cNText.gridx = 5;
 		cNText.gridy = 3;
+		pane.add(txtConfCon, cNText);
+
+		campolbl = new JLabel("Tipo de usuario");
+		cNLabels.gridx = 4;
+		cNLabels.gridy = 5;
+		pane.add(campolbl, cNLabels);
+
+		cNText.gridx = 5;
+		cNText.gridy = 5;
 		pane.add(jCmbTipo, cNText);
 
 		boton = new JButton("Guardar");
@@ -653,11 +663,11 @@ public class UsuarioVisual extends JInternalFrame {
 
 		campolbl = new JLabel("Tipo de usuario");
 		cLabels.gridx = 4;
-		cLabels.gridy = 3;
+		cLabels.gridy = 5;
 		pane.add(campolbl, cLabels);
 
 		cText.gridx = 5;
-		cText.gridy = 3;
+		cText.gridy = 5;
 		pane.add(jCmbTipo, cText);
 
 		boton = new JButton("Modificar");
