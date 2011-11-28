@@ -350,14 +350,14 @@ public class ParcelaVisual extends JInternalFrame {
 							textpoligono.getText(),textnumero.getText(),intbol,textpartida.getText(),textdnip.getText());
 					
 					if(Parcela.isValido()==true){
-						try {
-							p1.altaParcela();
+						//try {
+							//altaParcela(p1);
 							System.out.println("CONSULTA INSERTADA CORRECTAMENTE");
-						} catch (SQLException e1) {
+						//} catch (SQLException e1) {
 							System.out.println("ERROR DE INSERCION");
 							 //TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+							//e1.printStackTrace();
+						//}
 					}
 	    }});
 	
@@ -659,8 +659,9 @@ public class ParcelaVisual extends JInternalFrame {
 		            	textnumerom.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 5) ); 
 		            	textpartidam.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 6) );
 		            	textdnipm.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 7) );
-
-		        	
+		            	
+		        	Parcela pl= new Parcela(textId.getText(),text );
+		            	
 		    }});
 			
 			panelGestion.add(btnDesactivar);
