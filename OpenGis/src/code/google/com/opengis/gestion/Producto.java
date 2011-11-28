@@ -108,34 +108,34 @@ public class Producto {
 //Valida datos	
 public void validarDatos(){
 
-		if(this.nombre.length() <1){ 
+		if(this.nombre.length() <1 || this.nombre.length()>40){ 
 			
-			JOptionPane.showMessageDialog(null, "Error. El nombre no puede estar vacio ");
+			JOptionPane.showMessageDialog(null, "Error. El nombre no puede estar vacio ni ser superior a 40 carácteres");
 			this.correcto = false;
 			
 		}else{			
 			
 			Boolean r = isInteger(this.nombre);
 			
-			if(r.equals(true) || this.nombre.length() < 2){
+			if(r.equals(true)){
 				
-				JOptionPane.showMessageDialog(null, "Error. El nombre no puede ser numerico");
+				JOptionPane.showMessageDialog(null, "Error. El nombre no puede ser numérico");
 				this.correcto = false;
 				
 			}else{
 				
 				r = isInteger(this.tipo);
 				
-				if(r.equals(true) || this.tipo.length() < 2){
+				if(r.equals(true) || this.tipo.length() < 2 || this.tipo.length()>40){
 					
-					JOptionPane.showMessageDialog(null, "Error. El tipo no pueden ser numerico ni estar vacio");
+					JOptionPane.showMessageDialog(null, "Error. El tipo no pueden ser numérico, estar vacio ni ser superior a 40 carácteres.");
 					this.correcto = false;
 					
 				}else{
 					r = isInteger(this.descripcion);
-					if(r.equals(true) || this.descripcion.length() <2  ){
+					if(r.equals(true) || this.descripcion.length() <2  || this.descripcion.length()>1000){
 						
-						JOptionPane.showMessageDialog(null, "Error. La descripcion no puede ser numerica ni estar vacia");
+						JOptionPane.showMessageDialog(null, "Error. La descripcion no puede ser numérica, estar vacia ni ser superior a 1000 carácteres.");
 						this.correcto = false;
 						
 					}else{
