@@ -4,6 +4,7 @@
 ******************************************************************************/
 package code.google.com.opengis.gestion;
 import java.sql.SQLException;
+import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
@@ -119,7 +120,9 @@ public class Usuarios {
 					
 				}else{
 					
-					if(this.Telefono.length() != 9 ){
+					r = isInteger(this.Telefono);
+					
+					if(this.Telefono.length() != 9 || r.equals(false)){
 						
 						JOptionPane.showMessageDialog(null, "Error. El número de telefono tiene que tener 9 dígitos");
 						this.valido = false;
@@ -143,6 +146,7 @@ public class Usuarios {
 								this.valido = false;
 								
 							}else{
+							
 								
 								if(this.Fecha_nac.length() != 10){
 									
