@@ -4,7 +4,6 @@
 package code.google.com.opengis.gestion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import code.google.com.opengis.gestionDAO.ParcelaDAO; 
 
 import javax.swing.JOptionPane;
 
@@ -56,7 +55,7 @@ public class Parcela {
 		this.idparcela= idparcela2;	
 	}
 	public int getIdParcela() {
-		idparcela=(Integer) null;
+		//idparcela=(Integer) null;
 		return idparcela;
 	}
 	/**
@@ -143,7 +142,7 @@ public class Parcela {
 		if((numero.length()>0)&&(numero.length()<11)&&(esNumerico(numero))){ //comprobamos que sea numerico y entre 1 y 10
 			this.numero = numero;
 		}else{
-			JOptionPane.showMessageDialog(null,"EL Nº DE PARCELA DEBE SER NUMÉRICO, Y ADEMÁS ESTAR COMPRENDIDO ENTRE 1 y 10 DE LONGITUD");
+			JOptionPane.showMessageDialog(null,"EL Nº DE PARCELA DEBE SER NUMÉRICO Y ADEMÁS ESTAR COMPRENDIDO ENTRE 1 y 10 DE LONGITUD");
 			valido=false;
 		}
 	}
@@ -161,11 +160,11 @@ public class Parcela {
 		return partida;
 	}
 	/**
-	 * Método encargado de asignar la partida a la parcela, ésta deberá estar comprendida entre 0 y 20.
+	 * Método encargado de asignar la partida a la parcela, ésta deberá estar comprendida entre 1 y 20.
 	 * @param partida : Partida de la parcela.
 	 */
 	public void setPartida(String partida) {
-		if((partida.length()>-1)&&(partida.length()<21)){//comprobamos que la partida este entre 0 y 20
+		if((partida.length()>-1)&&(partida.length()<21)){//comprobamos que la partida este entre 1 y 20
 			this.partida = partida;
 		}else{
 			JOptionPane.showMessageDialog(null, "LA PARTIDA DEBE ESTAR COMPRENDIDA ENTRE 0 Y 20 CARÁCTERES");
@@ -262,6 +261,126 @@ public class Parcela {
 		}
 	}
 
+	
+	//PARCELADAO
+	
+	public void comprobarParcela(int s) throws SQLException{
+		ConectarDBA.acceder();
+		sentencia = "SELECT `alias`, `activo` FROM `parcela` WHERE `alias` LIKE '"+s+"'";
+		ResultSet rs = dba.consulta(sentencia);
+		resultado = new String[2];
+		activo = 0;
+		while(rs.next()){
+			System.out.println("Ejecuto el while");
+				resultado[0] = rs.getString(1);
+				System.out.println(resultado[0]);
+				resultado[1] = rs.getString(2);
+				System.out.println(resultado[1]);
+		}
+			System.out.println("Enviado: "+alias+" esperado: "+resultado[0].toString());
+			if(resultado[0] == null){
+				existe = false;
+				System.out.println("El estado de existe es: "+existe);
+			}else if (resultado[0].equals(alias)){
+				existe = true;
+				if (resultado[1].equals("0")){
+					activo = 1;	
+				}
+				System.out.println("El estado de activo es: "+activo);
+				System.out.println("El estado de existe es: "+existe);
+			}
+			
+		rs.close();
+	}
+	
+/**
+ * Método que realiza las busquedas de parcela 
+ * @param criterio: criterio con el que buscaremos en todas las columnas de la base de datos.
+ * @return ResultSet con las tuplas encontradas
+ * @throws SQLException
+ */
+public static ResultSet buscar(String criterio) throws SQLException{
+ 	ResultSet rs = null;
+ 	ConectarDBA.acceder();
+	String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (`idparcela` = '"+criterio+"' Or `alias` = '"
+			+criterio+"' Or `provincia` = '"+criterio+"' Or  `poblacion` = '"+criterio+"' Or `poligono` = '"
+			+criterio+"' Or  `numero` = '"+criterio+"' Or  `partida` = '"
+			+criterio+"' Or  `dni_propietario`= '"+criterio+"' ) AND  `activo` <> '0'";
+	
+
+	try{
+		System.out.println("Ejecutada sentencia "+ sentencia);
+	rs = dba.consulta(sentencia);
+	}catch (SQLException e){
+		System.out.println(e);
+	}
+	return rs;
+}
+
+	/**
+	 * Método con el que realizaremos las Altas de parcela
+	 * @throws SQLException
+	 */
+	public void altaParcela() throws SQLException{
+		ConectarDBA.acceder();
+		existe = false;
+
+		String sentencia = "INSERT INTO `dai2opengis`.`parcela` (`idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `activo`, `partida`, `dni_propietario`) VALUES (NULL,'" + this.alias  + "','" + this.provincia +"','" +this.poblacion +"','" + this.poligono +"','" + this.numero +"','"  + this.activo +"','"+ this.partida +"','"+ this.dniPropietario +"')";
+		
+		if (existe == true){ 	
+			 JOptionPane.showMessageDialog(null,"El Id Parcela que intenta introducir ya existe");
+		}else{
+			dba.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,"Parcela insertada correctamente");
+		}
+		dba.cerrarCon();
+	}
+	
+	
+	
+	/**
+	 * Método con el que relizaremos las Bajas de parcela
+	 * @throws SQLException
+	 */
+
+	public void bajaParcela() throws SQLException{
+		ConectarDBA.acceder();	
+		sentencia = "UPDATE `dai2opengis`.`parcela` SET `activo`= `"+this.activo+"` WHERE `idparcela` LIKE `"+this.idparcela+"`)";
+			dba.modificar(sentencia);
+
+			JOptionPane.showMessageDialog(null,"Parcela dada de baja correctamente");
+			
+		dba.cerrarCon();
+	}
+	
+	/**
+	 * Método con el que realizaremos las Modificaciones de parcela
+	 * @throws SQLException
+	 */
+	public void modificarParcela() throws SQLException{
+		
+			sentencia = "UPDATE `dai2opengis`.`parcela` SET `idparcela`= `"+this.idparcela+"`,`alias`=`"+this.alias+"`," +
+					" `provincia`= `"+this.provincia+"`, `poblacion`= `"+this.poblacion+"`,`poligono`= `"+this.poligono+"`," +
+							"`numero`= `"+this.numero+"`,`activo`= 1,`partida`= `"+this.partida+"`,`dni_propietario`= `"+this.dniPropietario+
+							"`  WHERE `idparcela` = `"+this.idparcela+"`)";
+	
+					dba.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,"Se ha modificado la parcela correctamente");
+	}
+
+		
+	public void calcularPosicion() throws SQLException{
+		int count=0;
+		ConectarDBA.acceder();
+		sentencia="Select * FROM `parcela`";
+		ResultSet rs = dba.consulta(sentencia);
+		while(rs.next()){
+			count=count+1;
+		}
+		rs.close();
+		JOptionPane.showMessageDialog(null, count);
+		dba.cerrarCon();
+	}
 	
 
 	public static boolean isValido() {
