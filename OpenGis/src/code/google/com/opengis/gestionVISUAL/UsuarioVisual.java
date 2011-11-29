@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,11 +50,15 @@ public class UsuarioVisual extends JInternalFrame {
 	/**
 	 * 
 	 */
+	private Toolkit tk;
+	private Dimension t;
+	
 	private static final long serialVersionUID = 1L;
 	private static JPanel panelUsuarios;
 	private static JPanel panelUsuariosCrear;
 	private static JPanel panelUsuariosMod;
-
+	private int anchoFrame, altoFrame;
+	private int altura,anchura;
 	private static JFormattedTextField txtDNI;
 	private static JTextField txtNombre = new JTextField();
 	private static JTextField txtApellidos = new JTextField();
@@ -93,8 +98,11 @@ public class UsuarioVisual extends JInternalFrame {
 	 */
 
 	public UsuarioVisual(int ancho, int alto) {
+		
+		
 		super("Usuarios", true, true, true, true);
 		super.setIconifiable(true); // Indicamos que se puede minimizar
+		resolucionOS();
 		cargarUsuariosPrincipal();
 		panelUsuariosCrear = new JPanel();
 		panelUsuariosCrear.setLayout(null);
@@ -112,16 +120,45 @@ public class UsuarioVisual extends JInternalFrame {
 		TitledBorder jb = new TitledBorder("Gestión de usuarios");
 		TitledBorder jb1 = new TitledBorder("Añadir usuarios");
 		TitledBorder jb2 = new TitledBorder("Modificar usuarios");
+		
+		
+		
+		
+		
+		int altoFrame = 600;
+		int anchoFrame = 800;
+		
+		int anchuraTabla = getAnchura();
+		int alturaTabla=getAltura();
+		System.out.println(anchuraTabla + " " + alturaTabla);
+	    int fila1= (((getAltura()/2))-altoFrame+200); // Fila de inicio
+	    int columna1=((getAnchura()/2)-anchoFrame/2);//columna de inicio
 		panelUsuarios.setBorder(jb);
 		panelUsuariosCrear.setBorder(jb1);
 		panelUsuariosMod.setBorder(jb2);
 		panelUsuarios.setBounds(new Rectangle(0, 0, ancho, alto));
-		panelUsuariosCrear.setBounds(new Rectangle(0, 0, 800, 600));
-		panelUsuariosMod.setBounds(new Rectangle(0, 0, 800, 600));
+		panelUsuariosCrear.setBounds(columna1, fila1, anchoFrame, altoFrame);
+		panelUsuariosMod.setBounds(columna1, fila1, anchoFrame, altoFrame);
 		txtFNac.setValue(new Date());
 		jTablaUsuarios.removeEditor();
 		panelUsuarios.setVisible(true);
 
+	}
+	
+	/**
+	 * Método que nos calcula la resolución del sistema Operativo.
+	 */
+	public void resolucionOS(){
+		tk = Toolkit.getDefaultToolkit();
+	    t = tk.getScreenSize();
+	    altura= (int)Math.floor(t.getHeight());
+	    anchura=(int)Math.floor(t.getWidth());
+	}
+	public int getAltura() {
+		return altura;
+	}
+	public int getAnchura() {
+		return anchura;
 	}
 
 	public static void cargarUsuariosPrincipal() {
