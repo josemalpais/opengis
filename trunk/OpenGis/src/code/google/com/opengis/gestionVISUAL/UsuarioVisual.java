@@ -57,7 +57,8 @@ public class UsuarioVisual extends JInternalFrame {
 	private static JTextField txtApellidos = new JTextField();
 	private static DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	private static DateFormatter mascaraFecha = new DateFormatter(formato);
-	private static JFormattedTextField txtFNac = new JFormattedTextField(mascaraFecha);
+	private static JFormattedTextField txtFNac = new JFormattedTextField(
+			mascaraFecha);
 	private static JTextField txtDir = new JTextField();
 	private static JTextField txtPob = new JTextField();
 	private static JTextField txtProv = new JTextField();
@@ -114,10 +115,7 @@ public class UsuarioVisual extends JInternalFrame {
 		panelUsuariosMod.setBounds(new Rectangle(0, 0, 800, 600));
 		txtFNac.setValue(new Date());
 
-		
 		panelUsuarios.setVisible(true);
-		cargarNuevoUser(panelUsuariosCrear);
-		cargarModUser(panelUsuariosMod);
 
 	}
 
@@ -126,7 +124,7 @@ public class UsuarioVisual extends JInternalFrame {
 		JLabel campolbl;
 		panelUsuarios = new JPanel();
 		panelUsuarios.setLayout(new GridBagLayout());
-		
+
 		txtBuscar.setPreferredSize(new Dimension(120, 20));
 
 		// Se crean 3 constraints, uno para cada uso.
@@ -192,7 +190,7 @@ public class UsuarioVisual extends JInternalFrame {
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				panelUsuarios.setVisible(false);
-				cargarNuevoUser(panelUsuariosCrear);
+				cargarNuevoUser(panelUsuariosCrear, false);
 				panelUsuariosCrear.setVisible(true);
 			}
 		});
@@ -215,7 +213,7 @@ public class UsuarioVisual extends JInternalFrame {
 					}
 
 					panelUsuarios.setVisible(false);
-					cargarModUser(panelUsuariosMod);
+					cargarNuevoUser(panelUsuariosMod, true);
 					restablecerCampos();
 					setCampos(rUser);
 					txtDNI.setEditable(false);
@@ -256,7 +254,7 @@ public class UsuarioVisual extends JInternalFrame {
 			}
 		});
 		panelUsuarios.add(boton, cButtons);
-		
+
 		boton = new JButton("Desactivar");
 		cButtons.anchor = GridBagConstraints.LINE_START;
 		cButtons.insets = new Insets(0, 0, 0, 0);
@@ -314,7 +312,7 @@ public class UsuarioVisual extends JInternalFrame {
 	 *            Indica si vamos a modificar el Usuario (true) o vamos a crear
 	 *            uno nuevo (false)
 	 */
-	public static void cargarNuevoUser(final Container pane) {
+	public static void cargarNuevoUser(final Container pane, boolean modificar) {
 		restablecerCampos();
 		pane.removeAll();
 		pane.repaint();
@@ -447,7 +445,7 @@ public class UsuarioVisual extends JInternalFrame {
 		cNText.gridx = 3;
 		cNText.gridy = 3;
 		pane.add(txtCon, cNText);
-		
+
 		campolbl = new JLabel("Confirmar contraseña:");
 		cNLabels.gridx = 4;
 		cNLabels.gridy = 3;
@@ -472,40 +470,94 @@ public class UsuarioVisual extends JInternalFrame {
 		cNButtons.insets = new Insets(15, 0, 0, 0); // top padding
 		cNButtons.gridx = 0;
 		cNButtons.gridy = 5;
-		boton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent e) {
 
-				char[] contra = txtCon.getPassword();
-				String pass = new String(contra);
-				
-				char[] contra2 = txtConfCon.getPassword();
-				String pass2 = new String(contra2);
-				
-				if(pass.equals(pass2)){
-					
-					Usuarios u = new Usuarios(txtDNI.getText(),
-							txtNombre.getText(), txtApellidos.getText(), txtTlf
-									.getText(), txtDir.getText(), txtPob.getText(),
-							txtProv.getText(), txtCp.getText(), txtFNac.getText(),
-							pass, jCmbTipo.getSelectedItem().toString()
-									.toLowerCase(), txtEmail.getText());
-					u.validarDatos();
-					System.out.println(jCmbTipo.getSelectedItem().toString());
-					if (u.getValido()) {
-						u.crearUsuario();
+		if (modificar == false) {
+			boton = new JButton("Guardar");
+			cNButtons.fill = 0;
+			cNButtons.anchor = GridBagConstraints.PAGE_END; // bottom of space
+			cNButtons.insets = new Insets(15, 0, 0, 0); // top padding
+			cNButtons.gridx = 0;
+			cNButtons.gridy = 5;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+
+					char[] contra = txtCon.getPassword();
+					String pass = new String(contra);
+
+					char[] contra2 = txtConfCon.getPassword();
+					String pass2 = new String(contra2);
+
+					if (pass.equals(pass2)) {
+
+						Usuarios u = new Usuarios(txtDNI.getText(), txtNombre
+								.getText(), txtApellidos.getText(), txtTlf
+								.getText(), txtDir.getText(), txtPob.getText(),
+								txtProv.getText(), txtCp.getText(), txtFNac
+										.getText(), pass, jCmbTipo
+										.getSelectedItem().toString()
+										.toLowerCase(), txtEmail.getText());
+						u.validarDatos();
+						System.out.println(jCmbTipo.getSelectedItem()
+								.toString());
+						if (u.getValido()) {
+							u.crearUsuario();
+							restablecerCampos();
+						}
+
+					} else {
+
+						JOptionPane.showMessageDialog(null,
+								"Error. Las contraseñas no coinciden");
+
 					}
-					
-					
-				}else{
-					
-					JOptionPane.showMessageDialog(null, "Error. Las contraseñas no coinciden");
-					
-				}
-				
 
-			}
-		});
-		pane.add(boton, cNButtons);
+				}
+			});
+			pane.add(boton, cNButtons);
+		} else if (modificar == true) {
+			boton = new JButton("Modificar");
+			cNButtons.fill = 0;
+			cNButtons.anchor = GridBagConstraints.PAGE_END; // bottom of space
+			cNButtons.insets = new Insets(15, 0, 0, 0); // top padding
+			cNButtons.gridx = 0;
+			cNButtons.gridy = 5;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+
+					char[] contra = txtCon.getPassword();
+					String pass = new String(contra);
+
+					char[] contra2 = txtConfCon.getPassword();
+					String pass2 = new String(contra2);
+
+					if (pass.equals(pass2)) {
+						Usuarios u = new Usuarios(txtDNI.getText(), txtNombre
+								.getText(), txtApellidos.getText(), txtTlf
+								.getText(), txtDir.getText(), txtPob.getText(),
+								txtProv.getText(), txtCp.getText(), txtFNac
+										.getText(), txtCon.getText(), jCmbTipo
+										.getSelectedItem().toString()
+										.toLowerCase(), txtEmail.getText());
+						u.validarDatos();
+						System.out.println(jCmbTipo.getSelectedItem()
+								.toString());
+						if (u.getValido()) {
+							u.modificarUsuario();
+							pane.setVisible(false);
+							panelUsuarios.setVisible(true);
+							restablecerCampos();
+						}
+					} else {
+
+						JOptionPane.showMessageDialog(null,
+								"Error. Las contraseñas no coinciden");
+
+					}
+
+				}
+			});
+			pane.add(boton, cNButtons);
+		}
 
 		boton = new JButton("Limpiar");
 		cNButtons.fill = 0;
@@ -673,7 +725,7 @@ public class UsuarioVisual extends JInternalFrame {
 		cText.gridx = 3;
 		cText.gridy = 3;
 		pane.add(txtCon, cText);
-		
+
 		campolbl = new JLabel("Confirmar contraseña:");
 		cLabels.gridx = 4;
 		cLabels.gridy = 3;
@@ -774,6 +826,8 @@ public class UsuarioVisual extends JInternalFrame {
 	}
 
 	public static void restablecerCampos() {
+		
+		
 		txtNombre.setText("");
 		txtApellidos.setText("");
 		txtFNac.setText("");
@@ -795,8 +849,8 @@ public class UsuarioVisual extends JInternalFrame {
 			modelo.removeRow(0);
 		}
 	}
-	
-	public static void buscar(){
+
+	public static void buscar() {
 		try {
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
@@ -830,8 +884,7 @@ public class UsuarioVisual extends JInternalFrame {
 			System.out.println(e1);
 
 		}
-		
+
 	}
-	
 
 }
