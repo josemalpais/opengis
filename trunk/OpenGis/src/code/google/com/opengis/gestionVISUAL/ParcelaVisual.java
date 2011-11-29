@@ -97,7 +97,7 @@ public class ParcelaVisual extends JInternalFrame {
 	private JButton btnModPa=new JButton("Modificar");
 	private JButton btnVolverPam=new JButton("Volver");
 
-	private JComboBox estadoCBm,provinciaCBm;
+	private JComboBox modeloCBm,provinciaCBm;
 	private JLabel tituloMod=new JLabel("MODIFICAR   PARCELA");
 	private JLabel idm=new JLabel("Id Parcela:");
     private JLabel aliasm=new JLabel("Alias:");
@@ -350,14 +350,14 @@ public class ParcelaVisual extends JInternalFrame {
 							textpoligono.getText(),textnumero.getText(),intbol,textpartida.getText(),textdnip.getText());
 					
 					if(Parcela.isValido()==true){
-						//try {
-							//altaParcela(p1);
+						try {
+							p1.altaParcela();
 							System.out.println("CONSULTA INSERTADA CORRECTAMENTE");
-						//} catch (SQLException e1) {
+						} catch (SQLException e1) {
 							System.out.println("ERROR DE INSERCION");
 							 //TODO Auto-generated catch block
-							//e1.printStackTrace();
-						//}
+							e1.printStackTrace();
+						}
 					}
 	    }});
 	
@@ -383,59 +383,59 @@ public class ParcelaVisual extends JInternalFrame {
 			
 			//COMBOBOX DE MODELO
 			dc1m = new DefaultComboBoxModel();//POR HACER
-			dc1.addElement("Álava");
-			dc1.addElement("Albacete");
-			dc1.addElement("Alicante");
-			dc1.addElement("Almería");
-			dc1.addElement("Asturias");
-			dc1.addElement("Avila");
-			dc1.addElement("Badajoz");
-			dc1.addElement("Barcelona");
-			dc1.addElement("Burgos");
-			dc1.addElement("Cáceres");
-			dc1.addElement("Cadiz");
-			dc1.addElement("Cantabria");
-			dc1.addElement("Castellón");
-			dc1.addElement("Ceuta");
-			dc1.addElement("Ciudad Real");
-			dc1.addElement("Córdoba");
-			dc1.addElement("Cuenca");
-			dc1.addElement("Gerona");
-			dc1.addElement("Granada");
-			dc1.addElement("Guadalajara");
-			dc1.addElement("Guipúzcoa");
-			dc1.addElement("Huelva");
-			dc1.addElement("Huesca");
-			dc1.addElement("Islas Baleares");
-			dc1.addElement("Jaén");
-			dc1.addElement("La Coruña");
-			dc1.addElement("La Rioja");
-			dc1.addElement("Las Palmas");
-			dc1.addElement("León");
-			dc1.addElement("Lérida");
-			dc1.addElement("Lugo");
-			dc1.addElement("Madrid");
-			dc1.addElement("Málaga");
-			dc1.addElement("Melilla");
-			dc1.addElement("Murcia");
-			dc1.addElement("Navarra");
-			dc1.addElement("Orense");
-			dc1.addElement("Palencia");
-			dc1.addElement("Pontevedra");
-			dc1.addElement("Tenerife");
-			dc1.addElement("Salamanca");
-			dc1.addElement("Segovia");
-			dc1.addElement("Sevilla");
-			dc1.addElement("Soria");
-			dc1.addElement("Tarragona");
-			dc1.addElement("Teruel");
-			dc1.addElement("Toledo");
-			dc1.addElement("Valencia");
-			dc1.addElement("Valladolid");
-			dc1.addElement("Vizcaya");
-			dc1.addElement("Zamora");
-			dc1.addElement("Zaragoza");
-			estadoCBm=new JComboBox(dc1);
+			dc1m.addElement("Álava");
+			dc1m.addElement("Albacete");
+			dc1m.addElement("Alicante");
+			dc1m.addElement("Almería");
+			dc1m.addElement("Asturias");
+			dc1m.addElement("Avila");
+			dc1m.addElement("Badajoz");
+			dc1m.addElement("Barcelona");
+			dc1m.addElement("Burgos");
+			dc1m.addElement("Cáceres");
+			dc1m.addElement("Cadiz");
+			dc1m.addElement("Cantabria");
+			dc1m.addElement("Castellón");
+			dc1m.addElement("Ceuta");
+			dc1m.addElement("Ciudad Real");
+			dc1m.addElement("Córdoba");
+			dc1m.addElement("Cuenca");
+			dc1m.addElement("Gerona");
+			dc1m.addElement("Granada");
+			dc1m.addElement("Guadalajara");
+			dc1m.addElement("Guipúzcoa");
+			dc1m.addElement("Huelva");
+			dc1m.addElement("Huesca");
+			dc1m.addElement("Islas Baleares");
+			dc1m.addElement("Jaén");
+			dc1m.addElement("La Coruña");
+			dc1m.addElement("La Rioja");
+			dc1m.addElement("Las Palmas");
+			dc1m.addElement("León");
+			dc1m.addElement("Lérida");
+			dc1m.addElement("Lugo");
+			dc1m.addElement("Madrid");
+			dc1m.addElement("Málaga");
+			dc1m.addElement("Melilla");
+			dc1m.addElement("Murcia");
+			dc1m.addElement("Navarra");
+			dc1m.addElement("Orense");
+			dc1m.addElement("Palencia");
+			dc1m.addElement("Pontevedra");
+			dc1m.addElement("Tenerife");
+			dc1m.addElement("Salamanca");
+			dc1m.addElement("Segovia");
+			dc1m.addElement("Sevilla");
+			dc1m.addElement("Soria");
+			dc1m.addElement("Tarragona");
+			dc1m.addElement("Teruel");
+			dc1m.addElement("Toledo");
+			dc1m.addElement("Valencia");
+			dc1m.addElement("Valladolid");
+			dc1m.addElement("Vizcaya");
+			dc1m.addElement("Zamora");
+			dc1m.addElement("Zaragoza");
+			provinciaCBm=new JComboBox(dc1m);
 			
 			
 			//DISEÑO FUENTES
@@ -477,6 +477,7 @@ public class ParcelaVisual extends JInternalFrame {
 		    panelModificacion.add(idm, gbcm);
 		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
 		    panelModificacion.add(textIdm, gbcm);
+		    textIdm.setEditable(false);
 		    
 		    //FILA 2 ALIAS
 		    gbcm.gridwidth = 3;
@@ -488,7 +489,7 @@ public class ParcelaVisual extends JInternalFrame {
 		    gbcm.gridwidth = 3;
 		    panelModificacion.add(provinciam, gbcm);
 		    gbcm.gridwidth = GridBagConstraints.REMAINDER;
-		    panelModificacion.add(estadoCBm, gbcm);
+		    panelModificacion.add(provinciaCBm, gbcm);
 
 		    //FILA 4 POBLACIÓN
 		    gbcm.gridwidth = 3;
@@ -533,17 +534,24 @@ public class ParcelaVisual extends JInternalFrame {
 		    panelModificacion.add(btnModPa, gbcm);
 		    btnModPa.addActionListener(new java.awt.event.ActionListener() {	
 		        public void actionPerformed(java.awt.event.ActionEvent e) {
-	        		// CONSULTA MODIFICAR
+	        		String sentencia="";
+	        		ConectarDBA dba=null;
+		        	// CONSULTA MODIFICAR
 
-					Parcela p1=new Parcela(Integer.parseInt(textIdm.getText()),textaliasm.getText(),provinciaCB.getSelectedItem().toString(),textpoblacionm.getText(),
-							textpoligonom.getText(),textnumerom.getText(),1,textpartidam.getText(),textdnipm.getText());
-					
-					JOptionPane.showMessageDialog(null, Integer.parseInt(textIdm.getText())+" "+textaliasm.getText()+""+provinciaCB.getSelectedItem().toString()+" "+textpoblacionm.getText()+
-							textpoligonom.getText()+" "+textnumerom.getText()+" "+1+" "+textpartidam.getText()+" "+textdnipm.getText() );
-					
+	        		Parcela p1 = new Parcela(Integer.parseInt(textIdm.getText()),textaliasm.getText(), (String)provinciaCBm.getSelectedItem(),
+	        				textpoblacionm.getText(), textpoligonom.getText(), textnumerom.getText(),1, textpartidam.getText(), textdnipm.getText());
 					if(Parcela.isValido()==true){
 						try {
-							p1.modificarParcela();
+							JOptionPane.showMessageDialog(null, p1.getIdParcela()+p1.getProvincia()+
+									p1.getProvincia()+p1.getPoblacion()+p1.getNumero()+p1.getPartida()+
+									p1.getDniPropietario());
+							
+							//String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '"+this.Nombre+"', `Apellidos` = '"+this.Apellidos+"', `Teléfono` = '"+this.Telefono+"',`Dirección` = '"+this.Direccion+"',`Población` = '"+this.Poblacion+"',`fecha_nacimiento` = '"+this.Fecha_nac+"',`password` = '"+this.Contraseña+"',`Provincia` = '"+this.Provincia+"',`Cp` = '"+this.Cp+"',`tipo` = '"+this.tipo+"',`email`='"+this.email+"' WHERE `dni` LIKE '"+this.Dni+"'";
+							int x=p1.getIdParcela();
+							sentencia = "UPDATE `dai2opengis`.`parcela` SET  `alias` = '"+p1.getAlias()+"', `provincia`= '"+p1.getProvincia()+"', `poblacion`= '"+p1.getPoblacion()+"', `poligono`= '"+p1.getPoligono()+"', `numero`= '"+p1.getNumero()+"', `partida`= '"+p1.getPartida()+"',`dni_propietario`= '"+p1.getDniPropietario()+"'  WHERE `idparcela` = "+x;
+							
+							dba.modificar(sentencia);
+							
 							System.out.println("PARCELA MODIFICADA CORRECTAMENTE");
 						} catch (SQLException e1) {
 							System.out.println("ERROR DE INSERCION");
@@ -577,8 +585,7 @@ public class ParcelaVisual extends JInternalFrame {
 			txtbuscar = new JTextField();
 			scrollPane1 = new JScrollPane(tablabuscar,
 					JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-					JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			
+					JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);		
 			
 			dtmbuscar = new DefaultTableModel();
 			dtmbuscar.setColumnIdentifiers(columnas);
@@ -618,9 +625,6 @@ public class ParcelaVisual extends JInternalFrame {
 						dtmbuscar.removeRow(i);
 						} 
 		        	llenar( txtbuscar.getText());
-		        		
-		        	
-		        	
 		    }});
 
 			panelGestion.add(btnAlta);
@@ -637,8 +641,9 @@ public class ParcelaVisual extends JInternalFrame {
 			btnModi.setBounds(columna1+ 75,fila1+alturaTabla+20, 110, 30);
 			btnModi.addActionListener(new java.awt.event.ActionListener() {	
 		        public void actionPerformed(java.awt.event.ActionEvent e) {                     	
-		        	
-		        	
+		        		ConectarDBA dba = null;
+		        		
+		        		
 		        		panelGestion.setVisible(false);	
 		        		add(panelModificacion);
 		        		panelModificacion.setVisible(true);
@@ -647,7 +652,7 @@ public class ParcelaVisual extends JInternalFrame {
 		            	textaliasm.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 1) );
 		            
 		            	 //Recorremos provinciaCB y tomamos el que sea equivalente
-		            	for(int x=0;x<provinciaCB.getItemCount();x++){
+		            	for(int x=0;x<provinciaCB.getItemCount()-1;x++){
 		            		if (provinciaCB.getItemAt(x).equals(
 		            				(String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 2) 
 		            				)){
@@ -659,8 +664,6 @@ public class ParcelaVisual extends JInternalFrame {
 		            	textnumerom.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 5) ); 
 		            	textpartidam.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 6) );
 		            	textdnipm.setText((String) tablabuscar.getValueAt(tablabuscar.getSelectedRow(), 7) );
-		            	
-		        	Parcela pl= new Parcela(textId.getText(),text );
 		            	
 		    }});
 			
@@ -680,6 +683,12 @@ public class ParcelaVisual extends JInternalFrame {
 		        	} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+					}
+		        	try {
+						dba.cerrarCon();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 		    }});
 	
@@ -715,3 +724,4 @@ public class ParcelaVisual extends JInternalFrame {
 			
 		}
 }
+
