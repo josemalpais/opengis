@@ -39,8 +39,8 @@ public class ProductoVisual extends JInternalFrame {
         
         private static JTable tblTabla = null;
         private static String[] columnNames = {"ID", "Nombre","Tamaño","Descripción", "Tarea", "Activo"};
-        private static JScrollPane jScrollPaneTablaProductos = null;        
-        static DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        private static JScrollPane scrollUsuarios;        
+        static DefaultTableModel modelo;
 
         private static JTextField txtIdprod;
         private static JTextField txtNombre;
@@ -56,7 +56,8 @@ public class ProductoVisual extends JInternalFrame {
         private static int variableint=1;
         
 public ProductoVisual(int ancho, int alto){
-        
+	super("Productos", true, true, true, true);
+
         this.ancho = ancho;
         this.alto = alto;
         panelProducto = new JPanel ();
@@ -71,7 +72,7 @@ public ProductoVisual(int ancho, int alto){
         double ii = ancho/1.7;
         double aa = alto/1.7;
         panelProducto.setBounds(new Rectangle(0,0,(int)ii,(int)aa));
-        this.getJScrollPaneTablaUsuarios();
+     
         principalProducto(panelProducto);
    
 }
@@ -81,6 +82,8 @@ final static boolean shouldWeightX = true;
 final static boolean RIGHT_TO_LEFT = false;
 
 	public void cargarAlta(){
+		
+
 		    panelProductoAlt = new JPanel ();
 	        panelProductoAlt.setLayout(null);
 	        panelProductoAlt.getBounds(panelProducto.getBounds());
@@ -145,13 +148,18 @@ public void principalProducto(Container pane){
         c.gridy = 0;
         pane.add(txtBuscar, c);
         
+        
+        modelo = new DefaultTableModel();
+		modelo.setColumnIdentifiers(columnNames);
+		tblTabla = new JTable(modelo);
+		scrollUsuarios = new JScrollPane(tblTabla);
         tblTabla.setModel(modelo);
         cTabla.fill = GridBagConstraints.HORIZONTAL;
         cTabla.gridx = 0;
         cTabla.gridy = 1;
         cTabla.gridwidth = 5;
         cTabla.gridheight = 5;
-        pane.add(jScrollPaneTablaProductos, cTabla);
+        pane.add(scrollUsuarios, cTabla);
         
         cmdCrear =new JButton("Nuevo Producto");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -159,12 +167,9 @@ public void principalProducto(Container pane){
         c.gridy = 7;
         cmdCrear.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent e) {                     
-                          		panelProducto.hide();
-                                cargarAlta();
-                                
-                                
-            try {
-           	 
+                          		panelProducto.setVisible(false);
+                                cargarAlta();                   
+            try { 
            	 	ConectarDBA.acceder();
                 ResultSet rs = ConectarDBA.consulta("SELECT MAX(idprod) FROM producto");
                 Integer idprod;
@@ -180,10 +185,8 @@ public void principalProducto(Container pane){
                 txtIdprod.setText(idprod+1+"");
             } catch (SQLException e2) {
                 System.out.println(e2.getMessage());
-            }
-                                
-                
-                }
+            }                   
+         }
         });
         pane.add(cmdCrear, c);
         
@@ -253,7 +256,7 @@ public void principalProducto(Container pane){
         c.gridy = 0;
         pane.add(label,c);
 
-        txtIdprod= new JTextField(10);
+        txtIdprod= new JTextField();
         txtIdprod.setEditable(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
@@ -290,7 +293,7 @@ public void principalProducto(Container pane){
         c.gridy = 4;
         pane.add(label,c);
 
-        txtDescripcion = new JTextArea("",5,15);
+        txtDescripcion = new JTextArea("",10,15);
         txtDescripcion.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setPreferredSize(new Dimension(300, 20));
@@ -370,28 +373,12 @@ public void principalProducto(Container pane){
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-                		panelProducto.show();
-                        panelProductoAlt.hide();
+                		panelProducto.setVisible(true);
+                        panelProductoAlt.setVisible(false);
                 }
         });
         pane.add(cmdCancelarAlt, c);
  }
- private JScrollPane getJScrollPaneTablaUsuarios() {
-     if (jScrollPaneTablaProductos == null) {
-             jScrollPaneTablaProductos = new JScrollPane();
-             //jScrollPaneTablaUsuarios.setBounds(new Rectangle(9, 73, 638, 117));
-             jScrollPaneTablaProductos.setViewportView(gettblTabla());
-     }
-     return jScrollPaneTablaProductos;
-}
- private JTable gettblTabla() {
-     
-     
-     tblTabla = new JTable();
-     tblTabla.setModel(modelo);
-                     
-return tblTabla;
-}
 
      
  }
