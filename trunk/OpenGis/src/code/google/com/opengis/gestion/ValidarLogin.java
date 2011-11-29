@@ -44,19 +44,19 @@ public class ValidarLogin extends JFrame {
         	    //una vez valide los datos elije el tipo de usuario que es para darle permisos
 				switch(tipodato /*sentencia que devuelve el tipo*/){
 				case 't': //t de trabajador
-					System.out.println(" funciona es un trabajador");
+					//System.out.println(" funciona es un trabajador");
 					VentanaPrincipal ln1 = new VentanaPrincipal(tipodato);
 					ven.dispose();
 					
 					break;
 				case 'd': //d de dueño
-					System.out.println(" funciona es dueño");
+					//System.out.println(" funciona es dueño");
 					VentanaPrincipal ln2 = new VentanaPrincipal(tipodato);
 					ven.dispose();
 
 					break;
 				case 'a': // de administrador
-					System.out.println(" funciona es  Admin");
+					//System.out.println(" funciona es  Admin");
 					VentanaPrincipal ln3 = new VentanaPrincipal(tipodato);
 					
 					ven.dispose();

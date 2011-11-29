@@ -74,7 +74,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 				pass = new String(txtPass.getPassword());
 				usuario = txtUser.getText();
 				 
-				System.out.println(usuario+pass);
+				//System.out.println(usuario+pass);
 				 
 				 try {
 						new ValidarLogin(ven,usuario,pass);
