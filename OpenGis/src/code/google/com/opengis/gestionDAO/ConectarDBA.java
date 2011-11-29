@@ -47,7 +47,7 @@ static Statement st;
                 Class.forName(nombreDriver).newInstance();
                 conexion = DriverManager.getConnection(url, dbuser, dbpwd);
                 st = conexion.createStatement();
-                System.out.println("conectaBD");
+                //System.out.println("conectaBD");
         } catch (IllegalAccessException e) {
 			JOptionPane.showMessageDialog(null,"Error De Conexión");
 
@@ -102,7 +102,7 @@ static Statement st;
 	public static void cerrarCon() throws SQLException{
 		st.close();
 		conexion.close();
-		System.out.println("Conexión cerrada");
+		//System.out.println("Conexión cerrada");
 			
 	}
 }

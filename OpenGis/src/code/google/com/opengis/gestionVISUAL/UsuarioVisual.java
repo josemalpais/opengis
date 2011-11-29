@@ -14,11 +14,13 @@ import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -31,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DateFormatter;
+import javax.swing.text.MaskFormatter;
 
 import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
@@ -52,13 +55,14 @@ public class UsuarioVisual extends JInternalFrame {
 	private static JPanel panelUsuariosCrear;
 	private static JPanel panelUsuariosMod;
 
-	private static JTextField txtDNI = new JTextField();
+	private static JFormattedTextField txtDNI;
 	private static JTextField txtNombre = new JTextField();
 	private static JTextField txtApellidos = new JTextField();
 	private static DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	private static DateFormatter mascaraFecha = new DateFormatter(formato);
 	private static JFormattedTextField txtFNac = new JFormattedTextField(
 			mascaraFecha);
+
 	private static JTextField txtDir = new JTextField();
 	private static JTextField txtPob = new JTextField();
 	private static JTextField txtProv = new JTextField();
@@ -133,10 +137,19 @@ public class UsuarioVisual extends JInternalFrame {
 		GridBagConstraints cLabels = new GridBagConstraints(); // Labels
 		GridBagConstraints cTabla = new GridBagConstraints();
 
-		cLabels.insets = new Insets(8, 8, 8, 8); // top padding
+		// CARGAMOS LOS LABELS
 
+		cLabels.insets = new Insets(8, 8, 8, 8); // top padding
 		cLabels.weightx = 0.005;
 		cLabels.anchor = GridBagConstraints.EAST;
+
+		campolbl = new JLabel("Buscar por:");
+		cLabels.gridx = 2;
+		cLabels.gridy = 0;
+		panelUsuarios.add(campolbl, cLabels);
+
+		// CARGAMOS LOS JTEXTFIELD
+
 		cText.anchor = GridBagConstraints.EAST;
 		cText.weightx = 0.5;
 		cText.ipadx = 100;
@@ -148,15 +161,12 @@ public class UsuarioVisual extends JInternalFrame {
 		panelUsuarios.add(txtBuscar, cText);
 		cText.gridwidth = 1;
 
-		campolbl = new JLabel("Buscar por:");
-		cLabels.gridx = 2;
-		cLabels.gridy = 0;
-		panelUsuarios.add(campolbl, cLabels);
-
 		cText.anchor = GridBagConstraints.WEST;
 		cText.gridx = 3;
 		cText.gridy = 0;
 		panelUsuarios.add(jCmbCriterio, cText);
+
+		// CARGAMOS LOS BOTONES
 
 		boton = new JButton("Buscar");
 		cButtons.anchor = GridBagConstraints.WEST;
@@ -218,7 +228,7 @@ public class UsuarioVisual extends JInternalFrame {
 					setCampos(rUser);
 					txtDNI.setEditable(false);
 					panelUsuariosMod.setVisible(true);
-					limpiarTabla(modelo.getRowCount());
+					limpiarTabla(modelo.getRowCount(), modelo);
 
 				}
 
@@ -295,7 +305,7 @@ public class UsuarioVisual extends JInternalFrame {
 
 				txtBuscar.setText("");
 
-				limpiarTabla(modelo.getRowCount());
+				limpiarTabla(modelo.getRowCount(), modelo);
 
 			}
 		});
@@ -320,7 +330,7 @@ public class UsuarioVisual extends JInternalFrame {
 		JLabel campolbl;
 		pane.setLayout(new GridBagLayout());
 		Dimension tamañoCaja = new Dimension(100, 20);
-		txtDNI.setPreferredSize(tamañoCaja);
+
 		txtNombre.setPreferredSize(tamañoCaja);
 		txtApellidos.setPreferredSize(tamañoCaja);
 		txtFNac.setPreferredSize(tamañoCaja);
@@ -331,17 +341,26 @@ public class UsuarioVisual extends JInternalFrame {
 		txtCon.setPreferredSize(tamañoCaja);
 		txtTlf.setPreferredSize(tamañoCaja);
 		txtEmail.setPreferredSize(tamañoCaja);
+		MaskFormatter mascDNI = null;
+		txtDNI = new JFormattedTextField(mascDNI);
+		txtDNI.setPreferredSize(tamañoCaja);
+		try {
+			mascDNI = new MaskFormatter("########U");
+		} catch (ParseException e) {
+
+		}
+		mascDNI.setPlaceholderCharacter('_');
+		mascDNI.setCommitsOnValidEdit(true);
 
 		// Se crean 3 constraints, uno para cada uso.
 		GridBagConstraints cNText = new GridBagConstraints(); // Cajas de texto
 		GridBagConstraints cNButtons = new GridBagConstraints(); // Botones
 		GridBagConstraints cNLabels = new GridBagConstraints(); // Labels
 
-		cNLabels.insets = new Insets(8, 8, 8, 8); // top padding
+		// INSERTAMOS LOS LABELS
+
+		cNLabels.insets = new Insets(8, 8, 8, 8);
 		cNLabels.anchor = GridBagConstraints.EAST;
-		cNText.anchor = GridBagConstraints.WEST;
-		cNText.weightx = 0.5;
-		cNText.ipadx = 100;
 
 		campolbl = new JLabel("DNI:");
 		cNLabels.weightx = 0.005;
@@ -349,127 +368,134 @@ public class UsuarioVisual extends JInternalFrame {
 		cNLabels.gridy = 0;
 		pane.add(campolbl, cNLabels);
 
-		cNText.gridx = 1;
-		cNText.gridy = 0;
-		txtDNI.setEditable(true);
-		pane.add(txtDNI, cNText);
-
 		campolbl = new JLabel("Nombre:");
 		cNLabels.weightx = 0.005;
 		cNLabels.gridx = 2;
 		cNLabels.gridy = 0;
 		pane.add(campolbl, cNLabels);
 
-		cNText.gridx = 3;
-		cNText.gridy = 0;
-		pane.add(txtNombre, cNText);
-
 		campolbl = new JLabel("Apellidos:");
 		cNLabels.gridx = 4;
 		cNLabels.gridy = 0;
 		pane.add(campolbl, cNLabels);
-
-		cNText.gridx = 5;
-		cNText.gridy = 0;
-		pane.add(txtApellidos, cNText);
 
 		campolbl = new JLabel("Fecha de Nacimiento:");
 		cNLabels.gridx = 0;
 		cNLabels.gridy = 1;
 		pane.add(campolbl, cNLabels);
 
-		cNText.gridx = 1;
-		cNText.gridy = 1;
-		pane.add(txtFNac, cNText);
-
-		// Añade JLabel de Teléfono y JTextField de teléfono
 		campolbl = new JLabel("Teléfono:");
 		cNLabels.gridx = 2;
 		cNLabels.gridy = 1;
 		pane.add(campolbl, cNLabels);
-
-		cNText.gridx = 3;
-		cNText.gridy = 1;
-		pane.add(txtTlf, cNText);
 
 		campolbl = new JLabel("Dirección:");
 		cNLabels.gridx = 4;
 		cNLabels.gridy = 1;
 		pane.add(campolbl, cNLabels);
 
-		cNText.gridx = 5;
-		cNText.gridy = 1;
-		pane.add(txtDir, cNText);
+		campolbl = new JLabel("Provincia:");
+		cNLabels.gridx = 2;
+		cNLabels.gridy = 2;
+		pane.add(campolbl, cNLabels);
 
 		campolbl = new JLabel("Población:");
 		cNLabels.gridx = 0;
 		cNLabels.gridy = 2;
 		pane.add(campolbl, cNLabels);
 
-		cNText.gridx = 1;
-		cNText.gridy = 2;
-		pane.add(txtPob, cNText);
-
-		campolbl = new JLabel("Provincia:");
-		cNLabels.gridx = 2;
-		cNLabels.gridy = 2;
-		pane.add(campolbl, cNLabels);
-
-		cNText.gridx = 3;
-		cNText.gridy = 2;
-		pane.add(txtProv, cNText);
-
 		campolbl = new JLabel("CP:");
 		cNLabels.gridx = 4;
 		cNLabels.gridy = 2;
 		pane.add(campolbl, cNLabels);
-
-		cNText.gridx = 5;
-		cNText.gridy = 2;
-		pane.add(txtCp, cNText);
 
 		campolbl = new JLabel("Email:");
 		cNLabels.gridx = 0;
 		cNLabels.gridy = 3;
 		pane.add(campolbl, cNLabels);
 
-		cNText.gridx = 1;
-		cNText.gridy = 3;
-		pane.add(txtEmail, cNText);
-
 		campolbl = new JLabel("Contraseña:");
 		cNLabels.gridx = 2;
 		cNLabels.gridy = 3;
 		pane.add(campolbl, cNLabels);
-
-		cNText.gridx = 3;
-		cNText.gridy = 3;
-		pane.add(txtCon, cNText);
 
 		campolbl = new JLabel("Confirmar contraseña:");
 		cNLabels.gridx = 4;
 		cNLabels.gridy = 3;
 		pane.add(campolbl, cNLabels);
 
+		campolbl = new JLabel("Tipo de usuario:");
+		cNLabels.gridx = 4;
+		cNLabels.gridy = 4;
+		pane.add(campolbl, cNLabels);
+
+		campolbl = new JLabel("* Todos los campos son obligatorios");
+		cNLabels.gridx = 4;
+		cNLabels.gridwidth = 2;
+		cNLabels.gridy = 5;
+		pane.add(campolbl, cNLabels);
+		cNLabels.gridwidth = 1;
+
+		// INSERTAMOS LOS JTEXTFIELD
+
+		cNText.anchor = GridBagConstraints.WEST;
+		cNText.weightx = 0.5;
+		cNText.ipadx = 100;
+
+		cNText.gridx = 1;
+		cNText.gridy = 0;
+		txtDNI.setEditable(true);
+		pane.add(txtDNI, cNText);
+
+		cNText.gridx = 3;
+		cNText.gridy = 0;
+		pane.add(txtNombre, cNText);
+
+		cNText.gridx = 5;
+		cNText.gridy = 0;
+		pane.add(txtApellidos, cNText);
+
+		cNText.gridx = 1;
+		cNText.gridy = 1;
+		pane.add(txtFNac, cNText);
+
+		cNText.gridx = 3;
+		cNText.gridy = 1;
+		pane.add(txtTlf, cNText);
+
+		cNText.gridx = 5;
+		cNText.gridy = 1;
+		pane.add(txtDir, cNText);
+
+		cNText.gridx = 1;
+		cNText.gridy = 2;
+		pane.add(txtPob, cNText);
+
+		cNText.gridx = 3;
+		cNText.gridy = 2;
+		pane.add(txtProv, cNText);
+
+		cNText.gridx = 5;
+		cNText.gridy = 2;
+		pane.add(txtCp, cNText);
+
+		cNText.gridx = 1;
+		cNText.gridy = 3;
+		pane.add(txtEmail, cNText);
+
+		cNText.gridx = 3;
+		cNText.gridy = 3;
+		pane.add(txtCon, cNText);
+
 		cNText.gridx = 5;
 		cNText.gridy = 3;
 		pane.add(txtConfCon, cNText);
 
-		campolbl = new JLabel("Tipo de usuario");
-		cNLabels.gridx = 4;
-		cNLabels.gridy = 5;
-		pane.add(campolbl, cNLabels);
-
 		cNText.gridx = 5;
-		cNText.gridy = 5;
+		cNText.gridy = 4;
 		pane.add(jCmbTipo, cNText);
 
-		boton = new JButton("Guardar");
-		cNButtons.fill = 0;
-		cNButtons.anchor = GridBagConstraints.PAGE_END; // bottom of space
-		cNButtons.insets = new Insets(15, 0, 0, 0); // top padding
-		cNButtons.gridx = 0;
-		cNButtons.gridy = 5;
+		// INSERTAMOS LOS JBUTTON
 
 		if (modificar == false) {
 			boton = new JButton("Guardar");
@@ -477,7 +503,7 @@ public class UsuarioVisual extends JInternalFrame {
 			cNButtons.anchor = GridBagConstraints.PAGE_END; // bottom of space
 			cNButtons.insets = new Insets(15, 0, 0, 0); // top padding
 			cNButtons.gridx = 0;
-			cNButtons.gridy = 5;
+			cNButtons.gridy = 6;
 			boton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
@@ -497,11 +523,10 @@ public class UsuarioVisual extends JInternalFrame {
 										.getSelectedItem().toString()
 										.toLowerCase(), txtEmail.getText());
 						u.validarDatos();
-						System.out.println(jCmbTipo.getSelectedItem()
-								.toString());
 						if (u.getValido()) {
 							u.crearUsuario();
 							restablecerCampos();
+							txtDNI.setText("");
 						}
 
 					} else {
@@ -520,7 +545,7 @@ public class UsuarioVisual extends JInternalFrame {
 			cNButtons.anchor = GridBagConstraints.PAGE_END; // bottom of space
 			cNButtons.insets = new Insets(15, 0, 0, 0); // top padding
 			cNButtons.gridx = 0;
-			cNButtons.gridy = 5;
+			cNButtons.gridy = 6;
 			boton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
@@ -563,12 +588,13 @@ public class UsuarioVisual extends JInternalFrame {
 		cNButtons.fill = 0;
 		cNButtons.insets = new Insets(15, 15, 0, 0); // top padding
 		cNButtons.gridx = 1;
-		cNButtons.gridy = 5;
+		cNButtons.gridy = 6;
 		cNButtons.anchor = GridBagConstraints.WEST;
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 
 				restablecerCampos();
+				txtDNI.setText("");
 				JOptionPane.showMessageDialog(null,
 						"Los campos se han restablecido");
 
@@ -580,7 +606,7 @@ public class UsuarioVisual extends JInternalFrame {
 		cNButtons.fill = 0;
 		cNButtons.insets = new Insets(15, 15, 0, 0); // top padding
 		cNButtons.gridx = 2;
-		cNButtons.gridy = 5;
+		cNButtons.gridy = 6;
 		cNButtons.anchor = GridBagConstraints.WEST;
 		boton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -591,14 +617,19 @@ public class UsuarioVisual extends JInternalFrame {
 		});
 		pane.add(boton, cNButtons);
 
-	}
-
-	
+	} // FIN DEL MÉTODO CARGARUSUARIO
 
 	public String[] getTipo() {
 		return tipo;
 	}
 
+	/**
+	 * Carga los campos con el contenido del array que recibe por parámetro.
+	 * 
+	 * @param rUser
+	 *            Array que contiene los datos que se van a cargar en los
+	 *            jTextField
+	 */
 	public static void setCampos(String[] rUser) {
 		txtDNI.setText(rUser[0]);
 		txtNombre.setText(rUser[1]);
@@ -616,9 +647,11 @@ public class UsuarioVisual extends JInternalFrame {
 		}
 	}
 
+	/**
+	 * Método que deja los campos de los JTextField en blanco.
+	 */
 	public static void restablecerCampos() {
-		
-		
+
 		txtNombre.setText("");
 		txtApellidos.setText("");
 		txtFNac.setText("");
@@ -629,18 +662,35 @@ public class UsuarioVisual extends JInternalFrame {
 		txtTlf.setText("");
 		txtEmail.setText("");
 		txtCon.setText("");
+		txtConfCon.setText("");
 	}
 
 	public void setTipo(String[] tipo) {
 		this.tipo = tipo;
 	}
 
-	public static void limpiarTabla(int filas) {
+	/**
+	 * Método para limpiar las filas de la tabla.
+	 * 
+	 * @param filas
+	 *            Indica la cantidad de filas que tiene la tabla, para que se
+	 *            repita en el bucle for.
+	 * @param tabla
+	 *            Indica la tabla que queremos limpiar, se recibe como un
+	 *            TableModel.
+	 */
+	public static void limpiarTabla(int filas, DefaultTableModel tabla) {
 		for (int i = 0; i < filas; i++) {
-			modelo.removeRow(0);
+			tabla.removeRow(0);
 		}
 	}
 
+	/**
+	 * Método que busca en la Base de Datos según el criterio que establezcamos
+	 * en el campo de texto y nos lo carga en la tabla.
+	 * 
+	 * @Author Antonio Cambronero y Pepe Lara
+	 */
 	public static void buscar() {
 		try {
 			modelo.setColumnCount(0);
@@ -655,7 +705,7 @@ public class UsuarioVisual extends JInternalFrame {
 
 				for (int i = 0; i < nColumnas; i++) {
 					registro[i] = rs.getObject(i + 1);
-					System.out.println(registro[i]);
+					//System.out.println(registro[i]);
 
 				}
 				for (int i2 = 0; i2 < registro.length; i2++) {
@@ -665,7 +715,7 @@ public class UsuarioVisual extends JInternalFrame {
 					} else if (registro[i2].toString().equals("false")) {
 						registro[i2] = "Activo";
 					}
-					System.out.println(registro[i2]);
+					//System.out.println(registro[i2]);
 				}
 				modelo.addRow(registro);
 
@@ -678,4 +728,5 @@ public class UsuarioVisual extends JInternalFrame {
 
 	}
 
+	
 }
