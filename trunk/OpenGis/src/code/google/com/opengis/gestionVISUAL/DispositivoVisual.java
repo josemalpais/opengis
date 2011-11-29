@@ -473,6 +473,8 @@ public class DispositivoVisual extends JInternalFrame {
 						try {
 							DispositivoDAO.altaDispositivo(numID,
 									txtModelo.getText(), numeroSerie);
+							txtIddispositivo.setText(DispositivoDAO.calcularNuevoID()+"");
+							restablecerCampos();
 						}
 
 						catch (SQLException e1) {
