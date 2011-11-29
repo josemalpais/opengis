@@ -3,7 +3,7 @@
  ******************************************************************************/
 package code.google.com.opengis.gestionVISUAL;
 
-import java.awt.Color;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -20,7 +20,6 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -78,7 +77,9 @@ public class UsuarioVisual extends JInternalFrame {
 	private static JTextField txtBuscar = new JTextField();
 	private static String[] criterio = { "DNI", "Nombre", "Apellidos" };
 	private static JComboBox jCmbCriterio = new JComboBox(criterio);
-
+	
+	
+	
 	private static JScrollPane scrollUsuarios;
 	private static JTable jTablaUsuarios = null;
 	static Object[] nombreColumna = { "DNI", "Nombre", "Apellidos",
@@ -118,7 +119,7 @@ public class UsuarioVisual extends JInternalFrame {
 		panelUsuariosCrear.setBounds(new Rectangle(0, 0, 800, 600));
 		panelUsuariosMod.setBounds(new Rectangle(0, 0, 800, 600));
 		txtFNac.setValue(new Date());
-
+		jTablaUsuarios.removeEditor();
 		panelUsuarios.setVisible(true);
 
 	}
@@ -181,7 +182,12 @@ public class UsuarioVisual extends JInternalFrame {
 		});
 		panelUsuarios.add(boton, cButtons);
 
-		modelo = new DefaultTableModel();
+		modelo  = new DefaultTableModel() {
+			 @Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+		};
 		modelo.setColumnIdentifiers(nombreColumna);
 		jTablaUsuarios = new JTable(modelo);
 		scrollUsuarios = new JScrollPane(jTablaUsuarios);
@@ -293,7 +299,7 @@ public class UsuarioVisual extends JInternalFrame {
 			}
 		});
 		panelUsuarios.add(boton, cButtons);
-
+		
 		boton = new JButton("Limpiar Tabla");
 		cButtons.anchor = GridBagConstraints.LINE_START;
 		cButtons.insets = new Insets(0, 0, 0, 0);
@@ -539,6 +545,25 @@ public class UsuarioVisual extends JInternalFrame {
 				}
 			});
 			pane.add(boton, cNButtons);
+			
+			boton = new JButton("Limpiar");
+			cNButtons.fill = 0;
+			cNButtons.insets = new Insets(15, 15, 0, 0); // top padding
+			cNButtons.gridx = 1;
+			cNButtons.gridy = 6;
+			cNButtons.anchor = GridBagConstraints.WEST;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+
+					restablecerCampos();
+					txtDNI.setText("");
+					JOptionPane.showMessageDialog(null,
+							"Los campos se han restablecido");
+
+				}
+			});
+			pane.add(boton, cNButtons);
+			
 		} else if (modificar == true) {
 			boton = new JButton("Modificar");
 			cNButtons.fill = 0;
@@ -582,25 +607,26 @@ public class UsuarioVisual extends JInternalFrame {
 				}
 			});
 			pane.add(boton, cNButtons);
+			
+			boton = new JButton("Limpiar");
+			cNButtons.fill = 0;
+			cNButtons.insets = new Insets(15, 15, 0, 0); // top padding
+			cNButtons.gridx = 1;
+			cNButtons.gridy = 6;
+			cNButtons.anchor = GridBagConstraints.WEST;
+			boton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+
+					restablecerCampos();
+					JOptionPane.showMessageDialog(null,
+							"Los campos se han restablecido");
+
+				}
+			});
+			pane.add(boton, cNButtons);
 		}
 
-		boton = new JButton("Limpiar");
-		cNButtons.fill = 0;
-		cNButtons.insets = new Insets(15, 15, 0, 0); // top padding
-		cNButtons.gridx = 1;
-		cNButtons.gridy = 6;
-		cNButtons.anchor = GridBagConstraints.WEST;
-		boton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent e) {
-
-				restablecerCampos();
-				txtDNI.setText("");
-				JOptionPane.showMessageDialog(null,
-						"Los campos se han restablecido");
-
-			}
-		});
-		pane.add(boton, cNButtons);
+		
 
 		boton = new JButton("Volver");
 		cNButtons.fill = 0;
