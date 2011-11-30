@@ -128,7 +128,7 @@ public class ConectarDBA {
 	 * @throws SQLException
 	 *             Nos devuelve error en caso de que exista.
 	 */
-	public static void comprobarUsuario(String tabla, String campo,
+	public static void comprobarExiste(String tabla, String campo,
 			String criterio, boolean buscarActivo) throws SQLException {
 
 		acceder();
