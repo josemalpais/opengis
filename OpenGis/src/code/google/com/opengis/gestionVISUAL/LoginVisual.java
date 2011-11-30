@@ -1,4 +1,5 @@
 package code.google.com.opengis.gestionVISUAL;
+import javax.swing.UIManager.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -40,7 +41,16 @@ public class LoginVisual extends JFrame implements KeyListener{
 	 * llama a la clase ValidarLogin
 	 **/
 	public void cargaObjetos(){
-
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
 		ven = this;
 		setLayout(new GridLayout(4,2));
 		 btnVal = new JButton("Validar");
