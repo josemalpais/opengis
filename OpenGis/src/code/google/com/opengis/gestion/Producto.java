@@ -97,7 +97,7 @@ public class Producto {
 	}
 //Enlazar Producto con ProductoDAO, cadena de metodos.	
 	public void crearProducto() {
-	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.tipo,this.activo);
+	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.tipo,1);
 		try {
 			x.altaProducto();			
 		} catch (SQLException e) {
