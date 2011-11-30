@@ -49,8 +49,9 @@ public class ProductoVisual extends JInternalFrame {
         
         private static JTextArea txtDescripcion;
         
+        private static JLabel lblDosis;
         private static JComboBox cmbTarea;
-        private static String[] tipo = { "Arar", "Abonar", "Sembrar"};
+        private static String[] tipo = {"Líquido", "Granulado", "Polvo"};
         
         private static JCheckBox chkActivo;
         private static int variableint=1;
@@ -275,11 +276,11 @@ public void principalProducto(Container pane){
         c.gridy = 1;
         pane.add(txtNombre, c);
 
-        label = new JLabel("Tipo:");
+        lblDosis = new JLabel("Dosis: (l/ha)");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 2;
-        pane.add(label,c);
+        pane.add(lblDosis,c);
 
         txtTipo = new JTextField();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -315,9 +316,25 @@ public void principalProducto(Container pane){
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx= 4;
         c.gridy= 0;
+        cmbTarea.addActionListener(new ActionListener(){
+        	public void actionPerformed (ActionEvent e){
+        		int selIndex = cmbTarea.getSelectedIndex();
+        			switch (selIndex){
+        			case 0:
+        				lblDosis.setText("Dosis (l/ha):");
+        			break;
+        			case 1:
+        				lblDosis.setText("Dosis (gr/ha):");
+        			break;
+        			case 2:
+        				lblDosis.setText("Dosis (kg/ha)");
+        			break;
+        			}
+        	}
+        });
         pane.add(cmbTarea, c);
  
-        label= new JLabel("Activo");
+     /**   label= new JLabel("Activo");
         c.fill=GridBagConstraints.HORIZONTAL ;
         c.gridx=3;
         c.gridy=1;
@@ -327,7 +344,7 @@ public void principalProducto(Container pane){
         c.fill=GridBagConstraints.HORIZONTAL;
         c.gridx = 4;
         c.gridy= 1;
-        pane.add(chkActivo,c);
+        pane.add(chkActivo,c);**/
  
         cmdAceptarAlt = new JButton("Confirmar");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -335,11 +352,11 @@ public void principalProducto(Container pane){
         c.gridy = 5;
         cmdAceptarAlt.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {     
-                        if (chkActivo.isSelected()){
+            /**            if (chkActivo.isSelected()){
                         	variableint=0;
                         }else{
                         	variableint=1;
-                        }
+                        }**/
                         Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbTarea.getSelectedItem().toString(), txtTipo.getText(), variableint);        
                         p.validarDatos();
                         if (p.getCorrecto()) {
