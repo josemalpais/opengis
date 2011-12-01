@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 /**
  * @author Danico & Pipepito Clase que establece conexión con la base de datos y
  *         realiza las diferentes funciones con esta Ya sea Querys o Updates
- *         Última modificación 30/11/11
+ *         Última modificación 01/12/11
  * 
  */
 
@@ -50,7 +50,7 @@ public class ConectarDBA {
 			st = conexion.createStatement();
 			// System.out.println("conectaBD");
 		} catch (IllegalAccessException e) {
-			JOptionPane.showMessageDialog(null, "Error De Conexión");
+			JOptionPane.showMessageDialog(null, "Error De Conexión, usuario o contraseña incorrectos");
 
 			System.err.println(e.getMessage());
 		} catch (InstantiationException e) {
@@ -58,12 +58,12 @@ public class ConectarDBA {
 
 			System.err.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Error De Conexión");
+			JOptionPane.showMessageDialog(null, "Error De Conexión, no se encuentra la clase");
 
 			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			System.out.println("Aquí falla");
-			JOptionPane.showMessageDialog(null, "Error De Conexión");
+			JOptionPane.showMessageDialog(null, "Error De Conexión, fallo en la sintaxis SQL");
 
 			System.err.println(e.getMessage());
 
@@ -125,10 +125,11 @@ public class ConectarDBA {
 	 *            Indicamos el criterio de búsqueda.
 	 * @param buscarActivo
 	 *            Indicamos si queremos comprobar si está activo.
+	 * @return
 	 * @throws SQLException
 	 *             Nos devuelve error en caso de que exista.
 	 */
-	public static void comprobarExiste(String tabla, String campo,
+	public static boolean comprobarExiste(String tabla, String campo,
 			String criterio, boolean buscarActivo) throws SQLException {
 
 		acceder();
@@ -154,28 +155,30 @@ public class ConectarDBA {
 			existe = true;
 
 			System.out.println("El estado de existe es: " + existe);
-		}
 
-		rs.close();
-		if (buscarActivo) {
-			String sentencia2 = "SELECT `activo` FROM `" + tabla + "` WHERE `"
-					+ campo + "` LIKE '" + criterio + "'";
-			ResultSet rs2 = consulta(sentencia2);
-			activo = false;
-			while (rs2.next()) {
-				System.out.println("Ejecuto el segundo While");
-				activo = rs2.getBoolean(1);
+			rs.close();
+			if (buscarActivo) {
+				String sentencia2 = "SELECT `activo` FROM `" + tabla
+						+ "` WHERE `" + campo + "` LIKE '" + criterio + "'";
+				ResultSet rs2 = consulta(sentencia2);
+				activo = false;
+				while (rs2.next()) {
+					System.out.println("Ejecuto el segundo While");
+					activo = rs2.getBoolean(1);
+					return activo;
+				}
+				if (activo == false) {
+					activo = true;
+					return activo;
+				}
+				rs2.close();
+				System.out.println("El estado de activo es: " + activo);
+				// System.out.println("Ejecutada sentencia "+sentencia);
+
 			}
-			if (activo == false) {
-				activo = true;
-			}
-			rs2.close();
-			System.out.println("El estado de activo es: " + activo);
-			// System.out.println("Ejecutada sentencia "+sentencia);
-
+			cerrarCon();
 		}
-		cerrarCon();
-
+		return existe;
 	}
 
 	/**
@@ -220,7 +223,50 @@ public class ConectarDBA {
 		// System.out.println("Ejecutada sentencia "+sentencia);
 
 	}
+	
+	/**
+	 * Método que activa un campo según el criterio que le pasemos.
+	 * @param tabla en la que se va a activar.
+	 * @param campo campo que vamos a utilizar para comparar con el criterio
+	 * @param criterio criterio que debe cumplir.
+	 * @throws SQLException
+	 */
+	public static void activar(String tabla, String campo, String criterio)
+			throws SQLException {
+		comprobarExiste(tabla, campo, criterio, true);
+		if (existe == true && activo == false) {
+			String sentencia = "UPDATE `" + tabla
+					+ "` SET `activo` = '1' WHERE `" + campo + "` LIKE '"
+					+ criterio + "'";
+			ConectarDBA.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,
+					"Se ha activado correctamente");
+		}
 
+	}
+	
+	/**
+	 * Método que desactiva un campo según el criterio que le pasemos.
+	 * @param tabla en la que se va a activar.
+	 * @param campo campo que vamos a utilizar para comparar con el criterio
+	 * @param criterio criterio que debe cumplir.
+	 * @throws SQLException
+	 */
+	public static void desactivar(String tabla, String campo, String criterio)
+			throws SQLException {
+		comprobarExiste(tabla, campo, criterio, true);
+		if (existe == true && activo == true) {
+			String sentencia = "UPDATE `" + tabla
+					+ "` SET `activo` = '0' WHERE `" + campo + "` LIKE '"
+					+ criterio + "'";
+			ConectarDBA.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,
+					"Se ha desactivado correctamente");
+		}
+
+	}
+
+	
 	/**
 	 * Método que nos devolverá un ResultSet con todos los campos de la consulta
 	 * que pasamos por parámetros.

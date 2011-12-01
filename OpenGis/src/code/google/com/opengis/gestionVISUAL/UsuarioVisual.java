@@ -567,7 +567,12 @@ public class UsuarioVisual extends JInternalFrame {
 										.toLowerCase(), txtEmail.getText());
 						u.validarDatos();
 						if (u.getValido()) {
-							u.crearUsuario();
+							try {
+								u.crearUsuario();
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							restablecerCampos();
 							txtDNI.setText("");
 						}

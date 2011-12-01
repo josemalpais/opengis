@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 /**
@@ -36,6 +37,9 @@ public class Usuarios {
 	private Boolean valido;
 	private String email;
 	private UsuariosDAO enlace;
+
+	private boolean existe;
+	private boolean activo;
 
 	/**
 	 * Constructor de la clase Usuarios
@@ -283,7 +287,7 @@ public class Usuarios {
 																	null,
 																	"Error. La provincia no puede esta vacía ni ser numérico");
 
-												} else {
+	 											} else {
 
 													r = isInteger(this.Contraseña);
 
@@ -340,22 +344,61 @@ public class Usuarios {
 	 * los parametros indicados en su constructor. Después, ejecuta el método
 	 * crear Usuario, definido en la clase UsuariosDAO.
 	 * 
+	 * @throws SQLException
+	 * 
 	 */
 
-	public void crearUsuario() {
+	public void crearUsuario() throws SQLException {
 
-		enlace = new UsuariosDAO(this.Dni, this.Nombre, this.Apellidos,
-				this.Telefono, this.Direccion, this.Poblacion, this.Provincia,
-				this.Cp, this.Fecha_nac, this.Contraseña, this.tipo, this.email);
-		try {
+		existe = false;
+		activo = false;
+		ConectarDBA.comprobarExiste("usuarios", "dni", this.Dni, true);
 
-			enlace.altaUsuario();
+		if (existe == true) {
 
-		} catch (SQLException e) {
+			if (activo == true) {
+				JOptionPane.showMessageDialog(null,
+						"El DNI ya existe y se encuentra Activado");
+
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"El DNI ya existe y se encuentra Inactivo");
+
+			}
+
+		} else {
+			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"
+					+ this.Dni
+					+ "', '"
+					+ this.Nombre
+					+ "', '"
+					+ this.Apellidos
+					+ "', '"
+					+ this.email
+					+ "', '"
+					+ this.Contraseña
+					+ "', '"
+					+ this.tipo
+					+ "', '0', '"
+					+ this.Telefono
+					+ "', '"
+					+ this.Direccion
+					+ "', '"
+					+ this.Poblacion
+					+ "', '"
+					+ this.Provincia
+					+ "', '"
+					+ this.Cp
+					+ "', '"
+					+ this.Fecha_nac + "', '0')";
+			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
-					"Error al dar de alta el nuevo usuario");
+					"Se ha dado de alta el nuevo usuario");
+
 		}
+
+		ConectarDBA.cerrarCon();
 
 	}
 
@@ -364,24 +407,31 @@ public class Usuarios {
 	 * los parametros indicados en su constructor. Después, ejecuta el método
 	 * borrar Usuario, definido en la clase UsuariosDAO.
 	 * 
+	 * @throws SQLException
+	 * 
 	 */
 
-	public void borrarUsuario() {
+	public void borrarUsuario() throws SQLException {
 
-		enlace = new UsuariosDAO(this.Dni, this.Nombre, this.Apellidos,
-				this.Telefono, this.Direccion, this.Poblacion, this.Provincia,
-				this.Cp, this.Fecha_nac, this.Contraseña, this.tipo, this.email);
+		existe = false;
 
-		try {
+		ConectarDBA.comprobarExiste("usuarios", "dni", this.Dni, false);
 
-			enlace.borrarUsuario();
+		if (existe == true) {
 
-		} catch (SQLException e) {
+			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '"
+					+ this.Dni + "'";
+			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
-					"Error al eliminar el nuevo usuario");
+					"Usuario eliminado correctamente");
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "El usuario no existe");
 		}
 
+		ConectarDBA.cerrarCon();
 	}
 
 	public void modificarUsuario() {
@@ -399,6 +449,17 @@ public class Usuarios {
 		}
 
 	}
+	
+	public void desactivarUsuario(String dni) throws SQLException{
+		//System.out.println(dni);
+		ConectarDBA.desactivar("usuarios", "dni", dni);
+	}
+	
+	public void activarUsuario(String dni) throws SQLException{
+		//System.out.println(dni);
+		ConectarDBA.activar("usuarios", "dni", dni);
+	}
+	
 
 	/**
 	 * Este método comprueba si una cadena String introducida es un Número. Si
