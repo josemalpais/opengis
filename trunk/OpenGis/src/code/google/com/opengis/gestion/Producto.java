@@ -89,7 +89,7 @@ public class Producto {
 	}
 //modif
 	
-	public void modificarProducto() {
+	public void editarProducto() {
 		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis);
 			try {
 				x.modificarProducto();			
@@ -98,6 +98,15 @@ public class Producto {
 			}
 			
 		}
+//bajas 
+	public void bajasProducto(){
+		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis);
+		try {
+			x.desactivarProducto();			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
+		}
+	}
 //Valida datos	
 public void validarDatos(){
 
