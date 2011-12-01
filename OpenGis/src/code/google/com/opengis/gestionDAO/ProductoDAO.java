@@ -28,22 +28,8 @@ public class ProductoDAO {
 	}
 
 //METODOS
-	//metodo comprobar para modificar
-	public static void comprobarProducto(int idprod) throws SQLException{		
-
-		ConectarDBA.acceder();
-		String sentencia = "SELECT * FROM `producto` WHERE `idprod` LIKE '"+ idprod +"'";
-		ResultSet rs = ConectarDBA.consulta(sentencia);
-		while(rs.next()){
-			resultado = rs.getString(1);
-		}
-		if(resultado == null){
-			existe = false;//no existe el id buscado	
-		}else if (resultado.equals(idprod)){
-			existe = true;//existe el id buscado
-		}
-		rs.close();
-	}
+	
+	
 	//metodo modificar
 	public void modificarProducto() throws SQLException{
 		String sentencia = "UPDATE `producto` SET `nombre`=["+ this.nombre +"],`descripcion`=["+ this.descripcion +"],`nomtarea`=["+ this.nomtarea +"],`dosis`=["+ this.dosis +"] WHERE `idprod` = '"+ this.idprod + "'";
@@ -63,22 +49,11 @@ public class ProductoDAO {
 	}
 	
 	//metodo para hacer la sentencia que oculta
-	public void borrarProducto() throws SQLException {
-		//comprobarProducto(this.idprod);
-		if (existe == true) {
+	public void desactivarProducto() throws SQLException {
 
 			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"+ this.idprod + "'";
 			ConectarDBA.modificar(sentencia);
-
-			JOptionPane.showMessageDialog(null,
-					"Producto dado de baja correctamente");
-
-		} else {
-
-			JOptionPane.showMessageDialog(null, "El producto no existe");
-		}
-
-		ConectarDBA.cerrarCon();
+			JOptionPane.showMessageDialog(null,"Producto dado de baja correctamente");
 
 	}
 	
