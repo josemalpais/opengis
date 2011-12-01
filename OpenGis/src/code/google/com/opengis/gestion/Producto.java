@@ -87,6 +87,17 @@ public class Producto {
 		}
 		
 	}
+//modif
+	
+	public void modificarProducto() {
+		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis);
+			try {
+				x.modificarProducto();			
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
+			}
+			
+		}
 //Valida datos	
 public void validarDatos(){
 
@@ -108,7 +119,7 @@ public void validarDatos(){
 				
 				r = isInteger(this.dosis);
 				
-				if(r.equals(false) || this.dosis.length() <1 || this.dosis.length()>3){
+				if(r.equals(true) || this.dosis.length() <1 || this.dosis.length()>3){
 					
 					JOptionPane.showMessageDialog(null, "Error. La dosis debe de ser numérica, no estar vacia ni ser superior a 3 carácteres.");
 					this.correcto = false;
