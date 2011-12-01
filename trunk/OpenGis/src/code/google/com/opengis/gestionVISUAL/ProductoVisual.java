@@ -38,23 +38,22 @@ public class ProductoVisual extends JInternalFrame {
         private JButton cmdDesactivar;
         
         private static JTable tblTabla = null;
-        private static String[] columnNames = {"ID", "Nombre","Tamaño","Descripción", "Tarea", "Activo"};
+        private static String[] columnNames = {"ID", "Nombre","Descripción", "Tipo","dosis"};
         private static JScrollPane scrollUsuarios;        
         static DefaultTableModel modelo;
 
         private static JTextField txtIdprod;
         private static JTextField txtNombre;
-        private static JTextField txtTipo;
+        private static JTextField txtDosis;
         private static JTextField txtBuscar;
         
         private static JTextArea txtDescripcion;
         
         private static JLabel lblDosis;
-        private static JComboBox cmbTarea;
+        private static JComboBox cmbDosis;
         private static String[] tipo = {"Líquido", "Granulado", "Polvo"};
         
-        private static JCheckBox chkActivo;
-        private static int variableint=1;
+       
         
 public ProductoVisual(int ancho, int alto){
 	super("Productos", true, true, true, true);
@@ -230,11 +229,11 @@ public void principalProducto(Container pane){
      JLabel label;
          txtIdprod= new JTextField();
          txtNombre= new JTextField();
-         txtTipo= new JTextField();
+         txtDosis= new JTextField();
      txtDescripcion= new JTextArea();
-     cmbTarea= new JComboBox();
+     cmbDosis= new JComboBox();
    
-     chkActivo= new JCheckBox();
+    // chkActivo= new JCheckBox();
      
      pane.setLayout(new GridBagLayout());
      GridBagConstraints c = new GridBagConstraints();
@@ -282,11 +281,11 @@ public void principalProducto(Container pane){
         c.gridy = 2;
         pane.add(lblDosis,c);
 
-        txtTipo = new JTextField();
+        txtDosis = new JTextField();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 2;
-        pane.add(txtTipo, c);
+        pane.add(txtDosis, c);
 
         label = new JLabel("Descripción:");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -312,13 +311,13 @@ public void principalProducto(Container pane){
         pane.add(label,c);
  
         
-        cmbTarea= new JComboBox(tipo);
+        cmbDosis= new JComboBox(tipo);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx= 4;
         c.gridy= 0;
-        cmbTarea.addActionListener(new ActionListener(){
+        cmbDosis.addActionListener(new ActionListener(){
         	public void actionPerformed (ActionEvent e){
-        		int selIndex = cmbTarea.getSelectedIndex();
+        		int selIndex = cmbDosis.getSelectedIndex();
         			switch (selIndex){
         			case 0:
         				lblDosis.setText("Dosis (l/ha):");
@@ -332,7 +331,7 @@ public void principalProducto(Container pane){
         			}
         	}
         });
-        pane.add(cmbTarea, c);
+        pane.add(cmbDosis, c);
  
      /**   label= new JLabel("Activo");
         c.fill=GridBagConstraints.HORIZONTAL ;
@@ -357,7 +356,7 @@ public void principalProducto(Container pane){
                         }else{
                         	variableint=1;
                         }**/
-                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbTarea.getSelectedItem().toString(), txtTipo.getText(), variableint);        
+                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbDosis.getSelectedItem().toString(), txtDosis.getText());        
                         p.validarDatos();
                         if (p.getCorrecto()) {
 							p.crearProducto();
