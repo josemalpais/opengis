@@ -12,19 +12,17 @@ public class Producto {
 	private String nombre;
 	private String descripcion;
 	private String nomtarea;
-	private String tipo;
-	private int activo;
+	private String dosis;
 	private ProductoDAO x;
 	private Boolean correcto;
 //CONSTRUCTOR
-	public Producto(int idprod, String nombre,String descripcion,String nomtarea, String tipo, int activo) {
+	public Producto(int idprod, String nombre,String descripcion,String nomtarea, String dosis) {
 		
 	this.idprod=idprod;
 	this.nombre=nombre;
 	this.descripcion=descripcion;
 	this.nomtarea=nomtarea;
-	this.tipo=tipo;
-	this.activo=activo;
+	this.dosis=dosis;
 	this.correcto = false;
 	}
 	
@@ -35,12 +33,8 @@ public class Producto {
 	}
 
 	public void setIdprod(int idprod) {
-		String str= idprod+"";
-		if((str.length()>1)&&(str.length()<9)){ //comprobamos que idprod tenga entre 1 y 8 digitos
+		
 			this.idprod = idprod;
-		}else{
-			JOptionPane.showMessageDialog(null, "El ID del producto debe tener entre 1 y 8 dígitos");
-		}
 	}
 	//NOMBRE
 	public String getNombre() {
@@ -48,12 +42,8 @@ public class Producto {
 	}
 
 	public void setNombre(String nombre) {
-		
-		if(nombre.length() < 1 || nombre.length()>20){
-			JOptionPane.showMessageDialog(null, "Error. El nombre debe estar comprendido entre 1 y 20 carácteres");			
-		}else{
+
 			this.nombre = nombre;
-		}
 	}
 	//DESCRIPCION
 	public String getDescripcion() {
@@ -61,11 +51,8 @@ public class Producto {
 	}
 
 	public void setDescripcion(String descripcion) {
-		if(descripcion.length()>100||descripcion.length()<=0){
-			JOptionPane.showMessageDialog(null, "La descripcion del producto debe constar de entre 1 y 100 carácteres alfanuméricos");
-		}else{
+		
 			this.descripcion = descripcion;
-		}
 	}
 	
 	//NomTarea
@@ -74,20 +61,15 @@ public class Producto {
 	}
 
 	public void setNomtarea(String nomtarea) {
-		String str= nomtarea+"";
-		if((str.length()>1)&&(str.length()<4)){
-			JOptionPane.showMessageDialog(null, "El producto debe estar asignado a una tarea con id entre 1 y 3 caracteres");
-		}else{
 			this.nomtarea = nomtarea;
-		}
 	}
-	//ACTIVO
-	public int isActiv_Apero() {
-		return activo;
+	//Dosis
+	public String getDosis() {
+		return nomtarea;
 	}
 
-	public void setActiv_Apero(int activo) {
-		this.activo = activo;
+	public void setDosis(String dosis) {
+			this.dosis = dosis;
 	}
 //Datos correctos
 	public Boolean getCorrecto(){
@@ -97,7 +79,7 @@ public class Producto {
 	}
 //Enlazar Producto con ProductoDAO, cadena de metodos.	
 	public void crearProducto() {
-	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.tipo,1);
+	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis);
 		try {
 			x.altaProducto();			
 		} catch (SQLException e) {
@@ -124,16 +106,16 @@ public void validarDatos(){
 				
 			}else{
 				
-				r = isInteger(this.tipo);
+				r = isInteger(this.dosis);
 				
-				if(r.equals(true) || this.tipo.length() < 2 || this.tipo.length()>40){
+				if(r.equals(false) || this.dosis.length() <1 || this.dosis.length()>3){
 					
-					JOptionPane.showMessageDialog(null, "Error. El tipo no pueden ser numérico, estar vacio ni ser superior a 40 carácteres.");
+					JOptionPane.showMessageDialog(null, "Error. La dosis debe de ser numérica, no estar vacia ni ser superior a 3 carácteres.");
 					this.correcto = false;
 					
 				}else{
 					r = isInteger(this.descripcion);
-					if(r.equals(true) || this.descripcion.length() <2  || this.descripcion.length()>1000){
+					if(r.equals(true) || this.descripcion.length() <1  || this.descripcion.length()>1000){
 						
 						JOptionPane.showMessageDialog(null, "Error. La descripcion no puede ser numérica, estar vacia ni ser superior a 1000 carácteres.");
 						this.correcto = false;
