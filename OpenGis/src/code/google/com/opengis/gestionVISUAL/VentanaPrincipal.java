@@ -2,394 +2,201 @@
     * Copyright (c) 2011 [OpenGisTeam]                                           *
     ******************************************************************************/
     package code.google.com.opengis.gestionVISUAL;
-    import java.awt.Color;
-import java.awt.Dimension;
-    import java.awt.FlowLayout;
-    import java.awt.Insets;
-    import java.awt.event.ActionEvent;
-    import java.awt.event.ActionListener;
-     
-    import javax.swing.JDesktopPane;
-    import java.awt.event.WindowAdapter;
-    import java.awt.event.WindowEvent;
-     
-    import javax.swing.BoxLayout;
-    import javax.swing.JButton;
-    import javax.swing.JFrame;
-    import javax.swing.JInternalFrame;
-    import javax.swing.JMenu;
-    import javax.swing.JMenuBar;
-    import javax.swing.JMenuItem;
-    import javax.swing.JOptionPane;
-    import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-     
-     
-     
-    /**
-    * @author knals & Juan Carlos García
-    * Clase que genera la ventana principal del programa. Se generará completamente maximizada y será un formulario MDI.
-    *
-    * Ultima actualización 16/11/11
-    *
-    */
-    public class VentanaPrincipal extends JFrame{
-       
-           
-            private String tipo;
-            private JPanel panelMDI;
-            private JDesktopPane panelFormularios;
-            private AperoVisual frmAperos;
-            private UsuarioVisual frmUsuarios;
-            private ProductoVisual frmProductos;
-            private DispositivoVisual frmDispositivos;
-            private ParcelaVisual frmParcelas;
-            
-            private JButton cmdPrestamos;
-            private JButton cmdUsuarios;
-            private JButton cmdInformes;
-            private JButton cmdParcelas;
-            private JButton cmdAperos;
-            private JButton cmdProductos;
-            private JButton cmdTareas;
-            private JButton cmdDispositivos;
-           
-            private Dimension dimension = new Dimension(105,25);
-           
-       
-       /**
-        * Constructor de la ventana con parámetros.
-        * @param h: Height/Altura: Elegiremos la cantidad de pixels de alto que tendrá la ventana.
-        * @param w: Widht/Anchura: Elegiremos la cantidad de pixels de ancho que tendrá la ventana.
-        * @param titulo: Elegiremos el titulo que aparecera en la parte superior de la ventana.
-        */
-       public VentanaPrincipal(char tipoDeUsuario){
-           this.setTitle("OpenGis - Aplicación de Gestión");
-           this.tipo = tipoDeUsuario+"";
-           
-           if (tipo.equals("a")){
-               
-               configVentanaAdmin();
-               
-           }else{
-           
-           
-                   if (tipo.equals("t")){
-                       
-                       configVentanaTrabajador();
-                       
-                   }else{
-                       
-                       if(tipo.equals("d")){
-                               
-                               
-                               configVentanaDueño();
-                               
-                               
-                       }
-                       
-                       
-                   }
-           
-           }
-           
-           cargarFormularios();
-           
-       }
-       
-       /**
-        * Método que nos configura la ventana del Administrador. Vamos a configurarla como un formulario MDI
-        */
-       private void configVentanaAdmin(){
-           this.setVisible(true);
-           this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
-           this.setResizable(false); // No se puede redimensionar. Solo minimizar.
-         
-           JPanel pComun = new JPanel();
-           pComun.setLayout(new BoxLayout(pComun,BoxLayout.Y_AXIS));
-         
-         
-           panelMDI = new JPanel();
-           Dimension panelMDI_maxd = new Dimension(getWidth(),30);
-           panelMDI.setMaximumSize(panelMDI_maxd);
-         
-         
-           FlowLayout fl = new FlowLayout(); // Insertamos el Panel del MDI donde irán los botones
-           panelMDI.setLayout(fl);
-           pComun.add(panelMDI);
-           
-           Color color = panelMDI.getBackground(); // Seleccionamos el color de fondo del MDI
-         
-           panelFormularios = new JDesktopPane();
-           panelFormularios.setBackground(color);
-           panelFormularios.setLayout(null);
-           panelFormularios.setSize(getSize());
-           pComun.add(panelFormularios);
-         
-           cmdPrestamos = new JButton("Prestamos");
-           cmdPrestamos.addActionListener(new AccionDeBoton());
-           cmdPrestamos.setPreferredSize(dimension);
-     
-         
-           cmdUsuarios = new JButton("Usuarios");
-           cmdUsuarios.addActionListener(new AccionDeBoton());
-           cmdUsuarios.setPreferredSize(dimension);
-     
-         
-           cmdInformes = new JButton("Informes");
-           cmdInformes.addActionListener(new AccionDeBoton());
-           cmdInformes.setPreferredSize(dimension);
-         
-           cmdParcelas = new JButton("Parcelas");
-           cmdParcelas.addActionListener(new AccionDeBoton());
-           cmdParcelas.setPreferredSize(dimension);
-         
-           cmdAperos = new JButton("Aperos");
-           cmdAperos.addActionListener(new AccionDeBoton());
-           cmdAperos.setPreferredSize(dimension);
-         
-           cmdProductos = new JButton("Productos");
-           cmdProductos.addActionListener(new AccionDeBoton());
-           cmdProductos.setPreferredSize(dimension);
-         
-           cmdTareas = new JButton("Tareas");
-           cmdTareas.addActionListener(new AccionDeBoton());
-           cmdTareas.setPreferredSize(dimension);
-         
-           cmdDispositivos = new JButton("Dispositivos");
-           cmdDispositivos.addActionListener(new AccionDeBoton());
-           cmdDispositivos.setPreferredSize(dimension);
-         
-           panelMDI.add(cmdPrestamos);
-           panelMDI.add(cmdUsuarios);
-           panelMDI.add(cmdInformes);
-           panelMDI.add(cmdParcelas);
-           panelMDI.add(cmdAperos);
-           panelMDI.add(cmdProductos);
-           panelMDI.add(cmdTareas);
-           panelMDI.add(cmdDispositivos);
-         
-         
-         this.add(pComun);
-         
-         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-       
-       
-        //Pregunta si quiere cerrar la sesión al darle a la "X"          
-        this.addWindowListener(new WindowAdapter(){
-               public void windowClosing(WindowEvent e) {              
-                   dialog_salir();          
-               }
-           });
-           }
-       
-       
-       
-       /**
-        * Método que nos configura la ventana del Trabajador. Vamos a configurarla como un formulario MDI
-        */
-       private void configVentanaTrabajador(){
-    	   this.setVisible(true);
-           this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
-           this.setResizable(false); // No se puede redimensionar. Solo minimizar.
-         
-           JPanel pComun = new JPanel();
-           pComun.setLayout(new BoxLayout(pComun,BoxLayout.Y_AXIS));
-         
-         
-           panelMDI = new JPanel();
-           Dimension panelMDI_maxd = new Dimension(getWidth(),30);
-           panelMDI.setMaximumSize(panelMDI_maxd);
-         
-         
-           FlowLayout fl = new FlowLayout(); // Insertamos el Panel del MDI donde irán los botones
-           panelMDI.setLayout(fl);
-           pComun.add(panelMDI);
-           
-           Color color = panelMDI.getBackground(); // Seleccionamos el color de fondo del MDI
-         
-           panelFormularios = new JDesktopPane();
-           panelFormularios.setBackground(color);
-           panelFormularios.setLayout(null);
-           panelFormularios.setSize(getSize());
-           pComun.add(panelFormularios);
-     
-           cmdUsuarios = new JButton("Editar Datos");
-           cmdUsuarios.addActionListener(new AccionDeBoton());
-           cmdUsuarios.setPreferredSize(dimension);
-     
-         
-           cmdInformes = new JButton("Informes");
-           cmdInformes.addActionListener(new AccionDeBoton());
-           cmdInformes.setPreferredSize(dimension);
-         
-         
-           cmdAperos = new JButton("Aperos");
-           cmdAperos.addActionListener(new AccionDeBoton());
-           cmdAperos.setPreferredSize(dimension);
-         
-           cmdProductos = new JButton("Productos");
-           cmdProductos.addActionListener(new AccionDeBoton());
-           cmdProductos.setPreferredSize(dimension);
-         
-           cmdTareas = new JButton("Tareas");
-           cmdTareas.addActionListener(new AccionDeBoton());
-           cmdTareas.setPreferredSize(dimension);
-         
-         
-           panelMDI.add(cmdUsuarios);
-           panelMDI.add(cmdInformes);
-           panelMDI.add(cmdAperos);
-           panelMDI.add(cmdProductos);
-           panelMDI.add(cmdTareas);
 
-         
-         
-         this.add(pComun);
-         
-         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-       
-       
-        //Pregunta si quiere cerrar la sesión al darle a la "X"          
-        this.addWindowListener(new WindowAdapter(){
-               public void windowClosing(WindowEvent e) {              
-                   dialog_salir();          
-               }
-           });
-      }
-       
-       
-       
-       /**
-        * Método que nos configura la ventana del Dueño. Vamos a configurarla como un formulario MDI
-        */
-       private void configVentanaDueño(){
-               this.setVisible(true);
-           this.setExtendedState(MAXIMIZED_BOTH); // Maximizada por completo
-           this.setResizable(false); // No se puede redimensionar. Solo minimizar.
+import java.awt.Dimension;
+import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+    public class VentanaPrincipal extends JFrame {
+
+    	private static final long serialVersionUID = 1L;
+    	private JPanel jContentPane = null;
+    	private JButton bPrestamos = null;
+    	private JButton bUsuarios = null;
+    	private JButton bPacerlas = null;
+    	private JButton bProductos = null;
+    	private JButton bAperos = null;
+    	private JButton bInformes = null;
+    	private JButton bTareas = null;
+    	private JButton bDispositivos = null;
+    	private JButton bSalir = null;
+    	/**
+    	 * This is the default constructor
+    	 */
+    	public VentanaPrincipal(char tipoDeUsuario){
+    		super();
+    		initialize();
+            
            
-           panelMDI = new JPanel();
-           panelMDI.setLayout(null);
-           this.add(panelMDI);
-       
-           
-           this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-           
-           //Pregunta si quiere cerrar la sesión al darle a la "X"        
-           this.addWindowListener(new WindowAdapter(){
-                    public void windowClosing(WindowEvent e) {                     
-                            dialog_salir();          
-                    }
-              });
-      }
-       
-     
-       public void dialog_salir(){
-                    int n = JOptionPane.showConfirmDialog(this, "Esto cerrará la sesión. ¿Está usted seguro?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
-                    if (n == JOptionPane.YES_OPTION){
-                           
-                            this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                            this.dispose();
-                            LoginVisual l = new LoginVisual(); // Si dice que si, volvemos al Login del Programa
-                            l.setVisible(true);
-                           
-                           
-                    }else{
-                           
-                            this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // Si dice que no no hacemos nada
-                    }
-       }
-       
-       
-       
-       /**
-        * Este método se encarga de cargar todos los componentes de la aplicación. Dependiendo de lo que el usuario
-        * seleccione posteriormente, se mostrará un contenido u otro.
-        *
-        */
-       
-       public void cargarFormularios(){
-               
-               frmUsuarios = new UsuarioVisual(panelFormularios.getWidth() ,panelFormularios.getHeight()); // Tamaño completo del Formulario
-               panelFormularios.add(frmUsuarios);
-               
-               frmAperos = new AperoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
-               panelFormularios.add(frmAperos);
-               
-               frmProductos = new ProductoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
-               panelFormularios.add(frmProductos);
-               
-               frmDispositivos = new DispositivoVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
-               panelFormularios.add(frmDispositivos);
-               
-               frmParcelas = new ParcelaVisual(panelFormularios.getWidth(),panelFormularios.getHeight());
-               panelFormularios.add(frmParcelas);            
-       }
-     
-       /**
-        *
-        * @author Juan Carlos García
-        *
-        */
-       
-       public class AccionDeBoton implements ActionListener {
-               
-               public void actionPerformed(ActionEvent e) {
-                       
-                      String comando =  e.getActionCommand(); // Recogemos el valor de el botón pulsado
-                     
-                      System.out.println(comando);
-                     
-                      if(comando.equals("Usuarios")){
-                    	
-                    	  	  frmUsuarios.setVisible(false);
-                    	  
-                    	  	  cargarFormularios();
-                             
-                              frmUsuarios.setVisible(true);
-                             
-                      }
-                     
-                      if(comando.equals("Productos")){
-                             
-                    	      frmProductos.setVisible(false);
-                    	  	  cargarFormularios();
-                              frmProductos.setVisible(true);
-                             
-                             
-                      }
-                      
-                      if(comando.equals("Dispositivos")){
-                    	  
-                    	      frmDispositivos.setVisible(false);
-	                    	  cargarFormularios();
-	                    	  frmDispositivos.setVisible(true);
-                    	  
-                      }
-                      if(comando.equals("Aperos")){
-                    	  
-                    	  frmAperos.setVisible(false);
-                    	  cargarFormularios();
-                    	  frmAperos.setVisible(true);
-                	  
-                      }
-                      if(comando.equals("Parcelas")){
-                    	  
-                    	  frmParcelas.setVisible(false);
-                    	  cargarFormularios();
-                    	  frmParcelas.setVisible(true);
-                	  
-                      }
-                     
-                     
-                     
-                       
-                       
-               }
-             }
-       
-    }
-       
-       
-     
-     
+            
+        }
+
+    	/**
+    	 * This method initializes this
+    	 * 
+    	 * @return void
+    	 */
+    	private void initialize() {
+    		this.setPreferredSize(new Dimension(800, 600));
+    		this.setBounds(new Rectangle(0, 0, 888, 619));
+    		this.setResizable(false);
+    		this.setContentPane(getJContentPane());
+    		this.setTitle("Aplicación de Gestión - OPENGis");
+    		this.setLocationRelativeTo(null); // Centramos el formulario
+    		this.setVisible(true);
+    		
+    	}
+
+    	/**
+    	 * This method initializes jContentPane
+    	 * 
+    	 * @return javax.swing.JPanel
+    	 */
+    	private JPanel getJContentPane() {
+    		if (jContentPane == null) {
+    			jContentPane = new JPanel();
+    			jContentPane.setLayout(null);
+    			jContentPane.add(getBPrestamos(), null);
+    			jContentPane.add(getBUsuarios(), null);
+    			jContentPane.add(getBPacerlas(), null);
+    			jContentPane.add(getBProductos(), null);
+    			jContentPane.add(getBAperos(), null);
+    			jContentPane.add(getBInformes(), null);
+    			jContentPane.add(getBTareas(), null);
+    			jContentPane.add(getBDispositivos(), null);
+    			jContentPane.add(getBSalir(), null);
+    			
+    			
+    		}
+    		return jContentPane;
+    	}
+
+    	/**
+    	 * This method initializes bPrestamos	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBPrestamos() {
+    		if (bPrestamos == null) {
+    			bPrestamos = new JButton();
+    			bPrestamos.setBounds(new Rectangle(31, 33, 63, 58));
+    			
+    			
+    		}
+    		return bPrestamos;
+    	}
+
+    	/**
+    	 * This method initializes bUsuarios	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBUsuarios() {
+    		if (bUsuarios == null) {
+    			bUsuarios = new JButton();
+    			bUsuarios.setBounds(new Rectangle(125, 33,63,58));
+    			bUsuarios.setIcon(new ImageIcon("usuario.png"));
+    			bUsuarios.setToolTipText("Gestión de Usuarios");
+    		}
+    		return bUsuarios;
+    	}
+
+    	/**
+    	 * This method initializes bPacerlas	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBPacerlas() {
+    		if (bPacerlas == null) {
+    			bPacerlas = new JButton();
+    			bPacerlas.setBounds(new Rectangle(313, 33, 63, 58));
+    		}
+    		return bPacerlas;
+    	}
+
+    	/**
+    	 * This method initializes bProductos	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBProductos() {
+    		if (bProductos == null) {
+    			bProductos = new JButton();
+    			bProductos.setBounds(new Rectangle(501, 33, 63, 58));
+    		}
+    		return bProductos;
+    	}
+
+    	/**
+    	 * This method initializes bAperos	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBAperos() {
+    		if (bAperos == null) {
+    			bAperos = new JButton();
+    			bAperos.setBounds(new Rectangle(407, 33, 63, 58));
+    		}
+    		return bAperos;
+    	}
+
+    	/**
+    	 * This method initializes bInformes	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBInformes() {
+    		if (bInformes == null) {
+    			bInformes = new JButton();
+    			bInformes.setBounds(new Rectangle(219, 33, 63, 58));
+    		}
+    		return bInformes;
+    	}
+
+    	/**
+    	 * This method initializes bTareas	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBTareas() {
+    		if (bTareas == null) {
+    			bTareas = new JButton();
+    			bTareas.setBounds(new Rectangle(595, 33, 63, 58));
+    		}
+    		return bTareas;
+    	}
+
+    	/**
+    	 * This method initializes bDispositivos	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBDispositivos() {
+    		if (bDispositivos == null) {
+    			bDispositivos = new JButton();
+    			bDispositivos.setBounds(new Rectangle(689, 33, 63, 58));
+    		}
+    		return bDispositivos;
+    	}
+
+    	/**
+    	 * This method initializes bSalir	
+    	 * 	
+    	 * @return javax.swing.JButton	
+    	 */
+    	private JButton getBSalir() {
+    		if (bSalir == null) {
+    			bSalir = new JButton();
+    			bSalir.setBounds(new Rectangle(783, 33, 63, 58));
+    		}
+    		return bSalir;
+    	}
+    	
+    	
+    	
+    }  //  @jve:decl-index=0:visual-constraint="10,10"
