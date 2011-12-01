@@ -1,4 +1,5 @@
 package code.google.com.opengis.gestionVISUAL;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -53,7 +54,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 		
 		ven = this;
 		setLayout(new GridBagLayout());
-		 btnVal = new JButton("Validar");
+		 btnVal = new JButton("  Validar  ");
 		 btnBor = new JButton("Borrar");
 		 lblUser = new JLabel("Introduce usuario :");
 		 lblPass = new JLabel("Introduce la contraseña :");
@@ -85,22 +86,28 @@ public class LoginVisual extends JFrame implements KeyListener{
 		gbc.gridy = 1;
 		add(txtPass,gbc);
 		
-		gbc.gridx = 0;
+		gbc.gridwidth = 1;
+		gbc.gridx = 1;
 		gbc.gridy = 2;
+		gbc.fill = 0;
+		gbc.insets = new Insets(2,4, 2, 70);
+	
 		add(btnVal,gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 2;
+		gbc.insets = new Insets(2,90, 2, 4);
 		add(btnBor,gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 3;
+		gbc.insets = new Insets(2,4, 2, 4);
 		add(new Label(""),gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridx = 0;
+		gbc.gridy = 2;		
 		add(btnRec,gbc);
 		txtUser.addKeyListener(this);
 		txtPass.addKeyListener(this);
-		setSize(350,170);
+		setSize(350,150);
 		setTitle("Ventana Login");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
