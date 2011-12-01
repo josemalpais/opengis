@@ -1,19 +1,28 @@
 package code.google.com.opengis.gestionVISUAL;
-import javax.swing.UIManager.*;
-
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Label;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
-import javax.swing.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 
 import code.google.com.opengis.gestion.EnviarMail;
 import code.google.com.opengis.gestion.ValidarLogin;
-import code.google.com.opengis.gestionDAO.LoginDao;
+
 
 public class LoginVisual extends JFrame implements KeyListener{
+	
 	
 	public JFrame ven ;
 	private String pass;
@@ -29,7 +38,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 	
 	public LoginVisual(){
 		
-		
+	
 		cargaObjetos();
 		
 		
@@ -41,37 +50,59 @@ public class LoginVisual extends JFrame implements KeyListener{
 	 * llama a la clase ValidarLogin
 	 **/
 	public void cargaObjetos(){
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
-		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
-		}
+		
 		ven = this;
-		setLayout(new GridLayout(4,2));
+		setLayout(new GridBagLayout());
 		 btnVal = new JButton("Validar");
 		 btnBor = new JButton("Borrar");
 		 lblUser = new JLabel("Introduce usuario :");
 		 lblPass = new JLabel("Introduce la contraseña :");
 		 btnRec = new JButton("Recuperar contraseña");
 		 btnRec.setBorderPainted(true);
+		 
+		 
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(2,4, 2, 4);
 		
-		add(lblUser);
-		add(txtUser);
-		add(lblPass);
-		add(txtPass);
-		add(btnVal);
-		add(btnBor);
-		add(new Label(""));
-		add(btnRec);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.weightx = 1.0;
+		gbc.weighty = 1.0;
+		add(lblUser,gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		add(txtUser,gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		add(lblPass,gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		add(txtPass,gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		add(btnVal,gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		add(btnBor,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		add(new Label(""),gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		add(btnRec,gbc);
 		txtUser.addKeyListener(this);
 		txtPass.addKeyListener(this);
-		setSize(330,150);
+		setSize(350,170);
 		setTitle("Ventana Login");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
