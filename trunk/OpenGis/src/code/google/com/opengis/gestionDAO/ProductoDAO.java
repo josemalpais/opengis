@@ -15,18 +15,16 @@ public class ProductoDAO {
 	private String nombre;
 	private String descripcion;
 	private String nomtarea;
-	private String tipo;
-	private int activo;
+	private String dosis;
 	
 //CONSTRUCTOR
-	public ProductoDAO(int idprod, String nombre, String descripcion, String nomtarea, String tipo, int activo){
+	public ProductoDAO(int idprod, String nombre, String descripcion, String nomtarea, String dosis){
 	
 	this.idprod=idprod;
 	this.nombre=nombre;
 	this.descripcion=descripcion;
 	this.nomtarea =nomtarea;
-	this.tipo=tipo;
-	this.activo=activo;
+	this.dosis=dosis;
 	}
 
 //METODOS
@@ -50,7 +48,7 @@ public class ProductoDAO {
 	//metodo para hacer la sentencia que crea productos
 	public void altaProducto() throws SQLException{
 
-			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`tipo` ,`activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.tipo +"','" + this.activo + "')";
+			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "')";
 			ConectarDBA.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
 		
@@ -59,7 +57,7 @@ public class ProductoDAO {
 	
 	//metodo para hacer la sentencia que oculta
 	public void borrarProducto() throws SQLException {
-		comprobarProducto(this.idprod);
+		//comprobarProducto(this.idprod);
 		if (existe == true) {
 
 			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"
@@ -78,11 +76,11 @@ public class ProductoDAO {
 
 	}
 	
-	//metodos en pruebas, generacion automática de código.
+	
 
 
 	
-////////////////////////
+
 	
 	
 	
