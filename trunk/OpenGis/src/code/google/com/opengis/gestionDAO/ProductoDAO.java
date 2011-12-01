@@ -44,6 +44,13 @@ public class ProductoDAO {
 		}
 		rs.close();
 	}
+	//metodo modificar
+	public void modificarProducto() throws SQLException{
+		String sentencia = "UPDATE `producto` SET `nombre`=["+ this.nombre +"],`descripcion`=["+ this.descripcion +"],`nomtarea`=["+ this.nomtarea +"],`dosis`=["+ this.dosis +"] WHERE `idprod` = '"+ this.idprod + "'";
+		ConectarDBA.modificar(sentencia);	
+		JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
+		
+	}
 	
 	//metodo para hacer la sentencia que crea productos
 	public void altaProducto() throws SQLException{
@@ -60,8 +67,7 @@ public class ProductoDAO {
 		//comprobarProducto(this.idprod);
 		if (existe == true) {
 
-			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"
-					+ this.idprod + "'";
+			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"+ this.idprod + "'";
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
