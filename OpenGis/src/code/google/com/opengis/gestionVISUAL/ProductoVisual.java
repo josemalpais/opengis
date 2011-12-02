@@ -55,7 +55,7 @@ public class ProductoVisual extends JInternalFrame {
         
        
         
-public ProductoVisual(int ancho, int alto){
+public ProductoVisual(){
 	super("Productos", true, true, true, true);
 
         this.ancho = ancho;
@@ -102,10 +102,6 @@ final static boolean RIGHT_TO_LEFT = false;
 	        
 	        altas(panelProductoAlt);
 	}
-    public static void addComponentsToPane(Container pane) {
-        
-        
-    }
 
 public void principalProducto(Container pane){
          if (RIGHT_TO_LEFT) {
@@ -146,6 +142,11 @@ public void principalProducto(Container pane){
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 0;
+        cmdCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+            buscarProducto();
+            }
+            });
         pane.add(txtBuscar, c);
         
         
@@ -194,13 +195,30 @@ public void principalProducto(Container pane){
          c.fill = GridBagConstraints.HORIZONTAL;
          c.gridx = 1;
          c.gridy = 7;
-         cmdModificar.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent e) {                    
-                                                
-                //abre el panel de Modificar
-                                
-                }
-         });
+        cmdModificar.addActionListener(new java.awt.event.ActionListener() {
+        	        public void actionPerformed(java.awt.event.ActionEvent e) {                     
+        	                          		panelProducto.setVisible(false);
+        	                                //cargarModif();                   
+        	            try { 
+        	           	 	ConectarDBA.acceder();
+        	           	 	
+        	                ResultSet rs = ConectarDBA.consulta("SELECT MAX(idprod) FROM producto");
+        	                Integer idprod;
+        	                
+        	                rs.next();
+        	                idprod = rs.getInt(1);
+        	                
+        	                if(idprod==null){
+        	               	 
+        	               	 idprod = 0;
+        	               	 
+        	                }
+        	                txtIdprod.setText(idprod+1+"");
+        	            } catch (SQLException e2) {
+        	                System.out.println(e2.getMessage());
+        	            }                   
+        	         }
+        	        });
          pane.add(cmdModificar, c);
          
          cmdDesactivar= new JButton("Desactivar Producto");
@@ -210,7 +228,7 @@ public void principalProducto(Container pane){
          cmdDesactivar.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {                     
                                                 
-                        //desactiva el producto 
+                        
                                 
                 }
         });
@@ -395,6 +413,33 @@ public void principalProducto(Container pane){
         });
         pane.add(cmdCancelarAlt, c);
  }
-
+ public void buscarProducto() {
+     try {
+         modelo.setColumnCount(0);
+         modelo.setRowCount(0);
+         String salida = "*";
+         String criterio = "nombre like '%" + txtNombre.getText() + "%'";
+         //String criterio=txtNombre.getText();
+         //criterio=criterio.equals("*")?"Nombre like"+criterio:"Nombre like'"+criterio+"'";
+         ResultSet rs = ProductoDAO.buscar(salida, criterio);
+         int nColumnas = rs.getMetaData().getColumnCount();
+         Object[] etiquetas = new Object[nColumnas];
+         for (int i = 0; i
+                 < nColumnas; i++) {
+             etiquetas[i] = rs.getMetaData().getColumnLabel(i + 1);
+         }
+         modelo.setColumnIdentifiers(etiquetas);
+         while (rs.next()) {
+             Object[] registro = new Object[nColumnas];
+             for (int i = 0; i
+                     < nColumnas; i++) {
+                 registro[i] = rs.getObject(i + 1);
+             }
+             modelo.addRow(registro);
+         }
+     } catch (SQLException e) {
+         System.out.println(e);
+     }
+ }
      
  }
