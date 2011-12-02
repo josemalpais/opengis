@@ -30,30 +30,45 @@ import javax.swing.WindowConstants;
     	private JButton bTareas = null;
     	private JButton bDispositivos = null;
     	private JButton bSalir = null;
+
+    	
     	/**
-    	 * This is the default constructor
+    	 * Constructor de la VentanaPrincipal. Dependiendo del tipo de usuario cargará
+    	 * unos botones u otros.
     	 */
     	public VentanaPrincipal(char tipoDeUsuario){
     		super();
-    		initialize();
+    		
+    		/*
+    		 * Dependiendo del tipo de usuario que sea cargaremos unas funciones u otras
+    		 * 
+    		 */
+    		
+    		if (tipoDeUsuario == 'a'){ 
+    			
+    			cargarAdministrador();
+    			
+    		}
+    		
             
            
             
         }
 
     	/**
-    	 * This method initializes this
+    	 * Este método incializa la interfaz gráfica en modo administrador
     	 * 
     	 * @return void
     	 */
-    	private void initialize() {
+    	private void cargarAdministrador() {
     		this.setPreferredSize(new Dimension(800, 600));
     		this.setBounds(new Rectangle(0, 0, 888, 619));
     		this.setResizable(false);
-    		this.setContentPane(getJContentPane());
+    		this.setContentPane(getJContentPaneAdministrador());
     		this.setTitle("Aplicación de Gestión - OPENGis");
     		this.setLocationRelativeTo(null); // Centramos el formulario
     		this.setVisible(true);
+    		
     		this.addWindowListener(new WindowAdapter(){ // Añadimos el Listener
                 public void windowClosing(WindowEvent e) {              
                     dialog_salir();          
@@ -63,11 +78,11 @@ import javax.swing.WindowConstants;
     	}
 
     	/**
-    	 * This method initializes jContentPane
+    	 * Este método inicializa el JContentPane del Administrador
     	 * 
     	 * @return javax.swing.JPanel
     	 */
-    	private JPanel getJContentPane() {
+    	private JPanel getJContentPaneAdministrador() {
     		if (jContentPane == null) {
     			jContentPane = new JPanel();
     			jContentPane.setLayout(null);
@@ -95,7 +110,8 @@ import javax.swing.WindowConstants;
     		if (bPrestamos == null) {
     			bPrestamos = new JButton();
     			bPrestamos.setBounds(new Rectangle(31, 33, 63, 58));
-    			
+    			bPrestamos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/alquiler.png"));
+    			bPrestamos.setToolTipText("Prestamos");
     			
     		}
     		return bPrestamos;
@@ -110,7 +126,7 @@ import javax.swing.WindowConstants;
     		if (bUsuarios == null) {
     			bUsuarios = new JButton();
     			bUsuarios.setBounds(new Rectangle(125, 33,63,58));
-    			bUsuarios.setIcon(new ImageIcon("usuario.png"));
+    			bUsuarios.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/usuario.png"));
     			bUsuarios.setToolTipText("Gestión de Usuarios");
     		}
     		return bUsuarios;
@@ -125,7 +141,7 @@ import javax.swing.WindowConstants;
     		if (bParcelas == null) {
     			bParcelas = new JButton();
     			bParcelas.setBounds(new Rectangle(313, 33, 63, 58));
-    			bParcelas.setIcon(new ImageIcon("parcela.png"));
+    			bParcelas.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png"));
     			bParcelas.setToolTipText("Gestión de Parcelas");
     		}
     		return bParcelas;
@@ -140,6 +156,9 @@ import javax.swing.WindowConstants;
     		if (bProductos == null) {
     			bProductos = new JButton();
     			bProductos.setBounds(new Rectangle(501, 33, 63, 58));
+    			bProductos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/producto.png"));
+    			bProductos.setToolTipText("Gestión de Productos");
+    		
     		}
     		return bProductos;
     	}
@@ -153,6 +172,7 @@ import javax.swing.WindowConstants;
     		if (bAperos == null) {
     			bAperos = new JButton();
     			bAperos.setBounds(new Rectangle(407, 33, 63, 58));
+    			bAperos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/apero.png"));
     		}
     		return bAperos;
     	}
@@ -166,7 +186,7 @@ import javax.swing.WindowConstants;
     		if (bInformes == null) {
     			bInformes = new JButton();
     			bInformes.setBounds(new Rectangle(219, 33, 63, 58));
-    			bInformes.setIcon(new ImageIcon ("informes.png"));
+    			bInformes.setIcon(new ImageIcon ("OpenGis/src/recursosVisuales/informes.png"));
     			bInformes.setToolTipText("Generar Informes");
     		}
     		return bInformes;
@@ -181,6 +201,8 @@ import javax.swing.WindowConstants;
     		if (bTareas == null) {
     			bTareas = new JButton();
     			bTareas.setBounds(new Rectangle(595, 33, 63, 58));
+    			bTareas.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Tarea.png"));
+    			bTareas.setToolTipText("Administrar Tareas");
     		}
     		return bTareas;
     	}
@@ -194,6 +216,9 @@ import javax.swing.WindowConstants;
     		if (bDispositivos == null) {
     			bDispositivos = new JButton();
     			bDispositivos.setBounds(new Rectangle(689, 33, 63, 58));
+    			bDispositivos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/dispositivo.png"));
+    			bDispositivos.setToolTipText("Gestión de Dispositivos");
+    		
     		}
     		return bDispositivos;
     	}
@@ -207,7 +232,7 @@ import javax.swing.WindowConstants;
     		if (bSalir == null) {
     			bSalir = new JButton();
     			bSalir.setBounds(new Rectangle(783, 33, 63, 58));
-    			bSalir.setIcon(new ImageIcon("Salir.png"));
+    			bSalir.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Salir.png"));
     			bSalir.setToolTipText("Salir");
     			bSalir.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
