@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 
 
     public class VentanaPrincipal extends JFrame implements WindowListener {
@@ -30,6 +32,16 @@ import javax.swing.WindowConstants;
     	private JButton bTareas = null;
     	private JButton bDispositivos = null;
     	private JButton bSalir = null;
+		private JLabel lblPrestamos = null;
+		private JLabel lblUsuarios = null;
+		private JLabel lblInformes = null;
+		private JLabel lblParcelas = null;
+		private JLabel lblApero = null;
+		private JLabel lblProductos = null;
+		private JLabel lblTareas = null;
+		private JLabel lblDispositivos = null;
+		private JLabel lblSalir = null;
+		private JTabbedPane tabsPaneles = null;
 
     	
     	/**
@@ -38,6 +50,7 @@ import javax.swing.WindowConstants;
     	 */
     	public VentanaPrincipal(char tipoDeUsuario){
     		super();
+		initialize();
     		
     		/*
     		 * Dependiendo del tipo de usuario que sea cargaremos unas funciones u otras
@@ -56,6 +69,16 @@ import javax.swing.WindowConstants;
         }
 
     	/**
+		 * This method initializes this
+		 * 
+		 */
+		private void initialize() {
+        this.setBounds(new Rectangle(0, 0, 888, 545));
+        this.setContentPane(getJContentPaneAdministrador());
+				
+		}
+
+		/**
     	 * Este método incializa la interfaz gráfica en modo administrador
     	 * 
     	 * @return void
@@ -84,6 +107,33 @@ import javax.swing.WindowConstants;
     	 */
     	private JPanel getJContentPaneAdministrador() {
     		if (jContentPane == null) {
+    			lblSalir = new JLabel();
+    			lblSalir.setBounds(new Rectangle(800, 87, 29, 22));
+    			lblSalir.setText("Salir");
+    			lblDispositivos = new JLabel();
+    			lblDispositivos.setBounds(new Rectangle(686, 87, 69, 22));
+    			lblDispositivos.setText("Dispositivos");
+    			lblTareas = new JLabel();
+    			lblTareas.setBounds(new Rectangle(603, 87, 46, 22));
+    			lblTareas.setText("Tareas");
+    			lblProductos = new JLabel();
+    			lblProductos.setBounds(new Rectangle(501, 87, 63, 22));
+    			lblProductos.setText("Productos");
+    			lblApero = new JLabel();
+    			lblApero.setBounds(new Rectangle(418, 87, 41, 22));
+    			lblApero.setText("Apero");
+    			lblParcelas = new JLabel();
+    			lblParcelas.setBounds(new Rectangle(317, 87, 54, 22));
+    			lblParcelas.setText("Parcelas");
+    			lblInformes = new JLabel();
+    			lblInformes.setBounds(new Rectangle(223, 87, 54, 22));
+    			lblInformes.setText("Informes");
+    			lblUsuarios = new JLabel();
+    			lblUsuarios.setBounds(new Rectangle(129, 87, 54, 22));
+    			lblUsuarios.setText("Usuarios");
+    			lblPrestamos = new JLabel();
+    			lblPrestamos.setBounds(new Rectangle(31, 87, 63, 22));
+    			lblPrestamos.setText("Prestamos");
     			jContentPane = new JPanel();
     			jContentPane.setLayout(null);
     			jContentPane.add(getBPrestamos(), null);
@@ -95,6 +145,16 @@ import javax.swing.WindowConstants;
     			jContentPane.add(getBTareas(), null);
     			jContentPane.add(getBDispositivos(), null);
     			jContentPane.add(getBSalir(), null);
+    			jContentPane.add(lblPrestamos, null);
+    			jContentPane.add(lblUsuarios, null);
+    			jContentPane.add(lblInformes, null);
+    			jContentPane.add(lblParcelas, null);
+    			jContentPane.add(lblApero, null);
+    			jContentPane.add(lblProductos, null);
+    			jContentPane.add(lblTareas, null);
+    			jContentPane.add(lblDispositivos, null);
+    			jContentPane.add(lblSalir, null);
+    			jContentPane.add(getTabsPaneles(), null);
     			
     			
     		}
@@ -304,6 +364,19 @@ import javax.swing.WindowConstants;
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // Si dice que no no hacemos nada
          }
     }
+
+	/**
+	 * This method initializes tabsPaneles	
+	 * 	
+	 * @return javax.swing.JTabbedPane	
+	 */
+	private JTabbedPane getTabsPaneles() {
+		if (tabsPaneles == null) {
+			tabsPaneles = new JTabbedPane();
+			tabsPaneles.setBounds(new Rectangle(32, 135, 811, 348));
+		}
+		return tabsPaneles;
+	}
 
 
 
