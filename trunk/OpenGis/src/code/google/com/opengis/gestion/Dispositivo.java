@@ -178,19 +178,6 @@ public class Dispositivo {
 		}
 	}
 
-	/*
-	 * public static Boolean validarDatos(String iddispositivo) {
-	 * 
-	 * if (iddispositivo.length() != 5) { /** Longitud del id de dispositivo,
-	 * que ha de ser de 5 caracteres.
-	 */
-
-	/*
-	 * JOptionPane .showMessageDialog(null,
-	 * "Error. El identificador de dispositivo ha de ser de 5 caracteres.");
-	 * return false; } else{return true;} }
-	 */
-
 	/**
 	 * Este método comprueba que un String sea un Número. Si lo es, devuelve
 	 * "True". Si no, devuelve "False"
