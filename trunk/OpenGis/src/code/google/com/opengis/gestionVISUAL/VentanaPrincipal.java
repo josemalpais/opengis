@@ -173,6 +173,8 @@ import javax.swing.WindowConstants;
     			bAperos = new JButton();
     			bAperos.setBounds(new Rectangle(407, 33, 63, 58));
     			bAperos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/apero.png"));
+    			bAperos.setToolTipText("Gestión de Aperos");
+    		
     		}
     		return bAperos;
     	}
