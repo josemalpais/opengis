@@ -32,7 +32,7 @@ public class ProductoDAO {
 	
 	//metodo modificar
 	public void modificarProducto() throws SQLException{
-		String sentencia = "UPDATE `producto` SET `nombre`=["+ this.nombre +"],`descripcion`=["+ this.descripcion +"],`nomtarea`=["+ this.nomtarea +"],`dosis`=["+ this.dosis +"] WHERE `idprod` = '"+ this.idprod + "'";
+		String sentencia = "UPDATE `producto` SET `nombre`='"+ this.nombre +"',`descripcion`='"+ this.descripcion +"',`nomtarea`='"+ this.nomtarea +"',`dosis`='"+ this.dosis +"' WHERE `idprod` = '"+ this.idprod + "'";
 		ConectarDBA.modificar(sentencia);	
 		JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
 		
@@ -58,7 +58,20 @@ public class ProductoDAO {
 	}
 	
 	
+	public static ResultSet buscar(String salida, String criterio) {
+        ResultSet rs = null;
+        String sql = "SELECT " + salida + " FROM Asignaturas WHERE " + criterio;
 
+        try {
+            ConectarDBA.modificar(sql);
+           
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            return rs;
+        }
+
+    }
 
 	
 
