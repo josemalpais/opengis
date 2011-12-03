@@ -140,12 +140,11 @@ public class UsuariosDAO {
 
 	}
 
-	public static ResultSet buscarUsuario(String campo, String criterio)
+	public static ResultSet buscarUsuario(String criterio)
 			throws SQLException {
 		ResultSet rs = null;
 		ConectarDBA.acceder();
-		String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia` , `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo`    FROM `usuario` WHERE  `"
-				+ campo + "` LIKE '%" + criterio + "%'";
+		String sentencia = "SELECT `dni` , `nombre` , `apellidos` , `dirección` , `población` , `provincia` , `cp` , `teléfono` , `email` , `fecha_nacimiento` , `tipo` , `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
 		try {
 			rs = ConectarDBA.consulta(sentencia);
 		} catch (SQLException e) {
