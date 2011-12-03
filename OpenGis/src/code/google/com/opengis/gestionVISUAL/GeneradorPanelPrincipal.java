@@ -61,6 +61,9 @@ public class GeneradorPanelPrincipal extends JPanel {
 			txtCriterioBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
 				public void keyTyped(java.awt.event.KeyEvent e) {
 					
+					bEliminar.setEnabled(false);
+					bModificar.setEnabled(false); // Desactivamos los botones
+					
 					buscar();
 					
 				}
@@ -74,6 +77,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 					
 					txtCriterioBusqueda.setText("");
+					
 					
 				}
 			});
@@ -95,6 +99,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 		return jScrollPane;
 	}
 
+	
 	/**
 	 * This method initializes tablaPrincipal	
 	 * 	
@@ -102,7 +107,25 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 */
 	public final JTable getTablaPrincipal() {
 		if (tablaPrincipal == null) {
-			tablaPrincipal = new JTable(modelo);
+			tablaPrincipal = new JTable(modelo){
+				
+			    public boolean isCellEditable(int row, int column) {  // La tabla no será editable
+				       return false;
+				    }
+			};
+			
+			tablaPrincipal.setAutoResizeMode(0);
+			
+			tablaPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					
+					bModificar.setEnabled(true);
+					bEliminar.setEnabled(true);
+					
+					
+					
+				}
+			});
 			
 		}
 		return tablaPrincipal;
