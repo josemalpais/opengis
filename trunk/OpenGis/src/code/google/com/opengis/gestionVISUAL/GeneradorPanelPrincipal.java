@@ -89,7 +89,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(87, 101, 644, 204));
+			jScrollPane.setBounds(new Rectangle(30, 101, 750, 204));
 			jScrollPane.setViewportView(getTablaPrincipal());
 		}
 		return jScrollPane;
@@ -103,6 +103,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	public final JTable getTablaPrincipal() {
 		if (tablaPrincipal == null) {
 			tablaPrincipal = new JTable(modelo);
+			
 		}
 		return tablaPrincipal;
 	}
@@ -115,7 +116,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	private JButton getBNuevo() {
 		if (bNuevo == null) {
 			bNuevo = new JButton();
-			bNuevo.setBounds(new Rectangle(90, 318, 55, 47));
+			bNuevo.setBounds(new Rectangle(33, 316, 55, 47));
 			bNuevo.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Nuevo.png"));
 			bNuevo.setToolTipText("Nuevo");
 			
@@ -140,7 +141,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	private JButton getBModificar() {
 		if (bModificar == null) {
 			bModificar = new JButton();
-			bModificar.setBounds(new Rectangle(167, 318, 55, 47));
+			bModificar.setBounds(new Rectangle(109, 316, 55, 47));
 			bModificar.setToolTipText("Modificar");
 			bModificar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Modificar.png"));
 			
@@ -163,7 +164,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	private JButton getBEliminar() {
 		if (bEliminar == null) {
 			bEliminar = new JButton();
-			bEliminar.setBounds(new Rectangle(241, 318, 55, 47));
+			bEliminar.setBounds(new Rectangle(186, 316, 55, 47));
 			bEliminar.setToolTipText("Eliminar");
 			bEliminar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Eliminar.png"));
 			
