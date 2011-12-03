@@ -1,4 +1,4 @@
-    /*****************************************************************************
+ /*****************************************************************************
     * Copyright (c) 2011 [OpenGisTeam]                                           *
     ******************************************************************************/
     package code.google.com.opengis.gestionVISUAL;
@@ -42,6 +42,8 @@ import javax.swing.JTabbedPane;
 		private JLabel lblDispositivos = null;
 		private JLabel lblSalir = null;
 		private JTabbedPane tabsPaneles = null;
+		
+		private char tipoUsuario;
 
     	
     	/**
@@ -59,6 +61,7 @@ import javax.swing.JTabbedPane;
     		
     		if (tipoDeUsuario == 'a'){ 
     			
+    			this.tipoUsuario = 'a';
     			cargarAdministrador();
     			
     		}
@@ -73,7 +76,7 @@ import javax.swing.JTabbedPane;
 		 * 
 		 */
 		private void initialize() {
-        this.setBounds(new Rectangle(0, 0, 888, 545));
+        this.setBounds(new Rectangle(0, 0, 888, 616));
         this.setContentPane(getJContentPaneAdministrador());
 				
 		}
@@ -172,6 +175,12 @@ import javax.swing.JTabbedPane;
     			bPrestamos.setBounds(new Rectangle(31, 33, 63, 58));
     			bPrestamos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/alquiler.png"));
     			bPrestamos.setToolTipText("Prestamos");
+    			bPrestamos.addActionListener(new java.awt.event.ActionListener() {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					
+    					
+    				}
+    			});
     			
     		}
     		return bPrestamos;
@@ -188,6 +197,34 @@ import javax.swing.JTabbedPane;
     			bUsuarios.setBounds(new Rectangle(125, 33,63,58));
     			bUsuarios.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/usuario.png"));
     			bUsuarios.setToolTipText("Gestión de Usuarios");
+    			bUsuarios.addActionListener(new java.awt.event.ActionListener() {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					
+    					if (tipoUsuario == 'a'){
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							GeneradorPanelPrincipal panelNuevo = new GeneradorPanelPrincipal();
+    						
+    							tabsPaneles.addTab("Gestión de Usuarios",panelNuevo);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, "No puede abrir más pestañas. Cierre las anteriores para continuar abriendo nuevas pestañas");
+    							
+    						}
+    							
+    							
+    					}else{
+    						
+    						// INSERTAR AQUI METODO PARA TRABAJADOR
+    						
+    					}
+    					
+    				}
+    			});
     		}
     		return bUsuarios;
     	}
@@ -373,7 +410,7 @@ import javax.swing.JTabbedPane;
 	private JTabbedPane getTabsPaneles() {
 		if (tabsPaneles == null) {
 			tabsPaneles = new JTabbedPane();
-			tabsPaneles.setBounds(new Rectangle(32, 135, 811, 348));
+			tabsPaneles.setBounds(new Rectangle(31, 125, 811, 444));
 		}
 		return tabsPaneles;
 	}
@@ -384,4 +421,4 @@ import javax.swing.JTabbedPane;
 
     	
     	
-    }  //  @jve:decl-index=0:visual-constraint="10,10"
+}  //  @jve:decl-index=0:visual-constraint="10,10"
