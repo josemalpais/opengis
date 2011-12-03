@@ -23,11 +23,6 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 	public void buscar(){
 		
 
-		if (i == 0){
-			
-			i = i + 1; // Ahora la primera ya no és null
-			
-		}else{
 			
 			String texto = getTxtCriterioBusqueda().getText();
 			
@@ -76,7 +71,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			
 		}
 		
-	}
+
 	
 	
 	public void nuevo(){

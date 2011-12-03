@@ -64,6 +64,8 @@ public class GeneradorPanelPrincipal extends JPanel {
 					bEliminar.setEnabled(false);
 					bModificar.setEnabled(false); // Desactivamos los botones
 					
+					txtCriterioBusqueda.setText(txtCriterioBusqueda.getText());
+					
 					buscar();
 					
 				}
