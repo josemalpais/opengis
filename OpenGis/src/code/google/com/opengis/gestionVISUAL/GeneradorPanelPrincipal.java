@@ -61,6 +61,18 @@ public class GeneradorPanelPrincipal extends JPanel {
 					
 				}
 			});
+			
+			/* Acción de ratón. Cuando clic nos elimina el texto que hay en la caja de texto
+			 * Así podemos trabajar de una forma mucho más limpia y eficaz.
+			 */
+			
+			txtCriterioBusqueda.addMouseListener(new java.awt.event.MouseAdapter() { 
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					
+					txtCriterioBusqueda.setText("");
+					
+				}
+			});
 		}
 		return txtCriterioBusqueda;
 	}
