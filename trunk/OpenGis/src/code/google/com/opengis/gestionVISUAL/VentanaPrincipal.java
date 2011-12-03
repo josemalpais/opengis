@@ -216,7 +216,7 @@ import javax.swing.JTabbedPane;
     							
     						}else{
     							
-    							JOptionPane.showMessageDialog(null, "No puede abrir más pestañas. Cierre las anteriores para continuar abriendo nuevas pestañas");
+    							JOptionPane.showMessageDialog(null, "No puede abrir más pestañas. Cierre las anteriores pestañas para continuar abriendo nuevas.");
     							
     						}
     							
