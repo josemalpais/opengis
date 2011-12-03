@@ -81,10 +81,16 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public void nuevo(){
 		
+		UsuariosPanelNuevo p = new UsuariosPanelNuevo(); // Creamos el panel de Alta de Usuarios
+		
+		VentanaPrincipal.añadirPestañaNueva("Nuevo Usuario",p); // Añadimos el panel a la pestaña
+		
 		
 	}
 	
 	public void modificar(){
+		
+		
 		
 		
 	}
