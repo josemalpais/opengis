@@ -44,6 +44,7 @@ import javax.swing.JTabbedPane;
 		private JTabbedPane tabsPaneles = null;
 		
 		private char tipoUsuario;
+		private JButton bCerrarPestaña = null;
 
     	
     	/**
@@ -76,7 +77,7 @@ import javax.swing.JTabbedPane;
 		 * 
 		 */
 		private void initialize() {
-        this.setBounds(new Rectangle(0, 0, 888, 616));
+        this.setBounds(new Rectangle(0, 0, 888, 624));
         this.setContentPane(getJContentPaneAdministrador());
 				
 		}
@@ -158,6 +159,7 @@ import javax.swing.JTabbedPane;
     			jContentPane.add(lblDispositivos, null);
     			jContentPane.add(lblSalir, null);
     			jContentPane.add(getTabsPaneles(), null);
+    			jContentPane.add(getBCerrarPestaña(), null);
     			
     			
     		}
@@ -199,6 +201,8 @@ import javax.swing.JTabbedPane;
     			bUsuarios.setToolTipText("Gestión de Usuarios");
     			bUsuarios.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					
+    					bCerrarPestaña.setVisible(true);
     					
     					if (tipoUsuario == 'a'){
     						
@@ -410,9 +414,47 @@ import javax.swing.JTabbedPane;
 	private JTabbedPane getTabsPaneles() {
 		if (tabsPaneles == null) {
 			tabsPaneles = new JTabbedPane();
-			tabsPaneles.setBounds(new Rectangle(31, 125, 811, 444));
+			tabsPaneles.setBounds(new Rectangle(30, 139, 805, 444));
 		}
 		return tabsPaneles;
+	}
+
+	/**
+	 * This method initializes bCerrarPestaña	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBCerrarPestaña() {
+		if (bCerrarPestaña == null) {
+			bCerrarPestaña = new JButton();
+			bCerrarPestaña.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/cerrar.png")));
+			bCerrarPestaña.setBounds(new Rectangle(835, 193, 29, 28));
+			bCerrarPestaña.setToolTipText("Cerrar Pestaña Actual");
+			bCerrarPestaña.setVisible(false);
+			bCerrarPestaña.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					
+					int pestañaActual = tabsPaneles.getSelectedIndex();
+					
+					tabsPaneles.removeTabAt(pestañaActual);
+					
+					/*Una vez ha cerrado la seleccionada contamos el número de pestañas que hay. 
+					 * En caso de que no queden pestañas. Ocultamos el botón.
+					 */
+					int numPestañas = tabsPaneles.getTabCount();
+					
+					if (numPestañas == 0){
+				
+						bCerrarPestaña.setVisible(false);
+						
+				
+					}
+					
+					
+				}
+			});
+		}
+		return bCerrarPestaña;
 	}
 
 
