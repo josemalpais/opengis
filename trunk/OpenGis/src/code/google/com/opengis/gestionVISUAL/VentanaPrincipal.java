@@ -210,7 +210,7 @@ import javax.swing.JTabbedPane;
     						
     						if (numPestañas <10) {
 							
-    							GeneradorPanelPrincipal panelNuevo = new GeneradorPanelPrincipal();
+    							UsuariosPanelPrincipal panelNuevo = new UsuariosPanelPrincipal();
     						
     							tabsPaneles.addTab("Gestión de Usuarios",panelNuevo);
     							

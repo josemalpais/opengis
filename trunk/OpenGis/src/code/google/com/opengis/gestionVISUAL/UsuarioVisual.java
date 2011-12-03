@@ -763,9 +763,7 @@ public class UsuarioVisual extends JInternalFrame {
 		try {
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
-			ResultSet rs = UsuariosDAO.buscarUsuario(jCmbCriterio
-					.getSelectedItem().toString(), txtBuscar.getText()
-					.toLowerCase());
+			ResultSet rs = UsuariosDAO.buscarUsuario("");
 			int nColumnas = rs.getMetaData().getColumnCount();
 			modelo.setColumnIdentifiers(nombreColumna);
 			while (rs.next()) {

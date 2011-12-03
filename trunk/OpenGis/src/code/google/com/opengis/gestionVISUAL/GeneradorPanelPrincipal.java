@@ -11,6 +11,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class GeneradorPanelPrincipal extends JPanel {
 
@@ -21,6 +22,9 @@ public class GeneradorPanelPrincipal extends JPanel {
 	private JButton bNuevo = null;
 	private JButton bModificar = null;
 	private JButton bEliminar = null;
+	public DefaultTableModel modelo = new DefaultTableModel();
+	
+	
 	/**
 	 * This is the default constructor
 	 */
@@ -49,7 +53,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtCriterioBusqueda() {
+	public JTextField getTxtCriterioBusqueda() {
 		if (txtCriterioBusqueda == null) {
 			txtCriterioBusqueda = new JTextField("Inserte critério de búsqueda...");
 			txtCriterioBusqueda.setBounds(new Rectangle(267, 48, 284, 32));
@@ -96,9 +100,9 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 * 	
 	 * @return javax.swing.JTable	
 	 */
-	private JTable getTablaPrincipal() {
+	public final JTable getTablaPrincipal() {
 		if (tablaPrincipal == null) {
-			tablaPrincipal = new JTable();
+			tablaPrincipal = new JTable(modelo);
 		}
 		return tablaPrincipal;
 	}
@@ -201,5 +205,8 @@ public class GeneradorPanelPrincipal extends JPanel {
 		
 		
 	}
+	
+	
+	
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
