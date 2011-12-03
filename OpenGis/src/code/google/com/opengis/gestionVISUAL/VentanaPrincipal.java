@@ -41,7 +41,7 @@ import javax.swing.JTabbedPane;
 		private JLabel lblTareas = null;
 		private JLabel lblDispositivos = null;
 		private JLabel lblSalir = null;
-		private JTabbedPane tabsPaneles = null;
+		private static JTabbedPane tabsPaneles = null;
 		
 		private char tipoUsuario;
 		private JButton bCerrarPestaña = null;
@@ -458,6 +458,26 @@ import javax.swing.JTabbedPane;
 	}
 
 
+	public static void añadirPestañaNueva(String titulo,JPanel panel){ // Este método añade una pestaña nueva. 
+		
+		int numPestañas = tabsPaneles.getTabCount();
+		
+		if (numPestañas <10) {
+		
+			tabsPaneles.addTab(titulo,panel);
+			tabsPaneles.setSelectedIndex(numPestañas);
+			
+			
+		}else{
+			
+			JOptionPane.showMessageDialog(null, "No puede abrir más pestañas. Cierre las anteriores pestañas para continuar abriendo nuevas.");
+			
+		}
+		
+		
+		
+		
+	}
 
 
 
