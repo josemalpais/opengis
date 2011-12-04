@@ -116,7 +116,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 				    }
 			};
 			
-			tablaPrincipal.setAutoResizeMode(0);
+			//tablaPrincipal.setAutoResizeMode(0);
 			
 			tablaPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
 				public void mouseClicked(java.awt.event.MouseEvent e) {

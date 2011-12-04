@@ -333,11 +333,10 @@ public class DispositivoDAO {
 		ConectarDBA.cerrarCon();
 	}
 
-	public static ResultSet buscarDispositivo(String campo, String criterio) {
+	public static ResultSet buscarDispositivo(String criterio) {
 		ResultSet rs = null;
 		ConectarDBA.acceder();
-		String sentencia = "SELECT `iddispositivo`, `modelo`, `num_serie`, `disponible`, `activo` FROM `dispositivo` WHERE  `"
-				+ campo + "` LIKE '" + criterio + "%'";
+		String sentencia = "SELECT * FROM `dispositivo` WHERE  iddispositivo LIKE '%"+criterio+"%' OR modelo LIKE '%"+criterio+"%' OR num_serie LIKE '%"+criterio+"%'";
 		try {
 			rs = ConectarDBA.consulta(sentencia);
 		} catch (SQLException e) {
