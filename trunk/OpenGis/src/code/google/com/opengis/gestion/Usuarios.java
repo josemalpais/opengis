@@ -4,6 +4,7 @@
 package code.google.com.opengis.gestion;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -163,7 +164,7 @@ public class Usuarios {
 		} else {
 			JOptionPane
 					.showMessageDialog(null,
-							"EL NUMERO QUE HA INTRODUCIDO NO SE CORRESPONDE CON LA LETRA");
+							"El número de DNI no se corresponde con la letra introducida.");
 			valido = false;
 			return false;
 		}
@@ -239,12 +240,20 @@ public class Usuarios {
 								} else {
 
 									Date fechaAhora = new Date();
+									
+									if(this.Fecha_nac.equals("")){
+										
+										JOptionPane.showMessageDialog(null,"La fecha de nacimiento no puede estar en blanco");
+										this.valido = false;
+										
+									}else{
+									
 									@SuppressWarnings("deprecation")
-									Date fechaNacimiento = new Date(
-											this.Fecha_nac);
+									Date fechaNac = new Date(this.Fecha_nac);
+									
 
 									if (this.Fecha_nac.length() != 10
-											|| fechaNacimiento.getTime() > fechaAhora
+											|| fechaNac.getTime() > fechaAhora
 													.getTime()) {
 
 										JOptionPane
@@ -338,6 +347,7 @@ public class Usuarios {
 		}
 
 	}
+}
 
 	/**
 	 * Este método utiliza la clase UsuariosDAO, creando un objeto del mismo con
@@ -352,7 +362,7 @@ public class Usuarios {
 
 		existe = false;
 		activo = false;
-		ConectarDBA.comprobarExiste("usuarios", "dni", this.Dni, true);
+		ConectarDBA.comprobarExiste("usuario", "dni", this.Dni, true);
 
 		if (existe == true) {
 
@@ -415,7 +425,7 @@ public class Usuarios {
 
 		existe = false;
 
-		ConectarDBA.comprobarExiste("usuarios", "dni", this.Dni, false);
+		ConectarDBA.comprobarExiste("usuario", "dni", this.Dni, false);
 
 		if (existe == true) {
 
@@ -452,12 +462,12 @@ public class Usuarios {
 	
 	public void desactivarUsuario(String dni) throws SQLException{
 		//System.out.println(dni);
-		ConectarDBA.desactivar("usuarios", "dni", dni);
+		ConectarDBA.desactivar("usuario", "dni", dni);
 	}
 	
 	public void activarUsuario(String dni) throws SQLException{
 		//System.out.println(dni);
-		ConectarDBA.activar("usuarios", "dni", dni);
+		ConectarDBA.activar("usuario", "dni", dni);
 	}
 	
 
