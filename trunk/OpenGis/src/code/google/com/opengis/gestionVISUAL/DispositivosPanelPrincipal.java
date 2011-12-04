@@ -3,6 +3,8 @@ package code.google.com.opengis.gestionVISUAL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import code.google.com.opengis.gestionDAO.DispositivoDAO;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
@@ -17,7 +19,7 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public DispositivosPanelPrincipal(){
 		
-		super();
+		super(false);
 		
 	}
 
@@ -81,8 +83,19 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public void modificar(){
 		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rDisp = new String[5];
+			for (int i = 0; i < rDisp.length; i++) {
+				rDisp[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+			
 		
+		DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("modificar",rDisp[0].toString(),rDisp[1].toString(),rDisp[2].toString());
+		VentanaPrincipal.añadirPestañaNueva("Modificar Dispositivo",panelNuevo); // Añadimos el panel a la pestaña
 	
+		}
 		
 	}
 	
@@ -91,11 +104,43 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 		
 	}
 	
+	
 	public void botonesActivar(){
 		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rDispo = new String[5];
+			for (int i = 0; i < rDispo.length; i++) {
+				rDispo[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+		
+			
+			if(rDispo[4].toString().equals("Inactivo")){
+				
+				int resp = JOptionPane.showConfirmDialog(this,"El apero con ID " + rDispo[0] + " está inactivo. ¿Desea activarlo?","",JOptionPane.YES_NO_OPTION);
+				
+				if(resp==0){
+					
+					try {
+						DispositivoDAO.reactivarDispositivo(rDispo[0]);
+						buscar();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				
+			}else{
+			
+				getBModificar().setEnabled(true);
+				getBEliminar().setEnabled(true);
+			
+			}
+			
+		}
 	
-		
-		
-	}
+}
 	
 }

@@ -193,25 +193,17 @@ public class DispositivoDAO {
 				rs.next();
 				aux = rs.getInt(1);
 
-				if (aux == 1) {
+				if (aux == 0) {
 					JOptionPane.showMessageDialog(null,
 							"El dispositivo ya estaba activado.");
 				} else {
-					String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '1' WHERE `dispositivo`.`iddispositivo` ="
+					String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '0' WHERE `dispositivo`.`iddispositivo` ="
 							+ id;
 					ConectarDBA.modificar(sentencia);
 					JOptionPane
 							.showMessageDialog(null,
-									"Dispositivo modificado correctamente. Se ha reactivado el dispositivo.");
-					int confirmado = JOptionPane.showConfirmDialog(null,
-							"¿Liberar dispositivo?");
-					if (JOptionPane.OK_OPTION == confirmado) {
-						sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `disponible` = '1' WHERE `dispositivo`.`iddispositivo` ="
-								+ id;
-						ConectarDBA.modificar(sentencia);
-						JOptionPane.showMessageDialog(null,
-								"Dispositivo liberado.");
-					}
+									"Dispositivo activado");
+					
 				}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
