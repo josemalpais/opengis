@@ -107,7 +107,7 @@ public class DispositivoDAO {
 	 */
 
 	public static void altaDispositivo(String iddispositivo, String modelo,
-			String numSerie) throws SQLException {
+			String numSerie,int disponible,int activo) throws SQLException {
 		comprobarDispositivo(iddispositivo);
 
 		if (existe == true) {
@@ -123,7 +123,7 @@ public class DispositivoDAO {
 					+ modelo
 					+ "','"
 					+ numSerie
-					+ "','1','1')";
+					+ "','"+disponible+"','"+activo+"')";
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
