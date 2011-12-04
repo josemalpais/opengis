@@ -85,8 +85,25 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public void modificar(){
 		
+		// Recogemos todos los datos de la tabla
 		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rUser = new String[10];
+			for (int i = 0; i < rUser.length; i++) {
+				rUser[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+			
+			
+			UsuariosPanelNuevo p = new UsuariosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString(),rUser[6].toString(),rUser[7].toString(),rUser[8].toString(),rUser[9].toString()); // Creamos el panel de Alta de Usuarios
+			
+			VentanaPrincipal.añadirPestañaNueva("Modificar Usuario",p); // Añadimos el panel a la pestaña
+			
+			
+		}
 		
+	
 		
 	}
 	
