@@ -3,6 +3,8 @@ package code.google.com.opengis.gestionVISUAL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 
@@ -109,6 +111,68 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public void eliminar(){
 		
+		// Recogemos todos los datos de la tabla
+		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rUser = new String[10];
+			for (int i = 0; i < rUser.length; i++) {
+				rUser[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+		
+			
+			try {
+				UsuariosDAO.DesactivarUsuario(rUser[0]);
+				buscar();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+		
+		
+	}
+	
+	public void botonesActivar(){
+		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rUser = new String[12];
+			for (int i = 0; i < rUser.length; i++) {
+				rUser[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+		
+			
+			if(rUser[11].toString().equals("Inactivo")){
+				
+				int resp = JOptionPane.showConfirmDialog(null,"El usuario con DNI " + rUser[0] + " está inactivo. ¿Desea activarlo?");
+				
+				if(resp==0){
+					
+					try {
+						UsuariosDAO.ActivarUsuario(rUser[0]);
+						buscar();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				
+			}else{
+			
+				getBModificar().setEnabled(true);
+				getBEliminar().setEnabled(true);
+			
+			}
+			
+		}
+		
+		
+
 		
 	}
 	

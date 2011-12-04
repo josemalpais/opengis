@@ -121,9 +121,8 @@ public class GeneradorPanelPrincipal extends JPanel {
 			tablaPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 					
-					bModificar.setEnabled(true);
-					bEliminar.setEnabled(true);
 					
+					botonesActivar();
 					
 					
 				}
@@ -163,7 +162,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBModificar() {
+	public JButton getBModificar() {
 		if (bModificar == null) {
 			bModificar = new JButton();
 			bModificar.setBounds(new Rectangle(109, 316, 55, 47));
@@ -186,7 +185,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBEliminar() {
+	public JButton getBEliminar() {
 		if (bEliminar == null) {
 			bEliminar = new JButton();
 			bEliminar.setBounds(new Rectangle(186, 316, 55, 47));
@@ -233,6 +232,12 @@ public class GeneradorPanelPrincipal extends JPanel {
 	}
 	
 	
+	public void botonesActivar(){
+		
+		bModificar.setEnabled(true);
+		bEliminar.setEnabled(true);
+		
+	}
 	
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
