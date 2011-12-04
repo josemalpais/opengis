@@ -415,8 +415,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
 		}
 
      public void dialog_salir(){
-    	 
-         int n = JOptionPane.showConfirmDialog(this, Idioma.getString("msgExit"), Idioma.getString("msgEndSession"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+    	 Object [] opt = {Idioma.getString("etYes"),Idioma.getString("etNo")}; //$NON-NLS-1$ //$NON-NLS-2$
+         int n = JOptionPane.showOptionDialog(this, Idioma.getString("msgExit"), Idioma.getString("msgEndSession"), JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opt, opt[0] ); //$NON-NLS-1$ //$NON-NLS-2$
          if (n == JOptionPane.YES_OPTION){
                
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
