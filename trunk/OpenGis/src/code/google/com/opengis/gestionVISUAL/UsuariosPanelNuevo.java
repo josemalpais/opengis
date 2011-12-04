@@ -52,16 +52,48 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JPasswordField txtPass2 = null;
 	private String accion;
 	
+	private String dni="";
+	private String nombre="";
+	private String apellidos="";
+	private String direccion="";
+	private String poblacion=" ";
+	private String provincia="";
+	private String cp="";
+	private String telefono="";
+	private String email="";
+	private String fechanac="";
+	
+	
 	
 	/**
 	 * Constructor del Panel de gestión de Usuarios. En caso de que la acción sea "modificar" el panel 
 	 * se utilizará para modificar. En caso de que la acción sea "alta" el panel se utilizará como altas.
 	 */
-	public UsuariosPanelNuevo(String accion) {
+	public UsuariosPanelNuevo(String accion,String dni, String nombre, String apellidos,String direccion,String poblacion, String provincia, String cp, String telefono, String email, String fechanac){
 		super();
 		this.accion = accion;
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.poblacion = poblacion;
+		this.provincia = provincia;
+		this.cp = cp;
+		this.telefono = telefono;
+		this.email = email;
+		this.fechanac = fechanac;
 		initialize();
 	}
+	
+	public UsuariosPanelNuevo(String accion){
+		
+		super();
+		this.accion = accion;
+		
+		initialize();
+		
+	}
+
 
 	/**
 	 * This method initializes this
@@ -197,6 +229,7 @@ public class UsuariosPanelNuevo extends JPanel {
 						}
 					}else{
 						
+						
 						// Aquí modificar
 						
 					}
@@ -247,7 +280,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtDNI() {
 		if (txtDNI == null) {
-			txtDNI = new JTextField();
+			txtDNI = new JTextField(dni);
 			txtDNI.setBounds(new Rectangle(123, 33, 143, 27));
 		}
 		return txtDNI;
@@ -260,7 +293,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtNombre() {
 		if (txtNombre == null) {
-			txtNombre = new JTextField();
+			txtNombre = new JTextField(nombre);
 			txtNombre.setBounds(new Rectangle(123, 86, 143, 27));
 		}
 		return txtNombre;
@@ -273,7 +306,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtApellidos() {
 		if (txtApellidos == null) {
-			txtApellidos = new JTextField();
+			txtApellidos = new JTextField(apellidos);
 			txtApellidos.setBounds(new Rectangle(358, 86, 115, 27));
 		}
 		return txtApellidos;
@@ -286,7 +319,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtFechaNac() {
 		if (txtFechaNac == null) {
-			txtFechaNac = new JTextField();
+			txtFechaNac = new JTextField(fechanac);
 			txtFechaNac.setBounds(new Rectangle(634, 86, 116, 27));
 		}
 		return txtFechaNac;
@@ -299,7 +332,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtDireccion() {
 		if (txtDireccion == null) {
-			txtDireccion = new JTextField();
+			txtDireccion = new JTextField(direccion);
 			txtDireccion.setBounds(new Rectangle(123, 139, 143, 27));
 		}
 		return txtDireccion;
@@ -312,7 +345,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtCP() {
 		if (txtCP == null) {
-			txtCP = new JTextField();
+			txtCP = new JTextField(cp);
 			txtCP.setBounds(new Rectangle(358, 139, 115, 27));
 			txtCP.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
@@ -363,7 +396,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtProvincia() {
 		if (txtProvincia == null) {
-			txtProvincia = new JTextField();
+			txtProvincia = new JTextField(provincia);
 			txtProvincia.setBounds(new Rectangle(123, 194, 143, 27));
 		}
 		return txtProvincia;
@@ -389,7 +422,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxteMail() {
 		if (txteMail == null) {
-			txteMail = new JTextField();
+			txteMail = new JTextField(email);
 			txteMail.setBounds(new Rectangle(634, 194, 116, 27));
 		}
 		return txteMail;
@@ -436,7 +469,7 @@ public class UsuariosPanelNuevo extends JPanel {
 			comboPoblacion.setBounds(new Rectangle(634, 142, 116, 27));
 			comboPoblacion.setEditable(true);
 			comboPoblacion.setFocusable(true);
-			comboPoblacion.addItem(" ");
+			comboPoblacion.addItem(poblacion);
 			comboPoblacion.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					
