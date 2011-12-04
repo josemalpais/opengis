@@ -125,7 +125,6 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			
 			try {
 				UsuariosDAO.DesactivarUsuario(rUser[0]);
-				buscar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
