@@ -5,11 +5,14 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import code.google.com.opengis.gestion.Dispositivo;
 import code.google.com.opengis.gestionDAO.DispositivoDAO;
 
 public class DispositivosPanelGestion extends JPanel {
@@ -116,7 +119,66 @@ public class DispositivosPanelGestion extends JPanel {
 			bGuardar.setBounds(new Rectangle(60, 254, 53, 45));
 			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png")));
 			bGuardar.setToolTipText("Guardar Nuevo Dispositivo");
+			bGuardar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+
+				if(accion=="modificar"){
+					
+					// Aquí el metodo para modificar
+					
+				}else{
+					
+				
+					boolean paso1; // booleano que me indicará si he podido
+									// convertir el ID de Dispositivo a String
+					boolean paso2; // booleano que me indicará si he podido
+									// convertir el número de serie a String
+					String numeroSerie = ""; // donde intentaré convertir el número
+												// de serie introducido a un String
+					String numID = ""; // donde intentaré convertir el ID de
+										// Dispositivo introducido a un String
+
+					if (Dispositivo.validarDatos(txtModelo.getText(),
+							txtNumSerie.getText()) == true) {
+						// intento convertir el número de serie a un String.
+						try {
+							numeroSerie = (txtNumSerie.getText()).toString();
+							paso1 = true;
+						} catch (Exception e1) {
+							JOptionPane
+									.showMessageDialog(null,
+											"Error aceptando el número de serie del dispositivo. Introduce datos válidos.");
+							paso1 = false;
+						}
+						// intento convertir el ID de Dispositivo a un String.
+						try {
+							numID = (txtID.getText()).toString();
+							paso2 = true;
+						} catch (Exception e1) {
+							JOptionPane
+									.showMessageDialog(null,
+											"Error convirtiendo el ID de dispositivo. Introduce datos válidos.");
+							paso2 = false;
+						}
+						if ((paso1 == true) && (paso2 == true)) {
+							try {
+								DispositivoDAO.altaDispositivo(numID,
+										txtModelo.getText(), numeroSerie,0,0);
+								
+
+							}
+
+							catch (SQLException e1) {
+								e1.printStackTrace();
+							}
+						}
+					}
+				}
+				
+			}
+			});
 		}
+
 		return bGuardar;
 	}
 
@@ -131,6 +193,14 @@ public class DispositivosPanelGestion extends JPanel {
 			bLimpiar.setBounds(new Rectangle(140, 254, 53, 45));
 			bLimpiar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/limpiar.png")));
 			bLimpiar.setToolTipText("Limpiar todos los campos");
+			bLimpiar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					
+					txtNumSerie.setText("");
+					txtModelo.setText("");
+					
+				}
+				});
 		}
 		return bLimpiar;
 	}
