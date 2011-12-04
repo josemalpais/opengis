@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import code.google.com.opengis.gestion.EnviarMail;
 import code.google.com.opengis.gestion.ValidarLogin;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 
 public class LoginVisual extends JFrame implements KeyListener{
@@ -54,11 +55,11 @@ public class LoginVisual extends JFrame implements KeyListener{
 		
 		ven = this;
 		setLayout(new GridBagLayout());
-		 btnVal = new JButton("  Validar  ");
-		 btnBor = new JButton("Borrar");
-		 lblUser = new JLabel("Introduce usuario :");
-		 lblPass = new JLabel("Introduce la contraseña :");
-		 btnRec = new JButton("Recuperar contraseña");
+		 btnVal = new JButton(Idioma.getString("etOK")); //$NON-NLS-1$
+		 btnBor = new JButton(Idioma.getString("etClear")); //$NON-NLS-1$
+		 lblUser = new JLabel(Idioma.getString("etUser")); //$NON-NLS-1$
+		 lblPass = new JLabel(Idioma.getString("etPassword")); //$NON-NLS-1$
+		 btnRec = new JButton(Idioma.getString("etRecovery")); //$NON-NLS-1$
 		 btnRec.setBorderPainted(true);
 		 
 		 
@@ -101,14 +102,14 @@ public class LoginVisual extends JFrame implements KeyListener{
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(2,4, 2, 4);
-		add(new Label(""),gbc);
+		add(new Label(""),gbc); //$NON-NLS-1$
 		gbc.gridx = 0;
 		gbc.gridy = 2;		
 		add(btnRec,gbc);
 		txtUser.addKeyListener(this);
 		txtPass.addKeyListener(this);
 		setSize(350,150);
-		setTitle("Ventana Login");
+		setTitle(Idioma.getString("etLoginTitle")); //$NON-NLS-1$
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -128,7 +129,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 						new ValidarLogin(ven,usuario,pass);
 						
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null,"Error De Conexión");
+						JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorConexion")); //$NON-NLS-1$
 						e1.printStackTrace();
 					} 
 				
@@ -139,8 +140,8 @@ public class LoginVisual extends JFrame implements KeyListener{
 		btnBor.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				
-			txtUser.setText("");
-			txtPass.setText("");
+			txtUser.setText(""); //$NON-NLS-1$
+			txtPass.setText(""); //$NON-NLS-1$
 			
 			}
 		});
@@ -172,7 +173,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				btnRec.setText("Enviando...");
+				btnRec.setText(Idioma.getString("etSending")); //$NON-NLS-1$
 				
 			}
 
@@ -185,7 +186,7 @@ public class LoginVisual extends JFrame implements KeyListener{
 			     new EnviarMail(usuario);
 			     
 				
-				btnRec.setText("Recuperar contraseña");
+				btnRec.setText(Idioma.getString("etRecovery")); //$NON-NLS-1$
 				
 				
 			}
@@ -208,7 +209,7 @@ pass = new String(txtPass.getPassword());
 					new ValidarLogin(ven,usuario,pass);
 					
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null,"Error De Conexión");
+					JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorConexion")); //$NON-NLS-1$
 					e1.printStackTrace();
 				} 
 		

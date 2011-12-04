@@ -18,6 +18,8 @@ import javax.swing.WindowConstants;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
+import code.google.com.opengis.gestionDAO.Idioma;
+
 
     public class VentanaPrincipal extends JFrame implements WindowListener {
 
@@ -92,7 +94,7 @@ import javax.swing.JTabbedPane;
     		this.setBounds(new Rectangle(0, 0, 888, 619));
     		this.setResizable(false);
     		this.setContentPane(getJContentPaneAdministrador());
-    		this.setTitle("Aplicación de Gestión - OPENGis");
+    		this.setTitle(Idioma.getString("etMainWindow")); //$NON-NLS-1$
     		this.setLocationRelativeTo(null); // Centramos el formulario
     		this.setVisible(true);
     		
@@ -113,31 +115,31 @@ import javax.swing.JTabbedPane;
     		if (jContentPane == null) {
     			lblSalir = new JLabel();
     			lblSalir.setBounds(new Rectangle(800, 87, 29, 22));
-    			lblSalir.setText("Salir");
+    			lblSalir.setText(Idioma.getString("etExit")); //$NON-NLS-1$
     			lblDispositivos = new JLabel();
     			lblDispositivos.setBounds(new Rectangle(686, 87, 69, 22));
-    			lblDispositivos.setText("Dispositivos");
+    			lblDispositivos.setText(Idioma.getString("etDevices")); //$NON-NLS-1$
     			lblTareas = new JLabel();
     			lblTareas.setBounds(new Rectangle(603, 87, 46, 22));
-    			lblTareas.setText("Tareas");
+    			lblTareas.setText(Idioma.getString("etTasks")); //$NON-NLS-1$
     			lblProductos = new JLabel();
     			lblProductos.setBounds(new Rectangle(501, 87, 63, 22));
-    			lblProductos.setText("Productos");
+    			lblProductos.setText(Idioma.getString("etProducts")); //$NON-NLS-1$
     			lblApero = new JLabel();
     			lblApero.setBounds(new Rectangle(418, 87, 41, 22));
-    			lblApero.setText("Apero");
+    			lblApero.setText(Idioma.getString("etImplements")); //$NON-NLS-1$
     			lblParcelas = new JLabel();
     			lblParcelas.setBounds(new Rectangle(317, 87, 54, 22));
-    			lblParcelas.setText("Parcelas");
+    			lblParcelas.setText(Idioma.getString("etLots")); //$NON-NLS-1$
     			lblInformes = new JLabel();
     			lblInformes.setBounds(new Rectangle(223, 87, 54, 22));
-    			lblInformes.setText("Informes");
+    			lblInformes.setText(Idioma.getString("etReports")); //$NON-NLS-1$
     			lblUsuarios = new JLabel();
     			lblUsuarios.setBounds(new Rectangle(129, 87, 54, 22));
-    			lblUsuarios.setText("Usuarios");
+    			lblUsuarios.setText(Idioma.getString("etUsers")); //$NON-NLS-1$
     			lblPrestamos = new JLabel();
     			lblPrestamos.setBounds(new Rectangle(31, 87, 63, 22));
-    			lblPrestamos.setText("Prestamos");
+    			lblPrestamos.setText(Idioma.getString("etLoans")); //$NON-NLS-1$
     			jContentPane = new JPanel();
     			jContentPane.setLayout(null);
     			jContentPane.add(getBPrestamos(), null);
@@ -175,8 +177,8 @@ import javax.swing.JTabbedPane;
     		if (bPrestamos == null) {
     			bPrestamos = new JButton();
     			bPrestamos.setBounds(new Rectangle(31, 33, 63, 58));
-    			bPrestamos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/alquiler.png"));
-    			bPrestamos.setToolTipText("Prestamos");
+    			bPrestamos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/alquiler.png")); //$NON-NLS-1$
+    			bPrestamos.setToolTipText(Idioma.getString("etLoansMsg")); //$NON-NLS-1$
     			bPrestamos.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					
@@ -197,8 +199,8 @@ import javax.swing.JTabbedPane;
     		if (bUsuarios == null) {
     			bUsuarios = new JButton();
     			bUsuarios.setBounds(new Rectangle(125, 33,63,58));
-    			bUsuarios.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/usuario.png"));
-    			bUsuarios.setToolTipText("Gestión de Usuarios");
+    			bUsuarios.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/usuario.png")); //$NON-NLS-1$
+    			bUsuarios.setToolTipText(Idioma.getString("etUsersMng")); //$NON-NLS-1$
     			bUsuarios.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					
@@ -212,11 +214,11 @@ import javax.swing.JTabbedPane;
 							
     							UsuariosPanelPrincipal panelNuevo = new UsuariosPanelPrincipal();
     						
-    							tabsPaneles.addTab("Gestión de Usuarios",panelNuevo);
+    							tabsPaneles.addTab(Idioma.getString("etUsersMng"),panelNuevo); //$NON-NLS-1$
     							
     						}else{
     							
-    							JOptionPane.showMessageDialog(null, "No puede abrir más pestañas. Cierre las anteriores pestañas para continuar abriendo nuevas.");
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
     							
     						}
     							
@@ -242,8 +244,8 @@ import javax.swing.JTabbedPane;
     		if (bParcelas == null) {
     			bParcelas = new JButton();
     			bParcelas.setBounds(new Rectangle(313, 33, 63, 58));
-    			bParcelas.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png"));
-    			bParcelas.setToolTipText("Gestión de Parcelas");
+    			bParcelas.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png")); //$NON-NLS-1$
+    			bParcelas.setToolTipText(Idioma.getString("etLotsMng")); //$NON-NLS-1$
     		}
     		return bParcelas;
     	}
@@ -257,8 +259,8 @@ import javax.swing.JTabbedPane;
     		if (bProductos == null) {
     			bProductos = new JButton();
     			bProductos.setBounds(new Rectangle(501, 33, 63, 58));
-    			bProductos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/producto.png"));
-    			bProductos.setToolTipText("Gestión de Productos");
+    			bProductos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/producto.png")); //$NON-NLS-1$
+    			bProductos.setToolTipText(Idioma.getString("etProductsMng")); //$NON-NLS-1$
     		
     		}
     		return bProductos;
@@ -273,8 +275,8 @@ import javax.swing.JTabbedPane;
     		if (bAperos == null) {
     			bAperos = new JButton();
     			bAperos.setBounds(new Rectangle(407, 33, 63, 58));
-    			bAperos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/apero.png"));
-    			bAperos.setToolTipText("Gestión de Aperos");
+    			bAperos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/apero.png")); //$NON-NLS-1$
+    			bAperos.setToolTipText(Idioma.getString("etImplementsMng")); //$NON-NLS-1$
     		
     		}
     		return bAperos;
@@ -289,8 +291,8 @@ import javax.swing.JTabbedPane;
     		if (bInformes == null) {
     			bInformes = new JButton();
     			bInformes.setBounds(new Rectangle(219, 33, 63, 58));
-    			bInformes.setIcon(new ImageIcon ("OpenGis/src/recursosVisuales/informes.png"));
-    			bInformes.setToolTipText("Generar Informes");
+    			bInformes.setIcon(new ImageIcon ("OpenGis/src/recursosVisuales/informes.png")); //$NON-NLS-1$
+    			bInformes.setToolTipText(Idioma.getString("etReportsMng")); //$NON-NLS-1$
     		}
     		return bInformes;
     	}
@@ -304,8 +306,8 @@ import javax.swing.JTabbedPane;
     		if (bTareas == null) {
     			bTareas = new JButton();
     			bTareas.setBounds(new Rectangle(595, 33, 63, 58));
-    			bTareas.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Tarea.png"));
-    			bTareas.setToolTipText("Administrar Tareas");
+    			bTareas.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Tarea.png")); //$NON-NLS-1$
+    			bTareas.setToolTipText(Idioma.getString("etTaskMng")); //$NON-NLS-1$
     		}
     		return bTareas;
     	}
@@ -319,8 +321,8 @@ import javax.swing.JTabbedPane;
     		if (bDispositivos == null) {
     			bDispositivos = new JButton();
     			bDispositivos.setBounds(new Rectangle(689, 33, 63, 58));
-    			bDispositivos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/dispositivo.png"));
-    			bDispositivos.setToolTipText("Gestión de Dispositivos");
+    			bDispositivos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/dispositivo.png")); //$NON-NLS-1$
+    			bDispositivos.setToolTipText(Idioma.getString("etDevicesMng")); //$NON-NLS-1$
     		
     		}
     		return bDispositivos;
@@ -335,8 +337,8 @@ import javax.swing.JTabbedPane;
     		if (bSalir == null) {
     			bSalir = new JButton();
     			bSalir.setBounds(new Rectangle(783, 33, 63, 58));
-    			bSalir.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Salir.png"));
-    			bSalir.setToolTipText("Salir");
+    			bSalir.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Salir.png")); //$NON-NLS-1$
+    			bSalir.setToolTipText(Idioma.getString("etExit")); //$NON-NLS-1$
     			bSalir.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					
@@ -391,7 +393,7 @@ import javax.swing.JTabbedPane;
 
      public void dialog_salir(){
     	 
-         int n = JOptionPane.showConfirmDialog(this, "Esto cerrará la sesión. ¿Está usted seguro?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
+         int n = JOptionPane.showConfirmDialog(this, Idioma.getString("msgExit"), Idioma.getString("msgEndSession"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
          if (n == JOptionPane.YES_OPTION){
                
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -427,9 +429,9 @@ import javax.swing.JTabbedPane;
 	private JButton getBCerrarPestaña() {
 		if (bCerrarPestaña == null) {
 			bCerrarPestaña = new JButton();
-			bCerrarPestaña.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/cerrar.png")));
+			bCerrarPestaña.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/cerrar.png"))); //$NON-NLS-1$
 			bCerrarPestaña.setBounds(new Rectangle(835, 193, 29, 28));
-			bCerrarPestaña.setToolTipText("Cerrar Pestaña Actual");
+			bCerrarPestaña.setToolTipText(Idioma.getString("etActualTab")); //$NON-NLS-1$
 			bCerrarPestaña.setVisible(false);
 			bCerrarPestaña.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -470,7 +472,7 @@ import javax.swing.JTabbedPane;
 			
 		}else{
 			
-			JOptionPane.showMessageDialog(null, "No puede abrir más pestañas. Cierre las anteriores pestañas para continuar abriendo nuevas.");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
 			
 		}
 		
