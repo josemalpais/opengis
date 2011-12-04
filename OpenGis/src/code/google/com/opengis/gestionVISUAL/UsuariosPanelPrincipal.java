@@ -18,7 +18,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	
 	public UsuariosPanelPrincipal(){
-		super();
+		super(true);
 		
 	}
 	

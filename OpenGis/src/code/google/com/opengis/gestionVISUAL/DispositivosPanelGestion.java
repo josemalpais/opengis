@@ -28,6 +28,9 @@ public class DispositivosPanelGestion extends JPanel {
 	private JButton bGuardar = null;
 	private JButton bLimpiar = null;
 	
+	private String id;
+	private String modelo;
+	private String numserie;
 	
 	/**
 	 * Constructor de la clase DispositivosPanelGestion. Si la acción es "altas", dará de alta usurios.
@@ -35,6 +38,20 @@ public class DispositivosPanelGestion extends JPanel {
 	 */
 	public DispositivosPanelGestion(String accion) {
 		super();
+		this.accion = accion;
+		initialize();
+	}
+	
+	/**
+	 * Constructor de la clase DispositivosPanelGestion. Si la acción es "altas", dará de alta usurios.
+	 * En caso de ser "modificacion", accederá al panel para modificar. Además, le pasamos los parametros necesarios
+	 * para realizar las modificaciones
+	 */
+	public DispositivosPanelGestion(String accion, String id, String modelo, String numserie) {
+		super();
+		this.id = id;
+		this.modelo = modelo;
+		this.numserie = numserie;
 		this.accion = accion;
 		initialize();
 	}
@@ -73,9 +90,19 @@ public class DispositivosPanelGestion extends JPanel {
 	 */
 	private JTextField getTxtID() {
 		if (txtID == null) {
-			int id = DispositivoDAO.calcularNuevoID();
-			txtID = new JTextField();
-			txtID.setText(id+"");
+				txtID = new JTextField();
+			if(accion=="alta"){
+				
+				int id = DispositivoDAO.calcularNuevoID();
+				txtID.setText(id+"");
+				
+			}else{
+
+				
+				txtID.setText(this.id);
+			}
+			
+			
 			txtID.setBounds(new Rectangle(165, 56, 194, 28));
 			txtID.setEnabled(false);
 		}
@@ -91,6 +118,7 @@ public class DispositivosPanelGestion extends JPanel {
 		if (txtModelo == null) {
 			txtModelo = new JTextField();
 			txtModelo.setBounds(new Rectangle(165, 115, 194, 28));
+			txtModelo.setText(modelo);
 		}
 		return txtModelo;
 	}
@@ -104,6 +132,7 @@ public class DispositivosPanelGestion extends JPanel {
 		if (txtNumSerie == null) {
 			txtNumSerie = new JTextField();
 			txtNumSerie.setBounds(new Rectangle(165, 165, 194, 28));
+			txtNumSerie.setText(numserie);
 		}
 		return txtNumSerie;
 	}
@@ -163,7 +192,7 @@ public class DispositivosPanelGestion extends JPanel {
 						if ((paso1 == true) && (paso2 == true)) {
 							try {
 								DispositivoDAO.altaDispositivo(numID,
-										txtModelo.getText(), numeroSerie,0,0);
+										txtModelo.getText(), numeroSerie,1,1);
 								
 
 							}

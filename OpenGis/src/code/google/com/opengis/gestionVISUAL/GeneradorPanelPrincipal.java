@@ -24,12 +24,14 @@ public class GeneradorPanelPrincipal extends JPanel {
 	private JButton bEliminar = null;
 	public DefaultTableModel modelo = new DefaultTableModel();
 	
+	private boolean redimensionarTabla;
 	
 	/**
 	 * This is the default constructor
 	 */
-	public GeneradorPanelPrincipal() {
+	public GeneradorPanelPrincipal(boolean redimensionarTabla) {
 		super();
+		this.redimensionarTabla = redimensionarTabla;
 		initialize();
 	}
 
@@ -116,7 +118,11 @@ public class GeneradorPanelPrincipal extends JPanel {
 				    }
 			};
 			
-			//tablaPrincipal.setAutoResizeMode(0);
+			if (redimensionarTabla==true){
+			
+				tablaPrincipal.setAutoResizeMode(0);
+				
+			}
 			
 			tablaPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
 				public void mouseClicked(java.awt.event.MouseEvent e) {
