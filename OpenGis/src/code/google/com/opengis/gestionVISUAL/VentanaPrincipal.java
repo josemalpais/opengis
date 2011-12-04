@@ -323,6 +323,29 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bDispositivos.setBounds(new Rectangle(689, 33, 63, 58));
     			bDispositivos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/dispositivo.png")); //$NON-NLS-1$
     			bDispositivos.setToolTipText(Idioma.getString("etDevicesMng")); //$NON-NLS-1$
+    			bDispositivos.addActionListener(new java.awt.event.ActionListener() {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					
+    					bCerrarPestaña.setVisible(true);
+
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							DispositivosPanelPrincipal panelNuevo = new DispositivosPanelPrincipal();
+    						
+    							tabsPaneles.addTab("Gestión Dispositivos",panelNuevo); //$NON-NLS-1$
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+    							
+    					
+    				}
+    			});
     		
     		}
     		return bDispositivos;
