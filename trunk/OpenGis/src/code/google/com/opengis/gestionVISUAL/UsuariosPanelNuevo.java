@@ -47,6 +47,8 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JComboBox comboTipo = null;
 	private JLabel lblObligtorios = null;
 	private JComboBox comboPoblacion = null;
+	private JLabel lblPass2 = null;
+	private JPasswordField txtPass2 = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -61,6 +63,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	 * @return void
 	 */
 	private void initialize() {
+		lblPass2 = new JLabel();
+		lblPass2.setBounds(new Rectangle(274, 248, 116, 30));
+		lblPass2.setText("Repita Contraseña:");
 		lblObligtorios = new JLabel();
 		lblObligtorios.setBounds(new Rectangle(434, 334, 238, 25));
 		lblObligtorios.setFont(new Font("Dialog", Font.ITALIC, 12));
@@ -69,7 +74,7 @@ public class UsuariosPanelNuevo extends JPanel {
 		lblFechaNac.setBounds(new Rectangle(506, 83, 138, 30));
 		lblFechaNac.setText("Fecha de Nacimiento:");
 		lblTipo = new JLabel();
-		lblTipo.setBounds(new Rectangle(274, 248, 102, 30));
+		lblTipo.setBounds(new Rectangle(509, 248, 102, 30));
 		lblTipo.setText("Tipo de Usuario:");
 		lblPass = new JLabel();
 		lblPass.setBounds(new Rectangle(42, 248, 88, 30));
@@ -130,6 +135,8 @@ public class UsuariosPanelNuevo extends JPanel {
 		this.add(getComboTipo(), null);
 		this.add(lblObligtorios, null);
 		this.add(getComboPoblacion(), null);
+		this.add(lblPass2, null);
+		this.add(getTxtPass2(), null);
 	}
 
 	/**
@@ -172,7 +179,7 @@ public class UsuariosPanelNuevo extends JPanel {
 					txtFechaNac.setText("");
 					txtDireccion.setText("");
 					txtCP.setText("");
-					comboPoblacion.removeAll();
+					comboPoblacion.removeAllItems();
 					txtProvincia.setText("");
 					txtTelefono.setText("");
 					txteMail.setText("");
@@ -265,6 +272,8 @@ public class UsuariosPanelNuevo extends JPanel {
 					if(txtCP.getText().length() > 0){
 						
 						try {
+							
+							comboPoblacion.removeAllItems();
 							
 							String codigoPostal = txtCP.getText();
 							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND postal = '"+ codigoPostal +"' LIMIT 0,30";
@@ -359,7 +368,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JComboBox getComboTipo() {
 		if (comboTipo == null) {
 			comboTipo = new JComboBox();
-			comboTipo.setBounds(new Rectangle(368, 253, 115, 22));
+			comboTipo.setBounds(new Rectangle(634, 250, 115, 27));
 			
 			comboTipo.addItem("Administrador");
 			comboTipo.addItem("Trabajador");
@@ -419,6 +428,19 @@ public class UsuariosPanelNuevo extends JPanel {
 			
 		}
 		return comboPoblacion;
+	}
+
+	/**
+	 * This method initializes txtPass2	
+	 * 	
+	 * @return javax.swing.JPasswordField	
+	 */
+	private JPasswordField getTxtPass2() {
+		if (txtPass2 == null) {
+			txtPass2 = new JPasswordField();
+			txtPass2.setBounds(new Rectangle(387, 250, 85, 27));
+		}
+		return txtPass2;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="26,16"
