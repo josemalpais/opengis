@@ -12,9 +12,9 @@ import code.google.com.opengis.gestionDAO.UsuariosDAO;
 public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	private int i = 0;
-	static Object[] nombreColumna = { "DNI", "Nombre", "Apellidos",
-		"Dirección", "Poblacion", "Provincia", "Cod. Postal", "Teléfono",
-		"Email", "Fecha Nacimiento", "Tipo", "Estado" };
+	static Object[] nombreColumna = { Idioma.getString("etIdCard"), Idioma.getString("etFirstName"), Idioma.getString("etLastName"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"), Idioma.getString("etPostalCode"), Idioma.getString("etPhone"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		Idioma.getString("etMail"), Idioma.getString("etBirthDate"), Idioma.getString("etAccType"), Idioma.getString("etStatus") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	
 	
 	public UsuariosPanelPrincipal(){
@@ -51,10 +51,10 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 					
 					for (int i2 = 0; i2 < registro.length; i2++) {
 
-						if (registro[i2].toString().equals("true")) {
-							registro[i2] = "Inactivo";
-						} else if (registro[i2].toString().equals("false")) {
-							registro[i2] = "Activo";
+						if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
+							registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
+						} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+							registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
 						}
 						//System.out.println(registro[i2]);
 					}
@@ -79,9 +79,9 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public void nuevo(){
 		
-		UsuariosPanelNuevo p = new UsuariosPanelNuevo("alta"); // Creamos el panel de Alta de Usuarios
+		UsuariosPanelNuevo p = new UsuariosPanelNuevo("alta"); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 		
-		VentanaPrincipal.añadirPestañaNueva("Nuevo Usuario",p); // Añadimos el panel a la pestaña
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewUser"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		
 		
 	}
@@ -99,9 +99,9 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 			
 			
-			UsuariosPanelNuevo p = new UsuariosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString(),rUser[6].toString(),rUser[7].toString(),rUser[8].toString(),rUser[9].toString()); // Creamos el panel de Alta de Usuarios
+			UsuariosPanelNuevo p = new UsuariosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString(),rUser[6].toString(),rUser[7].toString(),rUser[8].toString(),rUser[9].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			VentanaPrincipal.añadirPestañaNueva("Modificar Usuario",p); // Añadimos el panel a la pestaña
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etChangeUser"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 			
 			
 		}
@@ -147,9 +147,9 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 		
 			
-			if(rUser[11].toString().equals("Inactivo")){
+			if(rUser[11].toString().equals("Inactivo")){ //$NON-NLS-1$
 				
-				int resp = JOptionPane.showConfirmDialog(this,"El usuario con DNI " + rUser[0] + " está inactivo. ¿Desea activarlo?","",JOptionPane.YES_NO_OPTION);
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgUserWithID") + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
 				if(resp==0){
 					
