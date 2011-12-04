@@ -215,6 +215,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     							UsuariosPanelPrincipal panelNuevo = new UsuariosPanelPrincipal();
     						
     							tabsPaneles.addTab(Idioma.getString("etUsersMng"),panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
     							
@@ -336,6 +337,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     							DispositivosPanelPrincipal panelNuevo = new DispositivosPanelPrincipal();
     						
     							tabsPaneles.addTab("Gestión Dispositivos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
     							
