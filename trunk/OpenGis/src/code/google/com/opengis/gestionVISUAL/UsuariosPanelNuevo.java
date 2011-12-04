@@ -253,7 +253,12 @@ public class UsuariosPanelNuevo extends JPanel {
 			bRestablecer.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-					txtDNI.setText("");
+					
+					if(accion!="modificar"){
+					
+						txtDNI.setText("");
+						
+					}
 					txtNombre.setText("");
 					txtApellidos.setText("");
 					txtFechaNac.setText("");
@@ -282,6 +287,12 @@ public class UsuariosPanelNuevo extends JPanel {
 		if (txtDNI == null) {
 			txtDNI = new JTextField(dni);
 			txtDNI.setBounds(new Rectangle(123, 33, 143, 27));
+			
+			if(accion=="modificar"){
+				
+				txtDNI.setEnabled(false);
+			}
+			
 		}
 		return txtDNI;
 	}
@@ -409,7 +420,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtTelefono() {
 		if (txtTelefono == null) {
-			txtTelefono = new JTextField();
+			txtTelefono = new JTextField(telefono);
 			txtTelefono.setBounds(new Rectangle(358, 194, 115, 27));
 		}
 		return txtTelefono;
