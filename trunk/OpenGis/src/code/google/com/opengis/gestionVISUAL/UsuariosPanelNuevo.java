@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 
 import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 import java.awt.Font;
 import java.sql.ResultSet;
@@ -52,16 +53,16 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JPasswordField txtPass2 = null;
 	private String accion;
 	
-	private String dni="";
-	private String nombre="";
-	private String apellidos="";
-	private String direccion="";
-	private String poblacion=" ";
-	private String provincia="";
-	private String cp="";
-	private String telefono="";
-	private String email="";
-	private String fechanac="";
+	private String dni=""; //$NON-NLS-1$
+	private String nombre=""; //$NON-NLS-1$
+	private String apellidos=""; //$NON-NLS-1$
+	private String direccion=""; //$NON-NLS-1$
+	private String poblacion=" "; //$NON-NLS-1$
+	private String provincia=""; //$NON-NLS-1$
+	private String cp=""; //$NON-NLS-1$
+	private String telefono=""; //$NON-NLS-1$
+	private String email=""; //$NON-NLS-1$
+	private String fechanac=""; //$NON-NLS-1$
 	
 	
 	
@@ -103,47 +104,47 @@ public class UsuariosPanelNuevo extends JPanel {
 	private void initialize() {
 		lblPass2 = new JLabel();
 		lblPass2.setBounds(new Rectangle(274, 248, 116, 30));
-		lblPass2.setText("Repita Contraseña:");
+		lblPass2.setText(Idioma.getString("etConfirmPassword")); //$NON-NLS-1$
 		lblObligtorios = new JLabel();
 		lblObligtorios.setBounds(new Rectangle(434, 334, 238, 25));
-		lblObligtorios.setFont(new Font("Dialog", Font.ITALIC, 12));
-		lblObligtorios.setText("(*) Todos los campos son obligatorios");
+		lblObligtorios.setFont(new Font(Idioma.getString("Dialog"), Font.ITALIC, 12)); //$NON-NLS-1$
+		lblObligtorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
 		lblFechaNac = new JLabel();
 		lblFechaNac.setBounds(new Rectangle(506, 83, 138, 30));
-		lblFechaNac.setText("Fecha de Nacimiento:");
+		lblFechaNac.setText(Idioma.getString("etBirthDate")); //$NON-NLS-1$
 		lblTipo = new JLabel();
 		lblTipo.setBounds(new Rectangle(509, 248, 102, 30));
-		lblTipo.setText("Tipo de Usuario:");
+		lblTipo.setText(Idioma.getString("etUserPermits")); //$NON-NLS-1$
 		lblPass = new JLabel();
 		lblPass.setBounds(new Rectangle(42, 248, 88, 30));
-		lblPass.setText("Contraseña:");
+		lblPass.setText(Idioma.getString("etPassword")); //$NON-NLS-1$
 		lblEmail = new JLabel();
 		lblEmail.setBounds(new Rectangle(506, 191, 88, 30));
-		lblEmail.setText("eMail:");
+		lblEmail.setText(Idioma.getString("etMail")); //$NON-NLS-1$
 		lblteléfono = new JLabel();
 		lblteléfono.setBounds(new Rectangle(274, 192, 88, 30));
-		lblteléfono.setText("Teléfono:");
+		lblteléfono.setText(Idioma.getString("etPhone")); //$NON-NLS-1$
 		lblProvincia = new JLabel();
 		lblProvincia.setBounds(new Rectangle(44, 192, 88, 30));
-		lblProvincia.setText("Provincia:");
+		lblProvincia.setText(Idioma.getString("etProvince")); //$NON-NLS-1$
 		lblPoblacion = new JLabel();
 		lblPoblacion.setBounds(new Rectangle(506, 136, 88, 30));
-		lblPoblacion.setText("Población:");
+		lblPoblacion.setText(Idioma.getString("etCity")); //$NON-NLS-1$
 		lblCodigoPostal = new JLabel();
 		lblCodigoPostal.setBounds(new Rectangle(274, 137, 88, 30));
-		lblCodigoPostal.setText("Código Postal:");
+		lblCodigoPostal.setText(Idioma.getString("etPostalCode")); //$NON-NLS-1$
 		lbldireccion = new JLabel();
 		lbldireccion.setBounds(new Rectangle(42, 137, 88, 30));
-		lbldireccion.setText("Dirección:");
+		lbldireccion.setText(Idioma.getString("etAddress")); //$NON-NLS-1$
 		lblDNI = new JLabel();
 		lblDNI.setBounds(new Rectangle(42, 31, 88, 30));
-		lblDNI.setText("Dni:");
+		lblDNI.setText(Idioma.getString("etIdCard")); //$NON-NLS-1$
 		lblApellidos = new JLabel();
 		lblApellidos.setBounds(new Rectangle(274, 84, 88, 30));
-		lblApellidos.setText("Apellidos:");
+		lblApellidos.setText(Idioma.getString("etLastName")); //$NON-NLS-1$
 		lblNombre = new JLabel();
 		lblNombre.setBounds(new Rectangle(42, 84, 88, 30));
-		lblNombre.setText("Nombre:");
+		lblNombre.setText(Idioma.getString("etFirstName")); //$NON-NLS-1$
 		this.setSize(782, 388);
 		this.setLayout(null);
 		this.add(lblNombre, null);
@@ -186,13 +187,13 @@ public class UsuariosPanelNuevo extends JPanel {
 		if (bGuardar == null) {
 			bGuardar = new JButton();
 			bGuardar.setBounds(new Rectangle(46, 314, 53, 45));
-			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png")));
-			bGuardar.setToolTipText("Guardar Nuevo Usuario");
+			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
+			bGuardar.setToolTipText(Idioma.getString("etSaveNewUser")); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
 					
-					if(accion.equals("alta")){
+					if(accion.equals("alta")){ //$NON-NLS-1$
 					
 						char[] contra = txtPass.getPassword();
 						String pass = new String(contra);
@@ -216,7 +217,7 @@ public class UsuariosPanelNuevo extends JPanel {
 									u.crearUsuario();
 								} catch (SQLException e1) {
 									// TODO Auto-generated catch block
-									JOptionPane.showMessageDialog(null,"El DNI ya existe en la base de datos");
+									JOptionPane.showMessageDialog(null,Idioma.getString("msgIDAlreadyExists")); //$NON-NLS-1$
 								}
 	
 							}
@@ -224,7 +225,7 @@ public class UsuariosPanelNuevo extends JPanel {
 						} else {
 	
 							JOptionPane.showMessageDialog(null,
-									"Error. Las contraseñas no coinciden");
+									Idioma.getString("msgPasswordUnmatch")); //$NON-NLS-1$
 	
 						}
 					}else{
@@ -255,7 +256,7 @@ public class UsuariosPanelNuevo extends JPanel {
 						} else {
 
 							JOptionPane.showMessageDialog(null,
-									"Error. Las contraseñas no coinciden");
+									Idioma.getString("msgPasswordUnmatch")); //$NON-NLS-1$
 
 						}
 						
@@ -275,28 +276,28 @@ public class UsuariosPanelNuevo extends JPanel {
 		if (bRestablecer == null) {
 			bRestablecer = new JButton();
 			bRestablecer.setBounds(new Rectangle(122, 314, 53, 45));
-			bRestablecer.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png")));
-			bRestablecer.setToolTipText("Limpiar todos los campos");
+			bRestablecer.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png"))); //$NON-NLS-1$
+			bRestablecer.setToolTipText(Idioma.getString("etCleanFields")); //$NON-NLS-1$
 			bRestablecer.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
 					
-					if(accion!="modificar"){
+					if(accion!="modificar"){ //$NON-NLS-1$
 					
-						txtDNI.setText("");
+						txtDNI.setText(""); //$NON-NLS-1$
 						
 					}
-					txtNombre.setText("");
-					txtApellidos.setText("");
-					txtFechaNac.setText("");
-					txtDireccion.setText("");
-					txtCP.setText("");
+					txtNombre.setText(""); //$NON-NLS-1$
+					txtApellidos.setText(""); //$NON-NLS-1$
+					txtFechaNac.setText(""); //$NON-NLS-1$
+					txtDireccion.setText(""); //$NON-NLS-1$
+					txtCP.setText(""); //$NON-NLS-1$
 					comboPoblacion.removeAllItems();
-					txtProvincia.setText("");
-					txtTelefono.setText("");
-					txteMail.setText("");
-					txtPass.setText("");
-					txtPass2.setText("");
+					txtProvincia.setText(""); //$NON-NLS-1$
+					txtTelefono.setText(""); //$NON-NLS-1$
+					txteMail.setText(""); //$NON-NLS-1$
+					txtPass.setText(""); //$NON-NLS-1$
+					txtPass2.setText(""); //$NON-NLS-1$
 					
 					
 				}
@@ -315,7 +316,7 @@ public class UsuariosPanelNuevo extends JPanel {
 			txtDNI = new JTextField(dni);
 			txtDNI.setBounds(new Rectangle(123, 33, 143, 27));
 			
-			if(accion=="modificar"){
+			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				txtDNI.setEnabled(false);
 			}
@@ -395,7 +396,7 @@ public class UsuariosPanelNuevo extends JPanel {
 							comboPoblacion.removeAllItems();
 							
 							String codigoPostal = txtCP.getText();
-							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND postal = '"+ codigoPostal +"' LIMIT 0,30";
+							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND postal = '"+ codigoPostal +"' LIMIT 0,30"; //$NON-NLS-1$ //$NON-NLS-2$
 							
 							ConectarDBA.acceder(); // Conectamos con la base de datos
 							
@@ -412,7 +413,7 @@ public class UsuariosPanelNuevo extends JPanel {
 							
 						} catch (SQLException e1) {
 							
-							JOptionPane.showMessageDialog(null,"El código postal no pertenece a ningún municipio");
+							JOptionPane.showMessageDialog(null,Idioma.getString("etPostalCodeUnmatch")); //$NON-NLS-1$
 						}
 
 						
@@ -489,8 +490,8 @@ public class UsuariosPanelNuevo extends JPanel {
 			comboTipo = new JComboBox();
 			comboTipo.setBounds(new Rectangle(634, 250, 115, 27));
 			
-			comboTipo.addItem("Administrador");
-			comboTipo.addItem("Trabajador");
+			comboTipo.addItem(Idioma.getString("etAdmin")); //$NON-NLS-1$
+			comboTipo.addItem(Idioma.getString("etWorker")); //$NON-NLS-1$
 			
 		}
 		return comboTipo;
@@ -517,7 +518,7 @@ public class UsuariosPanelNuevo extends JPanel {
 						try {
 							
 							String poblacion = comboPoblacion.getSelectedItem().toString();
-							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND poblacion = '"+ poblacion +"' LIMIT 0,30";
+							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND poblacion = '"+ poblacion +"' LIMIT 0,30"; //$NON-NLS-1$ //$NON-NLS-2$
 							
 							ConectarDBA.acceder(); // Conectamos con la base de datos
 							
@@ -534,7 +535,7 @@ public class UsuariosPanelNuevo extends JPanel {
 							
 						} catch (SQLException e1) {
 							
-							JOptionPane.showMessageDialog(null,"El código postal no pertenece a ningún municipio");
+							JOptionPane.showMessageDialog(null,Idioma.getString("etPostalCodeUnmatch")); //$NON-NLS-1$
 						}
 
 						
