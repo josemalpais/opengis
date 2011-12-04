@@ -97,45 +97,45 @@ public class UsuariosDAO {
 	public static void comprobarUsuario(String dni) throws SQLException {
 
 		ConectarDBA.acceder();
-		String sentencia = "SELECT `dni` FROM `usuario` WHERE `dni` LIKE '"
-				+ dni + "'";
+		String sentencia = "SELECT `dni` FROM `usuario` WHERE `dni` LIKE '" //$NON-NLS-1$
+				+ dni + "'"; //$NON-NLS-1$
 		ResultSet rs = ConectarDBA.consulta(sentencia);
 		resultado = new String();
 		activo = false;
 		while (rs.next()) {
-			System.out.println("Ejecuto el while");
+			System.out.println("Ejecuto el while"); //$NON-NLS-1$
 
 			resultado = rs.getString(1);
 			System.out.println(resultado);
 
 		}
 
-		System.out.println("Enviado: " + dni + " esperado: "
+		System.out.println("Enviado: " + dni + " esperado: " //$NON-NLS-1$ //$NON-NLS-2$
 				+ resultado.toString());
 		if (resultado == null) {
 			existe = false;
-			System.out.println("El estado de existe es: " + existe);
+			System.out.println("El estado de existe es: " + existe); //$NON-NLS-1$
 		} else if (resultado.equals(dni)) {
 			existe = true;
 
-			System.out.println("El estado de existe es: " + existe);
+			System.out.println("El estado de existe es: " + existe); //$NON-NLS-1$
 		}
 
 		rs.close();
 
-		String sentencia2 = "SELECT `activo` FROM `usuario` WHERE `dni` LIKE '"
-				+ dni + "'";
+		String sentencia2 = "SELECT `activo` FROM `usuario` WHERE `dni` LIKE '" //$NON-NLS-1$
+				+ dni + "'"; //$NON-NLS-1$
 		ResultSet rs2 = ConectarDBA.consulta(sentencia2);
 		activo = false;
 		while (rs2.next()) {
-			System.out.println("Ejecuto el segundo While");
+			System.out.println("Ejecuto el segundo While"); //$NON-NLS-1$
 			activo = rs2.getBoolean(1);
 		}
 		if (activo == false) {
 			activo = true;
 		}
 		rs2.close();
-		System.out.println("El estado de activo es: " + activo);
+		System.out.println("El estado de activo es: " + activo); //$NON-NLS-1$
 		// System.out.println("Ejecutada sentencia "+sentencia);
 
 	}
@@ -144,7 +144,7 @@ public class UsuariosDAO {
 			throws SQLException {
 		ResultSet rs = null;
 		ConectarDBA.acceder();
-		String sentencia = "SELECT `dni` , `nombre` , `apellidos` , `dirección` , `población` , `provincia` , `cp` , `teléfono` , `email` , `fecha_nacimiento` , `tipo` , `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
+		String sentencia = "SELECT `dni` , `nombre` , `apellidos` , `dirección` , `población` , `provincia` , `cp` , `teléfono` , `email` , `fecha_nacimiento` , `tipo` , `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 		try {
 			rs = ConectarDBA.consulta(sentencia);
 		} catch (SQLException e) {
@@ -174,37 +174,37 @@ public class UsuariosDAO {
 
 		if (existe == true) {
 
-			JOptionPane.showMessageDialog(null, "El DNI ya existe");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgIDExists")); //$NON-NLS-1$
 
 		} else {
-			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"
+			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('" //$NON-NLS-1$
 					+ this.Dni
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.Nombre
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.Apellidos
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.email
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.Contraseña
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.tipo
-					+ "', '0', '"
+					+ "', '0', '" //$NON-NLS-1$
 					+ this.Telefono
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.Direccion
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.Poblacion
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.Provincia
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.Cp
-					+ "', '"
-					+ this.Fecha_nac + "', '0')";
+					+ "', '" //$NON-NLS-1$
+					+ this.Fecha_nac + "', '0')"; //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
-					"Se ha dado de alta el nuevo usuario");
+					Idioma.getString("msgNewUserSuccess")); //$NON-NLS-1$
 
 		}
 
@@ -224,16 +224,16 @@ public class UsuariosDAO {
 		comprobarUsuario(this.Dni);
 		if (existe == true) {
 
-			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '"
-					+ this.Dni + "'";
+			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '" //$NON-NLS-1$
+					+ this.Dni + "'"; //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
-					"Usuario eliminado correctamente");
+					Idioma.getString("msgUserInactiveSuccedd")); //$NON-NLS-1$
 
 		} else {
 
-			JOptionPane.showMessageDialog(null, "El usuario no existe");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgUserNotExist")); //$NON-NLS-1$
 		}
 
 		ConectarDBA.cerrarCon();
@@ -249,35 +249,35 @@ public class UsuariosDAO {
 			// this.Dni +"', '" + this.Nombre + "','" + this.Apellidos +"','" +
 			// this.Telefono +"','" + this.Direccion +"','" + this.Poblacion +
 			// "','" + this.Fecha_nac +"', '0')";
-			String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '"
+			String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" //$NON-NLS-1$
 					+ this.Nombre
-					+ "', `Apellidos` = '"
+					+ "', `Apellidos` = '" //$NON-NLS-1$
 					+ this.Apellidos
-					+ "', `Teléfono` = '"
+					+ "', `Teléfono` = '" //$NON-NLS-1$
 					+ this.Telefono
-					+ "',`Dirección` = '"
+					+ "',`Dirección` = '" //$NON-NLS-1$
 					+ this.Direccion
-					+ "',`Población` = '"
+					+ "',`Población` = '" //$NON-NLS-1$
 					+ this.Poblacion
-					+ "',`fecha_nacimiento` = '"
+					+ "',`fecha_nacimiento` = '" //$NON-NLS-1$
 					+ this.Fecha_nac
-					+ "',`password` = '"
+					+ "',`password` = '" //$NON-NLS-1$
 					+ this.Contraseña
-					+ "',`Provincia` = '"
+					+ "',`Provincia` = '" //$NON-NLS-1$
 					+ this.Provincia
-					+ "',`Cp` = '"
+					+ "',`Cp` = '" //$NON-NLS-1$
 					+ this.Cp
-					+ "',`tipo` = '"
+					+ "',`tipo` = '" //$NON-NLS-1$
 					+ this.tipo
-					+ "',`email`='"
-					+ this.email + "' WHERE `dni` LIKE '" + this.Dni + "'";
-			System.out.println("por ahora funciona");
+					+ "',`email`='" //$NON-NLS-1$
+					+ this.email + "' WHERE `dni` LIKE '" + this.Dni + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+			System.out.println("por ahora funciona"); //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
-			JOptionPane.showMessageDialog(null, "Se ha modificado el usuario");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgUserChanged")); //$NON-NLS-1$
 
 		} else {
 
-			JOptionPane.showMessageDialog(null, "El DNI no existe");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgIdNotExists")); //$NON-NLS-1$
 
 		}
 		ConectarDBA.cerrarCon();
@@ -287,10 +287,10 @@ public class UsuariosDAO {
 		System.out.println(dni);
 		comprobarUsuario(dni);
 		if (existe == true && activo == true) {
-			String sentencia = "UPDATE `usuario` SET `activo` = '1' WHERE `dni` LIKE '"
-					+ dni + "'";
+			String sentencia = "UPDATE `usuario` SET `activo` = '1' WHERE `dni` LIKE '" //$NON-NLS-1$
+					+ dni + "'"; //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
-			JOptionPane.showMessageDialog(null, "Se ha desactivado el usuario");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgUserDisabled")); //$NON-NLS-1$
 		}
 	}
 	
@@ -298,10 +298,10 @@ public class UsuariosDAO {
 		System.out.println(dni);
 		comprobarUsuario(dni);
 		if (existe == true && activo == true) {
-			String sentencia = "UPDATE `usuario` SET `activo` = '0' WHERE `dni` LIKE '"
-					+ dni + "'";
+			String sentencia = "UPDATE `usuario` SET `activo` = '0' WHERE `dni` LIKE '" //$NON-NLS-1$
+					+ dni + "'"; //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
-			JOptionPane.showMessageDialog(null, "Se ha activado el usuario");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgUserEnabled")); //$NON-NLS-1$
 		}
 	}
 
