@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 
+import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 
 import java.awt.Font;
@@ -49,11 +50,16 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JComboBox comboPoblacion = null;
 	private JLabel lblPass2 = null;
 	private JPasswordField txtPass2 = null;
+	private String accion;
+	
+	
 	/**
-	 * This is the default constructor
+	 * Constructor del Panel de gestión de Usuarios. En caso de que la acción sea "modificar" el panel 
+	 * se utilizará para modificar. En caso de que la acción sea "alta" el panel se utilizará como altas.
 	 */
-	public UsuariosPanelNuevo() {
+	public UsuariosPanelNuevo(String accion) {
 		super();
+		this.accion = accion;
 		initialize();
 	}
 
@@ -152,7 +158,48 @@ public class UsuariosPanelNuevo extends JPanel {
 			bGuardar.setToolTipText("Guardar Nuevo Usuario");
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					
+					
+					if(accion.equals("alta")){
+					
+						char[] contra = txtPass.getPassword();
+						String pass = new String(contra);
+	
+						char[] contra2 = txtPass2.getPassword();
+						String pass2 = new String(contra2);
+	
+						if (pass.equals(pass2)) {
+							
+	
+							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre
+									.getText(), txtApellidos.getText(), txtTelefono
+									.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),
+									txtProvincia.getText(), txtCP.getText(), txtFechaNac
+											.getText(), pass, comboTipo
+											.getSelectedItem().toString()
+											.toLowerCase(), txteMail.getText());
+							u.validarDatos();
+							if (u.getValido()) {
+								try {
+									u.crearUsuario();
+								} catch (SQLException e1) {
+									// TODO Auto-generated catch block
+									JOptionPane.showMessageDialog(null,"El DNI ya existe en la base de datos");
+								}
+	
+							}
+	
+						} else {
+	
+							JOptionPane.showMessageDialog(null,
+									"Error. Las contraseñas no coinciden");
+	
+						}
+					}else{
+						
+						// Aquí modificar
+						
+					}
 				}
 			});
 		}
@@ -184,6 +231,7 @@ public class UsuariosPanelNuevo extends JPanel {
 					txtTelefono.setText("");
 					txteMail.setText("");
 					txtPass.setText("");
+					txtPass2.setText("");
 					
 					
 				}
@@ -388,6 +436,7 @@ public class UsuariosPanelNuevo extends JPanel {
 			comboPoblacion.setBounds(new Rectangle(634, 142, 116, 27));
 			comboPoblacion.setEditable(true);
 			comboPoblacion.setFocusable(true);
+			comboPoblacion.addItem(" ");
 			comboPoblacion.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					
