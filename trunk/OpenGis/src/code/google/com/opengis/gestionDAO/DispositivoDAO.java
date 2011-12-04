@@ -142,8 +142,8 @@ public class DispositivoDAO {
 
 	public static void borrarDispositivo(String id) throws SQLException {
 		int confirmado = JOptionPane.showConfirmDialog(null,
-				"¿Dar de baja el dispositivo seleccionado?");
-		if (JOptionPane.OK_OPTION == confirmado) {
+				"¿Dar de baja el dispositivo seleccionado?","",JOptionPane.YES_NO_OPTION);
+		if (JOptionPane.YES_OPTION == confirmado) {
 			if (comprobarDispositivo(id) == true) {
 				try {
 					// compruebo si el dispositivo está activo
@@ -159,12 +159,12 @@ public class DispositivoDAO {
 						JOptionPane.showMessageDialog(null,
 								"El dispositivo ya estaba desactivado.");
 					} else {
-						String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '0', `disponible` = '0' WHERE `dispositivo`.`iddispositivo` ="
+						String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '1', `disponible` = '1' WHERE `dispositivo`.`iddispositivo` ="
 								+ id;
 						ConectarDBA.modificar(sentencia);
 						JOptionPane
 								.showMessageDialog(null,
-										"Dispositivo modificado correctamente. Se ha desactivado el dispositivo.");
+										"El Dispositivo se ha desactivado correctamente");
 					}
 				} catch (SQLException e) {
 					System.out.println(e.getMessage());
@@ -197,7 +197,7 @@ public class DispositivoDAO {
 					JOptionPane.showMessageDialog(null,
 							"El dispositivo ya estaba activado.");
 				} else {
-					String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '0' WHERE `dispositivo`.`iddispositivo` ="
+					String sentencia = "UPDATE `dai2opengis`.`dispositivo` SET `activo` = '0',`disponible` = '0' WHERE `dispositivo`.`iddispositivo` ="
 							+ id;
 					ConectarDBA.modificar(sentencia);
 					JOptionPane
@@ -328,7 +328,7 @@ public class DispositivoDAO {
 	public static ResultSet buscarDispositivo(String criterio) {
 		ResultSet rs = null;
 		ConectarDBA.acceder();
-		String sentencia = "SELECT * FROM `dispositivo` WHERE  iddispositivo LIKE '%"+criterio+"%' OR modelo LIKE '%"+criterio+"%' OR num_serie LIKE '%"+criterio+"%'";
+		String sentencia = "SELECT * FROM `dispositivo` WHERE  iddispositivo LIKE '%"+criterio+"%' OR modelo LIKE '%"+criterio+"%' OR num_serie LIKE '%"+criterio+"%' ORDER BY iddispositivo";
 		try {
 			rs = ConectarDBA.consulta(sentencia);
 		} catch (SQLException e) {

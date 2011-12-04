@@ -102,6 +102,23 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 	public void eliminar(){
 		
 		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rDisp = new String[5];
+
+			for (int i = 0; i < rDisp.length; i++) {
+				rDisp[i] = getTablaPrincipal()
+						.getValueAt(fila, i).toString();
+			}
+			try {
+				DispositivoDAO.borrarDispositivo(rDisp[0]);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+		}
+		
+		
 	}
 	
 	

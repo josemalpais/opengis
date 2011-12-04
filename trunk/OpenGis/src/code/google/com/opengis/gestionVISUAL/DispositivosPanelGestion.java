@@ -153,7 +153,23 @@ public class DispositivosPanelGestion extends JPanel {
 
 				if(accion=="modificar"){
 					
-					// Aquí el metodo para modificar
+					if (Dispositivo.validarDatos(txtModelo.getText(),
+							txtNumSerie.getText()) == true) {
+
+						try {
+							DispositivoDAO.modificarDispositivo(
+									txtID.getText(),
+									txtModelo.getText(), txtNumSerie.getText());
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					
+					}else {
+						JOptionPane
+						.showMessageDialog(
+								null,
+								"Datos incorrectos. El número de Serie ha de tener entre 10 y 30 caracteres, y el modelo no ha de sobrepasar los 15 caracteres.");
+			}
 					
 				}else{
 					
@@ -192,7 +208,7 @@ public class DispositivosPanelGestion extends JPanel {
 						if ((paso1 == true) && (paso2 == true)) {
 							try {
 								DispositivoDAO.altaDispositivo(numID,
-										txtModelo.getText(), numeroSerie,1,1);
+										txtModelo.getText(), numeroSerie,0,0);
 								
 
 							}
@@ -205,6 +221,7 @@ public class DispositivosPanelGestion extends JPanel {
 				}
 				
 			}
+				
 			});
 		}
 
