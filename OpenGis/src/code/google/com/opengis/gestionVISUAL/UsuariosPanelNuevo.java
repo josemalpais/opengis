@@ -230,7 +230,34 @@ public class UsuariosPanelNuevo extends JPanel {
 					}else{
 						
 						
-						// Aquí modificar
+						// Aquí entraremos cuando la acción declarada sea modificar
+						
+						char[] contra = txtPass.getPassword();
+						String pass = new String(contra);
+
+						char[] contra2 = txtPass2.getPassword();
+						String pass2 = new String(contra2);
+
+						if (pass.equals(pass2)) {
+							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre
+									.getText(), txtApellidos.getText(), txtTelefono
+									.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),
+									txtProvincia.getText(), txtCP.getText(), txtFechaNac
+											.getText(), pass, comboTipo
+											.getSelectedItem().toString()
+											.toLowerCase(), txteMail.getText());
+							u.validarDatos();
+
+							if (u.getValido()) {
+								u.modificarUsuario();
+
+							}
+						} else {
+
+							JOptionPane.showMessageDialog(null,
+									"Error. Las contraseñas no coinciden");
+
+						}
 						
 					}
 				}
