@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestionDAO.Idioma;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 
@@ -148,7 +149,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			
 			if(rUser[11].toString().equals("Inactivo")){
 				
-				int resp = JOptionPane.showConfirmDialog(null,"El usuario con DNI " + rUser[0] + " está inactivo. ¿Desea activarlo?");
+				int resp = JOptionPane.showConfirmDialog(this,"El usuario con DNI " + rUser[0] + " está inactivo. ¿Desea activarlo?","",JOptionPane.YES_NO_OPTION);
 				
 				if(resp==0){
 					
