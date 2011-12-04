@@ -55,7 +55,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 */
 	public JTextField getTxtCriterioBusqueda() {
 		if (txtCriterioBusqueda == null) {
-			txtCriterioBusqueda = new JTextField("Inserte critério de búsqueda...");
+			txtCriterioBusqueda = new JTextField("Inserte criterio de búsqueda...");
 			txtCriterioBusqueda.setBounds(new Rectangle(267, 48, 284, 32));
 			txtCriterioBusqueda.setSelectedTextColor(new Color(204, 204, 204));
 			txtCriterioBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
