@@ -16,15 +16,17 @@ public class ProductoDAO {
 	private String descripcion;
 	private String nomtarea;
 	private String dosis;
+	private String dni;
 	
 //CONSTRUCTOR
-	public ProductoDAO(int idprod, String nombre, String descripcion, String nomtarea, String dosis){
+	public ProductoDAO(int idprod, String nombre, String descripcion, String nomtarea, String dosis, String dni){
 	
 	this.idprod=idprod;
 	this.nombre=nombre;
 	this.descripcion=descripcion;
 	this.nomtarea =nomtarea;
 	this.dosis=dosis;
+	this.dni=dni;
 	}
 
 //METODOS
@@ -32,7 +34,7 @@ public class ProductoDAO {
 	
 	//metodo modificar
 	public void modificarProducto() throws SQLException{
-		String sentencia = "UPDATE `producto` SET `nombre`='"+ this.nombre +"',`descripcion`='"+ this.descripcion +"',`nomtarea`='"+ this.nomtarea +"',`dosis`='"+ this.dosis +"' WHERE `idprod` = '"+ this.idprod + "'";
+		String sentencia = "UPDATE `producto` SET `nombre`='"+ this.nombre +"',`descripcion`='"+ this.descripcion +"',`nomtarea`='"+ this.nomtarea +"',`dosis`='"+ this.dosis +"',`dni`='"+this.dni+"' WHERE `idprod` = '"+ this.idprod + "'";
 		ConectarDBA.modificar(sentencia);	
 		JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
 		
@@ -41,14 +43,14 @@ public class ProductoDAO {
 	//metodo para hacer la sentencia que crea productos
 	public void altaProducto() throws SQLException{
 
-			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "')";
+			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`, `dni`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "','"+this.dni+"')";
 			ConectarDBA.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
 		
 		
 	}
 	
-	//metodo para hacer la sentencia que oculta
+	//metodo para desactivar un producto
 	public void desactivarProducto() throws SQLException {
 
 			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"+ this.idprod + "'";
@@ -56,7 +58,14 @@ public class ProductoDAO {
 			JOptionPane.showMessageDialog(null,"Producto dado de baja correctamente");
 
 	}
-	
+	//metodo para activar un producto
+	public void activarProducto() throws SQLException {
+
+			String sentencia = "UPDATE producto SET `activo` = '1' , WHERE `idprod` = '"+ this.idprod + "'";
+			ConectarDBA.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,"Producto dado de alta correctamente");
+
+	}
 	
 	public static ResultSet buscar(String salida, String criterio) {
         ResultSet rs = null;
