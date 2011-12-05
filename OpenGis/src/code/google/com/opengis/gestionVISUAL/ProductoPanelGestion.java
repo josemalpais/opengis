@@ -9,14 +9,11 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 
 import code.google.com.opengis.gestion.Producto;
-import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
@@ -184,9 +181,23 @@ private JButton getBRestablecer() {
 				txtareaDescripcion.setText(""); //$NON-NLS-1$
 				chkActivo.setSelected(false); //$NON-NLS-1$
 				comboTipo.removeAllItems();
-				
-			
-				
+				try { 
+	           	 	ConectarDBA.acceder();
+	                ResultSet rs = ConectarDBA.consulta("SELECT MAX(idprod) FROM producto");
+	                Integer idprod;
+	                
+	                rs.next();
+	                idprod = rs.getInt(1);
+	                
+	                if(idprod==null){
+	               	 
+	               	 idprod = 0;
+	               	 
+	                }
+	                txtIdprod.setText(idprod+1+"");
+	            } catch (SQLException e2) {
+	                System.out.println(e2.getMessage());
+	            }
 			}
 		});
 	}
