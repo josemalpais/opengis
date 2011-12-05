@@ -45,6 +45,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 		private JLabel lblSalir = null;
 		private static JTabbedPane tabsPaneles = null;
 		
+		private String dniUsuario;
 		private char tipoUsuario;
 		private JButton bCerrarPestaña = null;
 
@@ -53,7 +54,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     	 * Constructor de la VentanaPrincipal. Dependiendo del tipo de usuario cargará
     	 * unos botones u otros.
     	 */
-    	public VentanaPrincipal(char tipoDeUsuario){
+    	public VentanaPrincipal(char tipoDeUsuario, String dni){
     		super();
 		initialize();
     		
@@ -61,7 +62,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
     		 * Dependiendo del tipo de usuario que sea cargaremos unas funciones u otras
     		 * 
     		 */
-    		
+    		this.dniUsuario = dni;
+    		System.out.println(dniUsuario);
     		if (tipoDeUsuario == 'a'){ 
     			
     			this.tipoUsuario = 'a';
