@@ -135,10 +135,12 @@ private JButton getBGuardar() {
 		bGuardar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				
+			
 			}
 
-		}
+		});
 	}
+	return bGuardar;
 }
 
 
