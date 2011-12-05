@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.DispositivoDAO;
+import code.google.com.opengis.gestionDAO.Idioma;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 
@@ -13,8 +14,8 @@ import code.google.com.opengis.gestionDAO.UsuariosDAO;
 public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 
-	static Object[] nombreColumna = { "ID", "Modelo", "Número de Serie",
-		"Disponible", "Activo"};
+	static Object[] nombreColumna = { Idioma.getString("etId"), Idioma.getString("etModel"), Idioma.getString("etSerialNumber"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Idioma.getString("etAvailabe"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	
 	public DispositivosPanelPrincipal(){
@@ -51,10 +52,10 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 				
 				for (int i2 = 0; i2 < registro.length; i2++) {
 
-					if (registro[i2].toString().equals("true")) {
-						registro[i2] = "Inactivo";
-					} else if (registro[i2].toString().equals("false")) {
-						registro[i2] = "Activo";
+					if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
+						registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
+					} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+						registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
 					}
 					//System.out.println(registro[i2]);
 				}
@@ -77,8 +78,8 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public void nuevo(){
 		
-		DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("alta");
-		VentanaPrincipal.añadirPestañaNueva("Nuevo Dispositivo",panelNuevo); // Añadimos el panel a la pestaña
+		DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("alta"); //$NON-NLS-1$
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewDevice"),panelNuevo); // Añadimos el panel a la pestaña //$NON-NLS-1$
 	}
 	
 	public void modificar(){
@@ -92,8 +93,8 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 			
 		
-		DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("modificar",rDisp[0].toString(),rDisp[1].toString(),rDisp[2].toString());
-		VentanaPrincipal.añadirPestañaNueva("Modificar Dispositivo",panelNuevo); // Añadimos el panel a la pestaña
+		DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("modificar",rDisp[0].toString(),rDisp[1].toString(),rDisp[2].toString()); //$NON-NLS-1$
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModDevice"),panelNuevo); // Añadimos el panel a la pestaña //$NON-NLS-1$
 	
 		}
 		
@@ -133,9 +134,9 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 		
 			
-			if(rDispo[4].toString().equals("Inactivo")){
+			if(rDispo[4].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
 				
-				int resp = JOptionPane.showConfirmDialog(this,"El apero con ID " + rDispo[0] + " está inactivo. ¿Desea activarlo?","",JOptionPane.YES_NO_OPTION);
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgDeviceWithID") + rDispo[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
 				if(resp==0){
 					
