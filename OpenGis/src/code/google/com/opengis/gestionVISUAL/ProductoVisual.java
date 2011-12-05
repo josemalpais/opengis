@@ -46,6 +46,7 @@ public class ProductoVisual extends JInternalFrame {
         private static JTextField txtNombre;
         private static JTextField txtDosis;
         private static JTextField txtBuscar;
+        private static JTextField txtDni;
         
         private static JTextArea txtDescripcion;
         
@@ -374,7 +375,7 @@ public void principalProducto(Container pane){
                         }else{
                         	variableint=1;
                         }**/
-                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbDosis.getSelectedItem().toString(), txtDosis.getText());        
+                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbDosis.getSelectedItem().toString(), txtDosis.getText(), txtDni.getText());        
                         p.validarDatos();
                         if (p.getCorrecto()) {
 							p.crearProducto();
