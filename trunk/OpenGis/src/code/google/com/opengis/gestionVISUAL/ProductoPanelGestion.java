@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 
 import javax.swing.JLabel;
 import java.awt.Rectangle;
+
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -51,9 +53,9 @@ public class ProductoPanelGestion extends JPanel {
 	private String tipo;
 	private String dosis;
 	private String dni;
-	private int activo;
+	private Icon activo;
  	 
-public ProductoPanelGestion (int idprod, String nombre, String descripcion, String tipo, String dosis, String dni, int activo, String accion){
+public ProductoPanelGestion (int idprod, String nombre, String descripcion, String tipo, String dosis, String dni, Icon activo, String accion){
 	super();
 	this.idprod=idprod;
 	this.nombre=nombre;
@@ -115,7 +117,7 @@ private void initialize() {
 	this.add(lblObligtorios, null);
 	
 	this.add(getBGuardar(), null);
-	/this.add(getBRestablecer(), null);
+	this.add(getBRestablecer(), null);
 	
 	this.add(gettxtIdprod(), null);
 	this.add(gettxtNombre(), null);
@@ -143,15 +145,93 @@ private JButton getBGuardar() {
 	return bGuardar;
 }
 
+private JButton getBRestablecer() {
+	if (bRestablecer == null) {
+		bRestablecer = new JButton();
+		bRestablecer.setBounds(new Rectangle(122, 314, 53, 45));
+		bRestablecer.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png"))); 
+		bRestablecer.setToolTipText(Idioma.getString("etCleanFields")); 
+		bRestablecer.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				
+				
+				if(accion!="modificar"){
+				
+				
+					
+				}
+				
+			
+				
+			}
+		});
+	}
+	return bRestablecer;
+}
 
 
 
+private JTextField gettxtIdprod() {
+	if (txtIdprod == null) {
+		txtIdprod = new JTextField(dni);
+		txtIdprod.setBounds(new Rectangle(123, 33, 143, 27));
+		
+		if(accion=="modificar"){ //$NON-NLS-1$
+			
+			txtIdprod.setEnabled(false);
+		}
+		
+	}
+	return txtIdprod;
+}
+private JTextField gettxtNombre() {
+	if (txtNombre == null) {
+		txtNombre = new JTextField(nombre);
+		txtNombre.setBounds(new Rectangle(123, 86, 143, 27));
+	}
+	return txtNombre;
+}
 
+private JCheckBox getchkActivo() {
+	if (chkActivo == null) {
+		chkActivo = new JCheckBox(activo);
+		chkActivo.setBounds(new Rectangle(358, 86, 115, 27));
+	}
+	return chkActivo;
+}
+private JComboBox getcomboTipo() {
+	if (comboTipo == null) {
+		comboTipo = new JComboBox();
+		comboTipo.setBounds(new Rectangle(123, 139, 143, 27));
+		
+		comboTipo.addItem(Idioma.getString("etAdmin")); //$NON-NLS-1$
+		comboTipo.addItem(Idioma.getString("etWorker")); //$NON-NLS-1$
+		
+	}
+	return comboTipo;
+}
+private JTextField gettxtDosis() {
+	if (txtDosis == null) {
+		txtDosis = new JTextField(dosis);
+		txtDosis.setBounds(new Rectangle(358, 139, 115, 27));
+	}
+	return txtDosis;
+}
 
-
-
-
-
+private JTextField gettxtDni() {
+	if (txtDni == null) {
+		txtDni = new JTextField(dni);
+		txtDni.setBounds(new Rectangle(123, 194, 143, 27));
+	}
+	return txtDni;
+}
+private JTextArea gettxtareaDescripcion() {
+	if (txtareaDescripcion == null) {
+		txtareaDescripcion = new JTextArea(descripcion);
+		txtareaDescripcion.setBounds(new Rectangle(358, 194, 115, 27));
+	}
+	return txtareaDescripcion;
+}
 
 }
 
