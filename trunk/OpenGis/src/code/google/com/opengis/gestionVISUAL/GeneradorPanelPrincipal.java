@@ -7,11 +7,15 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import code.google.com.opengis.gestion.Parcela;
 
 public class GeneradorPanelPrincipal extends JPanel {
 
@@ -197,13 +201,10 @@ public class GeneradorPanelPrincipal extends JPanel {
 			bEliminar.setBounds(new Rectangle(186, 316, 55, 47));
 			bEliminar.setToolTipText("Eliminar");
 			bEliminar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Eliminar.png"));
-			
 			bEliminar.setEnabled(false);
 			bEliminar.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
 					eliminar();
-					
 				}
 			});
 		}
@@ -216,9 +217,31 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 * 
 	 */
 	
+	public void rellenarTabla(String criterio,String[]columnas, Object[]filax){
+		
+			try {
+				int x=0;
+				int y=0;
+				modelo.setColumnCount(0);
+					modelo.setRowCount(0);
+					modelo.setColumnIdentifiers(columnas);
+				
+					ResultSet rs = Parcela.buscar(criterio);
+					while (rs.next()) {
+						Object[]fila =filax;
+						modelo.addRow(fila);
+					}
+					rs.close();		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	
+	
+	
 	public void buscar(){
-		
-		
 		
 	}
 	
