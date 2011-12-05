@@ -51,7 +51,7 @@ public class ProductoVisual extends JInternalFrame {
         private static JTextArea txtDescripcion;
         
         private static JLabel lblDosis;
-        private static JComboBox cmbDosis;
+        private static JComboBox comboTipo;
         private static String[] tipo = {"Líquido", "Granulado", "Polvo"};
          private static JCheckBox chkActivo;
        
@@ -233,7 +233,7 @@ public void principalProducto(Container pane){
          txtNombre= new JTextField();
          txtDosis= new JTextField();
      txtDescripcion= new JTextArea();
-     cmbDosis= new JComboBox();
+     comboTipo= new JComboBox();
    
     // chkActivo= new JCheckBox();
      
@@ -313,13 +313,13 @@ public void principalProducto(Container pane){
         pane.add(label,c);
  
         
-        cmbDosis= new JComboBox(tipo);
+        comboTipo= new JComboBox(tipo);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx= 4;
         c.gridy= 0;
-        cmbDosis.addActionListener(new ActionListener(){
+        comboTipo.addActionListener(new ActionListener(){
         	public void actionPerformed (ActionEvent e){
-        		int selIndex = cmbDosis.getSelectedIndex();
+        		int selIndex = comboTipo.getSelectedIndex();
         			switch (selIndex){
         			case 0:
         				lblDosis.setText("Dosis (l/ha):");
@@ -333,7 +333,7 @@ public void principalProducto(Container pane){
         			}
         	}
         });
-        pane.add(cmbDosis, c);
+        pane.add(comboTipo, c);
  
         label= new JLabel("Activo");
         c.fill=GridBagConstraints.HORIZONTAL ;
@@ -359,7 +359,7 @@ public void principalProducto(Container pane){
                         }else{
                         	variableint=1;
                         }
-                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbDosis.getSelectedItem().toString(), txtDosis.getText(), txtDni.getText(), variableint);        
+                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), comboTipo.getSelectedItem().toString(), txtDosis.getText(), txtDni.getText(), variableint);        
                         p.validarDatos();
                         if (p.getCorrecto()) {
 							p.crearProducto();
