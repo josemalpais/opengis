@@ -305,7 +305,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bAperos.setBounds(new Rectangle(407, 33, 63, 58));
     			bAperos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/apero.png")); //$NON-NLS-1$
     			bAperos.setToolTipText(Idioma.getString("etImplementsMng")); //$NON-NLS-1$
-    			bParcelas.addActionListener(new java.awt.event.ActionListener() {
+    			bAperos.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					bCerrarPestaña.setVisible(true);
 
@@ -316,7 +316,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
     							AperosPanelPrincipal panelNuevo = new AperosPanelPrincipal();
     						
-    							tabsPaneles.addTab("Gestión Aperos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.addTab("Gestión de Aperos",panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
