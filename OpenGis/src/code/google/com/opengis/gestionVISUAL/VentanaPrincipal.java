@@ -252,7 +252,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     					
     					bCerrarPestaña.setVisible(true);
 
-    						
+    						System.out.println("aaaaaaaa");
     						int numPestañas = tabsPaneles.getTabCount();
     						
     						if (numPestañas <10) {
@@ -287,7 +287,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bProductos.setBounds(new Rectangle(501, 33, 63, 58));
     			bProductos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/producto.png")); //$NON-NLS-1$
     			bProductos.setToolTipText(Idioma.getString("etProductsMng")); //$NON-NLS-1$
-    		
+    			
     		}
     		return bProductos;
     	}
@@ -303,6 +303,29 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bAperos.setBounds(new Rectangle(407, 33, 63, 58));
     			bAperos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/apero.png")); //$NON-NLS-1$
     			bAperos.setToolTipText(Idioma.getString("etImplementsMng")); //$NON-NLS-1$
+    			bParcelas.addActionListener(new java.awt.event.ActionListener() {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					bCerrarPestaña.setVisible(true);
+
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							AperosPanelPrincipal panelNuevo = new AperosPanelPrincipal();
+    						
+    							tabsPaneles.addTab("Gestión Aperos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+							
+        					
+    				}
+    			});
     		
     		}
     		return bAperos;

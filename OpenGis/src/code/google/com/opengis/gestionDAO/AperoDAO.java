@@ -134,5 +134,20 @@ public class AperoDAO {
 				
 			}
 			dba.cerrarCon();
-		}		 
+		}
+		public static ResultSet buscarApero(String criterio)
+				throws SQLException {
+			ResultSet rs = null;
+			ConectarDBA.acceder();
+			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario` FROM `apero` WHERE idapero LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR tamaño LIKE '%"+criterio+"%' OR descripcion LIKE '%"+criterio+"%' OR idtarea LIKE '%"+criterio+"%' OR dni_usuario LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+			try {
+				rs = ConectarDBA.consulta(sentencia);
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+			return rs;
+
+			// System.out.println("Ejecutada sentencia "+sentencia);
+
+		}
 }
