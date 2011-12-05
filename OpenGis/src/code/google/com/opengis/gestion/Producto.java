@@ -14,10 +14,12 @@ public class Producto {
 	private String nomtarea;
 	private String dosis;
 	private String dni;
+	private int activo;
 	private ProductoDAO x;
 	private Boolean correcto;
+	
 //CONSTRUCTOR
-	public Producto(int idprod, String nombre,String descripcion,String nomtarea, String dosis, String dni) {
+	public Producto(int idprod, String nombre,String descripcion,String nomtarea, String dosis, String dni, int activo) {
 		
 	this.idprod=idprod;
 	this.nombre=nombre;
@@ -25,6 +27,7 @@ public class Producto {
 	this.nomtarea=nomtarea;
 	this.dosis=dosis;
 	this.dni=dni;
+	this.activo=activo;
 	this.correcto = false;
 	}
 	
@@ -80,6 +83,13 @@ public class Producto {
 	public void setDni(String dni){
 		this.dni=dni;
 	}
+	//activo
+	public int getActivo(){
+		return activo;
+	}
+	public void setActivo(int activo){
+		this.activo=activo;
+	}
 //Datos correctos
 	public Boolean getCorrecto(){
 		
@@ -88,7 +98,7 @@ public class Producto {
 	}
 //Enlazar Producto con ProductoDAO, cadena de metodos.	
 	public void crearProducto() {
-	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni);
+	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
 		try {
 			x.altaProducto();			
 		} catch (SQLException e) {
@@ -99,7 +109,7 @@ public class Producto {
 //modif
 	
 	public void editarProducto() {
-		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni);
+		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
 			try {
 				x.modificarProducto();			
 			} catch (SQLException e) {
@@ -109,7 +119,7 @@ public class Producto {
 		}
 //bajas 
 	public void bajasProducto(){
-		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni);
+		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
 		try {
 			x.desactivarProducto();			
 		} catch (SQLException e) {
