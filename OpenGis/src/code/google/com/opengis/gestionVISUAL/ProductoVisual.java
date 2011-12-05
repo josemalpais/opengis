@@ -53,7 +53,7 @@ public class ProductoVisual extends JInternalFrame {
         private static JLabel lblDosis;
         private static JComboBox cmbDosis;
         private static String[] tipo = {"Líquido", "Granulado", "Polvo"};
-        
+         private static JCheckBox chkActivo;
        
         
 public ProductoVisual(){
@@ -200,24 +200,7 @@ public void principalProducto(Container pane){
         	        public void actionPerformed(java.awt.event.ActionEvent e) {                     
         	                          		panelProducto.setVisible(false);
         	                                //cargarModif();                   
-        	            try { 
-        	           	 	ConectarDBA.acceder();
-        	           	 	
-        	                ResultSet rs = ConectarDBA.consulta("SELECT MAX(idprod) FROM producto");
-        	                Integer idprod;
-        	                
-        	                rs.next();
-        	                idprod = rs.getInt(1);
-        	                
-        	                if(idprod==null){
-        	               	 
-        	               	 idprod = 0;
-        	               	 
-        	                }
-        	                txtIdprod.setText(idprod+1+"");
-        	            } catch (SQLException e2) {
-        	                System.out.println(e2.getMessage());
-        	            }                   
+        	            
         	         }
         	        });
          pane.add(cmdModificar, c);
@@ -352,7 +335,7 @@ public void principalProducto(Container pane){
         });
         pane.add(cmbDosis, c);
  
-     /**   label= new JLabel("Activo");
+        label= new JLabel("Activo");
         c.fill=GridBagConstraints.HORIZONTAL ;
         c.gridx=3;
         c.gridy=1;
@@ -362,7 +345,7 @@ public void principalProducto(Container pane){
         c.fill=GridBagConstraints.HORIZONTAL;
         c.gridx = 4;
         c.gridy= 1;
-        pane.add(chkActivo,c);**/
+        pane.add(chkActivo,c);
  
         cmdAceptarAlt = new JButton("Confirmar");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -370,12 +353,13 @@ public void principalProducto(Container pane){
         c.gridy = 5;
         cmdAceptarAlt.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {     
-            /**            if (chkActivo.isSelected()){
+                       int variableint;
+					if (chkActivo.isSelected()){
                         	variableint=0;
                         }else{
                         	variableint=1;
-                        }**/
-                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbDosis.getSelectedItem().toString(), txtDosis.getText(), txtDni.getText());        
+                        }
+                        Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtDescripcion.getText(), cmbDosis.getSelectedItem().toString(), txtDosis.getText(), txtDni.getText(), variableint);        
                         p.validarDatos();
                         if (p.getCorrecto()) {
 							p.crearProducto();
