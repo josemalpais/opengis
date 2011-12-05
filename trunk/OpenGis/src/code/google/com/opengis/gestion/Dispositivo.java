@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 /**
  * 
@@ -42,7 +43,7 @@ public class Dispositivo {
 	 * @return
 	 */
 	public String getModelo() {
-		System.out.println("Dispositivo.modelo = " + this.modelo + ".");
+		System.out.println("Dispositivo.modelo = " + this.modelo + "."); //$NON-NLS-1$ //$NON-NLS-2$
 		return modelo;
 	}
 
@@ -52,7 +53,7 @@ public class Dispositivo {
 	 */
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
-		System.out.println("Dispositivo.modelo (nuevo) = " + this.modelo + ".");
+		System.out.println("Dispositivo.modelo (nuevo) = " + this.modelo + "."); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -60,7 +61,7 @@ public class Dispositivo {
 	 * @return
 	 */
 	public String getNumSerie() {
-		System.out.println("Dispositivo.numSerie = " + this.numSerie + ".");
+		System.out.println("Dispositivo.numSerie = " + this.numSerie + "."); //$NON-NLS-1$ //$NON-NLS-2$
 		return numSerie;
 	}
 
@@ -70,8 +71,8 @@ public class Dispositivo {
 	 */
 	public void setNumSerie(String numSerie) {
 		this.numSerie = numSerie;
-		System.out.println("Dispositivo.numSerie (nuevo) = " + this.numSerie
-				+ ".");
+		System.out.println("Dispositivo.numSerie (nuevo) = " + this.numSerie //$NON-NLS-1$
+				+ "."); //$NON-NLS-1$
 	}
 
 	/**
@@ -109,7 +110,7 @@ public class Dispositivo {
 			this.numSerie = numSerie;
 		} else {
 			JOptionPane.showMessageDialog(null,
-					"Los datos son incorrectos. Compruebe los datos.");
+					Idioma.getString("msgDeviceDataWrong")); //$NON-NLS-1$
 		}
 	}
 
@@ -138,7 +139,7 @@ public class Dispositivo {
 			 **/
 			JOptionPane
 					.showMessageDialog(null,
-							"Error. La longitud del modelo no puede superar los 15 caracteres.");
+							Idioma.getString("msgModelLengthError")); //$NON-NLS-1$
 			return false;
 
 		} else {
@@ -147,7 +148,7 @@ public class Dispositivo {
 
 				JOptionPane
 						.showMessageDialog(null,
-								"Error. El número de serie tiene que tener entre 10 y 30 dígitos.");
+								Idioma.getString("msgBetween10and30")); //$NON-NLS-1$
 				return false;
 
 			} else {
@@ -162,7 +163,7 @@ public class Dispositivo {
 
 					JOptionPane
 							.showMessageDialog(null,
-									"Error. El número de serie es incorrecto. Introduce datos correctos.");
+									Idioma.getString("msgSerialNumberError")); //$NON-NLS-1$
 					return false;
 
 				}

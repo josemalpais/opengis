@@ -14,6 +14,7 @@ import javax.swing.JButton;
 
 import code.google.com.opengis.gestion.Dispositivo;
 import code.google.com.opengis.gestionDAO.DispositivoDAO;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 public class DispositivosPanelGestion extends JPanel {
 
@@ -64,13 +65,13 @@ public class DispositivosPanelGestion extends JPanel {
 	private void initialize() {
 		lblNumSerie = new JLabel();
 		lblNumSerie.setBounds(new Rectangle(62, 169, 107, 21));
-		lblNumSerie.setText("Número de Serie:");
+		lblNumSerie.setText(Idioma.getString("etSerialNumber")); //$NON-NLS-1$
 		lblModelo = new JLabel();
 		lblModelo.setBounds(new Rectangle(62, 119, 107, 21));
-		lblModelo.setText("Modelo:");
+		lblModelo.setText(Idioma.getString("etModel")); //$NON-NLS-1$
 		lblIdDispositivo = new JLabel();
 		lblIdDispositivo.setBounds(new Rectangle(62, 60, 107, 21));
-		lblIdDispositivo.setText("ID:");
+		lblIdDispositivo.setText(Idioma.getString("etId")); //$NON-NLS-1$
 		this.setSize(793, 343);
 		this.setLayout(null);
 		this.add(lblIdDispositivo, null);
@@ -91,10 +92,10 @@ public class DispositivosPanelGestion extends JPanel {
 	private JTextField getTxtID() {
 		if (txtID == null) {
 				txtID = new JTextField();
-			if(accion=="alta"){
+			if(accion=="alta"){ //$NON-NLS-1$
 				
 				int id = DispositivoDAO.calcularNuevoID();
-				txtID.setText(id+"");
+				txtID.setText(id+""); //$NON-NLS-1$
 				
 			}else{
 
@@ -146,12 +147,12 @@ public class DispositivosPanelGestion extends JPanel {
 		if (bGuardar == null) {
 			bGuardar = new JButton();
 			bGuardar.setBounds(new Rectangle(60, 254, 53, 45));
-			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png")));
-			bGuardar.setToolTipText("Guardar Nuevo Dispositivo");
+			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
+			bGuardar.setToolTipText(Idioma.getString("etSaveNewDevice")); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
-				if(accion=="modificar"){
+				if(accion=="modificar"){ //$NON-NLS-1$
 					
 					if (Dispositivo.validarDatos(txtModelo.getText(),
 							txtNumSerie.getText()) == true) {
@@ -168,7 +169,7 @@ public class DispositivosPanelGestion extends JPanel {
 						JOptionPane
 						.showMessageDialog(
 								null,
-								"Datos incorrectos. El número de Serie ha de tener entre 10 y 30 caracteres, y el modelo no ha de sobrepasar los 15 caracteres.");
+								Idioma.getString("msgSerialNumberError1")); //$NON-NLS-1$
 			}
 					
 				}else{
@@ -178,9 +179,9 @@ public class DispositivosPanelGestion extends JPanel {
 									// convertir el ID de Dispositivo a String
 					boolean paso2; // booleano que me indicará si he podido
 									// convertir el número de serie a String
-					String numeroSerie = ""; // donde intentaré convertir el número
+					String numeroSerie = ""; // donde intentaré convertir el número //$NON-NLS-1$
 												// de serie introducido a un String
-					String numID = ""; // donde intentaré convertir el ID de
+					String numID = ""; // donde intentaré convertir el ID de //$NON-NLS-1$
 										// Dispositivo introducido a un String
 
 					if (Dispositivo.validarDatos(txtModelo.getText(),
@@ -192,7 +193,7 @@ public class DispositivosPanelGestion extends JPanel {
 						} catch (Exception e1) {
 							JOptionPane
 									.showMessageDialog(null,
-											"Error aceptando el número de serie del dispositivo. Introduce datos válidos.");
+											Idioma.getString("msgSerialNumberError2")); //$NON-NLS-1$
 							paso1 = false;
 						}
 						// intento convertir el ID de Dispositivo a un String.
@@ -202,7 +203,7 @@ public class DispositivosPanelGestion extends JPanel {
 						} catch (Exception e1) {
 							JOptionPane
 									.showMessageDialog(null,
-											"Error convirtiendo el ID de dispositivo. Introduce datos válidos.");
+											Idioma.getString("msgIDError")); //$NON-NLS-1$
 							paso2 = false;
 						}
 						if ((paso1 == true) && (paso2 == true)) {
@@ -237,13 +238,13 @@ public class DispositivosPanelGestion extends JPanel {
 		if (bLimpiar == null) {
 			bLimpiar = new JButton();
 			bLimpiar.setBounds(new Rectangle(140, 254, 53, 45));
-			bLimpiar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/limpiar.png")));
-			bLimpiar.setToolTipText("Limpiar todos los campos");
+			bLimpiar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/limpiar.png"))); //$NON-NLS-1$
+			bLimpiar.setToolTipText(Idioma.getString("etCleanFields")); //$NON-NLS-1$
 			bLimpiar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-					txtNumSerie.setText("");
-					txtModelo.setText("");
+					txtNumSerie.setText(""); //$NON-NLS-1$
+					txtModelo.setText(""); //$NON-NLS-1$
 					
 				}
 				});
