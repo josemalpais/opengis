@@ -15,11 +15,14 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 
+import code.google.com.opengis.gestion.Producto;
 import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -33,6 +36,7 @@ public class ProductoPanelGestion extends JPanel {
      private static JTextField txtDosis;
      private static JTextField txtDni;
      private JComboBox comboTipo;
+     private static String[] tipoproducto = {"Líquido", "Granulado", "Polvo"};
      private JCheckBox chkActivo;
      private JTextArea txtareaDescripcion;
      
@@ -85,10 +89,10 @@ private void initialize() {
 
 	lblDescripcion = new JLabel();
 	lblDescripcion.setBounds(new Rectangle(274, 192, 88, 30));
-	lblDescripcion.setText(Idioma.getString("etPhone")); //$NON-NLS-1$
+	lblDescripcion.setText("Descripcion"); //$NON-NLS-1$
 	lblDni = new JLabel();
 	lblDni.setBounds(new Rectangle(44, 192, 88, 30));
-	lblDni.setText(Idioma.getString("etProvince")); //$NON-NLS-1$
+	lblDni.setText("Dni"); //$NON-NLS-1$
 	lblDosis = new JLabel();
 	lblDosis.setBounds(new Rectangle(274, 137, 88, 30));
 	lblDosis.setText("Dosis"); //$NON-NLS-1$
@@ -133,13 +137,33 @@ private JButton getBGuardar() {
 		bGuardar = new JButton();
 		bGuardar.setBounds(new Rectangle(46, 314, 53, 45));
 		bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
-		bGuardar.setToolTipText(Idioma.getString("etSaveNewUser")); //$NON-NLS-1$
+	//	bGuardar.setToolTipText(Idioma.getString("etSaveNewUser")); //$NON-NLS-1$
 		bGuardar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				
-			
-			}
-
+				   int variableint;
+					if (chkActivo.isSelected()){
+                       	variableint=0;
+                       }else{
+                       	variableint=1;
+                       }
+                       Producto p = new Producto(Integer.parseInt(txtIdprod.getText()), txtNombre.getText(), txtareaDescripcion.getText(), comboTipo.getSelectedItem().toString(), txtDosis.getText(), txtDni.getText(), variableint);        
+                       p.validarDatos();
+                       if (p.getCorrecto()) {
+							p.crearProducto();
+							 try {	
+					                ResultSet rs = ConectarDBA.consulta("SELECT MAX(idprod) FROM producto");
+					                Integer idprod; 
+					                rs.next();
+					                idprod = rs.getInt(1); 
+					                if(idprod==null){	 
+					               	 idprod = 0;
+					                }
+					                txtIdprod.setText(idprod+1+"");
+							 } catch (SQLException e2) {
+					                System.out.println(e2.getMessage());
+							 }
+                       }
+                   }
 		});
 	}
 	return bGuardar;
@@ -154,12 +178,12 @@ private JButton getBRestablecer() {
 		bRestablecer.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				
-				
-				if(accion!="modificar"){
-				
-				
-					
-				}
+				txtNombre.setText(""); //$NON-NLS-1$
+				txtDni.setText(""); //$NON-NLS-1$
+				txtDosis.setText(""); //$NON-NLS-1$
+				txtareaDescripcion.setText(""); //$NON-NLS-1$
+				chkActivo.setSelected(false); //$NON-NLS-1$
+				comboTipo.removeAllItems();
 				
 			
 				
@@ -176,7 +200,7 @@ private JTextField gettxtIdprod() {
 		txtIdprod = new JTextField(dni);
 		txtIdprod.setBounds(new Rectangle(123, 33, 143, 27));
 		
-		if(accion=="modificar"){ //$NON-NLS-1$
+		if(accion=="modificar"){ 
 			
 			txtIdprod.setEnabled(false);
 		}
@@ -201,11 +225,27 @@ private JCheckBox getchkActivo() {
 }
 private JComboBox getcomboTipo() {
 	if (comboTipo == null) {
-		comboTipo = new JComboBox();
+		comboTipo = new JComboBox(tipoproducto);
 		comboTipo.setBounds(new Rectangle(123, 139, 143, 27));
 		
-		comboTipo.addItem(Idioma.getString("etAdmin")); //$NON-NLS-1$
-		comboTipo.addItem(Idioma.getString("etWorker")); //$NON-NLS-1$
+		//comboTipo.addItem(Idioma.getString("etAdmin")); //$NON-NLS-1$
+		//comboTipo.addItem(Idioma.getString("etWorker")); //$NON-NLS-1$
+		comboTipo.addActionListener(new ActionListener(){
+        	public void actionPerformed (ActionEvent e){
+        		int selIndex = comboTipo.getSelectedIndex();
+        			switch (selIndex){
+        			case 0:
+        				lblDosis.setText("Dosis (l/ha):");
+        			break;
+        			case 1:
+        				lblDosis.setText("Dosis (gr/ha):");
+        			break;
+        			case 2:
+        				lblDosis.setText("Dosis (kg/ha)");
+        			break;
+        			}
+        	}
+        });
 		
 	}
 	return comboTipo;
