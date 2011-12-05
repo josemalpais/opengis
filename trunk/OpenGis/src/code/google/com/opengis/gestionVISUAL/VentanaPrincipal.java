@@ -247,6 +247,31 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bParcelas.setBounds(new Rectangle(313, 33, 63, 58));
     			bParcelas.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png")); //$NON-NLS-1$
     			bParcelas.setToolTipText(Idioma.getString("etLotsMng")); //$NON-NLS-1$
+    			bParcelas.addActionListener(new java.awt.event.ActionListener() {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					
+    					bCerrarPestaña.setVisible(true);
+
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							ParcelasPanelPrincipal panelNuevo = new ParcelasPanelPrincipal();
+    						
+    							tabsPaneles.addTab("Gestión Parcelas",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+    							
+    					
+    				}
+    			});
+    		
     		}
     		return bParcelas;
     	}
