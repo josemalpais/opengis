@@ -19,7 +19,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 	static String[] nombreColumna = {"ID Apero", "Nombre", "Tamaño", "Descripcion", "ID Tarea", "Activo", "DNI Usuario"};
 	
 	public AperosPanelPrincipal(){
-		super(true);
+		super(false);
 		
 	}
 	

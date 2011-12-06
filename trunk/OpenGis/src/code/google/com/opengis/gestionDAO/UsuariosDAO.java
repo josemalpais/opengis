@@ -144,7 +144,7 @@ public class UsuariosDAO {
 			throws SQLException {
 		ResultSet rs = null;
 		ConectarDBA.acceder();
-		String sentencia = "SELECT `dni` , `nombre` , `apellidos` , `dirección` , `población` , `provincia` , `cp` , `teléfono` , `email` , `fecha_nacimiento` , `tipo` , `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+		String sentencia = "SELECT * FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 		try {
 			rs = ConectarDBA.consulta(sentencia);
 		} catch (SQLException e) {

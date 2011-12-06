@@ -48,15 +48,14 @@ public class ProductoPanelGestion extends JPanel {
  	 
  	private String accion;
  	 
- 	private int idprod;
+ 	private String idprod;
 	private String nombre;
 	private String descripcion;
 	private String tipo;
 	private String dosis;
 	private String dni;
-	private Icon activo;
  	 
-public ProductoPanelGestion (int idprod, String nombre, String descripcion, String tipo, String dosis, String dni, Icon activo, String accion){
+public ProductoPanelGestion (String accion, String idprod, String nombre, String descripcion, String tipo, String dosis, String dni){
 	super();
 	this.idprod=idprod;
 	this.nombre=nombre;
@@ -64,7 +63,6 @@ public ProductoPanelGestion (int idprod, String nombre, String descripcion, Stri
 	this.tipo =tipo;
 	this.dosis=dosis;
 	this.dni=dni;
-	this.activo=activo;
 	this.accion = accion;
 	initialize();
 }
@@ -99,9 +97,6 @@ private void initialize() {
 	lblIdprod = new JLabel();
 	lblIdprod.setBounds(new Rectangle(42, 31, 88, 30));
 	lblIdprod.setText("ID producto");
-	lblActivo = new JLabel();
-	lblActivo.setBounds(new Rectangle(274, 84, 88, 30));
-	lblActivo.setText("Activo"); //$NON-NLS-1$
 	lblNombre = new JLabel();
 	lblNombre.setBounds(new Rectangle(42, 84, 88, 30));
 	lblNombre.setText("Nombre producto"); //$NON-NLS-1$
@@ -125,7 +120,6 @@ private void initialize() {
 	this.add(gettxtDosis(), null);
 	this.add(gettxtDni(), null);
 	this.add(gettxtareaDescripcion(), null);
-	this.add(getchkActivo(), null);
 	this.add(getcomboTipo(), null);
 	
 }
@@ -208,7 +202,7 @@ private JButton getBRestablecer() {
 
 private JTextField gettxtIdprod() {
 	if (txtIdprod == null) {
-		txtIdprod = new JTextField(dni);
+		txtIdprod = new JTextField(idprod);
 		txtIdprod.setBounds(new Rectangle(123, 33, 143, 27));
 		
 		if(accion=="modificar"){ 
@@ -227,13 +221,6 @@ private JTextField gettxtNombre() {
 	return txtNombre;
 }
 
-private JCheckBox getchkActivo() {
-	if (chkActivo == null) {
-		chkActivo = new JCheckBox(activo);
-		chkActivo.setBounds(new Rectangle(358, 86, 115, 27));
-	}
-	return chkActivo;
-}
 private JComboBox getcomboTipo() {
 	if (comboTipo == null) {
 		comboTipo = new JComboBox(tipoproducto);

@@ -10,8 +10,7 @@ import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 
 public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
-	
-	private int i = 0;
+
 	static Object[] nombreColumna = { Idioma.getString("etIdCard"), Idioma.getString("etFirstName"), Idioma.getString("etLastName"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"), Idioma.getString("etPostalCode"), Idioma.getString("etPhone"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		Idioma.getString("etMail"), Idioma.getString("etBirthDate"), Idioma.getString("etAccType"), Idioma.getString("etStatus") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
