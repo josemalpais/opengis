@@ -5,12 +5,21 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
+
+import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+
+import code.google.com.opengis.gestion.Producto;
+import code.google.com.opengis.gestionDAO.ConectarDBA;
+
 import java.awt.Font;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ProductoPanelGestion extends JPanel {
 
@@ -32,7 +41,15 @@ public class ProductoPanelGestion extends JPanel {
 	private JButton bLimpiar = null;
 	private JLabel lblObligatorios = null;
 	
-	String accion;
+	private String accion;
+	private String id;
+	private String nombre;
+	private String descripcion;
+	private String tipo;
+	private String dosis;
+	private String dni;
+	
+	private boolean encontrado;
 	
 	/**
 	 * This is the default constructor
@@ -45,6 +62,23 @@ public class ProductoPanelGestion extends JPanel {
 		initialize();
 	}
 
+	
+	
+	public ProductoPanelGestion(String accion, String id, String nombre,String descripcion,String tipo,String dosis, String dni) {
+		super();
+		
+		this.accion = accion;
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.tipo = tipo;
+		this.dosis = dosis;
+		this.dni = dni;
+		
+		initialize();
+	}
+
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -106,6 +140,39 @@ public class ProductoPanelGestion extends JPanel {
 		if (txtID == null) {
 			txtID = new JTextField();
 			txtID.setBounds(new Rectangle(157, 48, 149, 24));
+			txtID.setEnabled(false);
+			
+			if(accion=="alta"){
+				
+				ConectarDBA.acceder();
+			
+				try {
+					
+					String sql = "SELECT MAX(idprod) FROM producto";
+					
+					ResultSet rs = ConectarDBA.consulta(sql);
+					
+					rs.next();
+					
+					int nuevoid = rs.getInt(1) + 1;
+					
+					txtID.setText(nuevoid+"");
+					
+					ConectarDBA.cerrarCon();
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+
+				
+			}else{
+				
+				txtID.setText(id);
+				
+			}
+			
 		}
 		return txtID;
 	}
@@ -119,6 +186,13 @@ public class ProductoPanelGestion extends JPanel {
 		if (txtNombreProd == null) {
 			txtNombreProd = new JTextField();
 			txtNombreProd.setBounds(new Rectangle(160, 91, 149, 24));
+			
+			if(accion=="modificar"){
+				
+				txtNombreProd.setText(nombre);
+				
+			}
+			
 		}
 		return txtNombreProd;
 	}
@@ -132,6 +206,48 @@ public class ProductoPanelGestion extends JPanel {
 		if (txtDNI == null) {
 			txtDNI = new JTextField();
 			txtDNI.setBounds(new Rectangle(160, 180, 149, 24));
+			
+			if(accion=="modificar"){
+				
+				txtDNI.setText(dni);
+				
+			}
+			
+			txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusLost(java.awt.event.FocusEvent e) {
+					
+					
+					ConectarDBA.acceder();
+					
+					String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'";
+					
+					try {
+						ResultSet rs = ConectarDBA.consulta(consulta);
+						
+						while(rs.next()){
+							
+							encontrado = true;
+							
+						}
+						
+
+						
+						if(encontrado == false){
+							
+							JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario");
+							txtDNI.setText("");
+							
+						}
+						
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			
+			
 		}
 		return txtDNI;
 	}
@@ -145,6 +261,12 @@ public class ProductoPanelGestion extends JPanel {
 		if (txtDosis == null) {
 			txtDosis = new JTextField();
 			txtDosis.setBounds(new Rectangle(420, 136, 149, 24));
+			if(accion=="modificar"){
+				
+				txtDosis.setText(dosis);
+				
+			}
+			
 		}
 		return txtDosis;
 	}
@@ -158,6 +280,14 @@ public class ProductoPanelGestion extends JPanel {
 		if (txtDescripcion == null) {
 			txtDescripcion = new JTextArea();
 			txtDescripcion.setBounds(new Rectangle(422, 180, 161, 100));
+			txtDescripcion.setLineWrap(true);
+			
+			if(accion=="modificar"){
+				
+				txtDescripcion.setText(descripcion);
+				
+			}
+			
 		}
 		return txtDescripcion;
 	}
@@ -174,6 +304,41 @@ public class ProductoPanelGestion extends JPanel {
 			comboTipo.addItem("Líquido");
 			comboTipo.addItem("Granulado");
 			comboTipo.addItem("Polvo");
+			
+			if(accion=="modificar"){
+				
+				comboTipo.setSelectedItem(tipo);
+				
+			}
+			comboTipo.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusLost(java.awt.event.FocusEvent e) {
+				
+				String tipo = comboTipo.getSelectedItem().toString();
+				
+				
+				if(tipo.equals("Líquido")){
+					
+					lblMedida.setText("(l/ha)");
+					
+				}
+				
+				
+				if(tipo.equals("Granulado")){
+					
+					lblMedida.setText("(g/ha)");
+					
+				}
+				
+				if(tipo.equals("Polvo")){
+					
+					lblMedida.setText("(Kg/ha)");
+					
+				}
+				
+			}
+			
+			});
+				
 		}
 		return comboTipo;
 	}
@@ -190,7 +355,53 @@ public class ProductoPanelGestion extends JPanel {
 			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png")));
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					
+			
+					if(accion.equals("alta")){
+						
+						if(encontrado == false){
+							
+						
+						}else{
+						
+							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
+							
+							prod.validarDatos();
+							
+							if (prod.getCorrecto()==true){
+								
+								prod.crearProducto();
+								
+							}
+							
+						
+						}
+						
+					}else{
+						
+						if(encontrado == false){
+							
+						
+						}else{
+						
+							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
+							
+							prod.validarDatos();
+							
+							if (prod.getCorrecto()==true){
+								
+								prod.editarProducto();
+								
+							}
+							
+						
+						}
+						
+						
+					}
+			
+			
+			
 				}
 			});
 		}
@@ -209,7 +420,13 @@ public class ProductoPanelGestion extends JPanel {
 			bLimpiar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png")));
 			bLimpiar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					
+					txtNombreProd.setText("");
+					txtDosis.setText("");
+					txtDNI.setText("");
+					txtDescripcion.setText("");
+					
+					
 				}
 			});
 		}
