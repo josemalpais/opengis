@@ -283,7 +283,8 @@ public class ConectarDBA {
 		acceder();
 
 		try {
-			rs = consulta(sentencia);
+			rs = st.executeQuery(sentencia);
+			
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
