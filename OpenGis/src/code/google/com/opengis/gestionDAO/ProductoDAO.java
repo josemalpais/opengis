@@ -53,34 +53,37 @@ public class ProductoDAO {
 	}
 	
 	//metodo para desactivar un producto
-	public void desactivarProducto() throws SQLException {
+	public static void desactivarProducto(String id) throws SQLException {
 
-			String sentencia = "UPDATE producto SET `activo` = '0' , WHERE `idprod` = '"+ this.idprod + "'";
+			String sentencia = "UPDATE producto SET `activo` = '1' WHERE `idprod` = '"+ id + "'";
 			ConectarDBA.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,"Producto dado de baja correctamente");
 
 	}
 	//metodo para activar un producto
-	public void activarProducto() throws SQLException {
+	public static void activarProducto(String id) throws SQLException {
 
-			String sentencia = "UPDATE producto SET `activo` = '1' , WHERE `idprod` = '"+ this.idprod + "'";
+			String sentencia = "UPDATE producto SET `activo` = '0'  WHERE `idprod` = '"+id+"'";
 			ConectarDBA.modificar(sentencia);
-			JOptionPane.showMessageDialog(null,"Producto dado de alta correctamente");
+			JOptionPane.showMessageDialog(null,"El producto se ha activado correctamente");
 
 	}
 	
-	public static ResultSet buscar(String salida, String criterio) {
+	public static ResultSet buscar(String criterio) {
+		
+		ConectarDBA.acceder();
         ResultSet rs = null;
-        String sql = "SELECT " + salida + " FROM Asignaturas WHERE " + criterio;
+        String sql = "SELECT * FROM `producto` WHERE idprod LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR descripcion LIKE '%"+criterio+"%' OR nomtarea LIKE '%"+criterio+"%' OR dosis LIKE '%"+criterio+"%' OR dni LIKE '%"+criterio+"%'";
 
         try {
-            ConectarDBA.modificar(sql);
+        	
+           rs = ConectarDBA.consulta(sql);
            
         } catch (SQLException e) {
             System.out.println(e);
-        } finally {
-            return rs;
-        }
+        } 
+        
+        return rs;
 
     }
 

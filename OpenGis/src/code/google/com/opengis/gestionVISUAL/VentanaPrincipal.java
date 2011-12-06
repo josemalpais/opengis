@@ -292,7 +292,37 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bProductos.setBounds(new Rectangle(555, 33, 63, 58));
     			bProductos.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/producto.png")); //$NON-NLS-1$
     			bProductos.setToolTipText(Idioma.getString("etProductsMng")); //$NON-NLS-1$
-    			
+    			bProductos.addActionListener(new java.awt.event.ActionListener() {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					
+    					bCerrarPestaña.setVisible(true);
+    					
+    					if (tipoUsuario == 'a'){
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							ProductoPanelPrincipal panelNuevo = new ProductoPanelPrincipal();
+    						
+    							tabsPaneles.addTab("Gestión de Productos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+    							
+    							
+    					}else{
+    						
+    						// INSERTAR AQUI METODO PARA TRABAJADOR
+    						
+    					}
+    					
+    				}
+    			});
     		}
     		return bProductos;
     	}
