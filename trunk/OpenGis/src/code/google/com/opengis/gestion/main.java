@@ -29,7 +29,7 @@ public class main {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
 		LoginVisual ln = new LoginVisual();
-		//VentanaPrincipal p = new VentanaPrincipal('a');
+		//VentanaPrincipal p = new VentanaPrincipal('a',"53762611L");
 		
 	
 }
