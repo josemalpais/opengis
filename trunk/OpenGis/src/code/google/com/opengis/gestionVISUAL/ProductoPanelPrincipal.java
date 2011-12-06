@@ -87,9 +87,9 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 			}
 			
 			
-			//ProductoPanelGestion p = new ProductoPanelGestion("modificar",rProducto[0].toString(),rProducto[1].toString(),rProducto[2].toString(),rProducto[3].toString(),rProducto[4].toString(),rProducto[5].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+			ProductoPanelGestion p = new ProductoPanelGestion("modificar",rProducto[0].toString(),rProducto[1].toString(),rProducto[2].toString(),rProducto[3].toString(),rProducto[4].toString(),rProducto[5].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			//VentanaPrincipal.añadirPestañaNueva("Modificar Producto",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			VentanaPrincipal.añadirPestañaNueva("Modificar Producto",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		}
 		
 	}
@@ -107,6 +107,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 			
 			try {
 				ProductoDAO.desactivarProducto(rProducto[0]);
+				buscar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

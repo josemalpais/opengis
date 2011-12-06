@@ -36,17 +36,22 @@ public class ProductoDAO {
 	
 	//metodo modificar
 	public void modificarProducto() throws SQLException{
+		
+		ConectarDBA.acceder();
 		String sentencia = "UPDATE `producto` SET `nombre`='"+ this.nombre +"',`descripcion`='"+ this.descripcion +"',`nomtarea`='"+ this.nomtarea +"',`dosis`='"+ this.dosis +"',`dni`='"+this.dni+"', `activo`='"+this.activo+"' WHERE `idprod` = '"+ this.idprod + "'";
 		ConectarDBA.modificar(sentencia);	
-		JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
+		ConectarDBA.cerrarCon();
+		JOptionPane.showMessageDialog(null,"Se ha modificado el producto correctamente");
 		
 	}
 	
 	//metodo para hacer la sentencia que crea productos
 	public void altaProducto() throws SQLException{
 
-			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`, `dni`, `activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "','"+this.dni+"','"+this.activo+"')";
+			ConectarDBA.acceder();
+			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`, `dni`, `activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "','"+this.dni+"',"+this.activo+")";
 			ConectarDBA.modificar(sentencia);
+			ConectarDBA.cerrarCon();
 			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
 		
 		

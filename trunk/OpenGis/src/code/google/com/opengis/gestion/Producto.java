@@ -100,7 +100,8 @@ public class Producto {
 	public void crearProducto() {
 	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
 		try {
-			x.altaProducto();			
+			x.altaProducto();
+			
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
 		}
@@ -118,14 +119,14 @@ public class Producto {
 			
 		}
 //bajas 
-	public void bajasProducto(){
+/*	public void bajasProducto(){
 		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
 		try {
 			x.desactivarProducto();			
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
 		}
-	}
+	}*/
 //Valida datos	
 public void validarDatos(){
 
@@ -147,9 +148,9 @@ public void validarDatos(){
 				
 				r = isInteger(this.dosis);
 				
-				if(r.equals(true) || this.dosis.length() <1 || this.dosis.length()>3){
+				if(r.equals(false) || this.dosis.length() <1 || this.dosis.length()>4){
 					
-					JOptionPane.showMessageDialog(null, "Error. La dosis debe de ser numérica, no estar vacia ni ser superior a 3 carácteres.");
+					JOptionPane.showMessageDialog(null, "Error. La dosis debe de ser numérica, no estar vacia ni ser superior a 4 carácteres.");
 					this.correcto = false;
 					
 				}else{
@@ -160,6 +161,8 @@ public void validarDatos(){
 						this.correcto = false;
 						
 					}else{
+						
+
 						
 					    this.correcto = true; // En el caso de que todos los datos sean correctos devolveremos True
 												
