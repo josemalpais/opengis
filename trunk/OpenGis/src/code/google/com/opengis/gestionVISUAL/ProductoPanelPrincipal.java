@@ -11,7 +11,7 @@ import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 
-	static Object[] nombreColumna = {"ID","Nombre","Descripción","Tipo","Dosis","Propietario","Estado"};
+	static Object[] nombreColumna = {Idioma.getString("etId"),Idioma.getString("etName"),Idioma.getString("etDesc"),Idioma.getString("etType"),Idioma.getString("etAmount"),Idioma.getString("etPropietary"),Idioma.getString("etStatus")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 	
 	
 	
@@ -70,7 +70,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 		
 	    ProductoPanelGestion p = new ProductoPanelGestion("alta"); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 		
-		VentanaPrincipal.añadirPestañaNueva("Nuevo Producto",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewProduct"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		
 		
 	}
@@ -89,7 +89,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 			
 			ProductoPanelGestion p = new ProductoPanelGestion("modificar",rProducto[0].toString(),rProducto[1].toString(),rProducto[2].toString(),rProducto[3].toString(),rProducto[4].toString(),rProducto[5].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			VentanaPrincipal.añadirPestañaNueva("Modificar Producto",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModifyProduct"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		}
 		
 	}
@@ -130,7 +130,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 			
 			if(rProducto[6].toString().equals("Inactivo")){ //$NON-NLS-1$
 				
-				int resp = JOptionPane.showConfirmDialog(this,"El Producto con ID " + rProducto[0] + " está inactivo. ¿Desea activarlo?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgProductWithID") + rProducto[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
 				if(resp==0){
 					

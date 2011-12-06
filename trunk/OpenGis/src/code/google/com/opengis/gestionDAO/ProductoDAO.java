@@ -37,10 +37,10 @@ public class ProductoDAO {
 	public void modificarProducto() throws SQLException{
 		
 		ConectarDBA.acceder();
-		String sentencia = "UPDATE `producto` SET `nombre`='"+ this.nombre +"',`descripcion`='"+ this.descripcion +"',`nomtarea`='"+ this.nomtarea +"',`dosis`='"+ this.dosis +"',`dni`='"+this.dni+"', `activo`='"+this.activo+"' WHERE `idprod` = '"+ this.idprod + "'";
+		String sentencia = "UPDATE `producto` SET `nombre`='"+ this.nombre +"',`descripcion`='"+ this.descripcion +"',`nomtarea`='"+ this.nomtarea +"',`dosis`='"+ this.dosis +"',`dni`='"+this.dni+"', `activo`='"+this.activo+"' WHERE `idprod` = '"+ this.idprod + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 		ConectarDBA.modificar(sentencia);	
 		ConectarDBA.cerrarCon();
-		JOptionPane.showMessageDialog(null,"Se ha modificado el producto correctamente");
+		JOptionPane.showMessageDialog(null,Idioma.getString("msgProductModSuccess")); //$NON-NLS-1$
 		
 	}
 	
@@ -48,10 +48,10 @@ public class ProductoDAO {
 	public void altaProducto() throws SQLException{
 
 			ConectarDBA.acceder();
-			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`, `dni`, `activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "','"+this.dni+"',"+this.activo+")";
+			String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`, `dni`, `activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "','"+this.dni+"',"+this.activo+")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 			ConectarDBA.modificar(sentencia);
 			ConectarDBA.cerrarCon();
-			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo producto");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgNewProductAdded")); //$NON-NLS-1$
 		
 		
 	}
@@ -59,17 +59,17 @@ public class ProductoDAO {
 	//metodo para desactivar un producto
 	public static void desactivarProducto(String id) throws SQLException {
 
-			String sentencia = "UPDATE producto SET `activo` = '1' WHERE `idprod` = '"+ id + "'";
+			String sentencia = "UPDATE producto SET `activo` = '1' WHERE `idprod` = '"+ id + "'"; //$NON-NLS-1$ //$NON-NLS-2$
 			ConectarDBA.modificar(sentencia);
-			JOptionPane.showMessageDialog(null,"Producto dado de baja correctamente");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgProductInactive")); //$NON-NLS-1$
 
 	}
 	//metodo para activar un producto
 	public static void activarProducto(String id) throws SQLException {
 
-			String sentencia = "UPDATE producto SET `activo` = '0'  WHERE `idprod` = '"+id+"'";
+			String sentencia = "UPDATE producto SET `activo` = '0'  WHERE `idprod` = '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 			ConectarDBA.modificar(sentencia);
-			JOptionPane.showMessageDialog(null,"El producto se ha activado correctamente");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgProductEnabled")); //$NON-NLS-1$
 
 	}
 	
@@ -77,7 +77,7 @@ public class ProductoDAO {
 		
 		ConectarDBA.acceder();
         ResultSet rs = null;
-        String sql = "SELECT * FROM `producto` WHERE idprod LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR descripcion LIKE '%"+criterio+"%' OR nomtarea LIKE '%"+criterio+"%' OR dosis LIKE '%"+criterio+"%' OR dni LIKE '%"+criterio+"%'";
+        String sql = "SELECT * FROM `producto` WHERE idprod LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR descripcion LIKE '%"+criterio+"%' OR nomtarea LIKE '%"+criterio+"%' OR dosis LIKE '%"+criterio+"%' OR dni LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
         try {
         	

@@ -229,7 +229,7 @@ public class UsuariosDAO {
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
-					Idioma.getString("msgUserInactiveSuccedd")); //$NON-NLS-1$
+					Idioma.getString("msgUserInactiveSucceed")); //$NON-NLS-1$
 
 		} else {
 

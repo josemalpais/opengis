@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 
 import code.google.com.opengis.gestion.Producto;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 import java.awt.Font;
 import java.sql.ResultSet;
@@ -87,30 +88,30 @@ public class ProductoPanelGestion extends JPanel {
 	private void initialize() {
 		lblObligatorios = new JLabel();
 		lblObligatorios.setBounds(new Rectangle(359, 305, 227, 20));
-		lblObligatorios.setFont(new Font("Dialog", Font.ITALIC, 12));
-		lblObligatorios.setText("(*) Todos los campos son obligatorios");
+		lblObligatorios.setFont(new Font("Dialog", Font.ITALIC, 12)); //$NON-NLS-1$
+		lblObligatorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
 		lblMedida = new JLabel();
 		lblMedida.setBounds(new Rectangle(372, 136, 44, 25));
-		lblMedida.setFont(new Font("Dialog", Font.PLAIN, 12));
-		lblMedida.setText("(l/ha)");
+		lblMedida.setFont(new Font("Dialog", Font.PLAIN, 12)); //$NON-NLS-1$
+		lblMedida.setText("(l/ha)"); //$NON-NLS-1$
 		lblDescripcion = new JLabel();
 		lblDescripcion.setBounds(new Rectangle(328, 180, 112, 25));
-		lblDescripcion.setText("Descripción:");
+		lblDescripcion.setText(Idioma.getString("etDesc")); //$NON-NLS-1$
 		lblDosis = new JLabel();
 		lblDosis.setBounds(new Rectangle(328, 136, 44, 25));
-		lblDosis.setText("Dosis:");
+		lblDosis.setText(Idioma.getString("etAmount")); //$NON-NLS-1$
 		lblDNI = new JLabel();
 		lblDNI.setBounds(new Rectangle(47, 180, 112, 25));
-		lblDNI.setText("DNI");
+		lblDNI.setText(Idioma.getString("etId")); //$NON-NLS-1$
 		lblTipo = new JLabel();
 		lblTipo.setBounds(new Rectangle(47, 136, 112, 25));
-		lblTipo.setText("Tipo:");
+		lblTipo.setText(Idioma.getString("etType")); //$NON-NLS-1$
 		lblNombre = new JLabel();
 		lblNombre.setBounds(new Rectangle(47, 91, 112, 25));
-		lblNombre.setText("Nombre producto:");
+		lblNombre.setText(Idioma.getString("etProductName")); //$NON-NLS-1$
 		lblidprod = new JLabel();
 		lblidprod.setBounds(new Rectangle(47, 48, 112, 25));
-		lblidprod.setText("ID producto");
+		lblidprod.setText(Idioma.getString("etProductId")); //$NON-NLS-1$
 		this.setSize(774, 357);
 		this.setLayout(null);
 		this.add(lblidprod, null);
@@ -142,13 +143,13 @@ public class ProductoPanelGestion extends JPanel {
 			txtID.setBounds(new Rectangle(157, 48, 149, 24));
 			txtID.setEnabled(false);
 			
-			if(accion=="alta"){
+			if(accion=="alta"){ //$NON-NLS-1$
 				
 				ConectarDBA.acceder();
 			
 				try {
 					
-					String sql = "SELECT MAX(idprod) FROM producto";
+					String sql = "SELECT MAX(idprod) FROM producto"; //$NON-NLS-1$
 					
 					ResultSet rs = ConectarDBA.consulta(sql);
 					
@@ -156,7 +157,7 @@ public class ProductoPanelGestion extends JPanel {
 					
 					int nuevoid = rs.getInt(1) + 1;
 					
-					txtID.setText(nuevoid+"");
+					txtID.setText(nuevoid+""); //$NON-NLS-1$
 					
 					ConectarDBA.cerrarCon();
 					
@@ -187,7 +188,7 @@ public class ProductoPanelGestion extends JPanel {
 			txtNombreProd = new JTextField();
 			txtNombreProd.setBounds(new Rectangle(160, 91, 149, 24));
 			
-			if(accion=="modificar"){
+			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				txtNombreProd.setText(nombre);
 				
@@ -207,7 +208,7 @@ public class ProductoPanelGestion extends JPanel {
 			txtDNI = new JTextField();
 			txtDNI.setBounds(new Rectangle(160, 180, 149, 24));
 			
-			if(accion=="modificar"){
+			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				txtDNI.setText(dni);
 				
@@ -219,7 +220,7 @@ public class ProductoPanelGestion extends JPanel {
 					
 					ConectarDBA.acceder();
 					
-					String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'";
+					String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'"; //$NON-NLS-1$ //$NON-NLS-2$
 					
 					try {
 						ResultSet rs = ConectarDBA.consulta(consulta);
@@ -234,8 +235,8 @@ public class ProductoPanelGestion extends JPanel {
 						
 						if(encontrado == false){
 							
-							JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario");
-							txtDNI.setText("");
+							JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario"); //$NON-NLS-1$
+							txtDNI.setText(""); //$NON-NLS-1$
 							
 						}
 						
@@ -261,7 +262,7 @@ public class ProductoPanelGestion extends JPanel {
 		if (txtDosis == null) {
 			txtDosis = new JTextField();
 			txtDosis.setBounds(new Rectangle(420, 136, 149, 24));
-			if(accion=="modificar"){
+			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				txtDosis.setText(dosis);
 				
@@ -282,7 +283,7 @@ public class ProductoPanelGestion extends JPanel {
 			txtDescripcion.setBounds(new Rectangle(422, 180, 161, 100));
 			txtDescripcion.setLineWrap(true);
 			
-			if(accion=="modificar"){
+			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				txtDescripcion.setText(descripcion);
 				
@@ -301,11 +302,11 @@ public class ProductoPanelGestion extends JPanel {
 		if (comboTipo == null) {
 			comboTipo = new JComboBox();
 			comboTipo.setBounds(new Rectangle(162, 136, 149, 24));
-			comboTipo.addItem("Líquido");
-			comboTipo.addItem("Granulado");
-			comboTipo.addItem("Polvo");
+			comboTipo.addItem(Idioma.getString("etLiquid")); //$NON-NLS-1$
+			comboTipo.addItem(Idioma.getString("etGranulated")); //$NON-NLS-1$
+			comboTipo.addItem(Idioma.getString("etPowder")); //$NON-NLS-1$
 			
-			if(accion=="modificar"){
+			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				comboTipo.setSelectedItem(tipo);
 				
@@ -316,22 +317,22 @@ public class ProductoPanelGestion extends JPanel {
 				String tipo = comboTipo.getSelectedItem().toString();
 				
 				
-				if(tipo.equals("Líquido")){
+				if(tipo.equals(Idioma.getString("etLiquid"))){ //$NON-NLS-1$
 					
-					lblMedida.setText("(l/ha)");
-					
-				}
-				
-				
-				if(tipo.equals("Granulado")){
-					
-					lblMedida.setText("(g/ha)");
+					lblMedida.setText("(l/ha)"); //$NON-NLS-1$
 					
 				}
 				
-				if(tipo.equals("Polvo")){
+				
+				if(tipo.equals(Idioma.getString("etGranulated"))){ //$NON-NLS-1$
 					
-					lblMedida.setText("(Kg/ha)");
+					lblMedida.setText("(g/ha)"); //$NON-NLS-1$
+					
+				}
+				
+				if(tipo.equals(Idioma.getString("etPowder"))){ //$NON-NLS-1$
+					
+					lblMedida.setText("(Kg/ha)"); //$NON-NLS-1$
 					
 				}
 				
@@ -352,12 +353,12 @@ public class ProductoPanelGestion extends JPanel {
 		if (bGuardar == null) {
 			bGuardar = new JButton();
 			bGuardar.setBounds(new Rectangle(48, 283, 53, 45));
-			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png")));
+			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
 			
-					if(accion.equals("alta")){
+					if(accion.equals("alta")){ //$NON-NLS-1$
 						
 						if(encontrado == false){
 							
@@ -417,14 +418,14 @@ public class ProductoPanelGestion extends JPanel {
 		if (bLimpiar == null) {
 			bLimpiar = new JButton();
 			bLimpiar.setBounds(new Rectangle(149, 283, 53, 45));
-			bLimpiar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png")));
+			bLimpiar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png"))); //$NON-NLS-1$
 			bLimpiar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-					txtNombreProd.setText("");
-					txtDosis.setText("");
-					txtDNI.setText("");
-					txtDescripcion.setText("");
+					txtNombreProd.setText(""); //$NON-NLS-1$
+					txtDosis.setText(""); //$NON-NLS-1$
+					txtDNI.setText(""); //$NON-NLS-1$
+					txtDescripcion.setText(""); //$NON-NLS-1$
 					
 					
 				}
