@@ -302,12 +302,17 @@ public class Parcela {
 public static ResultSet buscar(String criterio) throws SQLException{
  	ResultSet rs = null;
  	ConectarDBA.acceder();
-	String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (`idparcela` = '"+criterio+"' Or `alias` = '"
+	/*String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (`idparcela` = '"+criterio+"' Or `alias` = '"
 			+criterio+"' Or `provincia` = '"+criterio+"' Or  `poblacion` = '"+criterio+"' Or `poligono` = '"
 			+criterio+"' Or  `numero` = '"+criterio+"' Or  `partida` = '"
 			+criterio+"' Or  `dni_propietario`= '"+criterio+"' ) AND  `activo` <> '0'";
+	*/
+	String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (idparcela LIKE '%"+criterio+"%' Or alias LIKE '%"
+			+criterio+"%' Or provincia LIKE '%"+criterio+"%' Or  poblacion LIKE '%"+criterio+"%' Or poligono LIKE '%"
+			+criterio+"%' Or  numero LIKE '%"+criterio+"%' Or  partida LIKE '%"
+			+criterio+"%' Or  dni_propietario LIKE '%"+criterio+"%' ) AND  activo <> '0'";
 	
-
+	//String sentencia = "SELECT `dni` , `nombre` , `apellidos` , `dirección` , `población` , `provincia` , `cp` , `teléfono` , `email` , `fecha_nacimiento` , `tipo` , `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
 	try{
 		System.out.println("Ejecutada sentencia "+ sentencia);
 	rs = dba.consulta(sentencia);
