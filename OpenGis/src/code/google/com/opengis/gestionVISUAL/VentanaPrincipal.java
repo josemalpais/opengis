@@ -59,9 +59,11 @@ import code.google.com.opengis.gestionDAO.Idioma;
     	 * Constructor de la VentanaPrincipal. Dependiendo del tipo de usuario cargará
     	 * unos botones u otros.
     	 */
-    	public VentanaPrincipal(char tipoDeUsuario, String dni){
+    	public VentanaPrincipal(char tipoDeUsuario, String dni,String idiomaDefecto){
     		super();
-		initialize();
+    		new Idioma(idiomaDefecto);
+    		initialize();
+		
     		
     		/*
     		 * Dependiendo del tipo de usuario que sea cargaremos unas funciones u otras
@@ -604,6 +606,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
 						
 						JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català"); //$NON-NLS-1$
 						
+						VentanaPrincipal.this.dispose();
+						LoginVisual lv = new LoginVisual();
 						
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -653,6 +657,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
 						
 						JOptionPane.showMessageDialog(null, "Su idioma ha cambiado a Español"); //$NON-NLS-1$
 						
+						VentanaPrincipal.this.dispose();
+						LoginVisual lv = new LoginVisual();
 						
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -697,6 +703,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
 						
 						JOptionPane.showMessageDialog(null, "Your language has been changed to English"); //$NON-NLS-1$
 						
+						VentanaPrincipal.this.dispose();
+						LoginVisual lv = new LoginVisual();
 						
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block

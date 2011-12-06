@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import code.google.com.opengis.gestion.EnviarMail;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 /**
  * Ventana del registro de entrada en la aplicación de gestión
@@ -176,7 +177,11 @@ public class LoginVisual extends JFrame
 			char t=ConectarDBA.validarLogin(usuario,pass);
 			if ( t!=0)
 			{
-				VentanaPrincipal v=new VentanaPrincipal(t,usuario);
+				
+				String idioma = ConectarDBA.idiomaDefecto(usuario);
+				
+				VentanaPrincipal v=new VentanaPrincipal(t,usuario,idioma);
+			
 				lv.dispose();
 			}
 		} 

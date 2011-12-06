@@ -306,6 +306,59 @@ public class ConectarDBA {
 		}
 		return t;	
 	}
+	
+	
+	public static String idiomaDefecto(String usuario){
+		
+		ResultSet rs;
+		
+		ConectarDBA.acceder();
+		
+		String idioma = "";
+		
+		String sentencia= "SELECT idioma FROM usuario WHERE dni LIKE '"+usuario+"'";
+		
+		try {
+			rs = ConectarDBA.consulta(sentencia);
+			
+			rs.next();
+			
+			idioma = rs.getString(1);
+			
+			ConectarDBA.cerrarCon();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		if(idioma.equals("english")){
+			
+			idioma = "resources.lang_en_US";
+			
+		}
+		
+		if(idioma.equals("español")){
+			
+			
+			idioma = "resources.lang";
+			
+		}
+		
+		
+		if(idioma.equals("catalan")){
+			
+			
+			idioma = "resources.lang_es_CA";
+			
+		}
+		
+		return idioma;
+		
+		
+		
+	}
 
 
 
