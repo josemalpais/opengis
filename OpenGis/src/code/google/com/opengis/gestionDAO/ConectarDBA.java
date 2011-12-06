@@ -7,6 +7,8 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
+import pruebasToni.AccesoBBDD;
+
 /**
  * @author Danico & Pipepito Clase que establece conexión con la base de datos y
  *         realiza las diferentes funciones con esta Ya sea Querys o Updates
@@ -290,5 +292,20 @@ public class ConectarDBA {
 		// System.out.println("Ejecutada sentencia "+sentencia);
 
 	}
+	
+	public static char validarLogin(String usuario, String pass) throws SQLException
+	{
+		ResultSet rs;
+		char t = 0;
+		rs=buscar("SELECT tipo FROM usuario WHERE dni LIKE '" + usuario + "'AND password LIKE '" + pass + "' AND `activo` = '0'");
+		if(rs.next())
+		{
+			t=rs.getString(1).charAt(0);
+			//System.out.println("Tipo de usuario: "+t);
+		}
+		return t;	
+	}
+
+
 
 }
