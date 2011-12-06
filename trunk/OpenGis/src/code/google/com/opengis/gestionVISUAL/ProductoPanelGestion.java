@@ -102,7 +102,7 @@ public class ProductoPanelGestion extends JPanel {
 		lblDosis.setText(Idioma.getString("etAmount")); //$NON-NLS-1$
 		lblDNI = new JLabel();
 		lblDNI.setBounds(new Rectangle(47, 180, 112, 25));
-		lblDNI.setText(Idioma.getString("etId")); //$NON-NLS-1$
+		lblDNI.setText(Idioma.getString("etIdCard")); //$NON-NLS-1$
 		lblTipo = new JLabel();
 		lblTipo.setBounds(new Rectangle(47, 136, 112, 25));
 		lblTipo.setText(Idioma.getString("etType")); //$NON-NLS-1$
