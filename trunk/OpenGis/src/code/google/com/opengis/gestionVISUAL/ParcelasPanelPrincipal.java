@@ -1,18 +1,29 @@
 package code.google.com.opengis.gestionVISUAL;
 
+import java.awt.Desktop;
+import java.awt.Rectangle;
+import java.net.URI;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
-
 import code.google.com.opengis.gestion.Parcela;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection; 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 
 public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
-	
+	private JButton bSigPac = null;
 	private int i = 0;
 	
 	static Object[] columnas={"ID Parcela", "Alias", "Nº Provincia","Nº Población", "Nº Polígono", "Nº Parcela","Nº Partida","DNI del Propietario"};
@@ -20,13 +31,13 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	public ParcelasPanelPrincipal(){
 		super(false);
+		super.add(getBSigPac(),null);
 	}
 	
 	
 	public void buscar(){
 		ConectarDBA dba=null;
 			
-
 			try {
 				ConectarDBA.acceder();
 				modelo.setColumnCount(0);
@@ -167,4 +178,56 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 		}
 	}
 	
+	
+	
+	/**
+	 * This method initializes bNuevo	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBSigPac() {
+		if (bSigPac == null) {
+			bSigPac = new JButton();
+			bSigPac.setBounds(new Rectangle(725, 316, 55, 47));
+			bSigPac.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png"));
+			bSigPac.setEnabled(false);
+			bSigPac.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+
+					
+					try {
+						
+						URI uri = new URI("http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat="
+						+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+
+						","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),6)+",0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+
+						","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true");
+						
+						Desktop.getDesktop().browse(uri);
+					} catch (URISyntaxException e1) {
+						JOptionPane.showMessageDialog(null,e1);
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null,e1);
+						e1.printStackTrace();
+					}
+					
+					
+					
+				}
+			});
+			
+		}
+		return bSigPac;
+	}
+	public void botonesActivar(){
+		
+		getBModificar().setEnabled(true);
+		getBEliminar().setEnabled(true);
+		bSigPac.setEnabled(true);
+		
+	}
+
+
 }
