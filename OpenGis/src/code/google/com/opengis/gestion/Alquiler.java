@@ -1,5 +1,7 @@
 package code.google.com.opengis.gestion;
 
+import java.util.Date;
+
 import javax.swing.JOptionPane;
 
 public class Alquiler {
@@ -8,8 +10,7 @@ public class Alquiler {
 	private String fecha_alquiler;
 	private String fecha_devolucion;
 	private String periodo;
-	
-	
+
 	/**
 	 * 
 	 * @return Este método nos devuelve el Identificador de dispositivo
@@ -17,69 +18,93 @@ public class Alquiler {
 	public String getIddispositivo() {
 		return iddispositivo;
 	}
+
 	/**
 	 * Con este método cambiamos Identificador del dispositivo del alquiler
-	 * @param iddispositivo  Le pasamos el nuevo Identificador
+	 * 
+	 * @param iddispositivo
+	 *            Le pasamos el nuevo Identificador
 	 */
 	public void setIddispositivo(String iddispositivo) {
 		this.iddispositivo = iddispositivo;
 	}
+
 	/**
 	 * 
-	 * @return Este método nos devuelve el DNI del usuario que realiza este alquiler
+	 * @return Este método nos devuelve el DNI del usuario que realiza este
+	 *         alquiler
 	 */
 	public String getDni_usuario() {
 		return dni_usuario;
 	}
+
 	/**
 	 * Con este método cambiamos el DNI del usuario que realiza este alquiler
-	 * @param dni_usuario Le pasamos el nuevo DNI
+	 * 
+	 * @param dni_usuario
+	 *            Le pasamos el nuevo DNI
 	 */
 	public void setDni_usuario(String dni_usuario) {
 		this.dni_usuario = dni_usuario;
 	}
+
 	/**
 	 * Este método nos devuelve la fecha en la que se inicia este alquiler
+	 * 
 	 * @return
 	 */
 	public String getFecha_alquiler() {
 		return fecha_alquiler;
 	}
+
 	/**
 	 * Con este método cambiamos la fecha en la que se inicia este alquiler
-	 * @param fecha_alquiler Le pasamos la nueva fecha de alquiler
+	 * 
+	 * @param fecha_alquiler
+	 *            Le pasamos la nueva fecha de alquiler
 	 */
 	public void setFecha_alquiler(String fecha_alquiler) {
 		this.fecha_alquiler = fecha_alquiler;
 	}
+
 	/**
 	 * Este método nos devuelve la fecha en la que se finaliza este alquiler
+	 * 
 	 * @return
 	 */
 	public String getFecha_devolucion() {
 		return fecha_devolucion;
 	}
+
 	/**
 	 * Con este método cambiamos la fecha en la que se finaliza este alquiler
-	 * @param fecha_devolucion Le pasamos la nueva fecha de devolución
+	 * 
+	 * @param fecha_devolucion
+	 *            Le pasamos la nueva fecha de devolución
 	 */
 	public void setFecha_devolucion(String fecha_devolucion) {
 		this.fecha_devolucion = fecha_devolucion;
 	}
+
 	/**
 	 * Este método nos devuelve el período de este alquiler
+	 * 
 	 * @return
 	 */
 	public String getPeriodo() {
 		return periodo;
 	}
+
 	/**
 	 * Con este método cambiamos el período de este alquiler
-	 * @param periodo Le pasamos el nuevo período de alquiler
+	 * 
+	 * @param periodo
+	 *            Le pasamos el nuevo período de alquiler
 	 */
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
 	}
+
 	public Alquiler(String iddispositivo, String dni_usuario,
 			String fecha_alquiler, String fecha_devolucion, String periodo) {
 		this.iddispositivo = iddispositivo;
@@ -88,7 +113,7 @@ public class Alquiler {
 		this.fecha_devolucion = fecha_devolucion;
 		this.periodo = periodo;
 	}
-	
+
 	public String calcularDNI(String dni) {
 		int pletra;
 		String aux = "";
@@ -139,74 +164,91 @@ public class Alquiler {
 		aux2 = dni.charAt(dni.length() - 1) + "";
 
 		if (arrayLetra[pletra].equalsIgnoreCase(aux2)) {
-			String dni1 = aux + arrayLetra[pletra];// lo colocamos en formato de 9
-												   // carácteres
+			String dni1 = aux + arrayLetra[pletra];// lo colocamos en formato de
+													// 9
+													// carácteres
 			return true;
 		} else {
 			JOptionPane
 					.showMessageDialog(null,
 							"EL NUMERO QUE HA INTRODUCIDO NO SE CORRESPONDE CON LA LETRA");
-			valido = false;
 			return false;
 		}
 	}
-	
-public static boolean validarDatos(String iddispositivo, String dni_usuario,
-		String fecha_alquiler, String fecha_devolucion, String periodo){
-	boolean b = false;
-	
-	//Compruebo que el ID de dispositivo sea numérico
-	b = isInteger(iddispositivo);
-	
-	if (b == false) { 
-		JOptionPane
-				.showMessageDialog(null,
-						"Error. El ID de dispositivo ha de ser numérico.");
-		return false;
 
-	} else {
+	public static boolean validarDatos(String iddispositivo,
+			String dni_usuario, String fecha_alquiler, String fecha_devolucion,
+			String periodo) {
+		boolean b = false;
 
-		if ((numSerie.length() < 10) || (numSerie.length() > 30)) {
+		// Compruebo que el ID de dispositivo sea numérico
+		b = isInteger(iddispositivo);
 
-			JOptionPane
-					.showMessageDialog(null,
-							"Error. El número de serie tiene que tener entre 10 y 30 dígitos.");
+		if (b == false) {
+			JOptionPane.showMessageDialog(null,
+					"Error. El ID de dispositivo ha de ser numérico.");
 			return false;
 
 		} else {
-			try {
-				numSerie = numSerie.toString();
-				b = true;
-			} catch (Exception e) {
-				b = false;
-			}
 
-			if (b = false) {
+			Date fechaAhora = new Date();
 
-				JOptionPane
-						.showMessageDialog(null,
-								"Error. El número de serie es incorrecto. Introduce datos correctos.");
+			if (fecha_alquiler.equals("")) {
+				JOptionPane.showMessageDialog(null,
+						"La fecha de alquiler no puede estar en blanco");
 				return false;
+			} else {
 
-			}
+				@SuppressWarnings("deprecation")
+				Date fecha_alq = new Date(fecha_alquiler);
 
-			else {
+				if (fecha_alquiler.length() != 10
+						|| fecha_alq.getTime() > fechaAhora.getTime()) {
 
-				return true;
-				/**
-				 * Si todos los datos son correctos devuelve True.
-				 */
+					JOptionPane.showMessageDialog(null,
+							"Error. La fecha indicada no es correcta");
+					return false;
+				} else {
+
+					if (fecha_devolucion.equals("")) {
+						JOptionPane
+								.showMessageDialog(null,
+										"La fecha de devolución no puede estar en blanco");
+						return false;
+					} else {
+
+						@SuppressWarnings("deprecation")
+						Date fecha_dev = new Date(fecha_devolucion);
+
+						if (fecha_devolucion.length() != 10
+								|| fecha_dev.getTime() < fecha_alq.getTime()) {
+
+							JOptionPane
+									.showMessageDialog(null,
+											"Error. La fecha de devolución no es correcta");
+							return false;
+						}
+
+						else {
+
+							return true;
+							/**
+							 * Si todos los datos son correctos devuelve True.
+							 */
+						}
+					}
+				}
 			}
 		}
 	}
-}
-public static boolean isInteger(String cadena) {
-	try {
-		Integer.parseInt(cadena);
-		return true;
-	} catch (Exception ex) {
-		return false;
-	}
 
-}
+	public static boolean isInteger(String cadena) {
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
+
+	}
 }
