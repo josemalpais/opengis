@@ -42,26 +42,8 @@ public class ParcelasPanelNuevo extends JPanel {
 	private JTextField txtPoligonop = null;
 	private JTextField txtPartidap = null;
 	private JTextField txtDniPropietario = null;
-	private JTextField txtTelefono = null;
-	private JTextField txteMail = null;
-	private JPasswordField txtPass = null;
-	private JComboBox comboTipo = null;
-	private JLabel lblObligtorios = null;
 	private JTextField txtNumerop = null;
-	private JLabel lblPass2 = null;
-	private JPasswordField txtPass2 = null;
 	private String accion;
-	
-	private String dni=""; //$NON-NLS-1$
-	private String nombre=""; //$NON-NLS-1$
-	private String apellidos=""; //$NON-NLS-1$
-	private String direccion=""; //$NON-NLS-1$
-	//private String poblacion=" "; //$NON-NLS-1$
-	//private String provincia=""; //$NON-NLS-1$
-	private String cp=""; //$NON-NLS-1$
-	private String telefono=""; //$NON-NLS-1$
-	private String email=""; //$NON-NLS-1$
-	private String fechanac=""; //$NON-NLS-1$
 	
 	private String idparcela; //identificador de la parcela
 	private String alias; //nombre que el usuario asignara a la parcela para relacionarlo
@@ -108,10 +90,6 @@ public class ParcelasPanelNuevo extends JPanel {
 	 * @return void
 	 */
 	private void initialize() {
-		lblObligtorios = new JLabel();
-		lblObligtorios.setBounds(new Rectangle(434, 334, 238, 25));
-		lblObligtorios.setFont(new Font(Idioma.getString("Dialog"), Font.ITALIC, 12));
-		lblObligtorios.setText("(*)Todos los campos son obligatorios");
 		lblPoblacionp = new JLabel();
 		lblPoblacionp.setBounds(new Rectangle(506, 83, 138, 30));
 		lblPoblacionp.setText("Nº Población: ");
@@ -158,7 +136,6 @@ public class ParcelasPanelNuevo extends JPanel {
 		this.add(getTxtPartidap(), null);
 		this.add(getTxtNumerop(),null);
 		this.add(getTxtDniPropietario(), null);
-		this.add(lblObligtorios, null);
 
 	}
 
@@ -193,11 +170,6 @@ public class ParcelasPanelNuevo extends JPanel {
 								e1.printStackTrace();
 							}
 											
-	
-						} else {
-	
-							JOptionPane.showMessageDialog(null,
-									Idioma.getString("msgPasswordUnmatch"));
 	
 						}
 						
