@@ -592,31 +592,31 @@ import code.google.com.opengis.gestionDAO.Idioma;
 					
 					int resp = JOptionPane.showConfirmDialog(null,"El seu idioma per defecte serà català. Voldria canviar-ho?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 					
-					if(resp == 0){
+					if(resp == 1){
 						
-					}
+					}else{
 					
-					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='catalan' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
-					
-					try {
+						String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='catalan' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
 						
-						ConectarDBA.acceder();
-						ConectarDBA.modificar(sentencia);
-						ConectarDBA.cerrarCon();
-						
-						JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català"); //$NON-NLS-1$
-						
-						VentanaPrincipal.this.dispose();
-						LoginVisual lv = new LoginVisual();
-						
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+						try {
+							
+							ConectarDBA.acceder();
+							ConectarDBA.modificar(sentencia);
+							ConectarDBA.cerrarCon();
+							
+							JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català"); //$NON-NLS-1$
+							
+							VentanaPrincipal.this.dispose();
+							LoginVisual lv = new LoginVisual();
+							
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 				
 					
 				
-					
+					}
 				
 					
 					
@@ -643,30 +643,30 @@ import code.google.com.opengis.gestionDAO.Idioma;
 					
 					int resp = JOptionPane.showConfirmDialog(null,"Su idioma predeterminado será español.¿Desea cambiarlo?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 					
-					if(resp == 0){
+					if(resp == 1){
 						
+					}else{
+					
+						String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='español' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
+						
+						try {
+							
+							ConectarDBA.acceder();
+							ConectarDBA.modificar(sentencia);
+							ConectarDBA.cerrarCon();
+							
+							JOptionPane.showMessageDialog(null, "Su idioma ha cambiado a Español"); //$NON-NLS-1$
+							
+							VentanaPrincipal.this.dispose();
+							LoginVisual lv = new LoginVisual();
+							
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					
+					
 					}
-					
-					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='español' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
-					
-					try {
-						
-						ConectarDBA.acceder();
-						ConectarDBA.modificar(sentencia);
-						ConectarDBA.cerrarCon();
-						
-						JOptionPane.showMessageDialog(null, "Su idioma ha cambiado a Español"); //$NON-NLS-1$
-						
-						VentanaPrincipal.this.dispose();
-						LoginVisual lv = new LoginVisual();
-						
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
-					
-				
 					
 				}
 			});
@@ -689,28 +689,28 @@ import code.google.com.opengis.gestionDAO.Idioma;
 					
 					int resp = JOptionPane.showConfirmDialog(null,"Your default language will be English. Do you want to change it?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 					
-					if(resp == 0){
+					if(resp == 1){
 						
-					}
+					}else{
 					
-					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='english' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
-					
-					try {
+						String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='english' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
 						
-						ConectarDBA.acceder();
-						ConectarDBA.modificar(sentencia);
-						ConectarDBA.cerrarCon();
-						
-						JOptionPane.showMessageDialog(null, "Your language has been changed to English"); //$NON-NLS-1$
-						
-						VentanaPrincipal.this.dispose();
-						LoginVisual lv = new LoginVisual();
-						
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						try {
+							
+							ConectarDBA.acceder();
+							ConectarDBA.modificar(sentencia);
+							ConectarDBA.cerrarCon();
+							
+							JOptionPane.showMessageDialog(null, "Your language has been changed to English"); //$NON-NLS-1$
+							
+							VentanaPrincipal.this.dispose();
+							LoginVisual lv = new LoginVisual();
+							
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
-				
 					
 				}
 			});
