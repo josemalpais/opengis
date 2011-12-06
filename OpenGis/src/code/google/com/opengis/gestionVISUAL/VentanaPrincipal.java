@@ -586,6 +586,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 			bIdiomaCatalan = new JButton();
 			bIdiomaCatalan.setBounds(new Rectangle(806, 7, 18, 11));
 			bIdiomaCatalan.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/catalan.png"))); //$NON-NLS-1$
+			bIdiomaCatalan.setToolTipText("Catatlà/Valencià");
 			bIdiomaCatalan.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
@@ -636,6 +637,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 			bIdiomaSpanish = new JButton();
 			bIdiomaSpanish.setBounds(new Rectangle(775, 7, 18, 11));
 			bIdiomaSpanish.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Spanish.png"))); //$NON-NLS-1$
+			bIdiomaSpanish.setToolTipText("Español");
 			bIdiomaSpanish.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
@@ -683,6 +685,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 		if (bIdiomaEnglish == null) {
 			bIdiomaEnglish = new JButton();
 			bIdiomaEnglish.setBounds(new Rectangle(836, 7, 18, 11));
+			bIdiomaEnglish.setToolTipText("English");
 			bIdiomaEnglish.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/english.png"))); //$NON-NLS-1$
 			bIdiomaEnglish.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
