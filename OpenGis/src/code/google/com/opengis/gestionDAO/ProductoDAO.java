@@ -4,7 +4,6 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 import code.google.com.opengis.gestion.Producto;
-import code.google.com.opengis.gestionVISUAL.ProductoVisual;
 
 public class ProductoDAO {
 	static boolean existe;
