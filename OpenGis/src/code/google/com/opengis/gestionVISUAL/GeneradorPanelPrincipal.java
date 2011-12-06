@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import code.google.com.opengis.gestion.Parcela;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 public class GeneradorPanelPrincipal extends JPanel {
 
@@ -61,7 +62,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	 */
 	public JTextField getTxtCriterioBusqueda() {
 		if (txtCriterioBusqueda == null) {
-			txtCriterioBusqueda = new JTextField("Inserte criterio de búsqueda...");
+			txtCriterioBusqueda = new JTextField(Idioma.getString("msgSearchCriteria")); //$NON-NLS-1$
 			txtCriterioBusqueda.setBounds(new Rectangle(267, 48, 284, 32));
 			txtCriterioBusqueda.setSelectedTextColor(new Color(204, 204, 204));
 			txtCriterioBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -84,7 +85,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 			txtCriterioBusqueda.addMouseListener(new java.awt.event.MouseAdapter() { 
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 					
-					txtCriterioBusqueda.setText("");
+					txtCriterioBusqueda.setText(""); //$NON-NLS-1$
 					
 					
 				}
@@ -151,8 +152,8 @@ public class GeneradorPanelPrincipal extends JPanel {
 		if (bNuevo == null) {
 			bNuevo = new JButton();
 			bNuevo.setBounds(new Rectangle(33, 316, 55, 47));
-			bNuevo.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Nuevo.png"));
-			bNuevo.setToolTipText("Nuevo");
+			bNuevo.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Nuevo.png")); //$NON-NLS-1$
+			bNuevo.setToolTipText(Idioma.getString("etNew")); //$NON-NLS-1$
 			
 			bNuevo.setEnabled(true);
 			bNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -176,8 +177,8 @@ public class GeneradorPanelPrincipal extends JPanel {
 		if (bModificar == null) {
 			bModificar = new JButton();
 			bModificar.setBounds(new Rectangle(109, 316, 55, 47));
-			bModificar.setToolTipText("Modificar");
-			bModificar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Modificar.png"));
+			bModificar.setToolTipText(Idioma.getString("etModify")); //$NON-NLS-1$
+			bModificar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Modificar.png")); //$NON-NLS-1$
 			
 			bModificar.setEnabled(false);
 			bModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,8 +200,8 @@ public class GeneradorPanelPrincipal extends JPanel {
 		if (bEliminar == null) {
 			bEliminar = new JButton();
 			bEliminar.setBounds(new Rectangle(186, 316, 55, 47));
-			bEliminar.setToolTipText("Eliminar");
-			bEliminar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Eliminar.png"));
+			bEliminar.setToolTipText(Idioma.getString("etDelete")); //$NON-NLS-1$
+			bEliminar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Eliminar.png")); //$NON-NLS-1$
 			bEliminar.setEnabled(false);
 			bEliminar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {			

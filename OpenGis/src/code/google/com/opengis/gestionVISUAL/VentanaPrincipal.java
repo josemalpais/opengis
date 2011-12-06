@@ -257,14 +257,14 @@ import code.google.com.opengis.gestionDAO.Idioma;
     					
     					bCerrarPestaña.setVisible(true);
 
-    						System.out.println("aaaaaaaa");
+    						System.out.println("aaaaaaaa"); //$NON-NLS-1$
     						int numPestañas = tabsPaneles.getTabCount();
     						
     						if (numPestañas <10) {
 							
     							ParcelasPanelPrincipal panelNuevo = new ParcelasPanelPrincipal();
     						
-    							tabsPaneles.addTab("Gestión Parcelas",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.addTab(Idioma.getString("etLotsMng"),panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
@@ -319,7 +319,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
     							AperosPanelPrincipal panelNuevo = new AperosPanelPrincipal();
     						
-    							tabsPaneles.addTab("Gestión de Aperos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.addTab(Idioma.getString("etImplementsMng"),panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
@@ -374,7 +374,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
     							DispositivosPanelPrincipal panelNuevo = new DispositivosPanelPrincipal();
     						
-    							tabsPaneles.addTab("Gestión Dispositivos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.addTab(Idioma.getString("etDevicesMng"),panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
@@ -553,18 +553,18 @@ import code.google.com.opengis.gestionDAO.Idioma;
 		if (bIdiomaCatalan == null) {
 			bIdiomaCatalan = new JButton();
 			bIdiomaCatalan.setBounds(new Rectangle(806, 7, 18, 11));
-			bIdiomaCatalan.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/catalan.png")));
+			bIdiomaCatalan.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/catalan.png"))); //$NON-NLS-1$
 			bIdiomaCatalan.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
 					
-					int resp = JOptionPane.showConfirmDialog(null,"El seu idioma per defecte serà català. Vols canviar?","",JOptionPane.YES_NO_OPTION);
+					int resp = JOptionPane.showConfirmDialog(null,"El seu idioma per defecte serà català. Voldria canviar-ho?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 					
 					if(resp == 0){
 						
 					}
 					
-					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='catalan' WHERE dni='"+ dniUsuario +"'";
+					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='catalan' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
 					
 					try {
 						
@@ -572,7 +572,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 						ConectarDBA.modificar(sentencia);
 						ConectarDBA.cerrarCon();
 						
-						JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català");
+						JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català"); //$NON-NLS-1$
 						
 						
 					} catch (SQLException e1) {
@@ -601,19 +601,19 @@ import code.google.com.opengis.gestionDAO.Idioma;
 		if (bIdiomaSpanish == null) {
 			bIdiomaSpanish = new JButton();
 			bIdiomaSpanish.setBounds(new Rectangle(775, 7, 18, 11));
-			bIdiomaSpanish.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Spanish.png")));
+			bIdiomaSpanish.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Spanish.png"))); //$NON-NLS-1$
 			bIdiomaSpanish.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
 
 					
-					int resp = JOptionPane.showConfirmDialog(null,"Su idioma predeterminado será español.¿Desea cambiarlo?","",JOptionPane.YES_NO_OPTION);
+					int resp = JOptionPane.showConfirmDialog(null,"Su idioma predeterminado será español.¿Desea cambiarlo?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 					
 					if(resp == 0){
 						
 					}
 					
-					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='español' WHERE dni='"+ dniUsuario +"'";
+					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='español' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
 					
 					try {
 						
@@ -621,7 +621,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 						ConectarDBA.modificar(sentencia);
 						ConectarDBA.cerrarCon();
 						
-						JOptionPane.showMessageDialog(null, "Su idioma ha cambiado a Español");
+						JOptionPane.showMessageDialog(null, "Su idioma ha cambiado a Español"); //$NON-NLS-1$
 						
 						
 					} catch (SQLException e1) {
@@ -647,17 +647,17 @@ import code.google.com.opengis.gestionDAO.Idioma;
 		if (bIdiomaEnglish == null) {
 			bIdiomaEnglish = new JButton();
 			bIdiomaEnglish.setBounds(new Rectangle(836, 7, 18, 11));
-			bIdiomaEnglish.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/english.png")));
+			bIdiomaEnglish.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/english.png"))); //$NON-NLS-1$
 			bIdiomaEnglish.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-					int resp = JOptionPane.showConfirmDialog(null,"Your default language will be English. Do you want to change it?","",JOptionPane.YES_NO_OPTION);
+					int resp = JOptionPane.showConfirmDialog(null,"Your default language will be English. Do you want to change it?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 					
 					if(resp == 0){
 						
 					}
 					
-					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='english' WHERE dni='"+ dniUsuario +"'";
+					String sentencia = "UPDATE `dai2opengis`.`usuario` SET idioma='english' WHERE dni='"+ dniUsuario +"'"; //$NON-NLS-1$ //$NON-NLS-2$
 					
 					try {
 						
@@ -665,7 +665,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 						ConectarDBA.modificar(sentencia);
 						ConectarDBA.cerrarCon();
 						
-						JOptionPane.showMessageDialog(null, "Your language has been changed to English");
+						JOptionPane.showMessageDialog(null, "Your language has been changed to English"); //$NON-NLS-1$
 						
 						
 					} catch (SQLException e1) {
