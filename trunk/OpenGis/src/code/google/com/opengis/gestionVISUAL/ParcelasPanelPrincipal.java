@@ -198,11 +198,8 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 			bSigPac.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
-					
-					UIUtils.setPreferredLookAndFeel();   
-				    NativeInterface.open();   
-				    SwingUtilities.invokeLater(new Runnable() {   
-				      public void run() {   
+				
+				    NativeInterface.open();
 				    	  
 				    	  String url = "http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat="
 								+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+
@@ -213,13 +210,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 							PanelPDF pdf = new PanelPDF(url);
 							
 							VentanaPrincipal.añadirPestañaNueva("Información Parcela",pdf);
-				      }   
-				    });   
-				    NativeInterface.runEventPump(); 
-					
 
-					
-				
 				}
 			});
 			
