@@ -54,16 +54,12 @@ public class AperoDAO {
 		String sentencia = "SELECT * FROM `apero` WHERE `idapero` LIKE '"+id+"'";
 		ResultSet rs = dba.consulta(sentencia);
 		while(rs.next()){
-			System.out.println("Ejecuto el while");
 			resultado = rs.getString(1);
 		}
-		System.out.println("Enviado: "+id+" esperado: "+resultado);
 		if(resultado == null){
 			existe = false;
-			System.out.println("El estado de existe es: "+existe);
 		}else if (resultado.equals(id)){
 			existe = true;
-			System.out.println("El estado de existe es: "+existe);
 		}
 		rs.close();
 	}
@@ -123,7 +119,6 @@ public class AperoDAO {
 			if (existe == true){
 				//String sentencia = "UPDATE INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0')";
 				String sentencia = "UPDATE `dai2opengis`.`apero` SET `nombre` = '"+this.nomApero+"', `tamaño` = '"+this.tamApero+"', `descripcion` = '"+this.descApero+"',`idtarea` = '"+this.idTarea_Apero+"',`activo` = '"+this.activ_Apero+"',`dni_usuario` = '"+this.idUser+"' WHERE `idapero` LIKE '"+this.idApero+"'";
-				System.out.println("por ahora funciona");
 				dba.modificar(sentencia);
 				JOptionPane.showMessageDialog(null,"Se ha modificado el Apero");
 				
@@ -146,8 +141,6 @@ public class AperoDAO {
 				System.out.println(e);
 			}
 			return rs;
-
-			// System.out.println("Ejecutada sentencia "+sentencia);
 
 		}
 }

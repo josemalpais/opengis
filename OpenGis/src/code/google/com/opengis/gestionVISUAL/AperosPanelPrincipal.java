@@ -78,54 +78,50 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 
 	
 	
-	/*public void nuevo(){
+	public void nuevo(){
 		
-		UsuariosPanelNuevo p = new UsuariosPanelNuevo("alta"); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+		AperosPanelNuevo p = new AperosPanelNuevo("alta"); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 		
-		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewUser"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+		VentanaPrincipal.añadirPestañaNueva("Nuevo Usuario",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		
 		
-	}*/
+	}
 	
-	/*public void modificar(){
+	public void modificar(){
 		
 		// Recogemos todos los datos de la tabla
 		
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
-			String[] rUser = new String[10];
+			String[] rUser = new String[7];
 			for (int i = 0; i < rUser.length; i++) {
-				rUser[i] = getTablaPrincipal().getValueAt(fila, i)
-						.toString();
+				rUser[i] = getTablaPrincipal().getValueAt(fila, i).toString();
 			}
+			AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[6].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			
-			UsuariosPanelNuevo p = new UsuariosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString(),rUser[6].toString(),rUser[7].toString(),rUser[8].toString(),rUser[9].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
-			
-			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etChangeUser"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			VentanaPrincipal.añadirPestañaNueva("Modificar Apero",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 			
 			
 		}
 		
 	
 		
-	}*/
+	}
 	
-	/*public void eliminar(){
+	public void eliminar(){
 		
 		// Recogemos todos los datos de la tabla
 		
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
-			String[] rUser = new String[10];
+			String[] rUser = new String[7];
 			for (int i = 0; i < rUser.length; i++) {
-				rUser[i] = getTablaPrincipal().getValueAt(fila, i)
-						.toString();
+				rUser[i] = getTablaPrincipal().getValueAt(fila, i).toString();
 			}
 		
 			
 			try {
-				UsuariosDAO.DesactivarUsuario(rUser[0]);
+				AperoDAO.DesactivarApero(rUser[0]);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -134,20 +130,20 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 		}
 		
 		
-	}*/
+	}
 	
-	/*public void botonesActivar(){
+	public void botonesActivar(){
 		
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
-			String[] rUser = new String[12];
+			String[] rUser = new String[7];
 			for (int i = 0; i < rUser.length; i++) {
 				rUser[i] = getTablaPrincipal().getValueAt(fila, i)
 						.toString();
 			}
 		
 			
-			if(rUser[11].toString().equals("Inactivo")){ //$NON-NLS-1$
+			if(rUser[6].toString().equals("Inactivo")){ //$NON-NLS-1$
 				
 				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgUserWithID") + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
@@ -171,7 +167,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			}
 			
 		}
-	}*/
+	}
 	
 }
 
