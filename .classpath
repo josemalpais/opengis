@@ -12,6 +12,10 @@
 	<classpathentry kind="lib" path="jasperreports-applet-4.0.0.jar"/>
 	<classpathentry kind="lib" path="jasperreports-fonts-4.0.0.jar"/>
 	<classpathentry kind="lib" path="jasperreports-javaflow-4.0.0.jar"/>
+	<classpathentry kind="lib" path="DJNativeSwing.jar"/>
+	<classpathentry kind="lib" path="DJNativeSwing-SWT.jar"/>
+	<classpathentry kind="lib" path="swt-debug.jar"/>
+	<classpathentry kind="lib" path="swt.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javamail2"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mail"/>
