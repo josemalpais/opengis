@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
+import chrriis.common.UIUtils;
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import code.google.com.opengis.gestion.Parcela;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
@@ -195,26 +199,27 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
 					
-					try {
-						
-						URI uri = new URI("http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat="
-						+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+
-						","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),6)+",0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+
-						","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true");
-						
-						Desktop.getDesktop().browse(uri);
-					} catch (URISyntaxException e1) {
-						JOptionPane.showMessageDialog(null,e1);
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null,e1);
-						e1.printStackTrace();
-					}
+					UIUtils.setPreferredLookAndFeel();   
+				    NativeInterface.open();   
+				    SwingUtilities.invokeLater(new Runnable() {   
+				      public void run() {   
+				    	  
+				    	  String url = "http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat="
+								+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+
+								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),6)+",0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+
+								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true";
+							
+				    	  
+							PanelPDF pdf = new PanelPDF(url);
+							
+							VentanaPrincipal.añadirPestañaNueva("Información Parcela",pdf);
+				      }   
+				    });   
+				    NativeInterface.runEventPump(); 
 					
+
 					
-					
+				
 				}
 			});
 			

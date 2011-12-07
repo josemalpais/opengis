@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import chrriis.dj.nativeswing.NativeSwing;
+
 import code.google.com.opengis.gestionDAO.AperoDAO;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.UsuariosDAO;
