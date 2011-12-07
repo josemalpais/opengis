@@ -494,9 +494,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                  this.dispose();
                  LoginVisual l = new LoginVisual(); // Si dice que si, volvemos al Login del Programa
-                 l.setVisible(true);
-               
-               
+                 l.setVisible(true);                                             
          }else{
                
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // Si dice que no no hacemos nada
@@ -607,7 +605,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
 							JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català"); //$NON-NLS-1$
 							tabsPaneles.removeAll();
-							VentanaPrincipal.this.dispose();;
+							VentanaPrincipal.this.dispose();
 							LoginVisual lv = new LoginVisual();
 							
 						} catch (SQLException e1) {
