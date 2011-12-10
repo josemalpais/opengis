@@ -99,7 +99,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			}
 			AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[6].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			VentanaPrincipal.añadirPestañaNueva("Modificar Apero",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			VentanaPrincipal.añadirPestañaNueva("Modificar Apero"+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 			
 			
 		}
