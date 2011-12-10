@@ -24,16 +24,16 @@ import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 public class Usuarios {
 
-	private String Dni;
-	private String Nombre;
-	private String Apellidos;
-	private String Telefono;
-	private String Direccion;
-	private String Poblacion;
-	private String Fecha_nac;
-	private String Contraseña;
-	private String Provincia;
-	private String Cp;
+	private String dni;
+	private String nombre;
+	private String apellidos;
+	private String telefono;
+	private String direccion;
+	private String poblacion;
+	private String fechaNac;
+	private String password;
+	private String provincia;
+	private String cp;
 	private String tipo;
 	private Boolean valido;
 	private String email;
@@ -69,17 +69,17 @@ public class Usuarios {
 			String Provincia, String Cp, String fecha_nac, String contraseña,
 			String tipo, String email) {
 
-		this.Dni = Dni;
-		this.Nombre = Nombre;
-		this.Apellidos = Apellidos;
-		this.Telefono = Telefono;
-		this.Direccion = Direccion;
-		this.Poblacion = Poblacion;
-		this.Fecha_nac = fecha_nac;
-		this.Contraseña = contraseña;
-		this.Cp = Cp;
+		this.dni = Dni;
+		this.nombre = Nombre;
+		this.apellidos = Apellidos;
+		this.telefono = Telefono;
+		this.direccion = Direccion;
+		this.poblacion = Poblacion;
+		this.fechaNac = fecha_nac;
+		this.password = contraseña;
+		this.cp = Cp;
 		this.tipo = tipo;
-		this.Provincia = Provincia;
+		this.provincia = Provincia;
 		this.email = email;
 		this.valido = false;
 
@@ -139,202 +139,150 @@ public class Usuarios {
 		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P",
 				"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C",
 				"K", "E", "T" };
-
-		for (int x = 0; x < 8; x++) {// este for nos cojera los 8 primeros
-										// carácteres y los guardará en el
-										// string aux
-			aux = aux + dni.charAt(x);
-		}
-		try {
-			pletra = Integer.parseInt(aux); // si no fueran enteros saldriamos
-											// del metodo con un false
-		} catch (NumberFormatException ex) {
+		if (dni.length() != 9) {
 			JOptionPane.showMessageDialog(null,
-					"LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
-			valido = false;
-			return false;
-		}
-		pletra = pletra % 23;
-		aux2 = dni.charAt(dni.length() - 1) + "";
+					"Error. El DNI solo puede contener 9 caracteres");
 
-		if (arrayLetra[pletra].equalsIgnoreCase(aux2)) {
-			Dni = aux + arrayLetra[pletra];// lo colocamos en formato de 9
-											// carácteres
-			return true;
-		} else {
-			JOptionPane
-					.showMessageDialog(null,
-							"El número de DNI no se corresponde con la letra introducida.");
-			valido = false;
+			this.valido = false;
 			return false;
+		} else {
+			for (int x = 0; x < 8; x++) {// este for nos cojera los 8 primeros
+											// carácteres y los guardará en el
+											// string aux
+				aux = aux + dni.charAt(x);
+			}
+			try {
+				pletra = Integer.parseInt(aux); // si no fueran enteros
+												// saldriamos
+												// del metodo con un false
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
+				valido = false;
+				return false;
+			}
+			pletra = pletra % 23;
+			aux2 = dni.charAt(dni.length() - 1) + "";
+
+			if (arrayLetra[pletra].equalsIgnoreCase(aux2)) {
+				dni = aux + arrayLetra[pletra];// lo colocamos en formato de 9
+												// carácteres
+				return true;
+			} else {
+				JOptionPane
+						.showMessageDialog(null,
+								"El número de DNI no se corresponde con la letra introducida.");
+				valido = false;
+				return false;
+			}
+		}
+	}
+	/**
+	 * Método que comprueba si el texto que le pasamos es numérico o está vacio.
+	 * @param texto Texto a comprobar
+	 * @return devuelve si el texto es válido o no.
+	 */
+	public boolean validarTexto(String texto) {
+		Boolean r = isInteger(texto);
+
+		if (r.equals(true) || texto.length() < 2) {
+
+			JOptionPane.showMessageDialog(null, "Error. El campo " + texto
+					+ "no puede ser numérico ni esta vacíos");
+			this.valido = false;
+			return false;
+		} else {
+			return true;
+
 		}
 	}
 
 	public void validarDatos() {
 
-		if (this.Dni.length() != 9) { // El DNI tiene que tener 9 caracteres
-
-			JOptionPane.showMessageDialog(null,
-					"Error. El DNI solo puede contener 9 caracteres");
-
+		if (validarDni(dni) == false) {
 			this.valido = false;
-
 		} else {
-			if (validarDni(Dni) == false) {
-				this.valido = false;
-			} else {
-				Boolean r = isInteger(this.Nombre);
 
-				if (r.equals(true) || this.Nombre.length() < 2) {
+			Boolean r = isInteger(this.nombre);
+
+			if (validarTexto(this.nombre) || validarTexto(this.apellidos)
+					|| validarTexto(this.direccion)
+					|| validarTexto(this.poblacion)
+					|| validarTexto(this.provincia) || validarTexto(this.email)) {
+
+				this.valido = false;
+
+			} else {
+
+				r = isInteger(this.telefono);
+
+				if (this.telefono.length() != 9 || r.equals(false)) {
 
 					JOptionPane
 							.showMessageDialog(null,
-									"Error. El nombre no puede ser numerico ni estar vacío");
+									"Error. El número de telefono tiene que tener 9 dígitos");
 					this.valido = false;
 
 				} else {
 
-					r = isInteger(this.Apellidos);
+					Date fechaAhora = new Date();
 
-					if (r.equals(true) || this.Apellidos.length() < 2) {
+					if (this.fechaNac.equals("")) {
 
 						JOptionPane
 								.showMessageDialog(null,
-										"Error. Los apellidos no pueden ser numericos ni estar vacíos");
+										"La fecha de nacimiento no puede estar en blanco");
 						this.valido = false;
 
 					} else {
 
-						r = isInteger(this.Telefono);
+						@SuppressWarnings("deprecation")
+						Date fechaNac = new Date(this.fechaNac);
 
-						if (this.Telefono.length() != 9 || r.equals(false)) {
+						if (this.fechaNac.length() != 10
+								|| fechaNac.getTime() > fechaAhora.getTime()) {
 
-							JOptionPane
-									.showMessageDialog(null,
-											"Error. El número de telefono tiene que tener 9 dígitos");
+							JOptionPane.showMessageDialog(null,
+									"Error. La fecha indicada no es correcta");
 							this.valido = false;
 
 						} else {
 
-							r = isInteger(this.Direccion);
+							r = isInteger(this.cp);
 
-							if (r.equals(true) || this.Direccion.length() < 2) {
+							if (this.cp.length() != 5 || r.equals(false)) {
 
 								JOptionPane
 										.showMessageDialog(null,
-												"Error. La dirección no puede ser numérica ni estar vacía");
-								this.valido = false;
+												"Error. El Código Postal debe tener 5 cifras y ser solo numérico");
 
 							} else {
 
-								r = isInteger(this.Poblacion);
+								r = isInteger(this.password);
 
-								if (r.equals(true)
-										|| this.Poblacion.length() < 2) {
+								if (this.password.length() == 0
+										|| r.equals(true)) {
 
 									JOptionPane
 											.showMessageDialog(null,
-													"Error. La población no puede ser numerica ni estar vacia");
-									this.valido = false;
+													"Error. La Contraseña es obligatoria y debe ser alfanumérica");
 
 								} else {
 
-									Date fechaAhora = new Date();
-									
-									if(this.Fecha_nac.equals("")){
-										
-										JOptionPane.showMessageDialog(null,"La fecha de nacimiento no puede estar en blanco");
-										this.valido = false;
-										
-									}else{
-									
-									@SuppressWarnings("deprecation")
-									Date fechaNac = new Date(this.Fecha_nac);
-									
-
-									if (this.Fecha_nac.length() != 10
-											|| fechaNac.getTime() > fechaAhora
-													.getTime()) {
-
-										JOptionPane
-												.showMessageDialog(null,
-														"Error. La fecha indicada no es correcta");
-										this.valido = false;
-
-									} else {
-
-										r = isInteger(this.email);
-
-										if (this.email.length() == 0
-												|| r.equals(true)) {
-
-											JOptionPane
-													.showMessageDialog(null,
-															"Error. El campo email no puede estar en blanco ni ser numérico");
-
-										} else {
-
-											r = isInteger(this.Cp);
-
-											if (this.Cp.length() != 5
-													|| r.equals(false)) {
-
-												JOptionPane
-														.showMessageDialog(
-																null,
-																"Error. El Código Postal debe tener 5 cifras y ser solo numérico");
-
-											} else {
-
-												r = isInteger(this.Provincia);
-
-												if (this.Provincia.length() == 0
-														|| r.equals(true)) {
-
-													JOptionPane
-															.showMessageDialog(
-																	null,
-																	"Error. La provincia no puede esta vacía ni ser numérico");
-
-	 											} else {
-
-													r = isInteger(this.Contraseña);
-
-													if (this.Contraseña
-															.length() == 0
-															|| r.equals(true)) {
-
-														JOptionPane
-																.showMessageDialog(
-																		null,
-																		"Error. La Contraseña es obligatoria y debe ser alfanumérica");
-
-													} else {
-
-														this.valido = true; // En
-																			// el
-																			// caso
-																			// de
-																			// que
-																			// todos
-																			// los
-																			// datos
-																			// sean
-																			// correctos
-																			// devolveremos
-																			// True
-
-													}
-												}
-
-											}
-
-										}
-
-									}
+									this.valido = true; // En
+														// el
+														// caso
+														// de
+														// que
+														// todos
+														// los
+														// datos
+														// sean
+														// correctos
+														// devolveremos
+														// True
 
 								}
-
 							}
 
 						}
@@ -344,10 +292,10 @@ public class Usuarios {
 				}
 
 			}
+
 		}
 
 	}
-}
 
 	/**
 	 * Este método utiliza la clase UsuariosDAO, creando un objeto del mismo con
@@ -362,7 +310,7 @@ public class Usuarios {
 
 		existe = false;
 		activo = false;
-		ConectarDBA.comprobarExiste("usuario", "dni", this.Dni, true);
+		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, true);
 
 		if (existe == true) {
 
@@ -378,29 +326,29 @@ public class Usuarios {
 
 		} else {
 			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"
-					+ this.Dni
+					+ this.dni
 					+ "', '"
-					+ this.Nombre
+					+ this.nombre
 					+ "', '"
-					+ this.Apellidos
+					+ this.apellidos
 					+ "', '"
 					+ this.email
 					+ "', '"
-					+ this.Contraseña
+					+ this.password
 					+ "', '"
 					+ this.tipo
 					+ "', '0', '"
-					+ this.Telefono
+					+ this.telefono
 					+ "', '"
-					+ this.Direccion
+					+ this.direccion
 					+ "', '"
-					+ this.Poblacion
+					+ this.poblacion
 					+ "', '"
-					+ this.Provincia
+					+ this.provincia
 					+ "', '"
-					+ this.Cp
+					+ this.cp
 					+ "', '"
-					+ this.Fecha_nac + "', '0')";
+					+ this.fechaNac + "', '0')";
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
@@ -425,12 +373,12 @@ public class Usuarios {
 
 		existe = false;
 
-		ConectarDBA.comprobarExiste("usuario", "dni", this.Dni, false);
+		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false);
 
 		if (existe == true) {
 
 			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '"
-					+ this.Dni + "'";
+					+ this.dni + "'";
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
@@ -445,9 +393,9 @@ public class Usuarios {
 	}
 
 	public void modificarUsuario() {
-		enlace = new UsuariosDAO(this.Dni, this.Nombre, this.Apellidos,
-				this.Telefono, this.Direccion, this.Poblacion, this.Provincia,
-				this.Cp, this.Fecha_nac, this.Contraseña, this.tipo, this.email);
+		enlace = new UsuariosDAO(this.dni, this.nombre, this.apellidos,
+				this.telefono, this.direccion, this.poblacion, this.provincia,
+				this.cp, this.fechaNac, this.password, this.tipo, this.email);
 		try {
 
 			enlace.MoficicarUsuario();
@@ -459,17 +407,18 @@ public class Usuarios {
 		}
 
 	}
-	
-	public void desactivarUsuario(String dni) throws SQLException{
-		//System.out.println(dni);
+
+	public void desactivarUsuario(String dni) throws SQLException {
+		// System.out.println(dni);
 		ConectarDBA.desactivar("usuario", "dni", dni);
 	}
-	
-	public void activarUsuario(String dni) throws SQLException{
-		//System.out.println(dni);
+
+	public void activarUsuario(String dni) throws SQLException {
+		// System.out.println(dni);
 		ConectarDBA.activar("usuario", "dni", dni);
 	}
 	
+
 
 	/**
 	 * Este método comprueba si una cadena String introducida es un Número. Si

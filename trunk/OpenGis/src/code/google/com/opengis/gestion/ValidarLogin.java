@@ -45,19 +45,19 @@ public class ValidarLogin extends JFrame {
 				switch(tipodato /*sentencia que devuelve el tipo*/){
 				case 't': //t de trabajador
 					//System.out.println(" funciona es un trabajador");
-					VentanaPrincipal ln1 = new VentanaPrincipal(tipodato, this.user);
+					VentanaPrincipal ln1 = new VentanaPrincipal(tipodato, this.user, ConectarDBA.idiomaDefecto(this.user));
 					ven.dispose();
 					
 					break;
 				case 'd': //d de dueño
 					//System.out.println(" funciona es dueño");
-					VentanaPrincipal ln2 = new VentanaPrincipal(tipodato, this.user);
+					VentanaPrincipal ln2 = new VentanaPrincipal(tipodato, this.user,ConectarDBA.idiomaDefecto(this.user));
 					ven.dispose();
 
 					break;
 				case 'a': // de administrador
 					//System.out.println(" funciona es  Admin");
-					VentanaPrincipal ln3 = new VentanaPrincipal(tipodato, this.user);
+					VentanaPrincipal ln3 = new VentanaPrincipal(tipodato, this.user,ConectarDBA.idiomaDefecto(this.user));
 					
 					ven.dispose();
 
