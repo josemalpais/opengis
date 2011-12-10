@@ -259,7 +259,6 @@ import code.google.com.opengis.gestionDAO.Idioma;
     					
     					bCerrarPestaña.setVisible(true);
 
-    						System.out.println("aaaaaaaa"); //$NON-NLS-1$
     						int numPestañas = tabsPaneles.getTabCount();
     						
     						if (numPestañas <10) {
