@@ -100,7 +100,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			
 			UsuariosPanelNuevo p = new UsuariosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString(),rUser[6].toString(),rUser[7].toString(),rUser[8].toString(),rUser[9].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etChangeUser"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etChangeUser")+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 			
 			
 		}
