@@ -117,7 +117,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 			
 			ParcelasPanelNuevo p = new ParcelasPanelNuevo("modificar",rParcela[0].toString(),rParcela[1].toString(),rParcela[2].toString(),rParcela[3].toString(),rParcela[4].toString(),rParcela[5].toString(),rParcela[6].toString(),rParcela[7].toString()); // Creamos el panel de Alta de Parcelas
 			
-			VentanaPrincipal.añadirPestañaNueva("Nueva Parcela",p);
+			VentanaPrincipal.añadirPestañaNueva("Modificar "+rParcela[1].toString(),p);
 			
 			
 		}
