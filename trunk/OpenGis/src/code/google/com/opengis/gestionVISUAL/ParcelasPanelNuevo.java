@@ -44,6 +44,7 @@ public class ParcelasPanelNuevo extends JPanel {
 	private JTextField txtDniPropietario = null;
 	private JTextField txtNumerop = null;
 	private String accion;
+	private ConectarDBA dba =null;
 	
 	private String idparcela; //identificador de la parcela
 	private String alias; //nombre que el usuario asignara a la parcela para relacionarlo
@@ -80,6 +81,18 @@ public class ParcelasPanelNuevo extends JPanel {
 		super();
 		this.accion = accion;
 		initialize();
+		try {
+			String snt = "SELECT MAX(idparcela) FROM `parcela`";
+			dba.acceder();
+			ResultSet rs2 = dba.consulta(snt);
+			while (rs2.next()) {
+				txtIdParcelap.setText((rs2.getInt(1) + 1) + "");
+			}
+			txtIdParcelap.setEnabled(false);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
