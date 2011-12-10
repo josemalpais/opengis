@@ -94,7 +94,7 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 			
 		
 		DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("modificar",rDisp[0].toString(),rDisp[1].toString(),rDisp[2].toString()); //$NON-NLS-1$
-		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModDevice"),panelNuevo); // Añadimos el panel a la pestaña //$NON-NLS-1$
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModDevice")+"("+rDisp[1].toString()+")",panelNuevo); // Añadimos el panel a la pestaña //$NON-NLS-1$
 	
 		}
 		
