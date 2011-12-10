@@ -35,8 +35,8 @@ public class ConectarDBA {
 		// la base de datos.
 		String nombreDriver = "com.mysql.jdbc.Driver";
 		// String nombreServidor = "db4free.net";
-		//String nombreServidor = "79.108.245.167";
-		String nombreServidor = "10.2.1.43";
+		String nombreServidor = "79.108.245.167";
+		//String nombreServidor = "10.2.1.43";
 		String numeroPuerto = "3306";
 		String miBaseDatos = "dai2opengis";
 		String url = "jdbc:mysql://" + nombreServidor + ":" + numeroPuerto

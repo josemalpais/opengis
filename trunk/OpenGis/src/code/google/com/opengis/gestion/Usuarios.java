@@ -182,12 +182,12 @@ public class Usuarios {
 	 * @param texto Texto a comprobar
 	 * @return devuelve si el texto es válido o no.
 	 */
-	public boolean validarTexto(String texto) {
+	public boolean validarTexto(String texto, String nombreCampo) {
 		Boolean r = isInteger(texto);
 
 		if (r.equals(true) || texto.length() < 2) {
 
-			JOptionPane.showMessageDialog(null, "Error. El campo " + texto
+			JOptionPane.showMessageDialog(null, "Error. El campo " + nombreCampo
 					+ "no puede ser numérico ni esta vacíos");
 			this.valido = false;
 			return false;
@@ -205,10 +205,10 @@ public class Usuarios {
 
 			Boolean r = isInteger(this.nombre);
 
-			if (validarTexto(this.nombre) || validarTexto(this.apellidos)
-					|| validarTexto(this.direccion)
-					|| validarTexto(this.poblacion)
-					|| validarTexto(this.provincia) || validarTexto(this.email)) {
+			if (validarTexto(this.nombre, "Nombre") || validarTexto(this.apellidos, "Apellidos")
+					|| validarTexto(this.direccion, "Dirección")
+					|| validarTexto(this.poblacion, "Población")
+					|| validarTexto(this.provincia, "Provincia") || validarTexto(this.email, "Email")) {
 
 				this.valido = false;
 
