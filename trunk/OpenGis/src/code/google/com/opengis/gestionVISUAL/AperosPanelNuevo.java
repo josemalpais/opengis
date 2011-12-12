@@ -79,11 +79,11 @@ public class AperosPanelNuevo extends JPanel {
 		initialize();
 		
 		try {
-			String snt = "SELECT MAX(idapero) FROM `apero`";
+			String snt = "SELECT MAX(idapero) FROM `apero`"; //$NON-NLS-1$
 			dba.acceder();
 			ResultSet rs2 = dba.consulta(snt);
 			while (rs2.next()) {
-				txtId.setText((rs2.getInt(1) + 1) + "");
+				txtId.setText((rs2.getInt(1) + 1) + ""); //$NON-NLS-1$
 			}
 			txtId.setEnabled(false);
 		} catch (SQLException e1) {
@@ -101,7 +101,7 @@ public class AperosPanelNuevo extends JPanel {
 	private void initialize() {
 		lblId = new JLabel();
 		lblId.setBounds(new Rectangle(42, 31, 88, 30));
-		lblId.setText("Id Apero"); //$NON-NLS-1$
+		lblId.setText(Idioma.getString("etImplementId")); //$NON-NLS-1$
 		lblObligtorios = new JLabel();
 		lblObligtorios.setBounds(new Rectangle(434, 334, 238, 25));
 		lblObligtorios.setFont(new Font(
@@ -109,19 +109,19 @@ public class AperosPanelNuevo extends JPanel {
 		lblObligtorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
 		lblUser = new JLabel();
 		lblUser.setBounds(new Rectangle(42, 137, 88, 30));
-		lblUser.setText("User"); //$NON-NLS-1$
+		lblUser.setText(Idioma.getString("etUser")); //$NON-NLS-1$
 		lblTarea = new JLabel();
 		lblTarea.setBounds(new Rectangle(320, 84, 88, 30));
-		lblTarea.setText("Tarea"); //$NON-NLS-1$
+		lblTarea.setText(Idioma.getString("etTask")); //$NON-NLS-1$
 		lblDescripcion = new JLabel();
 		lblDescripcion.setBounds(new Rectangle(320, 137, 88, 30));
-		lblDescripcion.setText("Descripción"); //$NON-NLS-1$
+		lblDescripcion.setText(Idioma.getString("etDesc")); //$NON-NLS-1$
 		lblTamaño = new JLabel();
 		lblTamaño.setBounds(new Rectangle(42, 84, 88, 30));
-		lblTamaño.setText("Tamaño"); //$NON-NLS-1$
+		lblTamaño.setText(Idioma.getString("etSize")); //$NON-NLS-1$
 		lblNombre = new JLabel();
 		lblNombre.setBounds(new Rectangle(320, 31, 88, 30));
-		lblNombre.setText(Idioma.getString("etFirstName")); //$NON-NLS-1$
+		lblNombre.setText(Idioma.getString(Idioma.getString("etName"))); //$NON-NLS-1$
 		this.setSize(782, 388);
 		this.setLayout(null);
 		this.add(lblId, null);
@@ -152,7 +152,7 @@ public class AperosPanelNuevo extends JPanel {
 			bGuardar.setBounds(new Rectangle(46, 314, 53, 45));
 			bGuardar.setIcon(new ImageIcon(getClass().getResource(
 					"/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
-			bGuardar.setToolTipText("Guardar Nuevo Usuario"); //$NON-NLS-1$
+			bGuardar.setToolTipText(Idioma.getString("etSaveNewUser")); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
@@ -164,12 +164,12 @@ public class AperosPanelNuevo extends JPanel {
 								txtUser.getText());
 						if (ap.validarDatos(txtId.getText(), txtNombre.getText(),
 								txtTamaño.getText(), txtDescripcion.getText(),
-								(comboTarea.getSelectedIndex() + 1) + "", "0",
+								(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
 								txtUser.getText())) {
 							
 							AperoDAO adao = new AperoDAO(txtId.getText(), txtNombre.getText(),
 									txtTamaño.getText(), txtDescripcion.getText(),
-									(comboTarea.getSelectedIndex() + 1) + "", "0",
+									(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
 									txtUser.getText());
 							
 							try {
@@ -189,12 +189,12 @@ public class AperosPanelNuevo extends JPanel {
 						
 						if (ap.validarDatos(txtId.getText(), txtNombre.getText(),
 								txtTamaño.getText(), txtDescripcion.getText(),
-								(comboTarea.getSelectedIndex() + 1) + "", "0",
+								(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
 								txtUser.getText())) {
 							
 							AperoDAO adao = new AperoDAO(txtId.getText(), txtNombre.getText(),
 									txtTamaño.getText(), txtDescripcion.getText(),
-									(comboTarea.getSelectedIndex() + 1) + "", "0",
+									(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
 									txtUser.getText());
 							
 							try {
@@ -204,7 +204,7 @@ public class AperosPanelNuevo extends JPanel {
 							}
 						} else {
 
-							JOptionPane.showMessageDialog(null, "Los Datos del Apero son incorrectos"); //$NON-NLS-1$
+							JOptionPane.showMessageDialog(null, Idioma.getString("etImplementDataWrong")); //$NON-NLS-1$
 
 						}
 
@@ -322,13 +322,13 @@ public class AperosPanelNuevo extends JPanel {
 			comboTarea = new JComboBox();
 			comboTarea.setBounds(new Rectangle(401, 86, 143, 27));
 			dba.acceder();
-			String senten = new String("SELECT * FROM tareas");
+			String senten = new String("SELECT * FROM tareas"); //$NON-NLS-1$
 			ResultSet rs;
 			try {
 				rs = dba.consulta(senten);
 				while (rs.next()) {
-					comboTarea.addItem("" + rs.getObject(1) + " - "
-							+ rs.getObject(2) + " " + rs.getObject(3) + " "
+					comboTarea.addItem("" + rs.getObject(1) + " - " //$NON-NLS-1$ //$NON-NLS-2$
+							+ rs.getObject(2) + " " + rs.getObject(3) + " " //$NON-NLS-1$ //$NON-NLS-2$
 							+ rs.getObject(4));
 				}
 				rs.close();
