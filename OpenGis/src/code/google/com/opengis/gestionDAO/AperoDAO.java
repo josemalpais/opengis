@@ -51,7 +51,7 @@ public class AperoDAO {
 	public static void comprobarApero(String id) throws SQLException{		
 
 		ConectarDBA.acceder();
-		String sentencia = "SELECT * FROM `apero` WHERE `idapero` LIKE '"+id+"'";
+		String sentencia = "SELECT * FROM `apero` WHERE `idapero` LIKE '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 		ResultSet rs = dba.consulta(sentencia);
 		while(rs.next()){
 			resultado = rs.getString(1);
@@ -70,11 +70,11 @@ public class AperoDAO {
 	public void altaApero() throws SQLException{
 		comprobarApero(this.idApero);
 		if (existe == true){ 
-			JOptionPane.showMessageDialog(null,"El Apero ya existe");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementAlreadyExist")); //$NON-NLS-1$
 		}else{
-			String sentencia = "INSERT INTO `dai2opengis`.`apero` (`idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario`) VALUES ('"+ this.idApero +"', '" + this.nomApero  + "','" + this.tamApero +"','" + this.descApero+"','" + this.idTarea_Apero +"','" + this.activ_Apero+ "','" + this.idUser  +"')";
+			String sentencia = "INSERT INTO `dai2opengis`.`apero` (`idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario`) VALUES ('"+ this.idApero +"', '" + this.nomApero  + "','" + this.tamApero +"','" + this.descApero+"','" + this.idTarea_Apero +"','" + this.activ_Apero+ "','" + this.idUser  +"')"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 			dba.modificar(sentencia);
-			JOptionPane.showMessageDialog(null,"Se ha dado de alta el nuevo apero");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgNewImplementAdded")); //$NON-NLS-1$
 		}
 		dba.cerrarCon();
 	}
@@ -85,18 +85,18 @@ public class AperoDAO {
 	public void borrarApero() throws SQLException{
 		comprobarApero(this.idApero);
 		if (existe == true){ 
-			String sentencia = "DELETE FROM `apero` WHERE `idapero` = '"+this.idApero+"'";
+			String sentencia = "DELETE FROM `apero` WHERE `idapero` = '"+this.idApero+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 			dba.modificar(sentencia);
-			JOptionPane.showMessageDialog(null,"Apero eliminado correctamente");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementDeleted")); //$NON-NLS-1$
 		}else{		
-			JOptionPane.showMessageDialog(null,"El usuario no existe");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementNotExist")); //$NON-NLS-1$
 		}
 		dba.cerrarCon();	
 	}
 	 public static ResultSet buscarApero(String campo, String criterio) throws SQLException{
 		 	ResultSet rs = null;
 		 	ConectarDBA.acceder();
-			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario` FROM `apero` WHERE  `"+campo+"` LIKE '%"+criterio+"%'";
+			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario` FROM `apero` WHERE  `"+campo+"` LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			try{
 			rs = dba.consulta(sentencia);
 			}catch (SQLException e){
@@ -108,9 +108,9 @@ public class AperoDAO {
 		public static void DesactivarApero(String id) throws SQLException{
 			comprobarApero(id);
 			if (existe == true){
-				String sentencia = "UPDATE `apero` SET `activo` = '1' WHERE `idapero` LIKE '"+id+"'";
+				String sentencia = "UPDATE `apero` SET `activo` = '1' WHERE `idapero` LIKE '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 				dba.modificar(sentencia);
-				JOptionPane.showMessageDialog(null,"Se ha desactivado el usuario");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementDisabled")); //$NON-NLS-1$
 			}
 		}
 		
@@ -118,14 +118,14 @@ public class AperoDAO {
 			comprobarApero(this.idApero);
 			if (existe == true){
 				//String sentencia = "UPDATE INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`, `activo`) VALUES ('"+ this.Dni +"', '" + this.Nombre  + "','" + this.Apellidos +"','" + this.Telefono +"','" + this.Direccion +"','" + this.Poblacion + "','" + this.Fecha_nac  +"', '0')";
-				String sentencia = "UPDATE `dai2opengis`.`apero` SET `nombre` = '"+this.nomApero+"', `tamaño` = '"+this.tamApero+"', `descripcion` = '"+this.descApero+"',`idtarea` = '"+this.idTarea_Apero+"',`activo` = '"+this.activ_Apero+"',`dni_usuario` = '"+this.idUser+"' WHERE `idapero` LIKE '"+this.idApero+"'";
+				String sentencia = "UPDATE `dai2opengis`.`apero` SET `nombre` = '"+this.nomApero+"', `tamaño` = '"+this.tamApero+"', `descripcion` = '"+this.descApero+"',`idtarea` = '"+this.idTarea_Apero+"',`activo` = '"+this.activ_Apero+"',`dni_usuario` = '"+this.idUser+"' WHERE `idapero` LIKE '"+this.idApero+"'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				dba.modificar(sentencia);
-				JOptionPane.showMessageDialog(null,"Se ha modificado el Apero");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementModSuccess")); //$NON-NLS-1$
 				
 				
 			}else{
 				
-				JOptionPane.showMessageDialog(null,"El ID de Apero no existe");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementIdNotExist")); //$NON-NLS-1$
 				
 			}
 			dba.cerrarCon();

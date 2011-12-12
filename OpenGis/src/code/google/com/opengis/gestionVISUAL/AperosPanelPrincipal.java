@@ -16,7 +16,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 		Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"), Idioma.getString("etPostalCode"), Idioma.getString("etPhone"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		Idioma.getString("etMail"), Idioma.getString("etBirthDate"), Idioma.getString("etAccType"), Idioma.getString("etStatus") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	*/
-	static String[] nombreColumna = {"ID Apero", "Nombre", "Tamaño", "Descripcion", "ID Tarea", "Activo", "DNI Usuario"};
+	static String[] nombreColumna = {Idioma.getString("etImplementId"), Idioma.getString("etName"), Idioma.getString("etSize"), Idioma.getString("etDesc"), Idioma.getString("etTaskId"), Idioma.getString("etActive"), Idioma.getString("etIdCard")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 	
 	public AperosPanelPrincipal(){
 		super(false);
@@ -82,7 +82,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 		
 		AperosPanelNuevo p = new AperosPanelNuevo("alta"); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 		
-		VentanaPrincipal.añadirPestañaNueva("Nuevo Usuario",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewImplement"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		
 		
 	}
@@ -99,7 +99,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			}
 			AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[6].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			VentanaPrincipal.añadirPestañaNueva("Modificar Apero"+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModImplement")+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			
 			
 		}
@@ -143,9 +143,9 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			}
 		
 			
-			if(rUser[6].toString().equals("Inactivo")){ //$NON-NLS-1$
+			if(rUser[6].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
 				
-				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgUserWithID") + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString(Idioma.getString("etImplementWithId")) + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
 				if(resp==0){
 					
