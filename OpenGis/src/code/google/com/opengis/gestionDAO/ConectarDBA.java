@@ -350,7 +350,7 @@ public class ConectarDBA {
 		if(idioma.equals("catalan")){
 			
 			
-			idioma = "resources.lang_es_CA";
+			idioma = "resources.lang_ca_ES";
 			
 		}
 		

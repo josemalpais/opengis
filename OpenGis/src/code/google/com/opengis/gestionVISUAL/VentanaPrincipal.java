@@ -583,7 +583,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 			bIdiomaCatalan = new JButton();
 			bIdiomaCatalan.setBounds(new Rectangle(806, 7, 18, 11));
 			bIdiomaCatalan.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/catalan.png"))); //$NON-NLS-1$
-			bIdiomaCatalan.setToolTipText("Catatlà/Valencià"); //$NON-NLS-1$
+			bIdiomaCatalan.setToolTipText("Català/Valencià"); //$NON-NLS-1$
 			bIdiomaCatalan.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
