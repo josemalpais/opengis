@@ -204,13 +204,7 @@ public class UsuariosPanelNuevo extends JPanel {
 						if (pass.equals(pass2)) {
 							
 	
-							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre
-									.getText(), txtApellidos.getText(), txtTelefono
-									.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),
-									txtProvincia.getText(), txtCP.getText(), txtFechaNac
-											.getText(), pass, comboTipo
-											.getSelectedItem().toString()
-											.toLowerCase(), txteMail.getText());
+							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),	txtProvincia.getText(), txtCP.getText(), txtFechaNac.getText(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txteMail.getText());
 							u.validarDatos();
 							if (u.getValido()) {
 								try {
@@ -240,17 +234,15 @@ public class UsuariosPanelNuevo extends JPanel {
 						String pass2 = new String(contra2);
 
 						if (pass.equals(pass2)) {
-							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre
-									.getText(), txtApellidos.getText(), txtTelefono
-									.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),
-									txtProvincia.getText(), txtCP.getText(), txtFechaNac
-											.getText(), pass, comboTipo
-											.getSelectedItem().toString()
-											.toLowerCase(), txteMail.getText());
+							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),txtProvincia.getText(), txtCP.getText(), txtFechaNac.getText(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txteMail.getText());
 							u.validarDatos();
-
 							if (u.getValido()) {
-								u.modificarUsuario();
+								try {
+									u.modificarUsuario();
+								} catch (SQLException e1) {
+									// TODO Auto-generated catch block
+									JOptionPane.showMessageDialog(null,Idioma.getString("msgIDAlreadyExists"));
+								}
 
 							}
 						} else {
