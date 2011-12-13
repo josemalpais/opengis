@@ -209,7 +209,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				    	  
 							PanelPDF pdf = new PanelPDF(url);
 							
-							VentanaPrincipal.añadirPestañaNueva("Información Parcela",pdf);
+							VentanaPrincipal.añadirPestañaNueva("Información Parcela - " + getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),1),pdf);
 
 				}
 			});

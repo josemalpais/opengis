@@ -32,11 +32,12 @@ public class PanelPDF extends JPanel {
     final JWebBrowser webBrowser = new JWebBrowser();   
     System.out.println("HA PASADO");
     webBrowser.navigate(url);   
+    webBrowser.setLocationBarVisible(false);
+    webBrowser.setButtonBarVisible(false);
+    webBrowser.setMenuBarVisible(false);
     webBrowserPanel.add(webBrowser, BorderLayout.CENTER);   
     add(webBrowserPanel, BorderLayout.CENTER);   
-    // Create an additional bar allowing to show/hide the menu bar of the web browser.   
-    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));   
-    JCheckBox menuBarCheckBox = new JCheckBox("Menu Bar", webBrowser.isMenuBarVisible());   
+   
       
   }   
   
