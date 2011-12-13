@@ -1,15 +1,22 @@
 package code.google.com.opengis.gestion;
 
+import java.awt.HeadlessException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
+
+import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 public class Alquiler {
 	private String iddispositivo;
 	private String dni_usuario;
 	private String fecha_alquiler;
 	private String fecha_devolucion;
-	private String periodo;
 
 	/**
 	 * 
@@ -86,32 +93,11 @@ public class Alquiler {
 		this.fecha_devolucion = fecha_devolucion;
 	}
 
-	/**
-	 * Este método nos devuelve el período de este alquiler
-	 * 
-	 * @return
-	 */
-	public String getPeriodo() {
-		return periodo;
-	}
-
-	/**
-	 * Con este método cambiamos el período de este alquiler
-	 * 
-	 * @param periodo
-	 *            Le pasamos el nuevo período de alquiler
-	 */
-	public void setPeriodo(String periodo) {
-		this.periodo = periodo;
-	}
-
 	public Alquiler(String iddispositivo, String dni_usuario,
-			String fecha_alquiler, String fecha_devolucion, String periodo) {
+			String fecha_alquiler) {
 		this.iddispositivo = iddispositivo;
 		this.dni_usuario = dni_usuario;
 		this.fecha_alquiler = fecha_alquiler;
-		this.fecha_devolucion = fecha_devolucion;
-		this.periodo = periodo;
 	}
 
 	public String calcularDNI(String dni) {
@@ -176,9 +162,58 @@ public class Alquiler {
 		}
 	}
 
+	public static boolean comprobarAlquilerAbierto(String iddispositivo,
+			String dni_usuario){
+		boolean abierto = false;
+		
+			try {
+				if (validarDatos(iddispositivo, dni_usuario)==true){
+					ResultSet rs = ConectarDBA.buscar("SELECT * FROM `prestamo` WHERE `iddispositivo` = '"+iddispositivo+"'");
+					int nColumnas = rs.getMetaData().getColumnCount();
+					
+					Object[] registro = new Object[nColumnas];
+					while (rs.next()) {
+
+						for (int i = 0; i < nColumnas; i++) {
+							registro[i] = rs.getObject(i + 1); // Guardamos los registros de préstamos
+							}
+						if (registro[3].toString() == ""){
+							abierto = true;
+							System.out.println("He encontrado un alquiler abierto");
+						}else{
+							System.out.println("Este alquiler está cerrado");
+						}
+						}
+				}
+			} catch (HeadlessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return abierto;
+	}
+	public static void crearAlquiler(String iddispositivo,
+			String dni_usuario){
+		if (comprobarAlquilerAbierto(iddispositivo, dni_usuario)==true){
+			JOptionPane.showMessageDialog(null, "Ya existe un alquiler abierto para este dispositivo.");
+		}else{
+			Calendar c = new GregorianCalendar();
+			String dia = Integer.toString(c.get(Calendar.DATE));
+			String mes = Integer.toString((c.get(Calendar.MONTH))+1);
+			String año = Integer.toString(c.get(Calendar.YEAR));
+			String fecha = dia+"/"+mes+"/"+año;
+			System.out.println("La fecha actual es : "+fecha+".");
+			try {
+				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('1','44859921P','"+fecha+"')");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			}
+	}
 	public static boolean validarDatos(String iddispositivo,
-			String dni_usuario, String fecha_alquiler, String fecha_devolucion,
-			String periodo) {
+			String dni_usuario, String fecha_alquiler) throws HeadlessException, SQLException {
 		boolean b = false;
 
 		// Compruebo que el ID de dispositivo sea numérico
@@ -190,7 +225,12 @@ public class Alquiler {
 			return false;
 
 		} else {
-
+			if(!(ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, true))){
+				JOptionPane.showMessageDialog(null,
+						"Error. No existe un usuario activo con el DNI introducido.");
+				return false;
+			}else{
+			
 			Date fechaAhora = new Date();
 
 			if (fecha_alquiler.equals("")) {
@@ -203,33 +243,12 @@ public class Alquiler {
 				Date fecha_alq = new Date(fecha_alquiler);
 
 				if (fecha_alquiler.length() != 10
-						|| fecha_alq.getTime() > fechaAhora.getTime()) {
+					/*	|| fecha_alq.getTime() > fechaAhora.getTime()*/) {
 
 					JOptionPane.showMessageDialog(null,
 							"Error. La fecha indicada no es correcta");
 					return false;
-				} else {
-
-					if (fecha_devolucion.equals("")) {
-						JOptionPane
-								.showMessageDialog(null,
-										"La fecha de devolución no puede estar en blanco");
-						return false;
-					} else {
-
-						@SuppressWarnings("deprecation")
-						Date fecha_dev = new Date(fecha_devolucion);
-
-						if (fecha_devolucion.length() != 10
-								|| fecha_dev.getTime() < fecha_alq.getTime()) {
-
-							JOptionPane
-									.showMessageDialog(null,
-											"Error. La fecha de devolución no es correcta");
-							return false;
-						}
-
-						else {
+				}else {
 
 							return true;
 							/**
@@ -240,7 +259,32 @@ public class Alquiler {
 				}
 			}
 		}
-	}
+	public static boolean validarDatos(String iddispositivo,
+			String dni_usuario) throws HeadlessException, SQLException {
+		boolean b = false;
+
+		// Compruebo que el ID de dispositivo sea numérico
+		b = isInteger(iddispositivo);
+
+		if (b == false) {
+			JOptionPane.showMessageDialog(null,
+					"Error. El ID de dispositivo ha de ser numérico.");
+			return false;
+
+		} else {
+			if(!(ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, true))){
+				JOptionPane.showMessageDialog(null,
+						"Error. No existe un usuario activo con el DNI introducido.");
+				return false;
+			}else {
+
+							return true;
+							/**
+							 * Si todos los datos son correctos devuelve True.
+							 */
+						}
+					}
+				}
 
 	public static boolean isInteger(String cadena) {
 		try {
