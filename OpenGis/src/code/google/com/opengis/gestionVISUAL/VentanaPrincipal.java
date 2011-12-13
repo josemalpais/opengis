@@ -604,8 +604,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
 							JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català"); //$NON-NLS-1$
 							tabsPaneles.removeAll();
-							VentanaPrincipal.this.dispose();
-							LoginVisual lv = new LoginVisual();
+							System.exit(0);
 							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
@@ -656,8 +655,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
 							JOptionPane.showMessageDialog(null, "Su idioma ha cambiado a Español"); //$NON-NLS-1$
 							tabsPaneles.removeAll();
-							VentanaPrincipal.this.dispose();
-							LoginVisual lv = new LoginVisual();
+							System.exit(0);
 							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
@@ -703,8 +701,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
 							JOptionPane.showMessageDialog(null, "Your language has been changed to English"); //$NON-NLS-1$
 							tabsPaneles.removeAll();
-							VentanaPrincipal.this.dispose();
-							LoginVisual lv = new LoginVisual();
+							System.exit(0);
 							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
