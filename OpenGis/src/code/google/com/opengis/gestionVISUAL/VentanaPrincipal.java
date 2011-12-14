@@ -457,6 +457,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					bCerrarPestaña.setVisible(true);
 
+    					if(tipoUsuario == 'a'){
     						
     						int numPestañas = tabsPaneles.getTabCount();
     						
@@ -473,6 +474,15 @@ import code.google.com.opengis.gestionDAO.Idioma;
     							
     						}
 							
+    						
+    					}else{
+    						
+    						
+    						// INSERTAR AQUÍ FUNCIONALIDAD DE TRABAJADOR
+    						
+    					}
+    						
+    						
         					
     				}
     			});
