@@ -176,8 +176,9 @@ public class Alquiler {
 
 						for (int i = 0; i < nColumnas; i++) {
 							registro[i] = rs.getObject(i + 1); // Guardamos los registros de préstamos
+							System.out.println(i + " : " + registro[i]);
 							}
-						if (registro[3].toString() == ""){
+						if (registro[3].toString().equals("no")){
 							abierto = true;
 							System.out.println("He encontrado un alquiler abierto");
 						}else{
@@ -186,10 +187,8 @@ public class Alquiler {
 						}
 				}
 			} catch (HeadlessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return abierto;
@@ -199,7 +198,7 @@ public class Alquiler {
 		if (comprobarAlquilerAbierto(iddispositivo, dni_usuario)==true){
 			JOptionPane.showMessageDialog(null, "Ya existe un alquiler abierto para este dispositivo.");
 		}else{
-			Calendar c = new GregorianCalendar();
+			Calendar c = new GregorianCalendar();	//Con estas 5 instrucciones calculo la fecha actual
 			String dia = Integer.toString(c.get(Calendar.DATE));
 			String mes = Integer.toString((c.get(Calendar.MONTH))+1);
 			String año = Integer.toString(c.get(Calendar.YEAR));
@@ -207,10 +206,30 @@ public class Alquiler {
 			System.out.println("La fecha actual es : "+fecha+".");
 			try {
 				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('1','44859921P','"+fecha+"')");
+				JOptionPane.showMessageDialog(null, "Alquiler abierto correctamente.");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			}
+	}
+	public static void cerrarAlquiler(String iddispositivo,
+			String dni_usuario){
+		if (comprobarAlquilerAbierto(iddispositivo, dni_usuario)==false){
+			JOptionPane.showMessageDialog(null, "No existe un alquiler abierto para este dispositivo.");
+		}else{
+			try {
+				Calendar c = new GregorianCalendar();	//Con estas 5 instrucciones calculo la fecha actual
+				String dia = Integer.toString(c.get(Calendar.DATE));
+				String mes = Integer.toString((c.get(Calendar.MONTH))+1);
+				String año = Integer.toString(c.get(Calendar.YEAR));
+				String fecha = dia+"/"+mes+"/"+año;
+				System.out.println("La fecha actual es : "+fecha+".");
+				ConectarDBA.modificar("UPDATE `prestamo` SET `fecha_devol` = '"+fecha+"' WHERE `iddispositivo` = '"+iddispositivo+"' AND `fecha_devol` = 'no'");
+				JOptionPane.showMessageDialog(null, "Alquiler cerrado correctamente.");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	public static boolean validarDatos(String iddispositivo,
 			String dni_usuario, String fecha_alquiler) throws HeadlessException, SQLException {
