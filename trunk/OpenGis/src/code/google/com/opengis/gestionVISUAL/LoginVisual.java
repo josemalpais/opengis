@@ -1,6 +1,9 @@
 package code.google.com.opengis.gestionVISUAL;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,6 +45,11 @@ public class LoginVisual extends JFrame
 	private JButton btnVal;
 	private JButton btnRec;
 	private JButton btnBor;
+	private JButton bIdiomaCatalan;
+	private JButton bIdiomaSpanish;
+	private JButton bIdiomaEnglish;
+
+
 	private JFrame lv=this; //declaramos lv para poder hacer uso de dispose
 	private final String rutaIcono="OpenGis/src/recursosVisuales/";
 
@@ -52,13 +60,27 @@ public class LoginVisual extends JFrame
 		lblLogo=new JLabel( new ImageIcon(rutaIcono+"logo.png")); //Icono de la aplicación
 		lblUser=new JLabel("Usuario:");
 		txtUser = new JTextField("Introduzca el DNI ...");
-		txtUser.selectAll(); //El texto de la caja seleccionado
 		lblPass=new JLabel("Contraseña:");
 		txtPass = new JPasswordField();
 		btnRec = new JButton("Recuperar contraseña");
 		btnVal = new JButton("Validar");
 		btnBor = new JButton("Borrar");
+
+		bIdiomaCatalan=new JButton();
+		bIdiomaCatalan.setPreferredSize(new Dimension(18, 11));
+		bIdiomaCatalan.setIcon(new ImageIcon(rutaIcono+"catalan.png")); //$NON-NLS-1$
+		bIdiomaCatalan.setToolTipText("Català/Valencià"); //$NON-NLS-1$
 		
+		bIdiomaSpanish=new JButton();
+		bIdiomaSpanish.setPreferredSize(new Dimension(18,11));
+		bIdiomaSpanish.setIcon(new ImageIcon(rutaIcono+"Spanish.png")); //$NON-NLS-1$
+		bIdiomaSpanish.setToolTipText("Español"); //$NON-NLS-1$
+		
+		bIdiomaEnglish = new JButton();
+		bIdiomaEnglish.setPreferredSize(new Dimension(18,11));
+		bIdiomaEnglish.setToolTipText("English"); //$NON-NLS-1$
+		bIdiomaEnglish.setIcon(new ImageIcon(rutaIcono+"english.png")); //$NON-NLS-1$
+
 		KeyListener kl = null;
 
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -70,6 +92,20 @@ public class LoginVisual extends JFrame
 		gbc.gridwidth=4;
 		add(lblLogo,gbc);
 		
+		gbc.gridx=5;
+		gbc.gridwidth=1;
+		gbc.insets= new Insets(0,7,0,7);
+		gbc.anchor = GridBagConstraints.NORTH;
+		add(bIdiomaCatalan,gbc);
+		
+		gbc.gridx=6;
+		add(bIdiomaEnglish,gbc);
+		
+		gbc.gridx=7;
+		add(bIdiomaSpanish,gbc);
+		
+		gbc.insets= new Insets(0,0,0,0);
+		gbc.gridx=0;
 		gbc.gridy = 1; //fila 2, col 1, etiqueta usuario alineada a la derecha
 		gbc.gridwidth=1;
 		gbc.anchor = GridBagConstraints.EAST;
@@ -104,10 +140,12 @@ public class LoginVisual extends JFrame
 
 		setIconImage(new ImageIcon(rutaIcono+"openGIS.png").getImage()); //icono de la barra de título
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(350,256);
+		setSize(425,256);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		txtUser.requestFocus();
+		txtUser.selectAll(); //El texto de la caja seleccionado
 		
 		//Monitores de actividad
 
