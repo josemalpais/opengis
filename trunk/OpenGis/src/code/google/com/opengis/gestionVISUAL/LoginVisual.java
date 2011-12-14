@@ -1,5 +1,7 @@
 package code.google.com.opengis.gestionVISUAL;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -48,6 +51,7 @@ public class LoginVisual extends JFrame
 	private JButton bIdiomaCatalan;
 	private JButton bIdiomaSpanish;
 	private JButton bIdiomaEnglish;
+	private JPanel pnlBanderas;
 
 
 	private JFrame lv=this; //declaramos lv para poder hacer uso de dispose
@@ -81,6 +85,11 @@ public class LoginVisual extends JFrame
 		bIdiomaEnglish.setToolTipText("English"); //$NON-NLS-1$
 		bIdiomaEnglish.setIcon(new ImageIcon(rutaIcono+"english.png")); //$NON-NLS-1$
 
+		pnlBanderas=new JPanel(new FlowLayout(FlowLayout.CENTER,7,0));
+		pnlBanderas.add(bIdiomaCatalan);
+		pnlBanderas.add(bIdiomaEnglish);
+		pnlBanderas.add(bIdiomaSpanish);
+
 		KeyListener kl = null;
 
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -92,17 +101,17 @@ public class LoginVisual extends JFrame
 		gbc.gridwidth=4;
 		add(lblLogo,gbc);
 		
-		gbc.gridx=5;
-		gbc.gridwidth=1;
+		gbc.gridx=3;
+		gbc.gridwidth=2;
 		gbc.insets= new Insets(0,7,0,7);
 		gbc.anchor = GridBagConstraints.NORTH;
-		add(bIdiomaCatalan,gbc);
+		add(pnlBanderas,gbc);
 		
-		gbc.gridx=6;
-		add(bIdiomaEnglish,gbc);
+//		gbc.gridx=3;
+//		add(bIdiomaEnglish,gbc);
 		
-		gbc.gridx=7;
-		add(bIdiomaSpanish,gbc);
+//		gbc.gridx=4;
+//		add(bIdiomaSpanish,gbc);
 		
 		gbc.insets= new Insets(0,0,0,0);
 		gbc.gridx=0;
@@ -140,7 +149,7 @@ public class LoginVisual extends JFrame
 
 		setIconImage(new ImageIcon(rutaIcono+"openGIS.png").getImage()); //icono de la barra de título
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(425,256);
+		setSize(400,256);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
