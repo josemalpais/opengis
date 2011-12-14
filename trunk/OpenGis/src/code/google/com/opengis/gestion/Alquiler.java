@@ -92,76 +92,24 @@ public class Alquiler {
 	public void setFecha_devolucion(String fecha_devolucion) {
 		this.fecha_devolucion = fecha_devolucion;
 	}
-
+/**
+ * Constructor de a clase Alquiler
+ * @param iddispositivo Le pasamos el Dispositivo que será alquilado
+ * @param dni_usuario Le pasamos el Usuario que realizará el alquiler
+ * @param fecha_alquiler Le pasamos la fecha del alquiler
+ */
 	public Alquiler(String iddispositivo, String dni_usuario,
 			String fecha_alquiler) {
 		this.iddispositivo = iddispositivo;
 		this.dni_usuario = dni_usuario;
 		this.fecha_alquiler = fecha_alquiler;
 	}
-
-	public String calcularDNI(String dni) {
-		int pletra;
-		String aux = "";
-		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P",
-				"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C",
-				"K", "E", "T" };
-		for (int x = 0; x < 8; x++) {// este for nos cojera los primeros
-										// carácteres y los guardara en el
-										// string aux
-			aux = aux + dni.charAt(x);
-		}
-		pletra = Integer.parseInt(aux);
-		pletra = pletra % 23;
-		aux = aux + arrayLetra[pletra];
-
-		return dni;
-	}
-
-	/**
-	 * Clase que valida el DNI, y lo coloca en formato 00000000L
-	 * 
-	 * @param dni
-	 * @return boolean que nos determinará si el dni introducido es verdadero o
-	 *         falso.
-	 */
-	public boolean validarDni(String dni) {
-		int pletra;
-		String aux = "";
-		String aux2 = "";
-		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P",
-				"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C",
-				"K", "E", "T" };
-
-		for (int x = 0; x < 8; x++) {// este for nos cojera los 8 primeros
-										// carácteres y los guardará en el
-										// string aux
-			aux = aux + dni.charAt(x);
-		}
-		try {
-			pletra = Integer.parseInt(aux); // si no fueran enteros saldriamos
-											// del metodo con un false
-		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(null,
-					"LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
-			return false;
-		}
-		pletra = pletra % 23;
-		aux2 = dni.charAt(dni.length() - 1) + "";
-
-		if (arrayLetra[pletra].equalsIgnoreCase(aux2)) {
-			String dni1 = aux + arrayLetra[pletra];// lo colocamos en formato de
-													// 9
-													// carácteres
-			return true;
-		} else {
-			JOptionPane
-					.showMessageDialog(null,
-							"EL NUMERO QUE HA INTRODUCIDO NO SE CORRESPONDE CON LA LETRA");
-			return false;
-		}
-	}
-
+/**
+ * Método que comprueba si un Dispositivo está alquilado
+ * @param iddispositivo Le pasamos el Dispositivo que vamos a comprobar
+ * @param dni_usuario 
+ * @return
+ */
 	public static boolean comprobarAlquilerAbierto(String iddispositivo,
 			String dni_usuario){
 		boolean abierto = false;
@@ -193,6 +141,12 @@ public class Alquiler {
 			}
 			return abierto;
 	}
+	/**
+	 * Método que, si los datos son correctos y no hay un Alquiler abierto 
+	 * para ese Dispositivo, crea un nuevo registro de Alquiler en la Base de Datos 
+	 * @param iddispositivo Le pasamos el Dispositivo que será alquilado
+	 * @param dni_usuario Le pasamos el Usuario que alquilará el Dispositivo
+	 */
 	public static void crearAlquiler(String iddispositivo,
 			String dni_usuario){
 		if (comprobarAlquilerAbierto(iddispositivo, dni_usuario)==true){
@@ -212,6 +166,12 @@ public class Alquiler {
 			}
 			}
 	}
+	/**
+	 * Método que cierra un Alquiler, comprobando 
+	 * que haya uno abierto con los parámetros pasados. 
+	 * @param iddispositivo Le pasamos el Dispositivo cuyos Alquileres seleccionaremos en busca de uno abierto
+	 * @param dni_usuario
+	 */
 	public static void cerrarAlquiler(String iddispositivo,
 			String dni_usuario){
 		if (comprobarAlquilerAbierto(iddispositivo, dni_usuario)==false){
@@ -231,7 +191,8 @@ public class Alquiler {
 			}
 		}
 	}
-	public static boolean validarDatos(String iddispositivo,
+	
+/*	public static boolean validarDatos(String iddispositivo,
 			String dni_usuario, String fecha_alquiler) throws HeadlessException, SQLException {
 		boolean b = false;
 
@@ -262,7 +223,7 @@ public class Alquiler {
 				Date fecha_alq = new Date(fecha_alquiler);
 
 				if (fecha_alquiler.length() != 10
-					/*	|| fecha_alq.getTime() > fechaAhora.getTime()*/) {
+						|| fecha_alq.getTime() > fechaAhora.getTime()) {
 
 					JOptionPane.showMessageDialog(null,
 							"Error. La fecha indicada no es correcta");
@@ -273,11 +234,16 @@ public class Alquiler {
 							/**
 							 * Si todos los datos son correctos devuelve True.
 							 */
-						}
+/*						}
 					}
 				}
 			}
-		}
+		}*/
+	
+	/**
+	 * Método que comprueba que el ID de Dispositivo y el DNI de Usuario 
+	 * sean correctos, estén en la base de datos y estén activos
+	 */
 	public static boolean validarDatos(String iddispositivo,
 			String dni_usuario) throws HeadlessException, SQLException {
 		boolean b = false;
@@ -290,7 +256,12 @@ public class Alquiler {
 					"Error. El ID de dispositivo ha de ser numérico.");
 			return false;
 
-		} else {
+		} else{
+			if(!(ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, true))){
+				JOptionPane.showMessageDialog(null,
+				"Error. No existe un dispositivo activo con el ID introducido.");
+		return false;
+			}else {
 			if(!(ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, true))){
 				JOptionPane.showMessageDialog(null,
 						"Error. No existe un usuario activo con el DNI introducido.");
@@ -301,10 +272,15 @@ public class Alquiler {
 							/**
 							 * Si todos los datos son correctos devuelve True.
 							 */
-						}
-					}
-				}
-
+							}
+			}
+			}
+		}
+/**
+ * Método que comprueba si la cadena introducida es un número entero
+ * @param cadena Le pasamos la cadena a comprobar
+ * @return Devuelve "True" si es un número entero y "False" si no lo es
+ */
 	public static boolean isInteger(String cadena) {
 		try {
 			Integer.parseInt(cadena);
