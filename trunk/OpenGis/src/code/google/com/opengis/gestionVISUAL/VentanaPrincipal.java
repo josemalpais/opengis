@@ -1,7 +1,7 @@
-		 /*****************************************************************************
-		    * Copyright (c) 2011 [OpenGisTeam]                                           *
-		    ******************************************************************************/
-		package code.google.com.opengis.gestionVISUAL;
+/*****************************************************************************
+* Copyright (c) 2011 [OpenGisTeam]                                           *
+******************************************************************************/
+package code.google.com.opengis.gestionVISUAL;
 		
 		
 		
@@ -24,6 +24,12 @@ import javax.swing.JTabbedPane;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
+/**
+ * 
+ * 
+ * @author Juan Carlos García del Canto
+ *
+ */
 
     public class VentanaPrincipal extends JFrame implements WindowListener {
 
@@ -62,9 +68,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     	public VentanaPrincipal(char tipoDeUsuario, String dni,String idiomaDefecto){
     		super();
     		new Idioma(idiomaDefecto);
-    		initialize();
 		
-    		
     		/*
     		 * Dependiendo del tipo de usuario que sea cargaremos unas funciones u otras
     		 * 
@@ -74,9 +78,19 @@ import code.google.com.opengis.gestionDAO.Idioma;
     		if (tipoDeUsuario == 'a'){ 
     			
     			this.tipoUsuario = 'a';
+    			initializeAdministrador();
     			cargarAdministrador();
     			
     		}
+    		
+    		if (tipoDeUsuario == 't'){ 
+    			
+    			this.tipoUsuario = 't';
+    			initializeUsuarios();
+    			cargarUsuarios();
+    			
+    		}
+    		
     		
             
            
@@ -84,12 +98,13 @@ import code.google.com.opengis.gestionDAO.Idioma;
         }
 
     	/**
-		 * This method initializes this
+		 * Este método inicializa el panel en Modo Administrador
 		 * 
 		 */
-		private void initialize() {
-        this.setBounds(new Rectangle(0, 0, 888, 624));
-        this.setContentPane(getJContentPaneAdministrador());
+		private void initializeAdministrador() {
+			
+	        this.setBounds(new Rectangle(0, 0, 888, 624));
+	        this.setContentPane(getJContentPaneAdministrador());
 				
 		}
 
@@ -174,6 +189,95 @@ import code.google.com.opengis.gestionDAO.Idioma;
     		}
     		return jContentPane;
     	}
+    	
+    	
+    	/**
+    	 * Icializa la aplicación según el tipo usuario
+    	 * 
+    	 */
+    	
+    	private void initializeUsuarios() {
+	
+	        this.setBounds(new Rectangle(0, 0, 888, 624));
+	        this.setContentPane(getJContentPaneUsuario());
+				
+		}
+
+		/**
+    	 * Este método incializa la interfaz gráfica en modo usuario
+    	 * 
+    	 * @return void
+    	 */
+    	private void cargarUsuarios() {
+    		this.setPreferredSize(new Dimension(800, 600));
+    		this.setBounds(new Rectangle(0, 0, 888, 619));
+    		this.setResizable(false);
+    		this.setContentPane(getJContentPaneUsuario());
+    		this.setTitle(Idioma.getString("etMainWindow")); //$NON-NLS-1$
+    		this.setLocationRelativeTo(null); // Centramos el formulario
+    		this.setVisible(true);
+    		
+    		this.addWindowListener(new WindowAdapter(){ // Añadimos el Listener
+                public void windowClosing(WindowEvent e) {              
+                    dialog_salir();          
+                }
+            });
+    		
+    	}
+
+    	/**
+    	 * Este método inicializa el JContentPane del Usuario
+    	 * 
+    	 * @return javax.swing.JPanel
+    	 */
+    	private JPanel getJContentPaneUsuario() {
+    		if (jContentPane == null) {
+    			lblSalir = new JLabel();
+    			lblSalir.setBounds(new Rectangle(676, 87, 103, 22));
+    			lblSalir.setText(Idioma.getString("etExit")); //$NON-NLS-1$
+    			lblProductos = new JLabel();
+    			lblProductos.setBounds(new Rectangle(555, 87, 94, 22));
+    			lblProductos.setText(Idioma.getString("etProducts")); //$NON-NLS-1$
+    			lblApero = new JLabel();
+    			lblApero.setBounds(new Rectangle(462, 88, 70, 22));
+    			lblApero.setText(Idioma.getString("etImplements")); //$NON-NLS-1$
+    			lblParcelas = new JLabel();
+    			lblParcelas.setBounds(new Rectangle(352, 87, 85, 22));
+    			lblParcelas.setText(Idioma.getString("etLots")); //$NON-NLS-1$
+    			lblInformes = new JLabel();
+    			lblInformes.setBounds(new Rectangle(249, 87, 84, 22));
+    			lblInformes.setText(Idioma.getString("etReports")); //$NON-NLS-1$
+    			lblUsuarios = new JLabel();
+    			lblUsuarios.setBounds(new Rectangle(147, 87, 79, 22));
+    			lblUsuarios.setText(Idioma.getString("etUsers")); //$NON-NLS-1$
+    			jContentPane = new JPanel();
+    			jContentPane.setLayout(null);
+    			jContentPane.add(getBUsuarios(), null);
+    			jContentPane.add(getBPacerlas(), null);
+    			jContentPane.add(getBProductos(), null);
+    			jContentPane.add(getBAperos(), null);
+    			jContentPane.add(getBInformes(), null);
+    			jContentPane.add(getBSalir(), null);
+    			jContentPane.add(lblUsuarios, null);
+    			jContentPane.add(lblInformes, null);
+    			jContentPane.add(lblParcelas, null);
+    			jContentPane.add(lblApero, null);
+    			jContentPane.add(lblProductos, null);
+    			jContentPane.add(lblSalir, null);
+    			jContentPane.add(getTabsPaneles(), null);
+    			jContentPane.add(getBCerrarPestaña(), null);
+    			jContentPane.add(getBIdiomaCatalan(), null);
+    			jContentPane.add(getBIdiomaSpanish(), null);
+    			jContentPane.add(getBIdiomaEnglish(), null);
+    			
+    			
+    		}
+    		return jContentPane;
+    	}
+    	
+    	
+    	
+    	
 
     	/**
     	 * This method initializes bPrestamos	
@@ -259,6 +363,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
     					
     					bCerrarPestaña.setVisible(true);
 
+    					if(tipoUsuario=='a'){
+    						
     						int numPestañas = tabsPaneles.getTabCount();
     						
     						if (numPestañas <10) {
@@ -273,6 +379,14 @@ import code.google.com.opengis.gestionDAO.Idioma;
     							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
     							
     						}
+    						
+    					}else{
+    						
+    						
+    						// AQUÍ LA ACCIÓN DEL TRABAJADOR
+    						
+    					}
+    						
     							
     					
     				}
@@ -398,6 +512,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     					
     					bCerrarPestaña.setVisible(true);
 
+    					if(tipoUsuario=='a'){
     						
     						int numPestañas = tabsPaneles.getTabCount();
     						
@@ -413,6 +528,14 @@ import code.google.com.opengis.gestionDAO.Idioma;
     							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
     							
     						}
+    						
+    					} else{
+    						
+    						
+    						// INSERTAR AQUÍ ACCIÓN DEL TRABAJADOR
+    						
+    						
+    					}
     							
     					
     				}
@@ -430,7 +553,18 @@ import code.google.com.opengis.gestionDAO.Idioma;
     	private JButton getBSalir() {
     		if (bSalir == null) {
     			bSalir = new JButton();
-    			bSalir.setBounds(new Rectangle(761, 33, 63, 58));
+    			
+    			if(tipoUsuario=='a'){
+    				
+    				bSalir.setBounds(new Rectangle(761, 33, 63, 58));
+    				
+    			}else{
+    				
+    				
+    				bSalir.setBounds(new Rectangle(658, 33, 63, 58));
+    				
+    			}
+    			
     			bSalir.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/Salir.png")); //$NON-NLS-1$
     			bSalir.setToolTipText(Idioma.getString("etExit")); //$NON-NLS-1$
     			bSalir.addActionListener(new java.awt.event.ActionListener() {
