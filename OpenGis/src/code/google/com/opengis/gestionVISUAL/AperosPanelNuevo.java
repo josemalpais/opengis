@@ -121,7 +121,7 @@ public class AperosPanelNuevo extends JPanel {
 		lblTamaño.setText(Idioma.getString("etSize")); //$NON-NLS-1$
 		lblNombre = new JLabel();
 		lblNombre.setBounds(new Rectangle(320, 31, 88, 30));
-		lblNombre.setText(Idioma.getString(Idioma.getString("etName"))); //$NON-NLS-1$
+		lblNombre.setText(Idioma.getString("etName")); //$NON-NLS-1$
 		this.setSize(782, 388);
 		this.setLayout(null);
 		this.add(lblId, null);
