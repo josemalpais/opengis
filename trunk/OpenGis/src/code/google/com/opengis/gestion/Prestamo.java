@@ -126,7 +126,7 @@ public class Prestamo {
 							registro[i] = rs.getObject(i + 1); // Guardamos los registros de préstamos
 							System.out.println(i + " : " + registro[i]);
 							}
-						if (registro[3].toString().equals("no")){
+						if (registro[4].toString().equals("no")){
 							abierto = true;
 							System.out.println("He encontrado un préstamo abierto");
 						}else{
@@ -159,7 +159,7 @@ public class Prestamo {
 			String fecha = dia+"/"+mes+"/"+año;
 			System.out.println("La fecha actual es : "+fecha+".");
 			try {
-				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('1','44859921P','"+fecha+"')");
+				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('"+iddispositivo+"','"+dni_usuario+"','"+fecha+"')");
 				JOptionPane.showMessageDialog(null, "Préstamo abierto correctamente.");
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -190,6 +190,33 @@ public class Prestamo {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static void modificarPrestamo(String idprestamo, String iddispositivo, String dni_usuario,String aux){
+		if (aux==iddispositivo){
+			try {
+				if (validarDatos(iddispositivo, dni_usuario)){
+					ConectarDBA.modificar("UPDATE `prestamo` SET `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
+				
+					JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
+				}
+				} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			}
+		else{
+			if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true){
+		
+			JOptionPane.showMessageDialog(null, "Ya existe un préstamo abierto para este dispositivo.");
+		}else{
+			try {
+				ConectarDBA.modificar("UPDATE `prestamo` SET `iddispositivo` = '"+iddispositivo+"', `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
+				JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+			}
 	}
 	
 /*	public static boolean validarDatos(String iddispositivo,
