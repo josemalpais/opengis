@@ -1,0 +1,88 @@
+package code.google.com.opengis.gestionVISUAL;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
+import code.google.com.opengis.gestionDAO.ProductoDAO;
+import code.google.com.opengis.gestionDAO.UsuariosDAO;
+
+public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
+
+	static Object[] nombreColumna = {Idioma.getString("etIdprestamo"),Idioma.getString("etIddispositivo"),Idioma.getString("etDniUsuario"),Idioma.getString("etFecha_alquiler"),Idioma.getString("etFecha_devol")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+	public String auxdisp;
+	
+	
+	public PrestamoPanelPrincipal() {
+		super(false);
+
+	}
+	
+	public void buscar(){
+		
+		
+		String texto = getTxtCriterioBusqueda().getText();
+		
+		try {
+			
+			modelo.setColumnCount(0);
+			modelo.setRowCount(0);
+			
+			ResultSet rs = ConectarDBA.buscar("SELECT * FROM `prestamo` WHERE id_prestamo LIKE '%"+texto+"%' OR iddispositivo LIKE '%"+texto+"%' OR dni_usuario LIKE '%"+texto+"%' OR fecha_alquiler LIKE '%"+texto+"%' OR fecha_devol LIKE '%"+texto+"%'");
+			int nColumnas = rs.getMetaData().getColumnCount();
+			modelo.setColumnIdentifiers(nombreColumna);
+			
+			while (rs.next()) {
+				
+				Object[] registro = new Object[nColumnas];
+
+				for (int i = 0; i < nColumnas; i++) {
+					registro[i] = rs.getObject(i + 1); // Guardamos todos los registros
+					
+				}
+				
+				modelo.addRow(registro); // Añadimos el registro a la tabla
+
+			}
+			rs.close();
+		} catch (SQLException e1) {
+			System.out.println(e1);
+
+		}
+		
+	}
+
+	
+	public void nuevo(){
+		
+	    PrestamoPanelGestion p = new PrestamoPanelGestion("alta"); // Creamos el panel de Alta de Prestamos //$NON-NLS-1$
+		
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewLoan"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+		
+		
+	}
+	
+	
+	public void modificar(){
+		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rPrestamo = new String[5];
+			for (int i = 0; i < rPrestamo.length; i++) {
+				rPrestamo[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+			
+			                                                                       //String accion, String id_prestramo, String id_dispositivo,String dni_usuario
+			PrestamoPanelGestion p = new PrestamoPanelGestion("modificar",rPrestamo[0].toString(),rPrestamo[1].toString(),rPrestamo[2].toString()); // Creamos el panel de Alta de Préstamo //$NON-NLS-1$
+			
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModifyLoan")+"("+rPrestamo[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			
+		}
+		
+	}
+	
+}
