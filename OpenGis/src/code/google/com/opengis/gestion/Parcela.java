@@ -94,10 +94,10 @@ public class Parcela {
 	 * @param provincia : Provincia de la parcela.
 	 */
 	public void setProvincia(String provincia) {
-		if((provincia.length()>0)&&(provincia.length()<21)){ //comprobamos que el alias este entre 1 y 20
+		if((esNumerico(numero)&&(Integer.parseInt(provincia)>0)&&(Integer.parseInt(provincia)<52))){ //comprobamos que el alias este entre 1 y 20
 			this.provincia = provincia;
 		}else{
-			JOptionPane.showMessageDialog(null,"LA PROVINCIA DEBE ESTAR COMPRENDIDA ENTRE 1 y 20 CARÁCTERES");
+			JOptionPane.showMessageDialog(null,"EL Nº PROVINCIA NO ES CORRECTO.");
 			valido=false;
 		}
 	}
@@ -109,10 +109,10 @@ public class Parcela {
 	 * @param poblacion : Población de la parcela.
 	 */
 	public void setPoblacion(String poblacion) {//&&(esNumerico(poblacion)==false)
-		if((poblacion.length()>0)&&(poblacion.length()<31)){ //comprobamos que el alias este entre 1 y 30
+		if((esNumerico(numero)&&(Integer.parseInt(poblacion)>0)&&(Integer.parseInt(poblacion)<8175))){ //comprobamos que el alias este entre 1 y 30
 			this.poblacion = poblacion;
 		}else{
-			JOptionPane.showMessageDialog(null,"LA POBLACION DEBE ESTAR COMPRENDIDA ENTRE 1 y 30 CARÁCTERES");
+			JOptionPane.showMessageDialog(null,"EL Nº POBLACION NO ES CORRECTO.");
 			valido=false;
 		}
 	}
@@ -124,10 +124,10 @@ public class Parcela {
 	 * @param poligono : Polígono de la parcela.
 	 */
 	public void setPoligono(String poligono) {
-		if((poligono.length()>0)&&(poligono.length()<11)){ //comprobamos que el poligono este entre 1 y 10
+		if((esNumerico(numero)&&(Integer.parseInt(poligono)>0)&&(Integer.parseInt(poligono)<1000))){ //comprobamos que el poligono este entre 1 y 10
 			this.poligono = poligono;
 		}else{
-			JOptionPane.showMessageDialog(null,"EL POLIGONO DEBE ESTAR COMPRENDIDO ENTRE 1 y 10 CARÁCTERES");
+			JOptionPane.showMessageDialog(null,"EL Nº POLIGONO NO ES CORRECTO.");
 			valido=false;
 		}
 	}
@@ -139,7 +139,7 @@ public class Parcela {
 	 * @param numero : Número de la  de la parcela.
 	 */
 	public void setNumero(String numero) {
-		if((numero.length()>0)&&(numero.length()<11)&&(esNumerico(numero))){ //comprobamos que sea numerico y entre 1 y 10
+		if((esNumerico(numero)&&(Integer.parseInt(numero)>0)&&(Integer.parseInt(numero)<100000))){ //comprobamos que sea numerico y entre 1 y 10
 			this.numero = numero;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL Nº DE PARCELA DEBE SER NUMÉRICO Y ADEMÁS ESTAR COMPRENDIDO ENTRE 1 y 10 DE LONGITUD");
