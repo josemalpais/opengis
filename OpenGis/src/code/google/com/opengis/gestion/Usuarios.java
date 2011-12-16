@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
-
 /**
  * @author Juan Carlos García Clase que valida los datos de los usuarios que
  *         acabamos de insertar desde nuestra clase visual. Además, realiza las
@@ -38,7 +37,6 @@ public class Usuarios {
 	private String tipo;
 	private Boolean valido;
 	private String email;
-	
 
 	private boolean existe;
 	private boolean activo;
@@ -159,7 +157,7 @@ public class Usuarios {
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null,
 						"LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
-				valido = false;
+				this.valido = false;
 				return false;
 			}
 			pletra = pletra % 23;
@@ -173,14 +171,17 @@ public class Usuarios {
 				JOptionPane
 						.showMessageDialog(null,
 								"El número de DNI no se corresponde con la letra introducida.");
-				valido = false;
+				this.valido = false;
 				return false;
 			}
 		}
 	}
+
 	/**
 	 * Método que comprueba si el texto que le pasamos es numérico o está vacio.
-	 * @param texto Texto a comprobar
+	 * 
+	 * @param texto
+	 *            Texto a comprobar
 	 * @return devuelve si el texto es válido o no.
 	 */
 	public boolean validarTexto(String texto, String nombreCampo) {
@@ -188,8 +189,8 @@ public class Usuarios {
 
 		if (r.equals(true) || texto.length() < 2) {
 
-			JOptionPane.showMessageDialog(null, "Error. El campo " + nombreCampo
-					+ "no puede ser numérico ni esta vacíos");
+			JOptionPane.showMessageDialog(null, "Error. El campo "
+					+ nombreCampo + " no puede ser numérico ni esta vacíos");
 			this.valido = false;
 			return false;
 		} else {
@@ -206,10 +207,12 @@ public class Usuarios {
 
 			Boolean r = isInteger(this.nombre);
 
-			if (validarTexto(this.nombre, "Nombre") || validarTexto(this.apellidos, "Apellidos")
-					|| validarTexto(this.direccion, "Dirección")
-					|| validarTexto(this.poblacion, "Población")
-					|| validarTexto(this.provincia, "Provincia") || validarTexto(this.email, "Email")) {
+			if (validarTexto(this.nombre, "Nombre") == false
+					|| validarTexto(this.apellidos, "Apellidos") == false
+					|| validarTexto(this.direccion, "Dirección") == false
+					|| validarTexto(this.poblacion, "Población") == false
+					|| validarTexto(this.provincia, "Provincia") == false
+					|| validarTexto(this.email, "Email") == false) {
 
 				this.valido = false;
 
@@ -326,6 +329,7 @@ public class Usuarios {
 			}
 
 		} else {
+
 			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"
 					+ this.dni
 					+ "', '"
@@ -349,7 +353,8 @@ public class Usuarios {
 					+ "', '"
 					+ this.cp
 					+ "', '"
-					+ this.fechaNac + "', '0')";
+					+ this.fechaNac + "', '1')";
+			System.out.println(sentencia);
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
@@ -394,93 +399,104 @@ public class Usuarios {
 	}
 
 	public void modificarUsuario() throws SQLException {
-		
-		
-		
+
 		existe = false;
 
 		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false);
 		if (existe == true) {
 
-			String sentencia = "UPDATE INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`,`cp`,`tipo`,`password`,`email`, `activo`) VALUES ('"+ this.dni + "', '" + this.nombre + "','" + this.apellidos +"','" + this.telefono +"','" + this.direccion +"','" + this.poblacion +"','" + this.fechaNac +"','" + this.cp +"','" + this.tipo +"','" + this.password +"','" + this.email + "' '0' WHERE `dni` LIKE '" + this.dni + "')";
-			/*String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" //$NON-NLS-1$
-					+ this.Nombre
-					+ "', `Apellidos` = '" //$NON-NLS-1$
-					+ this.Apellidos
-					+ "', `Teléfono` = '" //$NON-NLS-1$
-					+ this.Telefono
-					+ "',`Dirección` = '" //$NON-NLS-1$
-					+ this.Direccion
-					+ "',`Población` = '" //$NON-NLS-1$
-					+ this.Poblacion
-					+ "',`fecha_nacimiento` = '" //$NON-NLS-1$
-					+ this.Fecha_nac
-					+ "',`password` = '" //$NON-NLS-1$
-					+ this.Contraseña
-					+ "',`Provincia` = '" //$NON-NLS-1$
-					+ this.Provincia
-					+ "',`Cp` = '" //$NON-NLS-1$
-					+ this.Cp
-					+ "',`tipo` = '" //$NON-NLS-1$
+			String sentencia = "UPDATE INTO `dai2opengis`.`usuario` (`dni` ,`nombre` ,`apellidos` ,`teléfono` ,`dirección` ,`población` ,`fecha_nacimiento`,`cp`,`tipo`,`password`,`email`, `activo`) VALUES ('"
+					+ this.dni
+					+ "', '"
+					+ this.nombre
+					+ "','"
+					+ this.apellidos
+					+ "','"
+					+ this.telefono
+					+ "','"
+					+ this.direccion
+					+ "','"
+					+ this.poblacion
+					+ "','"
+					+ this.fechaNac
+					+ "','"
+					+ this.cp
+					+ "','"
 					+ this.tipo
-					+ "',`email`='" //$NON-NLS-1$
-					+ this.email + "' WHERE `dni` LIKE '" + this.Dni + "'"; //$NON-NLS-1$ //$NON-NLS-2$*/
+					+ "','"
+					+ this.password
+					+ "','"
+					+ this.email + "' '0' WHERE `dni` LIKE '" + this.dni + "')";
+			/*
+			 * String sentencia =
+			 * "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" //$NON-NLS-1$ +
+			 * this.Nombre + "', `Apellidos` = '" //$NON-NLS-1$ + this.Apellidos
+			 * + "', `Teléfono` = '" //$NON-NLS-1$ + this.Telefono +
+			 * "',`Dirección` = '" //$NON-NLS-1$ + this.Direccion +
+			 * "',`Población` = '" //$NON-NLS-1$ + this.Poblacion +
+			 * "',`fecha_nacimiento` = '" //$NON-NLS-1$ + this.Fecha_nac +
+			 * "',`password` = '" //$NON-NLS-1$ + this.Contraseña +
+			 * "',`Provincia` = '" //$NON-NLS-1$ + this.Provincia + "',`Cp` = '"
+			 * //$NON-NLS-1$ + this.Cp + "',`tipo` = '" //$NON-NLS-1$ +
+			 * this.tipo + "',`email`='" //$NON-NLS-1$ + this.email +
+			 * "' WHERE `dni` LIKE '" + this.Dni + "'"; //$NON-NLS-1$
+			 * //$NON-NLS-2$
+			 */
 			System.out.println("por ahora funciona");
 			ConectarDBA.modificar(sentencia);
-			JOptionPane.showMessageDialog(null, Idioma.getString("msgUserChanged")); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(null,
+					Idioma.getString("msgUserChanged")); //$NON-NLS-1$
 			System.out.print("Va bien");
 		} else {
 
-			JOptionPane.showMessageDialog(null, Idioma.getString("msgIdNotExists")); //$NON-NLS-1$
-		System.out.print("canvio false x true");
+			JOptionPane.showMessageDialog(null,
+					Idioma.getString("msgIdNotExists")); //$NON-NLS-1$
+			System.out.print("canvio false x true");
 		}
-		ConectarDBA.cerrarCon();		
-		/*existe = false;
-
-		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, true);
-		
-		if (existe == true) {
-		
-		String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" //$NON-NLS-1$
-		+ this.nombre
-		+ "', `Apellidos` = '" //$NON-NLS-1$
-		+ this.apellidos
-		+ "', `Teléfono` = '" //$NON-NLS-1$
-		+ this.telefono
-		+ "',`Dirección` = '" //$NON-NLS-1$
-		+ this.direccion
-		+ "',`Población` = '" //$NON-NLS-1$
-		+ this.poblacion
-		+ "',`fecha_nacimiento` = '" //$NON-NLS-1$
-		+ this.fechaNac
-		+ "',`password` = '" //$NON-NLS-1$
-		+ this.password
-		+ "',`Provincia` = '" //$NON-NLS-1$
-		+ this.provincia
-		+ "',`Cp` = '" //$NON-NLS-1$
-		+ this.cp
-		+ "',`tipo` = '" //$NON-NLS-1$
-		+ this.tipo
-		+ "',`email`='" //$NON-NLS-1$
-		+ this.email + "' WHERE `dni` LIKE '" + this.dni + "'"; //$NON-NLS-1$ //$NON-NLS-2$
-			
-		String	sentencia = "UPDATE `dai2opengis`.`usuario` SET `dni`= `"+this.dni+"`,`nombre`= `"+this.nombre+"`,`apellidos`=`"+this.apellidos+"`," +
-					" `telefono`= `"+this.telefono+"`, `poblacion`= `"+this.poblacion+"`,`fechaNac`= `"+this.fechaNac+"`," +
-							"`password`= `"+this.password+"`,`provincia`= `"+this.provincia+"`,`cp`= `"+this.cp+"`,`email`= `"+this.email+
-							"`,` activo`= 1 ,`idioma`= español`,`veces`= 1,`tipo`=`"+this.tipo+"` WHERE `dni` = `"+this.dni+"`)";
-	
-		ConectarDBA.modificar(sentencia);
-		
-		JOptionPane.showMessageDialog(null,"Usuario se modifico correctamente");
-		
 		ConectarDBA.cerrarCon();
-		
-		} else {
-		
-			JOptionPane.showMessageDialog(null, "Error al Modificar el usuario");
-		}
-		
-		ConectarDBA.cerrarCon();*/
+		/*
+		 * existe = false;
+		 * 
+		 * ConectarDBA.comprobarExiste("usuario", "dni", this.dni, true);
+		 * 
+		 * if (existe == true) {
+		 * 
+		 * String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '"
+		 * //$NON-NLS-1$ + this.nombre + "', `Apellidos` = '" //$NON-NLS-1$ +
+		 * this.apellidos + "', `Teléfono` = '" //$NON-NLS-1$ + this.telefono +
+		 * "',`Dirección` = '" //$NON-NLS-1$ + this.direccion +
+		 * "',`Población` = '" //$NON-NLS-1$ + this.poblacion +
+		 * "',`fecha_nacimiento` = '" //$NON-NLS-1$ + this.fechaNac +
+		 * "',`password` = '" //$NON-NLS-1$ + this.password +
+		 * "',`Provincia` = '" //$NON-NLS-1$ + this.provincia + "',`Cp` = '"
+		 * //$NON-NLS-1$ + this.cp + "',`tipo` = '" //$NON-NLS-1$ + this.tipo +
+		 * "',`email`='" //$NON-NLS-1$ + this.email + "' WHERE `dni` LIKE '" +
+		 * this.dni + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+		 * 
+		 * String sentencia =
+		 * "UPDATE `dai2opengis`.`usuario` SET `dni`= `"+this.
+		 * dni+"`,`nombre`= `"+this.nombre+"`,`apellidos`=`"+this.apellidos+"`,"
+		 * + " `telefono`= `"+this.telefono+"`, `poblacion`= `"+this.poblacion+
+		 * "`,`fechaNac`= `"+this.fechaNac+"`," +
+		 * "`password`= `"+this.password+"`,`provincia`= `"
+		 * +this.provincia+"`,`cp`= `"+this.cp+"`,`email`= `"+this.email+
+		 * "`,` activo`= 1 ,`idioma`= español`,`veces`= 1,`tipo`=`"
+		 * +this.tipo+"` WHERE `dni` = `"+this.dni+"`)";
+		 * 
+		 * ConectarDBA.modificar(sentencia);
+		 * 
+		 * JOptionPane.showMessageDialog(null,"Usuario se modifico correctamente"
+		 * );
+		 * 
+		 * ConectarDBA.cerrarCon();
+		 * 
+		 * } else {
+		 * 
+		 * JOptionPane.showMessageDialog(null, "Error al Modificar el usuario");
+		 * }
+		 * 
+		 * ConectarDBA.cerrarCon();
+		 */
 
 	}
 
@@ -493,8 +509,6 @@ public class Usuarios {
 		// System.out.println(dni);
 		ConectarDBA.activar("usuario", "dni", dni);
 	}
-	
-
 
 	/**
 	 * Este método comprueba si una cadena String introducida es un Número. Si
