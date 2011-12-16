@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestionDAO.Idioma;
 import code.google.com.opengis.gestionDAO.ProductoDAO;
 
 
@@ -103,7 +104,7 @@ public class Producto {
 			x.altaProducto();
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorNewProduct")); //$NON-NLS-1$
 		}
 		
 	}
@@ -114,7 +115,7 @@ public class Producto {
 			try {
 				x.modificarProducto();			
 			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorNewProduct")); //$NON-NLS-1$
 			}
 			
 		}
@@ -132,7 +133,7 @@ public void validarDatos(){
 
 		if(this.nombre.length() <1 || this.nombre.length()>40){ 
 			
-			JOptionPane.showMessageDialog(null, "Error. El nombre no puede estar vacio ni ser superior a 40 carácteres");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgProductNameNotNull")); //$NON-NLS-1$
 			this.correcto = false;
 			
 		}else{			
@@ -141,7 +142,7 @@ public void validarDatos(){
 			
 			if(r.equals(true)){
 				
-				JOptionPane.showMessageDialog(null, "Error. El nombre no puede ser numérico");
+				JOptionPane.showMessageDialog(null, Idioma.getString("msgProductNameNotNumeric")); //$NON-NLS-1$
 				this.correcto = false;
 				
 			}else{
@@ -150,14 +151,14 @@ public void validarDatos(){
 				
 				if(r.equals(false) || this.dosis.length() <1 || this.dosis.length()>4){
 					
-					JOptionPane.showMessageDialog(null, "Error. La dosis debe de ser numérica, no estar vacia ni ser superior a 4 carácteres.");
+					JOptionPane.showMessageDialog(null, Idioma.getString("msgProductDoseMustNumeric")); //$NON-NLS-1$
 					this.correcto = false;
 					
 				}else{
 					r = isInteger(this.descripcion);
 					if(r.equals(true) || this.descripcion.length() <1  || this.descripcion.length()>1000){
 						
-						JOptionPane.showMessageDialog(null, "Error. La descripcion no puede ser numérica, estar vacia ni ser superior a 1000 carácteres.");
+						JOptionPane.showMessageDialog(null, Idioma.getString("msgDescNotNull")); //$NON-NLS-1$
 						this.correcto = false;
 						
 					}else{
