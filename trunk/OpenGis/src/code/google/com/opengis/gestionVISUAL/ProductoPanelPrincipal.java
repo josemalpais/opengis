@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.Idioma;
 import code.google.com.opengis.gestionDAO.ProductoDAO;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
+
 
 public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 

@@ -5,8 +5,10 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestion.Usuarios;
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
+
 
 
 public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
@@ -26,15 +28,15 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 		
 
 			
-			String texto = getTxtCriterioBusqueda().getText();
+			String criterio = getTxtCriterioBusqueda().getText();
 			
 			
 			try {
 				
 				modelo.setColumnCount(0);
 				modelo.setRowCount(0);
-				
-				ResultSet rs = UsuariosDAO.buscarUsuario(texto);
+				String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
+				ResultSet rs = ConectarDBA.buscar(sentencia);
 				int nColumnas = rs.getMetaData().getColumnCount();
 				modelo.setColumnIdentifiers(nombreColumna);
 				
@@ -123,7 +125,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 		
 			
 			try {
-				UsuariosDAO.DesactivarUsuario(rUser[0]);
+				Usuarios.desactivarUsuario(rUser[0]);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -152,7 +154,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 				if(resp==0){
 					
 					try {
-						UsuariosDAO.ActivarUsuario(rUser[0]);
+						Usuarios.activarUsuario(rUser[0]);
 						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block

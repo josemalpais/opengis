@@ -10,7 +10,6 @@ import chrriis.dj.nativeswing.NativeSwing;
 
 import code.google.com.opengis.gestionDAO.AperoDAO;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
 import code.google.com.opengis.gestionVISUAL.LoginVisual;
 import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 

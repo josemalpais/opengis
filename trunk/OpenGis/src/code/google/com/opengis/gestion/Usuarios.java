@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
+
 
 /**
  * @author Juan Carlos García Clase que valida los datos de los usuarios que
@@ -38,7 +38,7 @@ public class Usuarios {
 	private String tipo;
 	private Boolean valido;
 	private String email;
-	private UsuariosDAO enlace;
+	
 
 	private boolean existe;
 	private boolean activo;
@@ -484,12 +484,12 @@ public class Usuarios {
 
 	}
 
-	public void desactivarUsuario(String dni) throws SQLException {
+	public static void desactivarUsuario(String dni) throws SQLException {
 		// System.out.println(dni);
 		ConectarDBA.desactivar("usuario", "dni", dni);
 	}
 
-	public void activarUsuario(String dni) throws SQLException {
+	public static void activarUsuario(String dni) throws SQLException {
 		// System.out.println(dni);
 		ConectarDBA.activar("usuario", "dni", dni);
 	}
