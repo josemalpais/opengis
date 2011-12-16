@@ -56,19 +56,20 @@ public class LoginDao {
 	 * comparar y devuelve un char con el tipo de usuario que tiene que ser
 	 ***/
 	public char datosDba() throws SQLException {
-		ConectarDBA dba = new ConectarDBA();
-		dba.acceder();
-
+		ConectarDBA.acceder();
+		
 		String sentencia = "SELECT dni, password, tipo, activo FROM usuario WHERE dni LIKE '"
-				+ this.user + "'AND password LIKE '" + this.password + "' AND `activo` = '0'";
-		ResultSet rs = dba.consulta(sentencia);
+				+ this.user + "'AND password LIKE '" + this.password + "' AND `activo` = '1'";
+		System.out.println(sentencia);
+		ResultSet rs = ConectarDBA.consulta(sentencia);
 		
 		while (rs.next()) {
 			String tipo = rs.getString(3);
 			tipodato = tipo.charAt(0);
+			System.out.println(tipodato);
 		}
 		rs.close();
-		dba.cerrarCon();
+		ConectarDBA.cerrarCon();
 		return tipodato;
 	}
 
@@ -78,7 +79,7 @@ public class LoginDao {
 
 		String sentencia = "SELECT usuario.email FROM dai2opengis.usuario WHERE dni LIKE '"
 				+ this.user + "'";
-		ResultSet rs = dba.consulta(sentencia);
+		ResultSet rs = ConectarDBA.consulta(sentencia);
 
 		while (rs.next()) {
 			lol = rs.getString(1);

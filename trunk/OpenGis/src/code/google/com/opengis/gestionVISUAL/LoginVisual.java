@@ -173,7 +173,7 @@ public class LoginVisual extends JFrame
 			public void actionPerformed (ActionEvent e)	{
 				usuario = txtUser.getText();		
 				pass = new String(txtPass.getPassword());
-				
+				System.out.println("llamo a validar login");
 				validarLogin();
 			}
 		}); 
@@ -197,6 +197,7 @@ public class LoginVisual extends JFrame
 
 				if(l == 10)
 				{
+					System.out.println("llamo a validar login");
 					validarLogin();
 				}
 			}
