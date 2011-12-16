@@ -44,7 +44,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JTextField txtCP = null;
 	private JTextField txtProvincia = null;
 	private JTextField txtTelefono = null;
-	private JTextField txteMail = null;
+	private JTextField txtMail = null;
 	private JPasswordField txtPass = null;
 	private JComboBox comboTipo = null;
 	private JLabel lblObligtorios = null;
@@ -176,6 +176,9 @@ public class UsuariosPanelNuevo extends JPanel {
 		this.add(getComboPoblacion(), null);
 		this.add(lblPass2, null);
 		this.add(getTxtPass2(), null);
+		comboPoblacion.setEditable(false);
+		txtProvincia.setEditable(false);
+		
 	}
 
 	/**
@@ -204,7 +207,7 @@ public class UsuariosPanelNuevo extends JPanel {
 						if (pass.equals(pass2)) {
 							
 	
-							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),	txtProvincia.getText(), txtCP.getText(), txtFechaNac.getText(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txteMail.getText());
+							Usuarios u = new Usuarios(txtDNI.getText().trim(), txtNombre.getText().trim(), txtApellidos.getText().trim(), txtTelefono.getText().trim(), txtDireccion.getText().trim(),comboPoblacion.getSelectedItem().toString(),	txtProvincia.getText().trim(), txtCP.getText().trim(), txtFechaNac.getText().trim(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txtMail.getText().trim());
 							u.validarDatos();
 							if (u.getValido()) {
 								try {
@@ -234,8 +237,9 @@ public class UsuariosPanelNuevo extends JPanel {
 						String pass2 = new String(contra2);
 
 						if (pass.equals(pass2)) {
-							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),txtProvincia.getText(), txtCP.getText(), txtFechaNac.getText(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txteMail.getText());
+							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),txtProvincia.getText(), txtCP.getText(), txtFechaNac.getText(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txtMail.getText());
 							u.validarDatos();
+							
 							if (u.getValido()) {
 								try {
 									u.modificarUsuario();
@@ -275,21 +279,12 @@ public class UsuariosPanelNuevo extends JPanel {
 					
 					
 					if(accion!="modificar"){ //$NON-NLS-1$
-					
-						txtDNI.setText(""); //$NON-NLS-1$
+						restablecerCampos(false);
+						
 						
 					}
-					txtNombre.setText(""); //$NON-NLS-1$
-					txtApellidos.setText(""); //$NON-NLS-1$
-					txtFechaNac.setText(""); //$NON-NLS-1$
-					txtDireccion.setText(""); //$NON-NLS-1$
-					txtCP.setText(""); //$NON-NLS-1$
-					comboPoblacion.removeAllItems();
-					txtProvincia.setText(""); //$NON-NLS-1$
-					txtTelefono.setText(""); //$NON-NLS-1$
-					txteMail.setText(""); //$NON-NLS-1$
-					txtPass.setText(""); //$NON-NLS-1$
-					txtPass2.setText(""); //$NON-NLS-1$
+					restablecerCampos(true);
+					
 					
 					
 				}
@@ -452,11 +447,11 @@ public class UsuariosPanelNuevo extends JPanel {
 	 * @return javax.swing.JTextField	
 	 */
 	private JTextField getTxteMail() {
-		if (txteMail == null) {
-			txteMail = new JTextField(email);
-			txteMail.setBounds(new Rectangle(634, 194, 116, 27));
+		if (txtMail == null) {
+			txtMail = new JTextField(email);
+			txtMail.setBounds(new Rectangle(634, 194, 116, 27));
 		}
-		return txteMail;
+		return txtMail;
 	}
 
 	/**
@@ -482,8 +477,9 @@ public class UsuariosPanelNuevo extends JPanel {
 			comboTipo = new JComboBox();
 			comboTipo.setBounds(new Rectangle(634, 250, 115, 27));
 			
-			comboTipo.addItem(Idioma.getString("etAdmin")); //$NON-NLS-1$
+			
 			comboTipo.addItem(Idioma.getString("etWorker")); //$NON-NLS-1$
+			comboTipo.addItem(Idioma.getString("etAdmin")); //$NON-NLS-1$
 			
 		}
 		return comboTipo;
@@ -519,7 +515,9 @@ public class UsuariosPanelNuevo extends JPanel {
 							while(rs.next()){
 							
 							comboPoblacion.addItem(rs.getString(1));
+							
 							txtProvincia.setText(rs.getString(2));
+							
 							
 							}
 							
@@ -554,6 +552,23 @@ public class UsuariosPanelNuevo extends JPanel {
 			txtPass2.setBounds(new Rectangle(387, 250, 85, 27));
 		}
 		return txtPass2;
+	}
+	
+	private void restablecerCampos(boolean modificar){
+		if (modificar == false) {
+			txtDNI.setText(""); //$NON-NLS-1$
+		}
+		txtNombre.setText(""); //$NON-NLS-1$
+		txtApellidos.setText(""); //$NON-NLS-1$
+		txtFechaNac.setText(""); //$NON-NLS-1$
+		txtDireccion.setText(""); //$NON-NLS-1$
+		txtCP.setText(""); //$NON-NLS-1$
+		comboPoblacion.removeAllItems();
+		txtProvincia.setText(""); //$NON-NLS-1$
+		txtTelefono.setText(""); //$NON-NLS-1$
+		txtMail.setText(""); //$NON-NLS-1$
+		txtPass.setText(""); //$NON-NLS-1$
+		txtPass2.setText(""); //$NON-NLS-1$
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="26,16"
