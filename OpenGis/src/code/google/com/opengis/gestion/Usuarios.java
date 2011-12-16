@@ -187,13 +187,39 @@ public class Usuarios {
 	public boolean validarTexto(String texto, String nombreCampo) {
 		Boolean r = isInteger(texto);
 
-		if (r.equals(true) || texto.length() < 2) {
+		for (int i = 0; i < texto.length(); i++) {
+			if (Character.isLetter(texto.charAt(i)) == false) {
+				JOptionPane
+						.showMessageDialog(null, "Error. El campo "
+								+ nombreCampo
+								+ " no puede contener números ni carácteres especiales");
+				this.valido = false;
 
+				return false;
+
+			}
+			if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
+				Character.isLetter(texto.charAt(i));
+
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Error. El campo "
+										+ nombreCampo
+										+ " no puede contener más de un espacio en blanco seguido");
+				return false;
+			}
+		}
+
+		if (r.equals(true) || texto.length() < 2) {
 			JOptionPane.showMessageDialog(null, "Error. El campo "
 					+ nombreCampo + " no puede ser numérico ni esta vacíos");
 			this.valido = false;
+
 			return false;
+
 		} else {
+
 			return true;
 
 		}
@@ -208,11 +234,7 @@ public class Usuarios {
 			Boolean r = isInteger(this.nombre);
 
 			if (validarTexto(this.nombre, "Nombre") == false
-					|| validarTexto(this.apellidos, "Apellidos") == false
-					|| validarTexto(this.direccion, "Dirección") == false
-					|| validarTexto(this.poblacion, "Población") == false
-					|| validarTexto(this.provincia, "Provincia") == false
-					|| validarTexto(this.email, "Email") == false) {
+					|| validarTexto(this.apellidos, "Apellidos") == false){
 
 				this.valido = false;
 
