@@ -241,12 +241,14 @@ public class UsuariosPanelNuevo extends JPanel {
 							u.validarDatos();
 							
 							if (u.getValido()) {
-								try {
-									u.modificarUsuario();
-								} catch (SQLException e1) {
-									// TODO Auto-generated catch block
-									JOptionPane.showMessageDialog(null,Idioma.getString("msgIDAlreadyExists"));
-								}
+								
+									try {
+										u.modificarUsuario();
+									} catch (SQLException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								
 
 							}
 						} else {
