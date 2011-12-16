@@ -4,13 +4,11 @@ import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
-import code.google.com.opengis.gestionDAO.Idioma;
 
 public class Prestamo {
 	private String iddispositivo;
@@ -158,6 +156,7 @@ public class Prestamo {
 			String año = Integer.toString(c.get(Calendar.YEAR));
 			String fecha = dia+"/"+mes+"/"+año;
 			System.out.println("La fecha actual es : "+fecha+".");
+			
 			try {
 				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('"+iddispositivo+"','"+dni_usuario+"','"+fecha+"')");
 				JOptionPane.showMessageDialog(null, "Préstamo abierto correctamente.");
@@ -192,6 +191,14 @@ public class Prestamo {
 		}
 	}
 	
+	/**
+	 * Método que comprueba que modifica datos del préstamo, como el ID de dispositivo prestado o 
+	 * el DNI del usuario que solicita el préstamo 
+	 * @param idprestamo Le pasamos el ID de préstamo que se modifica
+	 * @param iddispositivo Le pasamos el nuevo ID de dispositivo
+	 * @param dni_usuario Le pasamos el nuevo DNI de usuario
+	 * @param aux Este parámetro comprueba si se ha cambiado el ID de dispositivo para hacer una validación u otra
+	 */
 	public static void modificarPrestamo(String idprestamo, String iddispositivo, String dni_usuario,String aux){
 		if (aux==iddispositivo){
 			try {
@@ -219,54 +226,6 @@ public class Prestamo {
 			}
 	}
 	
-/*	public static boolean validarDatos(String iddispositivo,
-			String dni_usuario, String fecha_alquiler) throws HeadlessException, SQLException {
-		boolean b = false;
-
-		// Compruebo que el ID de dispositivo sea numérico
-		b = isInteger(iddispositivo);
-
-		if (b == false) {
-			JOptionPane.showMessageDialog(null,
-					"Error. El ID de dispositivo ha de ser numérico.");
-			return false;
-
-		} else {
-			if(!(ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, true))){
-				JOptionPane.showMessageDialog(null,
-						"Error. No existe un usuario activo con el DNI introducido.");
-				return false;
-			}else{
-			
-			Date fechaAhora = new Date();
-
-			if (fecha_alquiler.equals("")) {
-				JOptionPane.showMessageDialog(null,
-						"La fecha de alquiler no puede estar en blanco");
-				return false;
-			} else {
-
-				@SuppressWarnings("deprecation")
-				Date fecha_alq = new Date(fecha_alquiler);
-
-				if (fecha_alquiler.length() != 10
-						|| fecha_alq.getTime() > fechaAhora.getTime()) {
-
-					JOptionPane.showMessageDialog(null,
-							"Error. La fecha indicada no es correcta");
-					return false;
-				}else {
-
-							return true;
-							/**
-							 * Si todos los datos son correctos devuelve True.
-							 */
-/*						}
-					}
-				}
-			}
-		}*/
-	
 	/**
 	 * Método que comprueba que el ID de Dispositivo y el DNI de Usuario 
 	 * sean correctos, estén en la base de datos y estén activos
@@ -276,33 +235,40 @@ public class Prestamo {
 		boolean b = false;
 
 		// Compruebo que el ID de dispositivo sea numérico
-		b = isInteger(iddispositivo);
+		//b = isInteger(iddispositivo);
+		b = ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, true);
 
 		if (b == false) {
 			JOptionPane.showMessageDialog(null,
-					"Error. El ID de dispositivo ha de ser numérico.");
+					//"Error. El ID de dispositivo ha de ser numérico.");
+					"Error. No existe un dispositivo activo con el ID introducido.");
 			return false;
 
 		} else{
-			if(!(ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, true))){
+			b = ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, true);
+			if (b == false){
+				JOptionPane.showMessageDialog(null,
+						"Error. No existe un usuario activo con el DNI introducido.");
+				return false;
+			/*if(!(ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, true))){
 				JOptionPane.showMessageDialog(null,
 				"Error. No existe un dispositivo activo con el ID introducido.");
-		return false;
-			}else {
+		return false;*/
+			}/*else {
 			if(!(ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, true))){
 				JOptionPane.showMessageDialog(null,
 						"Error. No existe un usuario activo con el DNI introducido.");
 				return false;
-			}else {
+			}*/else {
 
-							return true;
-							/**
-							 * Si todos los datos son correctos devuelve True.
-							 */
-							}
-			}
+				return true;
+				/**
+				 * Si todos los datos son correctos devuelve True.
+				 */
+		
 			}
 		}
+	}
 /**
  * Método que comprueba si la cadena introducida es un número entero
  * @param cadena Le pasamos la cadena a comprobar
