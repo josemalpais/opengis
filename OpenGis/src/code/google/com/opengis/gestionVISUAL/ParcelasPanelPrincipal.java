@@ -15,7 +15,6 @@ import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import code.google.com.opengis.gestion.Parcela;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;

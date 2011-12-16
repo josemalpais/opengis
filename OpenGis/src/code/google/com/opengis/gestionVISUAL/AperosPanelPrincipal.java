@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.AperoDAO;
 import code.google.com.opengis.gestionDAO.Idioma;
-import code.google.com.opengis.gestionDAO.UsuariosDAO;
 
 public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 	
@@ -150,7 +150,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 				if(resp==0){
 					
 					try {
-						UsuariosDAO.ActivarUsuario(rUser[0]);
+						Usuarios.activarUsuario(rUser[0]);
 						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
