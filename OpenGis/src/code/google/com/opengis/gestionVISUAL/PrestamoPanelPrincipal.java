@@ -3,14 +3,16 @@ package code.google.com.opengis.gestionVISUAL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
-import code.google.com.opengis.gestionDAO.ProductoDAO;
 
 public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	static Object[] nombreColumna = {Idioma.getString("etIdprestamo"),Idioma.getString("etIddispositivo"),Idioma.getString("etDniUsuario"),Idioma.getString("etFecha_alquiler"),Idioma.getString("etFecha_devol")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	public String auxdisp;
 	

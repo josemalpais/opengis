@@ -1,18 +1,13 @@
 package code.google.com.opengis.gestionVISUAL;
 
-import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 
 import javax.swing.JPanel;
-import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
@@ -98,7 +93,6 @@ public class PrestamoPanelGestion extends JPanel {
 		this.add(getTxtIDprestamo(), null);
 		this.add(getTxtIDdispositivo(), null);
 		this.add(getTxtDNI(), null);
-		//this.add(getComboTipo(), null);
 		this.add(getBGuardar(), null);
 		this.add(getBLimpiar(), null);
 		this.add(lblObligatorios, null);
@@ -151,7 +145,7 @@ public class PrestamoPanelGestion extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtNombreProd	
+	 * This method initializes txtIDdispositivo	
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
@@ -224,57 +218,6 @@ public class PrestamoPanelGestion extends JPanel {
 		}
 		return txtDNI;
 	}
-	
-	/**
-	 * This method initializes comboTipo	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	/*private JComboBox getComboTipo() {
-		if (comboTipo == null) {
-			comboTipo = new JComboBox();
-			comboTipo.setBounds(new Rectangle(162, 136, 149, 24));
-			comboTipo.addItem(Idioma.getString("etLiquid")); //$NON-NLS-1$
-			comboTipo.addItem(Idioma.getString("etGranulated")); //$NON-NLS-1$
-			comboTipo.addItem(Idioma.getString("etPowder")); //$NON-NLS-1$
-			
-			if(accion=="modificar"){ //$NON-NLS-1$
-				
-				comboTipo.setSelectedItem(tipo);
-				
-			}
-			comboTipo.addFocusListener(new java.awt.event.FocusAdapter() {
-				public void focusLost(java.awt.event.FocusEvent e) {
-				
-				String tipo = comboTipo.getSelectedItem().toString();
-				
-				
-				if(tipo.equals(Idioma.getString("etLiquid"))){ //$NON-NLS-1$
-					
-					lblMedida.setText("(l/ha)"); //$NON-NLS-1$
-					
-				}
-				
-				
-				if(tipo.equals(Idioma.getString("etGranulated"))){ //$NON-NLS-1$
-					
-					lblMedida.setText("(g/ha)"); //$NON-NLS-1$
-					
-				}
-				
-				if(tipo.equals(Idioma.getString("etPowder"))){ //$NON-NLS-1$
-					
-					lblMedida.setText("(Kg/ha)"); //$NON-NLS-1$
-					
-				}
-				
-			}
-			
-			});
-				
-		}
-		return comboTipo;
-	}*/
 
 	/**
 	 * This method initializes bGuardar	
@@ -291,12 +234,12 @@ public class PrestamoPanelGestion extends JPanel {
 					
 			
 					if(accion.equals("alta")){ //$NON-NLS-1$
-						
-						
-							//Prestamo prest = new Prestamo(Integer.parseInt(txtIDprestamo.getText()),txtIDdispositivo.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtFecha.getText(),txtDNI.getText(),0);
-							
+											
 							try {
-								if(Prestamo.validarDatos(txtIDdispositivo.getText(),txtDNI.getText())==true){
+								ConectarDBA.cerrarCon();
+								boolean b = false;
+								b = Prestamo.validarDatos(txtIDdispositivo.getText(),txtDNI.getText());
+								if(b==true){
 									Prestamo.crearPrestamo(txtIDdispositivo.getText(),txtDNI.getText());
 									try {//Actualizamos el ID de préstamo
 										
@@ -330,26 +273,7 @@ public class PrestamoPanelGestion extends JPanel {
 						auxdisp=txtIDdispositivo.getText();
 							Prestamo.modificarPrestamo(txtIDprestamo.getText(), txtIDdispositivo.getText(), txtDNI.getText(),auxdisp);
 						//}
-					}
-					
-							/*Prestamo pre = new Prestamo(Integer.parseInt(txtIDprestamo.getText()),txtIDdispositivo.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtFecha.getText(),txtDNI.getText(),0);
-							
-							pre.validarDatos();
-							
-							if (pre.getCorrecto()==true){
-								
-								pre.editarProducto();
-								
-							}
-							
-						
-						}
-						*/
-						
-						
-					
-			
-			
+					}			
 			
 				}
 			});
