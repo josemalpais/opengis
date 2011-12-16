@@ -55,21 +55,22 @@ public class LoginVisual extends JFrame
 
 
 	private JFrame lv=this; //declaramos lv para poder hacer uso de dispose
-	private final String rutaIcono="OpenGis/src/recursosVisuales/";
-	private static String lang = "resources.lang_es_ES";
+	private final String rutaIcono="OpenGis/src/recursosVisuales/"; //$NON-NLS-1$
+	private static String lang = "resources.lang_es_ES"; //$NON-NLS-1$
 
 	public LoginVisual(){
-		super("Registro de entrada"); //Título de la ventana
-		setLayout(new GridBagLayout());
+		super(); //Título de la ventana //$NON-NLS-1$
 		new Idioma(lang);
-		lblLogo=new JLabel( new ImageIcon(rutaIcono+"logo.png")); //Icono de la aplicación
-		lblUser=new JLabel(Idioma.getString("etUser"));
-		txtUser = new JTextField("Usuario");
-		lblPass=new JLabel("Contraseña:");
+		setTitle(Idioma.getString("etLoginWindow"));
+		setLayout(new GridBagLayout());
+		lblLogo=new JLabel( new ImageIcon(rutaIcono+"logo.png")); //Icono de la aplicación //$NON-NLS-1$
+		lblUser=new JLabel(Idioma.getString("etUserLogin")); //$NON-NLS-1$
+		txtUser = new JTextField(Idioma.getString("msgInsertIdCard")); //$NON-NLS-1$
+		lblPass=new JLabel(Idioma.getString("etPassword")); //$NON-NLS-1$
 		txtPass = new JPasswordField();
-		btnRec = new JButton("Recuperar contraseña");
-		btnVal = new JButton("Validar");
-		btnBor = new JButton("Borrar");
+		btnRec = new JButton(Idioma.getString("etRecovery")); //$NON-NLS-1$
+		btnVal = new JButton(Idioma.getString("etOK")); //$NON-NLS-1$
+		btnBor = new JButton(Idioma.getString("etClear")); //$NON-NLS-1$
 
 		bIdiomaCatalan=new JButton();
 		bIdiomaCatalan.setPreferredSize(new Dimension(18, 11));
@@ -148,7 +149,7 @@ public class LoginVisual extends JFrame
 		
 		//Parámetros de la ventana
 
-		setIconImage(new ImageIcon(rutaIcono+"openGIS.png").getImage()); //icono de la barra de título
+		setIconImage(new ImageIcon(rutaIcono+"openGIS.png").getImage()); //icono de la barra de título //$NON-NLS-1$
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400,256);
 		setResizable(false);
@@ -163,7 +164,7 @@ public class LoginVisual extends JFrame
 		{
 			public void actionPerformed (ActionEvent e)
 			{
-				System.out.println("Botón recuperar clave");
+				System.out.println("Botón recuperar clave"); //$NON-NLS-1$
 				usuario = txtUser.getText();
 				new EnviarMail(usuario);
 			}
@@ -174,7 +175,7 @@ public class LoginVisual extends JFrame
 			public void actionPerformed (ActionEvent e)	{
 				usuario = txtUser.getText();		
 				pass = new String(txtPass.getPassword());
-				System.out.println("llamo a validar login");
+				System.out.println("llamo a validar login"); //$NON-NLS-1$
 				validarLogin();
 			}
 		}); 
@@ -183,21 +184,21 @@ public class LoginVisual extends JFrame
 		{
 			public void actionPerformed (ActionEvent e)
 			{
-				txtUser.setText("");
-				txtPass.setText("");
+				txtUser.setText(""); //$NON-NLS-1$
+				txtPass.setText(""); //$NON-NLS-1$
 			}
 		}); 
 		
 		bIdiomaCatalan.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				lang = "resources.lang_ca_ES";
+				lang = "resources.lang_ca_ES"; //$NON-NLS-1$
 				lv.dispose();
 				new LoginVisual();	
 			}
 		});
 		bIdiomaSpanish.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				lang = "resources.lang_es_ES";
+				lang = "resources.lang_es_ES"; //$NON-NLS-1$
 				lv.dispose();
 				new LoginVisual();	
 			}
@@ -205,7 +206,7 @@ public class LoginVisual extends JFrame
 		
 		bIdiomaEnglish.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				lang = "resources.lang_en_US";
+				lang = "resources.lang_en_US"; //$NON-NLS-1$
 				lv.dispose();
 				new LoginVisual();	
 			}
@@ -221,7 +222,7 @@ public class LoginVisual extends JFrame
 
 				if(l == 10)
 				{
-					System.out.println("llamo a validar login");
+					System.out.println("llamo a validar login"); //$NON-NLS-1$
 					validarLogin();
 				}
 			}
@@ -259,7 +260,7 @@ public class LoginVisual extends JFrame
 		} 
 		catch (SQLException e1) 
 		{
-			JOptionPane.showMessageDialog(null,"Error De Conexión");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgConnectionError")); //$NON-NLS-1$
 			e1.printStackTrace();
 		} 
 	}
