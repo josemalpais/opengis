@@ -202,7 +202,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				    	  
 				    	  String url = "http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat="
 								+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+
-								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),6)+",0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+
+								",0,0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+
 								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true";
 							
 				    	  
