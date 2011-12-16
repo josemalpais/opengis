@@ -190,9 +190,11 @@ public class Usuarios {
 		for (int i = 0; i < texto.length(); i++) {
 			if (Character.isLetter(texto.charAt(i)) == false) {
 				JOptionPane
-						.showMessageDialog(null, "Error. El campo "
-								+ nombreCampo
-								+ " no puede contener números ni carácteres especiales");
+						.showMessageDialog(
+								null,
+								"Error. El campo "
+										+ nombreCampo
+										+ " no puede contener números ni carácteres especiales");
 				this.valido = false;
 
 				return false;
@@ -225,6 +227,39 @@ public class Usuarios {
 		}
 	}
 
+	public boolean validarTextoEspecial(String texto, String nombreCampo) {
+		Boolean r = isInteger(texto);
+
+		for (int i = 0; i < texto.length(); i++) {
+
+			if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
+				Character.isLetter(texto.charAt(i));
+
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Error. El campo "
+										+ nombreCampo
+										+ " no puede contener más de un espacio en blanco seguido");
+				return false;
+			}
+		}
+
+		if (r.equals(true) || texto.length() < 2) {
+			JOptionPane.showMessageDialog(null, "Error. El campo "
+					+ nombreCampo + " no puede ser numérico ni esta vacíos");
+			this.valido = false;
+
+			return false;
+
+		} else {
+
+			return true;
+
+		}
+
+	}
+
 	public void validarDatos() {
 
 		if (validarDni(dni) == false) {
@@ -234,81 +269,90 @@ public class Usuarios {
 			Boolean r = isInteger(this.nombre);
 
 			if (validarTexto(this.nombre, "Nombre") == false
-					|| validarTexto(this.apellidos, "Apellidos") == false){
+					|| validarTexto(this.apellidos, "Apellidos") == false) {
 
 				this.valido = false;
-
 			} else {
 
-				r = isInteger(this.telefono);
+				if (validarTextoEspecial(this.direccion, "Dirección") == false
+						|| validarTextoEspecial(this.email, "Email") == false) {
 
-				if (this.telefono.length() != 9 || r.equals(false)) {
-
-					JOptionPane
-							.showMessageDialog(null,
-									"Error. El número de telefono tiene que tener 9 dígitos");
 					this.valido = false;
-
 				} else {
 
-					Date fechaAhora = new Date();
+					r = isInteger(this.telefono);
 
-					if (this.fechaNac.equals("")) {
+					if (this.telefono.length() != 9 || r.equals(false)) {
 
 						JOptionPane
 								.showMessageDialog(null,
-										"La fecha de nacimiento no puede estar en blanco");
+										"Error. El número de telefono tiene que tener 9 dígitos");
 						this.valido = false;
 
 					} else {
 
-						@SuppressWarnings("deprecation")
-						Date fechaNac = new Date(this.fechaNac);
+						Date fechaAhora = new Date();
 
-						if (this.fechaNac.length() != 10
-								|| fechaNac.getTime() > fechaAhora.getTime()) {
+						if (this.fechaNac.equals("")) {
 
-							JOptionPane.showMessageDialog(null,
-									"Error. La fecha indicada no es correcta");
+							JOptionPane
+									.showMessageDialog(null,
+											"La fecha de nacimiento no puede estar en blanco");
 							this.valido = false;
 
 						} else {
 
-							r = isInteger(this.cp);
+							@SuppressWarnings("deprecation")
+							Date fechaNac = new Date(this.fechaNac);
 
-							if (this.cp.length() != 5 || r.equals(false)) {
+							if (this.fechaNac.length() != 10
+									|| fechaNac.getTime() > fechaAhora
+											.getTime()) {
 
 								JOptionPane
 										.showMessageDialog(null,
-												"Error. El Código Postal debe tener 5 cifras y ser solo numérico");
+												"Error. La fecha indicada no es correcta");
+								this.valido = false;
 
 							} else {
 
-								r = isInteger(this.password);
+								r = isInteger(this.cp);
 
-								if (this.password.length() == 0
-										|| r.equals(true)) {
+								if (this.cp.length() != 5 || r.equals(false)) {
 
 									JOptionPane
 											.showMessageDialog(null,
-													"Error. La Contraseña es obligatoria y debe ser alfanumérica");
+													"Error. El Código Postal debe tener 5 cifras y ser solo numérico");
 
 								} else {
 
-									this.valido = true; // En
-														// el
-														// caso
-														// de
-														// que
-														// todos
-														// los
-														// datos
-														// sean
-														// correctos
-														// devolveremos
-														// True
+									r = isInteger(this.password);
 
+									if (this.password.length() == 0
+											|| r.equals(true)) {
+
+										JOptionPane
+												.showMessageDialog(null,
+														"Error. La Contraseña es obligatoria y debe ser alfanumérica");
+
+									} else {
+
+										this.valido = true; // En
+															// el
+															// caso
+															// de
+															// que
+															// todos
+															// los
+															// datos
+															// sean
+															// correctos
+															// devolveremos
+															// True
+
+									}
 								}
+
 							}
 
 						}
@@ -318,7 +362,6 @@ public class Usuarios {
 				}
 
 			}
-
 		}
 
 	}
