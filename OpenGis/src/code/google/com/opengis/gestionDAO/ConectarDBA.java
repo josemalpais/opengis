@@ -298,7 +298,7 @@ public class ConectarDBA {
 	{
 		ResultSet rs;
 		char t = 0;
-		rs=buscar("SELECT tipo FROM usuario WHERE dni LIKE '" + usuario + "'AND password LIKE '" + pass + "' AND `activo` = '0'");
+		rs=buscar("SELECT tipo FROM usuario WHERE dni LIKE '" + usuario + "'AND password LIKE '" + pass + "' AND `activo` = '1'");
 		if(rs.next())
 		{
 			t=rs.getString(1).charAt(0);

@@ -53,9 +53,9 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 					for (int i2 = 0; i2 < registro.length; i2++) {
 
 						if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
-							registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
-						} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
 							registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+						} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+							registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
 						}
 						//System.out.println(registro[i2]);
 					}

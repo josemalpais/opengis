@@ -22,7 +22,7 @@ public class ValidarLogin extends JFrame {
 	public ValidarLogin(JFrame ven, String user,String password) throws SQLException {
 		this.user = user;
 		this.password = password;
-		
+		System.out.println("estoy en validarlogin llamo a tipodeuser");
 		tipoDeUser(ven);
 		
 	}
@@ -37,6 +37,7 @@ public class ValidarLogin extends JFrame {
 		
 		
 		LoginDao lgo = new LoginDao(this.user, this.password);
+		
 		tipodato = lgo.datosDba();
 		
 			
