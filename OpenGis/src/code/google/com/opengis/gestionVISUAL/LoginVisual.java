@@ -56,14 +56,15 @@ public class LoginVisual extends JFrame
 
 	private JFrame lv=this; //declaramos lv para poder hacer uso de dispose
 	private final String rutaIcono="OpenGis/src/recursosVisuales/";
-
+	private static String lang = "resources.lang_es_ES";
 
 	public LoginVisual(){
 		super("Registro de entrada"); //Título de la ventana
 		setLayout(new GridBagLayout());
+		new Idioma(lang);
 		lblLogo=new JLabel( new ImageIcon(rutaIcono+"logo.png")); //Icono de la aplicación
-		lblUser=new JLabel("Usuario:");
-		txtUser = new JTextField("Introduzca el DNI ...");
+		lblUser=new JLabel(Idioma.getString("etUser"));
+		txtUser = new JTextField("Usuario");
 		lblPass=new JLabel("Contraseña:");
 		txtPass = new JPasswordField();
 		btnRec = new JButton("Recuperar contraseña");
@@ -186,6 +187,29 @@ public class LoginVisual extends JFrame
 				txtPass.setText("");
 			}
 		}); 
+		
+		bIdiomaCatalan.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				lang = "resources.lang_ca_ES";
+				lv.dispose();
+				new LoginVisual();	
+			}
+		});
+		bIdiomaSpanish.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				lang = "resources.lang_es_ES";
+				lv.dispose();
+				new LoginVisual();	
+			}
+		});
+		
+		bIdiomaEnglish.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				lang = "resources.lang_en_US";
+				lv.dispose();
+				new LoginVisual();	
+			}
+		});
 		
 		kl=new KeyListener()
 		{
