@@ -22,7 +22,7 @@ public class ConectarDBA {
 	static Connection conexion;
 	/** Objeto del tipo Statement */
 	static Statement st;
-	static boolean existe;
+	private static boolean existe;
 	static boolean activo;
 	static String resultado;
 
@@ -100,6 +100,7 @@ public class ConectarDBA {
 		// Creamos un tipo Statement que maneja las consultas
 
 		// Retorno la consulta especifica...
+		
 		st.executeUpdate(sentenciaSQL);
 
 	}
@@ -151,12 +152,12 @@ public class ConectarDBA {
 		System.out.println("Enviado: " + criterio + " esperado: "
 				+ resultado.toString());
 		if (resultado == null) {
-			existe = false;
-			System.out.println("El estado de existe es: " + existe);
-		} else if (resultado.equals(criterio)) {
-			existe = true;
+			setExiste(false);
+			//System.out.println("El estado de existe es: " + getExiste());
+		} else if (resultado.toString().equals(criterio)) {
+			setExiste(true);
 
-			System.out.println("El estado de existe es: " + existe);
+			//System.out.println("El estado de existe es: " + getExiste());
 
 			rs.close();
 			if (buscarActivo) {
@@ -165,7 +166,7 @@ public class ConectarDBA {
 				ResultSet rs2 = consulta(sentencia2);
 				activo = false;
 				while (rs2.next()) {
-					System.out.println("Ejecuto el segundo While");
+					//System.out.println("Ejecuto el segundo While");
 					activo = rs2.getBoolean(1);
 					return activo;
 				}
@@ -174,13 +175,13 @@ public class ConectarDBA {
 					return activo;
 				}
 				rs2.close();
-				System.out.println("El estado de activo es: " + activo);
+				//System.out.println("El estado de activo es: " + activo);
 				// System.out.println("Ejecutada sentencia "+sentencia);
 
 			}
-			cerrarCon();
+			
 		}
-		return existe;
+		return getExiste();
 	}
 
 	/**
@@ -236,7 +237,7 @@ public class ConectarDBA {
 	public static void activar(String tabla, String campo, String criterio)
 			throws SQLException {
 		comprobarExiste(tabla, campo, criterio, true);
-		if (existe == true && activo == false) {
+		if (getExiste() == true && activo == false) {
 			String sentencia = "UPDATE `" + tabla
 					+ "` SET `activo` = '1' WHERE `" + campo + "` LIKE '"
 					+ criterio + "'";
@@ -257,7 +258,7 @@ public class ConectarDBA {
 	public static void desactivar(String tabla, String campo, String criterio)
 			throws SQLException {
 		comprobarExiste(tabla, campo, criterio, true);
-		if (existe == true && activo == true) {
+		if (getExiste() == true && activo == true) {
 			String sentencia = "UPDATE `" + tabla
 					+ "` SET `activo` = '0' WHERE `" + campo + "` LIKE '"
 					+ criterio + "'";
@@ -358,6 +359,14 @@ public class ConectarDBA {
 		
 		
 		
+	}
+
+	public static boolean getExiste() {
+		return existe;
+	}
+
+	public static void setExiste(boolean existe) {
+		ConectarDBA.existe = existe;
 	}
 
 
