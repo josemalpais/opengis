@@ -18,7 +18,7 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 		this.dniUsuario = dniUsuario;
 		super.txtCriterioBusqueda.setText(dniUsuario);
 		super.txtCriterioBusqueda.setEnabled(false);
-		super.buscar();
+		buscar();
 		
 	}
 	
@@ -31,10 +31,7 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 			ConectarDBA.acceder();
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
-			String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (idparcela LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or alias LIKE '%"
-					+getTxtCriterioBusqueda().getText()+"%' Or provincia LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  poblacion LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or poligono LIKE '%"
-					+getTxtCriterioBusqueda().getText()+"%' Or  numero LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  partida LIKE '%"
-					+getTxtCriterioBusqueda().getText()+"%' AND  dni_propietario LIKE '"+ dniUsuario +"' )";
+			String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE dni_propietario LIKE '"+dniUsuario+"'";
 			try{
 
 				rs = dba.consulta(Texto);
