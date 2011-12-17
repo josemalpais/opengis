@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import code.google.com.opengis.gestion.Parcela;
+import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 import java.awt.Desktop;
@@ -29,7 +30,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 	private JButton bSigPac = null;
 	private int i = 0;
 	
-	static Object[] columnas={"ID Parcela", "Alias", "Nº Provincia","Nº Población", "Nº Polígono", "Nº Parcela","Nº Partida","DNI del Propietario"};
+	static Object[] columnas={"ID Parcela", "Alias", "Nº Provincia","Nº Población", "Nº Polígono", "Nº Parcela","Nº Partida","DNI del Propietario", "Estado"};
 	ResultSet rs = null;
 	
 	public ParcelasPanelPrincipal(){
@@ -45,7 +46,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				ConectarDBA.acceder();
 				modelo.setColumnCount(0);
 				modelo.setRowCount(0);
-				String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (idparcela LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or alias LIKE '%"
+				String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario`, `activo` FROM `parcela` WHERE (idparcela LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or alias LIKE '%"
 						+getTxtCriterioBusqueda().getText()+"%' Or provincia LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  poblacion LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or poligono LIKE '%"
 						+getTxtCriterioBusqueda().getText()+"%' Or  numero LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  partida LIKE '%"
 						+getTxtCriterioBusqueda().getText()+"%' Or  dni_propietario LIKE '%"+getTxtCriterioBusqueda().getText()+"%' )";
@@ -70,12 +71,13 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 					}
 					
 					
+					
 					for (int i2 = 0; i2 < registro.length; i2++) {
 
 						if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
-							registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
-						} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
 							registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+						} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+							registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
 						}
 					}
 
@@ -137,7 +139,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
     	try {
     		int confirmar=JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el registro "+id);
     		if(JOptionPane.OK_OPTION==confirmar){
-			dba.modificar("UPDATE `dai2opengis`.`parcela` SET `activo`= 0 WHERE `idparcela` LIKE "+id);
+    			Parcela.bajaParcela(id);
 			JOptionPane.showMessageDialog(null,"El numero de registro "+id+" ha sido desactivado correctamente.");
     		}
     	} catch (SQLException e1) {
@@ -217,6 +219,42 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 		return bSigPac;
 	}
 	public void botonesActivar(){
+		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rParcela = new String[9];
+			for (int i = 0; i < rParcela.length; i++) {
+				rParcela[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+		
+			
+			
+			if(rParcela[8].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
+				
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgUserWithID") + rParcela[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				
+				if(resp==0){
+					
+					try {
+						Parcela.activarParcela(rParcela[0]);
+						buscar();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				
+			}else{
+			
+				getBModificar().setEnabled(true);
+				getBEliminar().setEnabled(true);
+			
+			}
+			
+		}
+		
 		
 		getBModificar().setEnabled(true);
 		getBEliminar().setEnabled(true);

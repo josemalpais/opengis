@@ -348,14 +348,12 @@ public static ResultSet buscar(String criterio) throws SQLException{
 	 * @throws SQLException
 	 */
 
-	public void bajaParcela() throws SQLException{
-		ConectarDBA.acceder();	
-		sentencia = "UPDATE `dai2opengis`.`parcela` SET `activo`= `"+this.activo+"` WHERE `idparcela` LIKE `"+this.idparcela+"`)";
-			dba.modificar(sentencia);
-
-			JOptionPane.showMessageDialog(null,"Parcela dada de baja correctamente");
-			
-		dba.cerrarCon();
+	public static void bajaParcela(String id) throws SQLException{
+		ConectarDBA.desactivar("parcela", "idparcela", id);
+	}
+	
+	public static void activarParcela(String id) throws SQLException{
+		ConectarDBA.activar("parcela", "idparcela", id);
 	}
 	
 	/**
