@@ -21,10 +21,10 @@ import code.google.com.opengis.gestionDAO.Idioma;
 public class GeneradorPanelPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtCriterioBusqueda = null;
+	protected JTextField txtCriterioBusqueda = null;
 	private JScrollPane jScrollPane = null;
 	private JTable tablaPrincipal = null;
-	private JButton bNuevo = null;
+	protected JButton bNuevo = null;
 	private JButton bModificar = null;
 	private JButton bEliminar = null;
 	public DefaultTableModel modelo = new DefaultTableModel();
