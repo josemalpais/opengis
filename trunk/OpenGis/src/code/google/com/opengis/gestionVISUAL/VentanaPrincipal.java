@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
@@ -118,7 +119,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     		this.setBounds(new Rectangle(0, 0, 888, 619));
     		this.setResizable(false);
     		this.setContentPane(getJContentPaneAdministrador());
-    		this.setTitle(Idioma.getString("etMainWindow")); //$NON-NLS-1$
+    		this.setTitle(Idioma.getString("etMainWindow")+ dniUsuario); //$NON-NLS-1$
     		this.setLocationRelativeTo(null); // Centramos el formulario
     		this.setVisible(true);
     		
@@ -213,7 +214,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     		this.setBounds(new Rectangle(0, 0, 888, 619));
     		this.setResizable(false);
     		this.setContentPane(getJContentPaneUsuario());
-    		this.setTitle(Idioma.getString("etMainWindow")); //$NON-NLS-1$
+    		this.setTitle(Idioma.getString("etMainWindow")+ dniUsuario); //$NON-NLS-1$
     		this.setLocationRelativeTo(null); // Centramos el formulario
     		this.setVisible(true);
     		
@@ -249,7 +250,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			lblInformes.setText(Idioma.getString("etReports")); //$NON-NLS-1$
     			lblUsuarios = new JLabel();
     			lblUsuarios.setBounds(new Rectangle(147, 87, 79, 22));
-    			lblUsuarios.setText(Idioma.getString("etUsers")); //$NON-NLS-1$
+    			lblUsuarios.setText("Mis Datos"); //$NON-NLS-1$
     			jContentPane = new JPanel();
     			jContentPane.setLayout(null);
     			jContentPane.add(getBUsuarios(), null);
@@ -311,7 +312,16 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bUsuarios = new JButton();
     			bUsuarios.setBounds(new Rectangle(143, 33, 63, 58));
     			bUsuarios.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/usuario.png")); //$NON-NLS-1$
-    			bUsuarios.setToolTipText(Idioma.getString("etUsersMng")); //$NON-NLS-1$
+    			if(tipoUsuario == 't'){
+    				
+    				bUsuarios.setToolTipText("Mis datos"); //$NON-NLS-1$
+    				
+    			}else{
+    				
+    				bUsuarios.setToolTipText(Idioma.getString("etUsersMng")); //$NON-NLS-1$
+    				
+    			}
+ 
     			bUsuarios.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					
@@ -338,6 +348,51 @@ import code.google.com.opengis.gestionDAO.Idioma;
     					}else{
     						
     						// INSERTAR AQUI METODO PARA TRABAJADOR
+    						
+        						
+        						int numPestañas = tabsPaneles.getTabCount();
+        						
+        						if (numPestañas <10) {
+        							
+        							ConectarDBA.acceder();
+        							
+        							ResultSet rs;
+									try {
+										
+										rs = ConectarDBA.consulta("SELECT dni,nombre,apellidos,email,password,teléfono,dirección,población,provincia,cp,fecha_nacimiento FROM usuario WHERE dni='"+ dniUsuario +"'");
+	        							
+	        							String datos[] = new String[11];
+	        							
+	        							rs.next();
+	        								
+	        							datos[0] = rs.getString(1);
+	        							datos[1] = rs.getString(2); 
+	        							datos[2] = rs.getString(3); 
+	        							datos[3] = rs.getString(4); 
+	        							datos[4] = rs.getString(5); 
+	        							datos[5] = rs.getString(6); 
+	        							datos[6] = rs.getString(7); 
+	        							datos[7] = rs.getString(8); 
+	        							datos[8] = rs.getString(9); 
+	        							datos[9] = rs.getString(10); 
+	        							datos[10] = rs.getString(11);
+
+	        							
+	        							UsuariosPanelDatosPersonales panelDatos = new UsuariosPanelDatosPersonales(datos[0],datos[1],datos[2],datos[6],datos[7],datos[8],datos[9],datos[5],datos[3],datos[10],datos[4]);
+	            						
+	        							tabsPaneles.addTab("Mis Datos Personales",panelDatos); //$NON-NLS-1$
+	        							tabsPaneles.setSelectedIndex(numPestañas);
+									
+									} catch (SQLException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+        							
+        						}else{
+        							
+        							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+        							
+        						}
     						
     					}
     					
