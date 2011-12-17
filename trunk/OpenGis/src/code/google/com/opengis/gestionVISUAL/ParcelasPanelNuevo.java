@@ -41,7 +41,7 @@ public class ParcelasPanelNuevo extends JPanel {
 	private JTextField txtPoblacion = null;
 	private JTextField txtPoligonop = null;
 	private JTextField txtPartidap = null;
-	private JTextField txtDniPropietario = null;
+	JTextField txtDniPropietario = null;
 	private JTextField txtNumerop = null;
 	private String accion;
 	private ConectarDBA dba =null;

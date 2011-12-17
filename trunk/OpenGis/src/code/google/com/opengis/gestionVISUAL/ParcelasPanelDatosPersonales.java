@@ -89,6 +89,16 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 		
 	}
 	
+	
+	public void nuevo(){
+		
+		ParcelasPanelNuevo p = new ParcelasPanelNuevo("alta"); 
+		p.txtDniPropietario.setText(dniUsuario);
+		p.txtDniPropietario.setEnabled(false);
+		VentanaPrincipal.añadirPestañaNueva("Nueva Parcela",p);
+
+	}
+	
 	private JButton getBSigPac() {
 		if (bSigPac == null) {
 			bSigPac = new JButton();
