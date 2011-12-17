@@ -147,7 +147,8 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 		
 			
-			if(rUser[11].toString().equals("Inactivo")){ //$NON-NLS-1$
+			
+			if(rUser[11].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
 				
 				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgUserWithID") + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				

@@ -119,6 +119,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 	}
 	
 	public void botonesActivar(){
+		
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
 			String[] rProducto = new String[7];
@@ -128,7 +129,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 			}
 		
 			
-			if(rProducto[6].toString().equals("Inactivo")){ //$NON-NLS-1$
+			if(rProducto[6].equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
 				
 				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgProductWithID") + rProducto[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				

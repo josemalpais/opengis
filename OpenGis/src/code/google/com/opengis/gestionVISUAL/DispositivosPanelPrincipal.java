@@ -124,7 +124,7 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 	
 	
 	public void botonesActivar(){
-		
+		String estado = "";
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
 			String[] rDispo = new String[5];
@@ -132,7 +132,9 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 				rDispo[i] = getTablaPrincipal().getValueAt(fila, i)
 						.toString();
 			}
-		
+			for (int i = 0; i < 5; i++){
+				estado = estado + rDispo[4].toString().charAt(i);
+			}
 			
 			if(rDispo[4].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
 				
