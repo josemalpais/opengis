@@ -691,6 +691,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
                
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                  this.dispose();
+                 tabsPaneles.removeAll();
                  LoginVisual l = new LoginVisual(); // Si dice que si, volvemos al Login del Programa
                  l.setVisible(true);                                             
          }else{
