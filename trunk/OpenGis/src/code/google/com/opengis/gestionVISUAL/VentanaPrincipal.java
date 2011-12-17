@@ -440,6 +440,22 @@ import code.google.com.opengis.gestionDAO.Idioma;
     						
     						// AQUÍ LA ACCIÓN DEL TRABAJADOR
     						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							ParcelasPanelDatosPersonales panelNuevo = new ParcelasPanelDatosPersonales(dniUsuario);
+    						
+    							tabsPaneles.addTab("Mis parcelas",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+    						
+    						
     					}
     						
     							
