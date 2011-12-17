@@ -85,6 +85,8 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 	
 	public void botonesActivar(){
 		
+		bEliminar.setEnabled(true);
+		bModificar.setEnabled(true);
 		bSigPac.setEnabled(true);
 		
 	}
@@ -97,6 +99,27 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 		p.txtDniPropietario.setEnabled(false);
 		VentanaPrincipal.añadirPestañaNueva("Nueva Parcela",p);
 
+	}
+	
+	public void modificar(){
+		
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rParcela = new String[8];
+			for (int i = 0; i < rParcela.length; i++) {
+				rParcela[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+			
+			
+			ParcelasPanelNuevo p = new ParcelasPanelNuevo("modificar",rParcela[0].toString(),rParcela[1].toString(),rParcela[2].toString(),rParcela[3].toString(),rParcela[4].toString(),rParcela[5].toString(),rParcela[6].toString(),rParcela[7].toString()); // Creamos el panel de Alta de Parcelas
+			p.txtDniPropietario.setEnabled(false);
+			VentanaPrincipal.añadirPestañaNueva("Modificar "+rParcela[1].toString(),p);
+			
+			
+		}
+		
+	
 	}
 	
 	private JButton getBSigPac() {

@@ -25,8 +25,8 @@ public class GeneradorPanelPrincipal extends JPanel {
 	private JScrollPane jScrollPane = null;
 	private JTable tablaPrincipal = null;
 	protected JButton bNuevo = null;
-	private JButton bModificar = null;
-	private JButton bEliminar = null;
+	protected JButton bModificar = null;
+	protected JButton bEliminar = null;
 	public DefaultTableModel modelo = new DefaultTableModel();
 	
 	private boolean redimensionarTabla;
