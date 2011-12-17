@@ -108,10 +108,10 @@ public class Usuarios {
 
 	public String calcularDNI(String dni) {
 		int pletra;
-		String aux = "";
-		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P",
-				"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C",
-				"K", "E", "T" };
+		String aux = ""; //$NON-NLS-1$
+		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+				"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+				"K", "E", "T" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		for (int x = 0; x < 8; x++) {// este for nos cojera los primeros
 										// carácteres y los guardara en el
 										// string aux
@@ -133,14 +133,14 @@ public class Usuarios {
 	 */
 	public boolean validarDni(String dni) {
 		int pletra;
-		String aux = "";
-		String aux2 = "";
-		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P",
-				"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C",
-				"K", "E", "T" };
+		String aux = ""; //$NON-NLS-1$
+		String aux2 = ""; //$NON-NLS-1$
+		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+				"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+				"K", "E", "T" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		if (dni.length() != 9) {
 			JOptionPane.showMessageDialog(null,
-					"Error. El DNI solo puede contener 9 caracteres");
+					Idioma.getString("msgIdCardErrorManyChars")); //$NON-NLS-1$
 
 			this.valido = false;
 			return false;
@@ -156,12 +156,12 @@ public class Usuarios {
 												// del metodo con un false
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null,
-						"LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
+						Idioma.getString("msgIdCardErrorNumbers")); //$NON-NLS-1$
 				this.valido = false;
 				return false;
 			}
 			pletra = pletra % 23;
-			aux2 = dni.charAt(dni.length() - 1) + "";
+			aux2 = dni.charAt(dni.length() - 1) + ""; //$NON-NLS-1$
 
 			if (arrayLetra[pletra].equalsIgnoreCase(aux2)) {
 				dni = aux + arrayLetra[pletra];// lo colocamos en formato de 9
@@ -170,7 +170,7 @@ public class Usuarios {
 			} else {
 				JOptionPane
 						.showMessageDialog(null,
-								"El número de DNI no se corresponde con la letra introducida.");
+								Idioma.getString("msgIdCardUnmatchWord")); //$NON-NLS-1$
 				this.valido = false;
 				return false;
 			}
@@ -192,9 +192,9 @@ public class Usuarios {
 				JOptionPane
 						.showMessageDialog(
 								null,
-								"Error. El campo "
+								Idioma.getString("msgErrorField") //$NON-NLS-1$
 										+ nombreCampo
-										+ " no puede contener números ni carácteres especiales");
+										+ Idioma.getString("msgErrorNotSpecialChar")); //$NON-NLS-1$
 				this.valido = false;
 
 				return false;
@@ -206,16 +206,16 @@ public class Usuarios {
 				JOptionPane
 						.showMessageDialog(
 								null,
-								"Error. El campo "
+								Idioma.getString("msgErrorField") //$NON-NLS-1$
 										+ nombreCampo
-										+ " no puede contener más de un espacio en blanco seguido");
+										+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
 				return false;
 			}
 		}
 
 		if (r.equals(true) || texto.length() < 2) {
-			JOptionPane.showMessageDialog(null, "Error. El campo "
-					+ nombreCampo + " no puede ser numérico ni esta vacíos");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorField") //$NON-NLS-1$
+					+ nombreCampo + Idioma.getString("msgErrorEmptyNorNumeric")); //$NON-NLS-1$
 			this.valido = false;
 
 			return false;
@@ -238,16 +238,16 @@ public class Usuarios {
 				JOptionPane
 						.showMessageDialog(
 								null,
-								"Error. El campo "
+								Idioma.getString("msgErrorField") //$NON-NLS-1$
 										+ nombreCampo
-										+ " no puede contener más de un espacio en blanco seguido");
+										+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
 				return false;
 			}
 		}
 
 		if (r.equals(true) || texto.length() < 2) {
-			JOptionPane.showMessageDialog(null, "Error. El campo "
-					+ nombreCampo + " no puede ser numérico ni esta vacíos");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorField") //$NON-NLS-1$
+					+ nombreCampo + Idioma.getString("msgErrorEmptyNorNumeric")); //$NON-NLS-1$
 			this.valido = false;
 
 			return false;
@@ -268,14 +268,14 @@ public class Usuarios {
 
 			Boolean r = isInteger(this.nombre);
 
-			if (validarTexto(this.nombre, "Nombre") == false
-					|| validarTexto(this.apellidos, "Apellidos") == false) {
+			if (validarTexto(this.nombre, Idioma.getString("etFirstName")) == false //$NON-NLS-1$
+					|| validarTexto(this.apellidos, Idioma.getString("etLastName")) == false) { //$NON-NLS-1$
 
 				this.valido = false;
 			} else {
 
-				if (validarTextoEspecial(this.direccion, "Dirección") == false
-						|| validarTextoEspecial(this.email, "Email") == false) {
+				if (validarTextoEspecial(this.direccion, Idioma.getString("etAddress")) == false //$NON-NLS-1$
+						|| validarTextoEspecial(this.email, Idioma.getString("etMail")) == false) { //$NON-NLS-1$
 
 					this.valido = false;
 				} else {
@@ -286,18 +286,18 @@ public class Usuarios {
 
 						JOptionPane
 								.showMessageDialog(null,
-										"Error. El número de telefono tiene que tener 9 dígitos");
+										Idioma.getString("msgErrorPhoneNumber")); //$NON-NLS-1$
 						this.valido = false;
 
 					} else {
 
 						Date fechaAhora = new Date();
 
-						if (this.fechaNac.equals("")) {
+						if (this.fechaNac.equals("")) { //$NON-NLS-1$
 
 							JOptionPane
 									.showMessageDialog(null,
-											"La fecha de nacimiento no puede estar en blanco");
+											Idioma.getString("msgErrorEmptyBirthDate")); //$NON-NLS-1$
 							this.valido = false;
 
 						} else {
@@ -311,7 +311,7 @@ public class Usuarios {
 
 								JOptionPane
 										.showMessageDialog(null,
-												"Error. La fecha indicada no es correcta");
+												Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 								this.valido = false;
 
 							} else {
@@ -322,7 +322,7 @@ public class Usuarios {
 
 									JOptionPane
 											.showMessageDialog(null,
-													"Error. El Código Postal debe tener 5 cifras y ser solo numérico");
+													Idioma.getString("msgErrorPostalCode")); //$NON-NLS-1$
 
 								} else {
 
@@ -333,7 +333,7 @@ public class Usuarios {
 
 										JOptionPane
 												.showMessageDialog(null,
-														"Error. La Contraseña es obligatoria y debe ser alfanumérica");
+														Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
 
 									} else {
 
@@ -379,51 +379,51 @@ public class Usuarios {
 
 		existe = false;
 		activo = false;
-		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, true);
+		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, true); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (existe == true) {
 
 			if (activo == true) {
 				JOptionPane.showMessageDialog(null,
-						"El DNI ya existe y se encuentra Activado");
+						Idioma.getString("msgIDAlreadyExistsActive")); //$NON-NLS-1$
 
 			} else {
 				JOptionPane.showMessageDialog(null,
-						"El DNI ya existe y se encuentra Inactivo");
+						Idioma.getString("msgIDAlreadyExistsInactive")); //$NON-NLS-1$
 
 			}
 
 		} else {
 
-			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('"
+			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('" //$NON-NLS-1$
 					+ this.dni
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.nombre
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.apellidos
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.email
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.password
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.tipo
-					+ "', '0', '"
+					+ "', '0', '" //$NON-NLS-1$
 					+ this.telefono
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.direccion
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.poblacion
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.provincia
-					+ "', '"
+					+ "', '" //$NON-NLS-1$
 					+ this.cp
-					+ "', '"
-					+ this.fechaNac + "', '1')";
+					+ "', '" //$NON-NLS-1$
+					+ this.fechaNac + "', '1')"; //$NON-NLS-1$
 			//System.out.println(sentencia);
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
-					"Se ha dado de alta el nuevo usuario");
+					Idioma.getString("msgNewUserSuccess")); //$NON-NLS-1$
 
 		}
 
@@ -444,20 +444,20 @@ public class Usuarios {
 
 		existe = false;
 
-		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false);
+		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (existe == true) {
 
-			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '"
-					+ this.dni + "'";
+			String sentencia = "DELETE FROM `usuario` WHERE `dni` = '" //$NON-NLS-1$
+					+ this.dni + "'"; //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
-					"Usuario eliminado correctamente");
+					Idioma.getString("msgUserInactiveSucceed")); //$NON-NLS-1$
 
 		} else {
 
-			JOptionPane.showMessageDialog(null, "El usuario no existe");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgUserNotExist")); //$NON-NLS-1$
 		}
 
 		ConectarDBA.cerrarCon();
@@ -467,12 +467,12 @@ public class Usuarios {
 
 		existe = false;
 
-		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false);
+		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false); //$NON-NLS-1$ //$NON-NLS-2$
 		if (ConectarDBA.getExiste() == true) {
 
-			 String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" + this.nombre + "', `Apellidos` = '"  + this.apellidos + "', `Teléfono` = '" + this.telefono + "',`Dirección` = '" + this.direccion +
-			 "',`Población` = '" + this.poblacion + "',`fecha_nacimiento` = '" + this.fechaNac + "',`password` = '" + this.password +  "',`Provincia` = '" + this.provincia + "',`Cp` = '" + this.cp + "',`tipo` = '" +
-			  this.tipo + "',`email`='" + this.email + "' WHERE `dni` LIKE '" + this.dni + "'"; 
+			 String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" + this.nombre + "', `Apellidos` = '"  + this.apellidos + "', `Teléfono` = '" + this.telefono + "',`Dirección` = '" + this.direccion + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			 "',`Población` = '" + this.poblacion + "',`fecha_nacimiento` = '" + this.fechaNac + "',`password` = '" + this.password +  "',`Provincia` = '" + this.provincia + "',`Cp` = '" + this.cp + "',`tipo` = '" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+			  this.tipo + "',`email`='" + this.email + "' WHERE `dni` LIKE '" + this.dni + "'";  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 			
 			//System.out.println("por ahora funciona");
@@ -494,12 +494,12 @@ public class Usuarios {
 
 	public static void desactivarUsuario(String dni) throws SQLException {
 		// System.out.println(dni);
-		ConectarDBA.desactivar("usuario", "dni", dni);
+		ConectarDBA.desactivar("usuario", "dni", dni); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public static void activarUsuario(String dni) throws SQLException {
 		// System.out.println(dni);
-		ConectarDBA.activar("usuario", "dni", dni);
+		ConectarDBA.activar("usuario", "dni", dni); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
