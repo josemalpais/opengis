@@ -3,6 +3,9 @@ package code.google.com.opengis.gestionVISUAL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
+import code.google.com.opengis.gestion.Prestamo;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
@@ -84,6 +87,25 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 			
 		}
 		
+	}
+	
+	public void cerrarPrestamo(){
+		String[] rPrestamo = new String[5];
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			for (int i = 0; i < rPrestamo.length; i++) {
+				rPrestamo[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+				}
+			}
+		int confirmacion = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar este préstamo?");
+		if (confirmacion == JOptionPane.OK_OPTION){
+			System.out.println("Voy a cerrar el préstamo.");
+			Prestamo.cerrarPrestamo(rPrestamo[1], rPrestamo[2]);
+		}
+		else{
+			System.out.println("Vale, no hago nada.");
+		}
 	}
 	
 }
