@@ -314,7 +314,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bUsuarios.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/usuario.png")); //$NON-NLS-1$
     			if(tipoUsuario == 't'){
     				
-    				bUsuarios.setToolTipText("Mis datos"); //$NON-NLS-1$
+    				bUsuarios.setToolTipText(Idioma.getString("etMyData")); //$NON-NLS-1$
     				
     			}else{
     				
@@ -380,7 +380,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 	        							
 	        							UsuariosPanelDatosPersonales panelDatos = new UsuariosPanelDatosPersonales(datos[0],datos[1],datos[2],datos[6],datos[7],datos[8],datos[9],datos[5],datos[3],datos[10],datos[4]);
 	            						
-	        							tabsPaneles.addTab("Mis Datos Personales",panelDatos); //$NON-NLS-1$
+	        							tabsPaneles.addTab(Idioma.getString("etMyPersonalData"),panelDatos); //$NON-NLS-1$
 	        							tabsPaneles.setSelectedIndex(numPestañas);
 									
 									} catch (SQLException e1) {
@@ -446,7 +446,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
     							ParcelasPanelDatosPersonales panelNuevo = new ParcelasPanelDatosPersonales(dniUsuario);
     						
-    							tabsPaneles.addTab("Mis parcelas",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.addTab(Idioma.getString("etMyLots"),panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
