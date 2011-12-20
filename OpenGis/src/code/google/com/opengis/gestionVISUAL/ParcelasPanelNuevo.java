@@ -45,6 +45,7 @@ public class ParcelasPanelNuevo extends JPanel {
 	private JTextField txtNumerop = null;
 	private String accion;
 	private ConectarDBA dba =null;
+	private boolean encontrado;
 	
 	private String idparcela; //identificador de la parcela
 	private String alias; //nombre que el usuario asignara a la parcela para relacionarlo
@@ -345,8 +346,51 @@ public class ParcelasPanelNuevo extends JPanel {
 			txtDniPropietario = new JTextField(dniPropietario);
 			txtDniPropietario.setBounds(new Rectangle(123, 194, 143, 27));
 		}
-		return txtDniPropietario;
-	}
+		if(accion=="modificar"){ //$NON-NLS-1$
+			
+			txtDniPropietario.setText(dniPropietario);
+			
+		}
+		
+		txtDniPropietario.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent e) {
+				
+				
+				ConectarDBA.acceder();
+				
+				String consulta = "SELECT dni from usuario where dni = '"+ txtDniPropietario.getText() +"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				
+				try {
+					ResultSet rs = ConectarDBA.consulta(consulta);
+					
+					
+					while(rs.next()){
+						
+						encontrado = true;
+						
+					}
+					
+
+					
+					if(encontrado == false){
+						
+						JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario"); //$NON-NLS-1$
+						txtDniPropietario.setText(""); //$NON-NLS-1$
+						
+					}
+					
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		
+	
+	return txtDniPropietario;
+}
 
 	
 	
