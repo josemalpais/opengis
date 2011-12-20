@@ -6,16 +6,18 @@ import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
+import code.google.com.opengis.gestion.Parcela;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
 public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 
 	private String dniUsuario;
-	static Object[] columnas={"ID Parcela", "Alias", "Nº Provincia","Nº Población", "Nº Polígono", "Nº Parcela","Nº Partida","DNI del Propietario"};
+	static Object[] columnas={"ID Parcela", "Alias", "Nº Provincia","Nº Población", "Nº Polígono", "Nº Parcela","Nº Partida","DNI del Propietario","Estado"};
 	private ResultSet rs = null;
 	private JButton bSigPac;
 	
@@ -39,7 +41,7 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 			ConectarDBA.acceder();
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
-			String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE dni_propietario LIKE '"+dniUsuario+"'";
+			String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario`, `activo` FROM `parcela` WHERE dni_propietario LIKE '"+dniUsuario+"'";
 			try{
 
 				rs = dba.consulta(Texto);
@@ -64,9 +66,9 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 				for (int i2 = 0; i2 < registro.length; i2++) {
 
 					if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
-						registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
-					} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
 						registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+					} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+						registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
 					}
 				}
 
@@ -85,9 +87,48 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 	
 	public void botonesActivar(){
 		
-		bEliminar.setEnabled(true);
-		bModificar.setEnabled(true);
-		bSigPac.setEnabled(true);
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+			String[] rParcela = new String[9];
+			for (int i = 0; i < rParcela.length; i++) {
+				rParcela[i] = getTablaPrincipal().getValueAt(fila, i)
+						.toString();
+			}
+		
+			
+			
+			if(rParcela[8].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
+				
+				getBModificar().setEnabled(false);
+				getBEliminar().setEnabled(false);
+				getBSigPac().setEnabled(false);
+				
+				int resp = JOptionPane.showConfirmDialog(this,"La parcela con Nombre: " + rParcela[1] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				
+				if(resp==0){
+					
+					try {
+						Parcela.activarParcela(rParcela[0]);
+						buscar();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				
+			}else{
+			
+				getBModificar().setEnabled(true);
+				getBEliminar().setEnabled(true);
+				bSigPac.setEnabled(true);
+			
+			}
+			
+		}
+		
+
+		
 		
 	}
 	
@@ -149,6 +190,35 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 			
 		}
 		return bSigPac;
+	}
+	
+public void eliminar(){
+		
+		// Recogemos todos los datos de la tabla
+		
+    	ConectarDBA dba = null;
+    	String id=getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(), 0).toString();
+    	ConectarDBA.acceder();
+		
+			
+    	try {
+    		int confirmar=JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el registro "+id);
+    		if(JOptionPane.OK_OPTION==confirmar){
+    			Parcela.bajaParcela(id);
+    			buscar();
+    		}
+    	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+		}
+    	try {
+			dba.cerrarCon();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 	}
 
 }

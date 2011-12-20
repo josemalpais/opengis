@@ -140,7 +140,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
     		int confirmar=JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el registro "+id);
     		if(JOptionPane.OK_OPTION==confirmar){
     			Parcela.bajaParcela(id);
-			JOptionPane.showMessageDialog(null,"El numero de registro "+id+" ha sido desactivado correctamente.");
+    			buscar();
     		}
     	} catch (SQLException e1) {
 		// TODO Auto-generated catch block
@@ -232,7 +232,11 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 			
 			if(rParcela[8].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
 				
-				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgUserWithID") + rParcela[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				getBModificar().setEnabled(false);
+				getBEliminar().setEnabled(false);
+				getBSigPac().setEnabled(false);
+				
+				int resp = JOptionPane.showConfirmDialog(this,"La parcela con Nombre: " + rParcela[1] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
 				if(resp==0){
 					
@@ -250,15 +254,13 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 			
 				getBModificar().setEnabled(true);
 				getBEliminar().setEnabled(true);
-			
+				bSigPac.setEnabled(true);
 			}
 			
 		}
 		
+
 		
-		getBModificar().setEnabled(true);
-		getBEliminar().setEnabled(true);
-		bSigPac.setEnabled(true);
 		
 	}
 

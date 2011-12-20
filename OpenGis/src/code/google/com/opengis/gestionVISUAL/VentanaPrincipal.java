@@ -244,7 +244,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			lblApero.setText(Idioma.getString("etImplements")); //$NON-NLS-1$
     			lblParcelas = new JLabel();
     			lblParcelas.setBounds(new Rectangle(352, 87, 85, 22));
-    			lblParcelas.setText(Idioma.getString("etLots")); //$NON-NLS-1$
+    			lblParcelas.setText("Mis Parcelas"); //$NON-NLS-1$
     			lblInformes = new JLabel();
     			lblInformes.setBounds(new Rectangle(249, 87, 84, 22));
     			lblInformes.setText(Idioma.getString("etReports")); //$NON-NLS-1$
