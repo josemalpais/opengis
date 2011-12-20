@@ -293,10 +293,34 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bPrestamos.setToolTipText(Idioma.getString("etLoansMsg")); //$NON-NLS-1$
     			bPrestamos.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					bCerrarPestaña.setVisible(true);
     					
+    					if (tipoUsuario == 'a'){
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							PrestamoPanelPrincipal panelNuevo = new PrestamoPanelPrincipal();
+    						
+    							tabsPaneles.addTab(Idioma.getString("etLoansMng"),panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+    							
+    							
+    					}else{
+    						
+    						// INSERTAR AQUI METODO PARA TRABAJADOR
     					
+    					}
     				}
-    			});
+    			}
+    					);
     			
     		}
     		return bPrestamos;

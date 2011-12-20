@@ -128,7 +128,6 @@ public class PrestamoPanelGestion extends JPanel {
 					ConectarDBA.cerrarCon();
 					
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -208,7 +207,6 @@ public class PrestamoPanelGestion extends JPanel {
 						
 						
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -256,15 +254,12 @@ public class PrestamoPanelGestion extends JPanel {
 										ConectarDBA.cerrarCon();
 										
 									} catch (SQLException e1) {
-										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 								}
 							} catch (HeadlessException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}						
 						}
@@ -303,5 +298,7 @@ public class PrestamoPanelGestion extends JPanel {
 		}
 		return bLimpiar;
 	}
+	
+	
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+} 
