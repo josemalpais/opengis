@@ -96,7 +96,7 @@ public class AperoDAO {
 	 public static ResultSet buscarApero(String campo, String criterio) throws SQLException{
 		 	ResultSet rs = null;
 		 	ConectarDBA.acceder();
-			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario` FROM `apero` WHERE  `"+campo+"` LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`dni_usuario`,`activo` FROM `apero` WHERE  `"+campo+"` LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			try{
 			rs = dba.consulta(sentencia);
 			}catch (SQLException e){
@@ -108,9 +108,18 @@ public class AperoDAO {
 		public static void DesactivarApero(String id) throws SQLException{
 			comprobarApero(id);
 			if (existe == true){
-				String sentencia = "UPDATE `apero` SET `activo` = '1' WHERE `idapero` LIKE '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				String sentencia = "UPDATE `apero` SET `activo` = '0' WHERE `idapero` LIKE '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 				dba.modificar(sentencia);
 				JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementDisabled")); //$NON-NLS-1$
+			}
+		}
+		
+		public static void activarApero(String id) throws SQLException{
+			comprobarApero(id);
+			if (existe == true){
+				String sentencia = "UPDATE `apero` SET `activo` = '1' WHERE `idapero` LIKE '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				dba.modificar(sentencia);
+				JOptionPane.showMessageDialog(null,"Se ha activado el apero"); //$NON-NLS-1$
 			}
 		}
 		
@@ -134,7 +143,7 @@ public class AperoDAO {
 				throws SQLException {
 			ResultSet rs = null;
 			ConectarDBA.acceder();
-			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`activo` ,`dni_usuario` FROM `apero` WHERE idapero LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR tamaño LIKE '%"+criterio+"%' OR descripcion LIKE '%"+criterio+"%' OR idtarea LIKE '%"+criterio+"%' OR dni_usuario LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+			String sentencia = "SELECT `idapero` ,`nombre` ,`tamaño` ,`descripcion` ,`idtarea` ,`dni_usuario`,`activo` FROM `apero` WHERE idapero LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR tamaño LIKE '%"+criterio+"%' OR descripcion LIKE '%"+criterio+"%' OR idtarea LIKE '%"+criterio+"%' OR dni_usuario LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 			try {
 				rs = ConectarDBA.consulta(sentencia);
 			} catch (SQLException e) {

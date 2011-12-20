@@ -16,7 +16,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 		Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"), Idioma.getString("etPostalCode"), Idioma.getString("etPhone"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		Idioma.getString("etMail"), Idioma.getString("etBirthDate"), Idioma.getString("etAccType"), Idioma.getString("etStatus") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	*/
-	static String[] nombreColumna = {Idioma.getString("etImplementId"), Idioma.getString("etName"), Idioma.getString("etSize"), Idioma.getString("etDesc"), Idioma.getString("etTaskId"), Idioma.getString("etActive"), Idioma.getString("etIdCard")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+	static String[] nombreColumna = {Idioma.getString("etImplementId"), Idioma.getString("etName"), Idioma.getString("etSize"), Idioma.getString("etDesc"), Idioma.getString("etTaskId"), Idioma.getString("etIdCard"),"Estado"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 	
 	public AperosPanelPrincipal(){
 		super(false);
@@ -53,9 +53,9 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 					for (int i2 = 0; i2 < registro.length; i2++) {
 
 						if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
-							registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
-						} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
 							registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+						} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+							registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
 						}
 						//System.out.println(registro[i2]);
 					}
@@ -150,7 +150,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 				if(resp==0){
 					
 					try {
-						Usuarios.activarUsuario(rUser[0]);
+						AperoDAO.activarApero(rUser[0]);
 						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
