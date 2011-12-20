@@ -89,7 +89,7 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 		
 	}
 	
-	public void cerrarPrestamo(){
+	public void eliminar(){
 		String[] rPrestamo = new String[5];
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
