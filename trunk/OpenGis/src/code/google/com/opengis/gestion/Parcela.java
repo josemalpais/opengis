@@ -94,7 +94,7 @@ public class Parcela {
 	 * @param provincia : Provincia de la parcela.
 	 */
 	public void setProvincia(String provincia) {
-		if((esNumerico(numero)&&(Integer.parseInt(provincia)>0)&&(Integer.parseInt(provincia)<52))){ //comprobamos que el alias este entre 1 y 20
+		if((esNumerico(provincia)&&(Integer.parseInt(provincia)>0)&&(Integer.parseInt(provincia)<52))){ //comprobamos que el alias este entre 1 y 20
 			this.provincia = provincia;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL Nº PROVINCIA NO ES CORRECTO.");
@@ -109,7 +109,7 @@ public class Parcela {
 	 * @param poblacion : Población de la parcela.
 	 */
 	public void setPoblacion(String poblacion) {//&&(esNumerico(poblacion)==false)
-		if((esNumerico(numero)&&(Integer.parseInt(poblacion)>0)&&(Integer.parseInt(poblacion)<8175))){ //comprobamos que el alias este entre 1 y 30
+		if((esNumerico(poblacion)&&(Integer.parseInt(poblacion)>0)&&(Integer.parseInt(poblacion)<8175))){ //comprobamos que el alias este entre 1 y 30
 			this.poblacion = poblacion;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL Nº POBLACION NO ES CORRECTO.");
@@ -124,7 +124,7 @@ public class Parcela {
 	 * @param poligono : Polígono de la parcela.
 	 */
 	public void setPoligono(String poligono) {
-		if((esNumerico(numero)&&(Integer.parseInt(poligono)>0)&&(Integer.parseInt(poligono)<1000))){ //comprobamos que el poligono este entre 1 y 10
+		if((esNumerico(poligono)&&(Integer.parseInt(poligono)>0)&&(Integer.parseInt(poligono)<1000))){ //comprobamos que el poligono este entre 1 y 10
 			this.poligono = poligono;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL Nº POLIGONO NO ES CORRECTO.");
