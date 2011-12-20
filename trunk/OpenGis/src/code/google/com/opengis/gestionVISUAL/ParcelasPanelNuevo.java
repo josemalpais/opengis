@@ -177,7 +177,6 @@ public class ParcelasPanelNuevo extends JPanel {
 						if(Parcela.isValido()==true){
 							try {
 								p1.altaParcela();
-								JOptionPane.showMessageDialog(null, "CONSULTA INSERTADA CORRECTAMENTE");
 								
 								txtAliasp.setText("");
 								txtProvinciap.setText("");
@@ -205,19 +204,21 @@ public class ParcelasPanelNuevo extends JPanel {
 
 		        		Parcela p1 = new Parcela(Integer.parseInt(txtIdParcelap.getText()),txtAliasp.getText(),txtProvinciap.getText(),txtPoblacion.getText(),
 								txtPoligonop.getText(),txtNumerop.getText(),1,txtPartidap.getText(),txtDniPropietario.getText());
+		        		
+						int x=p1.getIdParcela();
 						if(Parcela.isValido()==true){
 							try {
 
-								int x=p1.getIdParcela();
 								String sentencia = "UPDATE `dai2opengis`.`parcela` SET  `alias` = '"+p1.getAlias()+"', `provincia`= '"+p1.getProvincia()+"', `poblacion`= '"+p1.getPoblacion()+"', `poligono`= '"+p1.getPoligono()+"', `numero`= '"+p1.getNumero()+"', `partida`= '"+p1.getPartida()+"',`dni_propietario`= '"+p1.getDniPropietario()+"'  WHERE `idparcela` = "+x;
 								
 								dba.modificar(sentencia);
 								
 								JOptionPane.showMessageDialog(null, "PARCELA MODIFICADA CORRECTAMENTE");
 							} catch (SQLException e1) {
-								JOptionPane.showMessageDialog(null, "ERROR DE INSERCION");
+								
+								//JOptionPane.showMessageDialog(null, "ERROR AL MODIFICAR");
 								 //TODO Auto-generated catch block
-								e1.printStackTrace();
+								//e1.printStackTrace();
 							}
 						}
 					}
