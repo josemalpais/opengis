@@ -7,7 +7,6 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
-import pruebasToni.AccesoBBDD;
 
 /**
  * @author Danico & Pipepito Clase que establece conexión con la base de datos y
