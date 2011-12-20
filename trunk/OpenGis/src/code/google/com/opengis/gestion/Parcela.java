@@ -349,11 +349,19 @@ public static ResultSet buscar(String criterio) throws SQLException{
 	 */
 
 	public static void bajaParcela(String id) throws SQLException{
-		ConectarDBA.desactivar("parcela", "idparcela", id);
+		ConectarDBA.acceder();
+		String sentencia = "UPDATE parcela SET `activo` = '0' WHERE idparcela  LIKE '"+id+"'";
+		ConectarDBA.modificar(sentencia);
+		JOptionPane.showMessageDialog(null,"Se ha desactivado correctamente");
+		ConectarDBA.cerrarCon();
 	}
 	
 	public static void activarParcela(String id) throws SQLException{
-		ConectarDBA.activar("parcela", "idparcela", id);
+		ConectarDBA.acceder();
+		String sentencia = "UPDATE parcela SET `activo` = '1' WHERE idparcela  LIKE '"+id+"'";
+		ConectarDBA.modificar(sentencia);
+		JOptionPane.showMessageDialog(null,"Se ha activado correctamente");
+		ConectarDBA.cerrarCon();
 	}
 	
 	/**
