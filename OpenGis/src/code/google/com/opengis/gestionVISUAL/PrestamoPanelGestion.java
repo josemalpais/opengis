@@ -176,7 +176,7 @@ public class PrestamoPanelGestion extends JPanel {
 			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				txtDNI.setText(dni_usuario);
-				
+				//
 			}
 			
 			txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
