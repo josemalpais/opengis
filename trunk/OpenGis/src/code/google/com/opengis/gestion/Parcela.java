@@ -79,10 +79,20 @@ public class Parcela {
 	 * @param alias : nombre representativo para que el usuario identifique cómodamente la parcela.
 	 */
 	public void setAlias(String alias){
+		if (Character.isLetter(alias.charAt(0)) == true && alias.charAt(0) != (' ') && Character.isLetter(alias.charAt(1)) ==
+				true && alias.charAt(1) != (' ')){
+			
+		
+		
 		if((alias.length()>0)&&(alias.length()<21)){ //comprobamos que el alias este entre 1 y 20
 			this.alias = alias;
 		}else{
 			JOptionPane.showMessageDialog(null, "EL ALIAS DEBE ESTAR COMPRENDIDO ENTRE 1 y 20 CARÁCTERES");
+			valido=false;
+		}
+		}else{
+			
+			JOptionPane.showMessageDialog(null, "ALIAS NO ADMITE ESPACIOS EN BLANCO");
 			valido=false;
 		}
 	}
@@ -94,11 +104,19 @@ public class Parcela {
 	 * @param provincia : Provincia de la parcela.
 	 */
 	public void setProvincia(String provincia) {
-		if((esNumerico(provincia)&&(Integer.parseInt(provincia)>0)&&(Integer.parseInt(provincia)<52))){ //comprobamos que el alias este entre 1 y 20
-			this.provincia = provincia;
-		}else{
-			JOptionPane.showMessageDialog(null,"EL Nº PROVINCIA NO ES CORRECTO.");
-			valido=false;
+			int prov;
+		try {
+			prov= Integer.parseInt(provincia);
+			
+
+			if((esNumerico(provincia)==true &&(prov>0)&&(prov<52))){ //comprobamos que el alias este entre 1 y 20
+				this.provincia = provincia;
+			}else{
+				JOptionPane.showMessageDialog(null,"EL Nº PROVINCIA NO ES CORRECTO.");
+				valido=false;
+			}
+		} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null,"EL Nº PROVINCIA DEBE SER NUMERICO.");
 		}
 	}
 	public String getPoblacion() {
@@ -109,12 +127,19 @@ public class Parcela {
 	 * @param poblacion : Población de la parcela.
 	 */
 	public void setPoblacion(String poblacion) {//&&(esNumerico(poblacion)==false)
-		if((esNumerico(poblacion)&&(Integer.parseInt(poblacion)>0)&&(Integer.parseInt(poblacion)<8175))){ //comprobamos que el alias este entre 1 y 30
-			this.poblacion = poblacion;
-		}else{
-			JOptionPane.showMessageDialog(null,"EL Nº POBLACION NO ES CORRECTO.");
-			valido=false;
-		}
+		int pobl;
+		try {
+			pobl= Integer.parseInt(poblacion);
+		
+			if((esNumerico(poblacion)==true &&(pobl>0)&&(pobl<8175))){ //comprobamos que el alias este entre 1 y 30
+				this.poblacion = poblacion;
+			}else{
+				JOptionPane.showMessageDialog(null,"EL Nº POBLACION NO ES CORRECTO.");
+				valido=false;
+			}
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(null,"EL Nº POBLACION DEBE SER NUMERICO.");
+	}
 	}
 	public String getPoligono() {
 		return poligono;
@@ -124,12 +149,20 @@ public class Parcela {
 	 * @param poligono : Polígono de la parcela.
 	 */
 	public void setPoligono(String poligono) {
-		if((esNumerico(poligono)&&(Integer.parseInt(poligono)>0)&&(Integer.parseInt(poligono)<1000))){ //comprobamos que el poligono este entre 1 y 10
+		int pol;
+		try {
+			pol= Integer.parseInt(poligono);
+
+		
+		if((esNumerico(poligono)&&(pol>0)&&(pol<1000))){ //comprobamos que el poligono este entre 1 y 10
 			this.poligono = poligono;
 		}else{
 			JOptionPane.showMessageDialog(null,"EL Nº POLIGONO NO ES CORRECTO.");
 			valido=false;
 		}
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(null,"EL Nº POLIGONO DEBE SER NUMERICO.");
+	}
 	}
 	public String getNumero() {
 		return numero;
@@ -139,12 +172,18 @@ public class Parcela {
 	 * @param numero : Número de la  de la parcela.
 	 */
 	public void setNumero(String numero) {
-		if((esNumerico(numero)&&(Integer.parseInt(numero)>0)&&(Integer.parseInt(numero)<100000))){ //comprobamos que sea numerico y entre 1 y 10
+		int num;
+		try {
+			num= Integer.parseInt(numero);
+		if((esNumerico(numero)&&(num>0)&&(num<100000))){ //comprobamos que sea numerico y entre 1 y 10
 			this.numero = numero;
 		}else{
-			JOptionPane.showMessageDialog(null,"EL Nº DE PARCELA DEBE SER NUMÉRICO Y ADEMÁS ESTAR COMPRENDIDO ENTRE 1 y 10 DE LONGITUD");
+			JOptionPane.showMessageDialog(null,"EL Nº DE PARCELA NO ES CORRECTO");
 			valido=false;
 		}
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(null,"EL Nº PARCELA DEBE SER NUMÉRICO.");
+	}
 	}
 	public int isActivo() {
 		return activo;
