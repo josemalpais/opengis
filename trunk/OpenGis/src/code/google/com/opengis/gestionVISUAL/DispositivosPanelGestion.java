@@ -1,10 +1,9 @@
 package code.google.com.opengis.gestionVISUAL;
 
-import java.awt.GridBagLayout;
 import javax.swing.JPanel;
-import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
@@ -13,12 +12,18 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import code.google.com.opengis.gestion.Dispositivo;
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.DispositivoDAO;
 import code.google.com.opengis.gestionDAO.Idioma;
 
 public class DispositivosPanelGestion extends JPanel {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String accion;
 	private JLabel lblIdDispositivo = null;
 	private JLabel lblModelo = null;
@@ -210,9 +215,20 @@ public class DispositivosPanelGestion extends JPanel {
 							try {
 								DispositivoDAO.altaDispositivo(numID,
 										txtModelo.getText(), numeroSerie,0,0);
-								
-
-							}
+								String nuevoID = null;
+								//El siguiente "try" actualiza el campo de ID de dispositivo 
+								try {
+									String sentencia = "SELECT MAX(iddispositivo) FROM `dispositivo`"; //$NON-NLS-1$
+									ConectarDBA.acceder();
+									ResultSet rs1 = ConectarDBA.consulta(sentencia);
+									while (rs1.next()) {
+										nuevoID=(rs1.getInt(1) + 1) + ""; //$NON-NLS-1$
+									}
+									txtID.setText(nuevoID);
+								} catch (SQLException e1) {
+									e1.printStackTrace();
+									}
+								}
 
 							catch (SQLException e1) {
 								e1.printStackTrace();
