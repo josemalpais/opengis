@@ -178,6 +178,15 @@ public class ParcelasPanelNuevo extends JPanel {
 							try {
 								p1.altaParcela();
 								JOptionPane.showMessageDialog(null, "CONSULTA INSERTADA CORRECTAMENTE");
+								
+								txtAliasp.setText("");
+								txtProvinciap.setText("");
+								txtPoblacion.setText("");
+								txtPoligonop.setText("");
+								txtPartidap.setText("");
+								txtNumerop.setText("");
+								txtDniPropietario.setText("");
+								
 							} catch (SQLException e1) {
 								JOptionPane.showMessageDialog(null, "ERROR DE INSERCION");
 								 //TODO Auto-generated catch block
@@ -186,6 +195,7 @@ public class ParcelasPanelNuevo extends JPanel {
 											
 	
 						}
+						
 						
 						
 					}else{
