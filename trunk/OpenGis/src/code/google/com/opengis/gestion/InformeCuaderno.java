@@ -2,6 +2,8 @@ package code.google.com.opengis.gestion;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -40,29 +42,48 @@ public class InformeCuaderno {
 	static String linea = "_____________________________________________";
 	static String consulta;
 	static String Dni;
+	static ResultSet rs;
+	static String nombre;
 	
-	
-	public InformeCuaderno(String dni){
-		crear_PDF("Informe Cuaderno","Opengis","","");
+	public InformeCuaderno(String dni) throws SQLException{
+		DatosUsuarioParcela();
 		Dni = dni;
-		Dni = "44876647j";
+		crear_PDF("Informe Cuaderno","Opengis","","");
+		
+		
 	}
 	
 	public void  DatosUsuarioParcela(){
-		
-		consulta = "SELECT usuario.dni ,usuario.nombre,usuario.apellidos ,parcela.poblacion ,parcela.poligono, parcela.numero FROM ( usuario INNER JOIN (parcelausuario INNER JOIN( parcela ON parcelausuario.idparcela= parcela.idparcela) ON usuario.dni = parcelausuario.dni_usuario ) WHERE usuario.dni LIKE" + "44876647j";
-	//,producto.nombre, tareas_realizadas.dosis ,tareas_realizadas.fecha_final   
+		consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` , `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`numero` , `parcela_usuario`.`dni_usuario` , `parcela_usuario`.`id_parcela`FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+Dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
+		//,producto.nombre, tareas_realizadas.dosis ,tareas_realizadas.fecha_final   
+		ConectarDBA.acceder();
+		int x =2;
+		try {
+				rs = ConectarDBA.buscar(consulta);
+				while(rs.next()){
+					
+					nombre = nombre+ rs.getString(x);
+					
+					x++;
+				}				
+				
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
-	public void crear_PDF(String t, String a, String s, String k){
+	public void crear_PDF(String t, String a, String s, String k) throws SQLException{
        
         Colocar_Destino();
         
         if(this.ruta_destino!=null){
             try {
                 // se crea instancia del documento
-               // ConectarDBA.acceder();
+               // 
             	mipdf = new Document (PageSize.LEGAL.rotate());              
                 PdfWriter.getInstance(mipdf, new FileOutputStream(this.ruta_destino + ".pdf")).setInitialLeading(6);
 		                mipdf.open();// se abre el documento
@@ -94,8 +115,8 @@ public class InformeCuaderno {
                  
                  
 		                 mipdf.add(new Paragraph("1. IDENTIFICACIÓN DEL PRODUCTOR", FontFactory.getFont("arial",14,Font.BOLD)));
-		                 mipdf.add(new Paragraph("Nombre y Apellidos/Empresa:", FontFactory.getFont("arial",13,Font.BOLD)));
-		                 mipdf.add(new Paragraph("D.N.I./N.I.F.:", FontFactory.getFont("arial",13,Font.BOLD)));  
+		                 mipdf.add(new Paragraph("Nombre y Apellidos/Empresa: "+nombre, FontFactory.getFont("arial",13,Font.BOLD)));
+		                 mipdf.add(new Paragraph("D.N.I./N.I.F.:"+Dni, FontFactory.getFont("arial",13,Font.BOLD)));  
 		                 mipdf.add(new Paragraph("Identificación del Responsable Técnico:"+linea, FontFactory.getFont("arial",13,Font.BOLD)));
 		                 mipdf.add(new Paragraph("Cooperativa o SAT de la que forma parte:"+ linea, FontFactory.getFont("arial",13,Font.BOLD)));  
 		                 mipdf.add(new Paragraph("2. IDENTIFICACIÓN DE LAS PARCELAS", FontFactory.getFont("arial",14,Font.BOLD)));
@@ -110,8 +131,19 @@ public class InformeCuaderno {
 			                 tabla.addCell("sup. Sembrada (1)");
 			                 tabla.addCell("Cultivo y Variedad");
 			                 tabla.addCell("Observaciones");
-			                 for(int o =0;o<=80;o++){
-			                	 tabla.addCell(" ");
+			                 int y=0;
+			                 int contador = 0;
+			                 String g;
+			                 int[] x= {0,7,15,23,31,39,47,55,63,71,79,87,95,103,111,119,127,135,143,151,159,167,175,183,191,199,207,215,223};
+			                 while (rs.next()) {
+			                	 if(x[contador]==y ){
+			                		  g =""+ contador;
+			                		 tabla.addCell(g);
+			                		 contador++;
+			                		 }
+			                	 
+			                	 tabla.addCell(rs.getString(4));
+			                	 y++;
 			                 }
 		                 mipdf.add(tabla);
 		                 mipdf.add(new Paragraph("(1) La superficie se reflejará en hectáreas con dos decimales.", FontFactory.getFont("arial",8,Font.BOLD)));
