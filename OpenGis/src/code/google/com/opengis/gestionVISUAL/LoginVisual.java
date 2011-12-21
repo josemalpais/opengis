@@ -166,7 +166,7 @@ public class LoginVisual extends JFrame
 			{
 				System.out.println("Botón recuperar clave"); //$NON-NLS-1$
 				usuario = txtUser.getText();
-				new EnviarMail(usuario);
+				new EnviarMail(usuario, lang);
 			}
 		});
 
@@ -242,6 +242,15 @@ public class LoginVisual extends JFrame
 		
 		txtUser.addKeyListener(kl);
 		txtPass.addKeyListener(kl);
+		
+		txtUser.addMouseListener(new java.awt.event.MouseAdapter() { 
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				
+				txtUser.setText(""); //$NON-NLS-1$
+				
+				
+			}
+		});
 	}
 	
 	private void validarLogin(){
