@@ -255,7 +255,7 @@ public class Prestamo {
 		
 		boolean b = false;
 
-		b = ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, true);
+		b = ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, false);
 		
 		if (b == false) {
 			JOptionPane.showMessageDialog(null,
