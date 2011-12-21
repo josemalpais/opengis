@@ -39,7 +39,7 @@ public class PrestamoPanelGestion extends JPanel {
 	private String dni_usuario;
 	
 	private boolean encontrado;
-	public String auxdisp;
+	private String auxdisp;
 	
 	/**
 	 * This is the default constructor
@@ -54,13 +54,14 @@ public class PrestamoPanelGestion extends JPanel {
 
 	
 	
-	public PrestamoPanelGestion(String accion, String id_prestamo, String id_dispositivo,String dni_usuario) {
+	public PrestamoPanelGestion(String accion, String id_prestamo, String id_dispositivo,String dni_usuario, String aux) {
 		super();
 		
 		this.accion = accion;
 		this.id_prestamo = id_prestamo;
 		this.id_dispositivo = id_dispositivo;
 		this.dni_usuario = dni_usuario;
+		this.auxdisp = aux;
 		
 		initialize();
 	}
@@ -230,7 +231,8 @@ public class PrestamoPanelGestion extends JPanel {
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-			
+			if (encontrado==false){
+			}else{
 					if(accion.equals("alta")){ //$NON-NLS-1$
 											
 							try {
@@ -270,6 +272,7 @@ public class PrestamoPanelGestion extends JPanel {
 						//}
 					}			
 			
+			}
 				}
 			});
 		}

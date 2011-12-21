@@ -200,30 +200,38 @@ public class Prestamo {
 	 * @param aux Este parámetro comprueba si se ha cambiado el ID de dispositivo para hacer una validación u otra
 	 */
 	public static void modificarPrestamo(String idprestamo, String iddispositivo, String dni_usuario,String aux){
-		if (aux==iddispositivo){
-			try {
-				if (validarDatos(iddispositivo, dni_usuario)){
+		try {
+			if(validarDatos(iddispositivo, dni_usuario)){
+			if (aux==iddispositivo){
+				try {
+					//if (validarDatos(iddispositivo, dni_usuario)){
 					ConectarDBA.modificar("UPDATE `prestamo` SET `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
-				
-					JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
+					
+						JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
 				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+				}
+			else{
+				if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true){
+			
+				JOptionPane.showMessageDialog(null, "Ya existe un préstamo abierto para este dispositivo.");
+			}else{
+				try {
+					ConectarDBA.modificar("UPDATE `prestamo` SET `iddispositivo` = '"+iddispositivo+"', `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
+					JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
 				} catch (SQLException e) {
-				e.printStackTrace();
+					e.printStackTrace();
+				}
 			}
 			}
-		else{
-			if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true){
-		
-			JOptionPane.showMessageDialog(null, "Ya existe un préstamo abierto para este dispositivo.");
-		}else{
-			try {
-				ConectarDBA.modificar("UPDATE `prestamo` SET `iddispositivo` = '"+iddispositivo+"', `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
-				JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (HeadlessException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-			}
 	}
 	
 	/**
@@ -245,7 +253,7 @@ public class Prestamo {
 			return false;
 
 		} else{
-			b = ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, true);
+			b = ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, false);
 			if (b == false){
 				JOptionPane.showMessageDialog(null,
 						"Error. No existe un usuario activo con el DNI introducido.");
