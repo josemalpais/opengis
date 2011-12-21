@@ -160,6 +160,12 @@ public class Prestamo {
 			try {
 				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('"+iddispositivo+"','"+dni_usuario+"','"+fecha+"')");
 				JOptionPane.showMessageDialog(null, "Préstamo abierto correctamente.");
+				
+				String modifDispo = "UPDATE `dispositivo` SET `disponible`='1' WHERE iddispositivo='" + iddispositivo +"' ";
+				ConectarDBA.modificar(modifDispo);
+				
+				ConectarDBA.cerrarCon();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -185,6 +191,12 @@ public class Prestamo {
 				System.out.println("La fecha actual es : "+fecha+".");
 				ConectarDBA.modificar("UPDATE `prestamo` SET `fecha_devol` = '"+fecha+"' WHERE `iddispositivo` = '"+iddispositivo+"' AND `fecha_devol` = 'no'");
 				JOptionPane.showMessageDialog(null, "Préstamo cerrado correctamente.");
+				
+				String modifDispo = "UPDATE `dispositivo` SET `disponible`='0' WHERE iddispositivo='" + iddispositivo +"' ";
+				ConectarDBA.modificar(modifDispo);
+				
+				ConectarDBA.cerrarCon();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -240,12 +252,11 @@ public class Prestamo {
 	 */
 	public static boolean validarDatos(String iddispositivo,
 			String dni_usuario) throws HeadlessException, SQLException {
+		
 		boolean b = false;
 
-		// Compruebo que el ID de dispositivo sea numérico
-		//b = isInteger(iddispositivo);
 		b = ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, true);
-
+		
 		if (b == false) {
 			JOptionPane.showMessageDialog(null,
 					//"Error. El ID de dispositivo ha de ser numérico.");
