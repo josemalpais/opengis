@@ -33,7 +33,7 @@ public class ProductoPanelGestion extends JPanel {
 	private JLabel lblDescripcion = null;
 	private JTextField txtID = null;
 	private JTextField txtNombreProd = null;
-	private JTextField txtDNI = null;
+	JTextField txtDNI = null;
 	private JTextField txtDosis = null;
 	private JTextArea txtDescripcion = null;
 	private JLabel lblMedida = null;
@@ -50,7 +50,7 @@ public class ProductoPanelGestion extends JPanel {
 	private String dosis;
 	private String dni;
 	
-	private boolean encontrado;
+	boolean encontrado;
 	
 	/**
 	 * This is the default constructor
@@ -383,6 +383,8 @@ public class ProductoPanelGestion extends JPanel {
 						if(encontrado == false){
 							
 						
+				
+							
 						}else{
 						
 							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
@@ -424,7 +426,11 @@ public class ProductoPanelGestion extends JPanel {
 					
 					txtNombreProd.setText(""); //$NON-NLS-1$
 					txtDosis.setText(""); //$NON-NLS-1$
-					txtDNI.setText(""); //$NON-NLS-1$
+					if(accion.equals("alta")){
+						
+						txtDNI.setText(""); //$NON-NLS-1$
+						
+					}					
 					txtDescripcion.setText(""); //$NON-NLS-1$
 					
 					
