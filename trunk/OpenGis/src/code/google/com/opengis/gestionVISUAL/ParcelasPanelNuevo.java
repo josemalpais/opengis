@@ -116,7 +116,7 @@ public class ParcelasPanelNuevo extends JPanel {
 		lblNumerop.setText("Nº Parcela: ");
 		lblPartidap = new JLabel();
 		lblPartidap.setBounds(new Rectangle(274, 137, 88, 30));
-		lblPartidap.setText("Nº Partida: ");
+		lblPartidap.setText("Partida: ");
 		lblPoligonop = new JLabel();
 		lblPoligonop.setBounds(new Rectangle(42, 137, 88, 30));
 		lblPoligonop.setText("Nº Polígono: ");
@@ -174,7 +174,7 @@ public class ParcelasPanelNuevo extends JPanel {
 								.getText(), txtProvinciap.getText(),txtPoblacion.getText(),
 								txtPoligonop.getText(),txtNumerop.getText(),1,txtPartidap.getText(),txtDniPropietario.getText());
 						
-						if(Parcela.isValido()==true){
+						if(Parcela.isValido()==true && encontrado==true){
 							try {
 								p1.altaParcela();
 								
@@ -206,7 +206,7 @@ public class ParcelasPanelNuevo extends JPanel {
 								txtPoligonop.getText(),txtNumerop.getText(),1,txtPartidap.getText(),txtDniPropietario.getText());
 		        		
 						int x=p1.getIdParcela();
-						if(Parcela.isValido()==true){
+						if(Parcela.isValido()==true && encontrado==true){
 							try {
 
 								String sentencia = "UPDATE `dai2opengis`.`parcela` SET  `alias` = '"+p1.getAlias()+"', `provincia`= '"+p1.getProvincia()+"', `poblacion`= '"+p1.getPoblacion()+"', `poligono`= '"+p1.getPoligono()+"', `numero`= '"+p1.getNumero()+"', `partida`= '"+p1.getPartida()+"',`dni_propietario`= '"+p1.getDniPropietario()+"'  WHERE `idparcela` = "+x;
@@ -365,7 +365,7 @@ public class ParcelasPanelNuevo extends JPanel {
 		
 		txtDniPropietario.addFocusListener(new java.awt.event.FocusAdapter() {
 			public void focusLost(java.awt.event.FocusEvent e) {
-				
+				encontrado=false;
 				
 				ConectarDBA.acceder();
 				
@@ -376,7 +376,6 @@ public class ParcelasPanelNuevo extends JPanel {
 					
 					
 					while(rs.next()){
-						
 						encontrado = true;
 						
 					}
