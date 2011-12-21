@@ -79,13 +79,13 @@ public class PrestamoPanelGestion extends JPanel {
 		lblObligatorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
 		lbldni_usuario = new JLabel();
 		lbldni_usuario.setBounds(new Rectangle(47, 136, 112, 25));
-		lbldni_usuario.setText(Idioma.getString("etDniUsuario")); //$NON-NLS-1$
+		lbldni_usuario.setText(Idioma.getString("etIdCard")); //$NON-NLS-1$
 		lblIddispositivo = new JLabel();
 		lblIddispositivo.setBounds(new Rectangle(47, 91, 112, 25));
-		lblIddispositivo.setText(Idioma.getString("etiddispositivo")); //$NON-NLS-1$
+		lblIddispositivo.setText(Idioma.getString("etDeviceId")); //$NON-NLS-1$
 		lblidprestamo = new JLabel();
 		lblidprestamo.setBounds(new Rectangle(47, 48, 112, 25));
-		lblidprestamo.setText(Idioma.getString("etidprestamo")); //$NON-NLS-1$
+		lblidprestamo.setText(Idioma.getString("etLoanId")); //$NON-NLS-1$
 		this.setSize(774, 357);
 		this.setLayout(null);
 		this.add(lblidprestamo, null);
