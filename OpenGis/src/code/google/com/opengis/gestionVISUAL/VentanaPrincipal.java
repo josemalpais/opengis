@@ -238,10 +238,10 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			lblSalir.setText(Idioma.getString("etExit")); //$NON-NLS-1$
     			lblProductos = new JLabel();
     			lblProductos.setBounds(new Rectangle(555, 87, 94, 22));
-    			lblProductos.setText(Idioma.getString("etProducts")); //$NON-NLS-1$
+    			lblProductos.setText("Mis Productos"); //$NON-NLS-1$
     			lblApero = new JLabel();
     			lblApero.setBounds(new Rectangle(462, 88, 70, 22));
-    			lblApero.setText(Idioma.getString("etImplements")); //$NON-NLS-1$
+    			lblApero.setText("Mis Aperos"); //$NON-NLS-1$
     			lblParcelas = new JLabel();
     			lblParcelas.setBounds(new Rectangle(352, 87, 85, 22));
     			lblParcelas.setText("Mis Parcelas"); //$NON-NLS-1$
@@ -528,6 +528,21 @@ import code.google.com.opengis.gestionDAO.Idioma;
     					}else{
     						
     						// INSERTAR AQUI METODO PARA TRABAJADOR
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							ProductoPanelDatosPersonales panelNuevo = new ProductoPanelDatosPersonales(dniUsuario);
+    						
+    							tabsPaneles.addTab("Mis productos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
     						
     					}
     					
