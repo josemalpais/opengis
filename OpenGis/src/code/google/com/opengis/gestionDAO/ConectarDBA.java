@@ -169,7 +169,7 @@ public class ConectarDBA {
 					activo = rs2.getBoolean(1);
 					return activo;
 				}
-				if (activo == false) {
+				if (activo == true) {
 					activo = true;
 					return activo;
 				}

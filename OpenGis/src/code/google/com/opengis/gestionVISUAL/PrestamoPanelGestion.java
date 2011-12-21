@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -27,7 +28,7 @@ public class PrestamoPanelGestion extends JPanel {
 	private JLabel lblIddispositivo = null;
 	private JLabel lbldni_usuario = null;
 	private JTextField txtIDprestamo = null;
-	private JTextField txtIDdispositivo = null;
+	private JComboBox txtIDdispositivo = null;
 	private JTextField txtDNI = null;
 	private JButton bGuardar = null;
 	private JButton bLimpiar = null;
@@ -149,14 +150,17 @@ public class PrestamoPanelGestion extends JPanel {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtIDdispositivo() {
+	private JComboBox getTxtIDdispositivo() {
 		if (txtIDdispositivo == null) {
-			txtIDdispositivo = new JTextField();
+			txtIDdispositivo = new JComboBox();
 			txtIDdispositivo.setBounds(new Rectangle(160, 91, 149, 24));
+			
+			cargarDispositivos();
 			
 			if(accion=="modificar"){ //$NON-NLS-1$
 				
-				txtIDdispositivo.setText(this.id_dispositivo);
+				txtIDdispositivo.setEnabled(false);
+				txtIDdispositivo.setSelectedItem(this.id_dispositivo);
 				
 			}
 			
@@ -230,17 +234,22 @@ public class PrestamoPanelGestion extends JPanel {
 			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					
-			if (encontrado==false){
-			}else{
+
+				String seleccionado = txtIDdispositivo.getSelectedItem().toString();
+				String dispositivo = seleccionado.substring(0,1);
+				
 					if(accion.equals("alta")){ //$NON-NLS-1$
-											
+									
+						
 							try {
 								ConectarDBA.cerrarCon();
+								
+								
 								boolean b = false;
-								b = Prestamo.validarDatos(txtIDdispositivo.getText(),txtDNI.getText());
+								b = Prestamo.validarDatos(dispositivo,txtDNI.getText());
 								if(b==true){
-									Prestamo.crearPrestamo(txtIDdispositivo.getText(),txtDNI.getText());
+									
+									Prestamo.crearPrestamo(dispositivo,txtDNI.getText());
 									try {//Actualizamos el ID de préstamo
 										
 										String sentencia = "SELECT MAX(id_prestamo) FROM prestamo"; //$NON-NLS-1$
@@ -265,14 +274,15 @@ public class PrestamoPanelGestion extends JPanel {
 								e1.printStackTrace();
 							}						
 						}
+					
 					if(accion.equals("modificar")){
 						//try{
-						auxdisp=txtIDdispositivo.getText();
-							Prestamo.modificarPrestamo(txtIDprestamo.getText(), txtIDdispositivo.getText(), txtDNI.getText(),auxdisp);
+						auxdisp = txtIDdispositivo.getSelectedItem().toString();
+							Prestamo.modificarPrestamo(txtIDprestamo.getText(), dispositivo, txtDNI.getText(),auxdisp);
 						//}
 					}			
 			
-			}
+			
 				}
 			});
 		}
@@ -292,7 +302,7 @@ public class PrestamoPanelGestion extends JPanel {
 			bLimpiar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-					txtIDdispositivo.setText(""); //$NON-NLS-1$
+					txtIDdispositivo.setSelectedIndex(1); //$NON-NLS-1$
 					txtDNI.setText(""); //$NON-NLS-1$
 					
 					
@@ -300,6 +310,37 @@ public class PrestamoPanelGestion extends JPanel {
 			});
 		}
 		return bLimpiar;
+	}
+	
+	
+	public void cargarDispositivos(){
+		
+		ConectarDBA.acceder();
+		
+		String consulta = "SELECT iddispositivo,modelo From dispositivo where disponible='0' AND activo='0'";
+		
+		try {
+			
+			
+			
+			ResultSet rs = ConectarDBA.consulta(consulta);
+			
+			while(rs.next()){
+				
+				String dispositivo = rs.getString(1) + " - " + rs.getString(2);
+				
+				txtIDdispositivo.addItem(dispositivo);
+				
+				
+			}
+			
+			ConectarDBA.cerrarCon();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
