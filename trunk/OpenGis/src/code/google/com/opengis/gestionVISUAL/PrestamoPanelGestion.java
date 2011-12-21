@@ -159,8 +159,8 @@ public class PrestamoPanelGestion extends JPanel {
 			
 			if(accion=="modificar"){ //$NON-NLS-1$
 				
-				txtIDdispositivo.setEnabled(false);
 				txtIDdispositivo.setSelectedItem(this.id_dispositivo);
+				//txtIDdispositivo.setEnabled(false);
 				
 			}
 			
@@ -254,6 +254,7 @@ public class PrestamoPanelGestion extends JPanel {
 										
 										String sentencia = "SELECT MAX(id_prestamo) FROM prestamo"; //$NON-NLS-1$
 										
+										ConectarDBA.acceder();
 										ResultSet rs = ConectarDBA.consulta(sentencia);
 										
 										rs.next();
@@ -277,7 +278,7 @@ public class PrestamoPanelGestion extends JPanel {
 					
 					if(accion.equals("modificar")){
 						//try{
-						auxdisp = txtIDdispositivo.getSelectedItem().toString();
+						//auxdisp = txtIDdispositivo.getSelectedItem().toString();
 							Prestamo.modificarPrestamo(txtIDprestamo.getText(), dispositivo, txtDNI.getText(),auxdisp);
 						//}
 					}			
@@ -317,7 +318,8 @@ public class PrestamoPanelGestion extends JPanel {
 		
 		ConectarDBA.acceder();
 		
-		String consulta = "SELECT iddispositivo,modelo From dispositivo where disponible='0' AND activo='0'";
+		//String consulta = "SELECT iddispositivo,modelo From dispositivo where disponible='0' AND activo='0'";
+		String consulta = "SELECT iddispositivo,modelo From dispositivo";
 		
 		try {
 			
