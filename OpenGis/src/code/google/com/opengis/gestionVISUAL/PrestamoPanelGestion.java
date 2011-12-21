@@ -242,7 +242,13 @@ public class PrestamoPanelGestion extends JPanel {
 				}else{
 					dispositivo = dispositivo.substring(0,1);
 				}
-				
+					
+
+				if(encontrado==false){
+				//if(compruebaDni(txtDNI.getText())==false){
+					JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario"); //$NON-NLS-1$
+					txtDNI.setText(""); //$NON-NLS-1$
+				}else{
 					if(accion.equals("alta")){ //$NON-NLS-1$
 									
 						
@@ -286,10 +292,9 @@ public class PrestamoPanelGestion extends JPanel {
 						//auxdisp = txtIDdispositivo.getSelectedItem().toString();
 							Prestamo.modificarPrestamo(txtIDprestamo.getText(), dispositivo, txtDNI.getText(),auxdisp);
 							auxdisp = dispositivo;  
-						//}
+							//}
 					}			
-			
-			
+				}
 				}
 			});
 		}
@@ -347,9 +352,34 @@ public class PrestamoPanelGestion extends JPanel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
+		
 	
+
 	
+/*public static boolean compruebaDni(String dni) {
+		
+		boolean a = false;
+		ConectarDBA.acceder();
+		
+		String consulta = "SELECT dni from usuario where dni LIKE '"+ dni/*txtDNI.getText() +"'"*/; //$NON-NLS-1$ //$NON-NLS-2$
+		
+/*
+			ResultSet rs;
+			try {
+				rs = ConectarDBA.consulta(consulta);
+				while(rs.next()){
+					a = true;					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(a==false){
+				return false;
+				}else{
+					return true;
+				}
+}*/
 
 } 
