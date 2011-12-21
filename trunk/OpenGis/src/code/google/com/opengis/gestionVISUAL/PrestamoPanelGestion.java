@@ -236,7 +236,12 @@ public class PrestamoPanelGestion extends JPanel {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
 				String seleccionado = txtIDdispositivo.getSelectedItem().toString();
-				String dispositivo = seleccionado.substring(0,1);
+				String dispositivo = seleccionado.substring(0,2);
+				if (Prestamo.isInteger(dispositivo)){
+					
+				}else{
+					dispositivo = dispositivo.substring(0,1);
+				}
 				
 					if(accion.equals("alta")){ //$NON-NLS-1$
 									
