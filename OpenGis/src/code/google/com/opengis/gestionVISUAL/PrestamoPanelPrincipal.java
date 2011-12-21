@@ -79,7 +79,7 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 				rPrestamo[i] = getTablaPrincipal().getValueAt(fila, i)
 						.toString();
 			}
-			PrestamoPanelGestion p = new PrestamoPanelGestion("modificar",rPrestamo[0].toString(),rPrestamo[1].toString(),rPrestamo[2].toString(), rPrestamo[1].toString()); // Creamos el panel de Alta de Préstamo //$NON-NLS-1$
+			PrestamoPanelGestion p = new PrestamoPanelGestion("modificar",rPrestamo[0].toString(),rPrestamo[1].toString(),rPrestamo[2].toString(), rPrestamo[1].toString()); // Creamos el panel de Modificación de Préstamo //$NON-NLS-1$
 			
 			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModifyLoan")+"("+rPrestamo[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		}
