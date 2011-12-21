@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionVISUAL.PrestamoPanelGestion;
 
 public class Prestamo {
 	private String iddispositivo;
@@ -233,6 +234,8 @@ public class Prestamo {
 			}else{
 				try {
 					ConectarDBA.modificar("UPDATE `prestamo` SET `iddispositivo` = '"+iddispositivo+"', `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
+					ConectarDBA.modificar("UPDATE `dispositivo` SET `disponible`='1' WHERE iddispositivo='" + iddispositivo +"'");
+					ConectarDBA.modificar("UPDATE `dispositivo` SET `disponible`='0' WHERE iddispositivo='" + aux +"'");
 					JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
 				} catch (SQLException e) {
 					e.printStackTrace();

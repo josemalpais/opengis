@@ -280,6 +280,7 @@ public class PrestamoPanelGestion extends JPanel {
 						//try{
 						//auxdisp = txtIDdispositivo.getSelectedItem().toString();
 							Prestamo.modificarPrestamo(txtIDprestamo.getText(), dispositivo, txtDNI.getText(),auxdisp);
+							auxdisp = dispositivo;  
 						//}
 					}			
 			
@@ -339,7 +340,6 @@ public class PrestamoPanelGestion extends JPanel {
 			ConectarDBA.cerrarCon();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
