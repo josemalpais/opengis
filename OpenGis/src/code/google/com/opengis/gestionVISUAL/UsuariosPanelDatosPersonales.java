@@ -237,7 +237,7 @@ public class UsuariosPanelDatosPersonales extends JPanel {
 			bModificar = new JButton();
 			bModificar.setBounds(new Rectangle(122, 314, 53, 45));
 			bModificar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Modificar.png"))); //$NON-NLS-1$
-			bModificar.setToolTipText("Modificar datos personales"); //$NON-NLS-1$
+			bModificar.setToolTipText(Idioma.getString("etModifyAccountSettings")); //$NON-NLS-1$
 			bModificar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					

@@ -238,19 +238,19 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			lblSalir.setText(Idioma.getString("etExit")); //$NON-NLS-1$
     			lblProductos = new JLabel();
     			lblProductos.setBounds(new Rectangle(555, 87, 94, 22));
-    			lblProductos.setText("Mis Productos"); //$NON-NLS-1$
+    			lblProductos.setText(Idioma.getString("etMyProducts")); //$NON-NLS-1$
     			lblApero = new JLabel();
     			lblApero.setBounds(new Rectangle(462, 88, 70, 22));
-    			lblApero.setText("Mis Aperos"); //$NON-NLS-1$
+    			lblApero.setText(Idioma.getString("etMyImplements")); //$NON-NLS-1$
     			lblParcelas = new JLabel();
     			lblParcelas.setBounds(new Rectangle(352, 87, 85, 22));
-    			lblParcelas.setText("Mis Parcelas"); //$NON-NLS-1$
+    			lblParcelas.setText(Idioma.getString("etMyLots")); //$NON-NLS-1$
     			lblInformes = new JLabel();
     			lblInformes.setBounds(new Rectangle(249, 87, 84, 22));
     			lblInformes.setText(Idioma.getString("etReports")); //$NON-NLS-1$
     			lblUsuarios = new JLabel();
     			lblUsuarios.setBounds(new Rectangle(147, 87, 79, 22));
-    			lblUsuarios.setText("Mis Datos"); //$NON-NLS-1$
+    			lblUsuarios.setText(Idioma.getString("etMyData")); //$NON-NLS-1$
     			jContentPane = new JPanel();
     			jContentPane.setLayout(null);
     			jContentPane.add(getBUsuarios(), null);
@@ -535,7 +535,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
     							ProductoPanelDatosPersonales panelNuevo = new ProductoPanelDatosPersonales(dniUsuario);
     						
-    							tabsPaneles.addTab("Mis productos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.addTab(Idioma.getString("etMyProducts"),panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
