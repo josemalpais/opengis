@@ -214,7 +214,7 @@ public class Prestamo {
 	public static void modificarPrestamo(String idprestamo, String iddispositivo, String dni_usuario,String aux){
 		try {
 			if(validarDatos(iddispositivo, dni_usuario)){
-			if (aux==iddispositivo){
+			if (aux.equals(iddispositivo)){
 				try {
 					//if (validarDatos(iddispositivo, dni_usuario)){
 					ConectarDBA.modificar("UPDATE `prestamo` SET `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
