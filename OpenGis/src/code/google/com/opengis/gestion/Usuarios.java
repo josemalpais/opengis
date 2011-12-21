@@ -168,9 +168,8 @@ public class Usuarios {
 												// carácteres
 				return true;
 			} else {
-				JOptionPane
-						.showMessageDialog(null,
-								Idioma.getString("msgIdCardUnmatchWord")); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(null,
+						Idioma.getString("msgIdCardUnmatchWord")); //$NON-NLS-1$
 				this.valido = false;
 				return false;
 			}
@@ -188,34 +187,35 @@ public class Usuarios {
 		Boolean r = isInteger(texto);
 
 		for (int i = 0; i < texto.length(); i++) {
-			if (Character.isLetter(texto.charAt(i)) == false && texto.charAt(i) != (' ')) {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								Idioma.getString("msgErrorField") //$NON-NLS-1$
-										+ nombreCampo
-										+ Idioma.getString("msgErrorNotSpecialChar")); //$NON-NLS-1$
+			if (Character.isLetter(texto.charAt(i)) == false
+					&& texto.charAt(i) != (' ')) {
+				JOptionPane.showMessageDialog(
+						null,
+						Idioma.getString("msgErrorField") //$NON-NLS-1$
+								+ nombreCampo
+								+ Idioma.getString("msgErrorNotSpecialChar")); //$NON-NLS-1$
 				this.valido = false;
 
 				return false;
 
 			}
 			if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
-				
 
-				JOptionPane
-						.showMessageDialog(
-								null,
-								Idioma.getString("msgErrorField") //$NON-NLS-1$
-										+ nombreCampo
-										+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(
+						null,
+						Idioma.getString("msgErrorField") //$NON-NLS-1$
+								+ nombreCampo
+								+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
 				return false;
 			}
 		}
 
 		if (r.equals(true) || texto.length() < 2) {
-			JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorField") //$NON-NLS-1$
-					+ nombreCampo + Idioma.getString("msgErrorEmptyNorNumeric")); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(
+					null,
+					Idioma.getString("msgErrorField") //$NON-NLS-1$
+							+ nombreCampo
+							+ Idioma.getString("msgErrorEmptyNorNumeric")); //$NON-NLS-1$
 			this.valido = false;
 
 			return false;
@@ -233,21 +233,22 @@ public class Usuarios {
 		for (int i = 0; i < texto.length(); i++) {
 
 			if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
-				
 
-				JOptionPane
-						.showMessageDialog(
-								null,
-								Idioma.getString("msgErrorField") //$NON-NLS-1$
-										+ nombreCampo
-										+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(
+						null,
+						Idioma.getString("msgErrorField") //$NON-NLS-1$
+								+ nombreCampo
+								+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
 				return false;
 			}
 		}
 
 		if (r.equals(true) || texto.length() < 2) {
-			JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorField") //$NON-NLS-1$
-					+ nombreCampo + Idioma.getString("msgErrorEmptyNorNumeric")); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(
+					null,
+					Idioma.getString("msgErrorField") //$NON-NLS-1$
+							+ nombreCampo
+							+ Idioma.getString("msgErrorEmptyNorNumeric")); //$NON-NLS-1$
 			this.valido = false;
 
 			return false;
@@ -261,7 +262,7 @@ public class Usuarios {
 	}
 
 	public void validarDatos() {
-
+		this.valido = true;
 		if (validarDni(dni) == false) {
 			this.valido = false;
 		} else {
@@ -269,13 +270,16 @@ public class Usuarios {
 			Boolean r = isInteger(this.nombre);
 
 			if (validarTexto(this.nombre, Idioma.getString("etFirstName")) == false //$NON-NLS-1$
-					|| validarTexto(this.apellidos, Idioma.getString("etLastName")) == false) { //$NON-NLS-1$
+					|| validarTexto(this.apellidos,
+							Idioma.getString("etLastName")) == false) { //$NON-NLS-1$
 
 				this.valido = false;
 			} else {
 
-				if (validarTextoEspecial(this.direccion, Idioma.getString("etAddress")) == false //$NON-NLS-1$
-						|| validarTextoEspecial(this.email, Idioma.getString("etMail")) == false) { //$NON-NLS-1$
+				if (validarTextoEspecial(this.direccion,
+						Idioma.getString("etAddress")) == false //$NON-NLS-1$
+						|| validarTextoEspecial(this.email,
+								Idioma.getString("etMail")) == false) { //$NON-NLS-1$
 
 					this.valido = false;
 				} else {
@@ -284,9 +288,8 @@ public class Usuarios {
 
 					if (this.telefono.length() != 9 || r.equals(false)) {
 
-						JOptionPane
-								.showMessageDialog(null,
-										Idioma.getString("msgErrorPhoneNumber")); //$NON-NLS-1$
+						JOptionPane.showMessageDialog(null,
+								Idioma.getString("msgErrorPhoneNumber")); //$NON-NLS-1$
 						this.valido = false;
 
 					} else {
@@ -295,62 +298,77 @@ public class Usuarios {
 
 						if (this.fechaNac.equals("")) { //$NON-NLS-1$
 
-							JOptionPane
-									.showMessageDialog(null,
-											Idioma.getString("msgErrorEmptyBirthDate")); //$NON-NLS-1$
+							JOptionPane.showMessageDialog(null,
+									Idioma.getString("msgErrorEmptyBirthDate")); //$NON-NLS-1$
 							this.valido = false;
 
 						} else {
 
-							@SuppressWarnings("deprecation")
-							Date fechaNac = new Date(this.fechaNac);
+							for (int i = 0; i < this.fechaNac.length(); i++) {
+								if (Character.isDigit(this.fechaNac.charAt(i)) == false
+										&& this.fechaNac.charAt(i) != '/') {
 
-							if (this.fechaNac.length() != 10
-									|| fechaNac.getTime() > fechaAhora
-											.getTime()) {
+									JOptionPane.showMessageDialog(null, Idioma
+											.getString("msgErrorWrongDate")); //$NON-NLS-1$
+									this.valido = false;
+								}
+							}
 
-								JOptionPane
-										.showMessageDialog(null,
-												Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
-								this.valido = false;
+							if (this.valido) {
+								@SuppressWarnings("deprecation")
+								Date fechaNac = new Date(this.fechaNac);
 
-							} else {
+								if (this.fechaNac.length() != 10
+										|| fechaNac.getTime() > fechaAhora
+												.getTime()) {
 
-								r = isInteger(this.cp);
-
-								if (this.cp.length() != 5 || r.equals(false)) {
-
-									JOptionPane
-											.showMessageDialog(null,
-													Idioma.getString("msgErrorPostalCode")); //$NON-NLS-1$
+									JOptionPane.showMessageDialog(null, Idioma
+											.getString("msgErrorWrongDate")); //$NON-NLS-1$
+									this.valido = false;
 
 								} else {
 
-									r = isInteger(this.password);
+									r = isInteger(this.cp);
 
-									if (this.password.length() == 0
-											|| r.equals(true)) {
+									if (this.cp.length() != 5
+											|| r.equals(false)) {
 
 										JOptionPane
-												.showMessageDialog(null,
-														Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
+												.showMessageDialog(
+														null,
+														Idioma.getString("msgErrorPostalCode")); //$NON-NLS-1$
 
 									} else {
 
-										this.valido = true; // En
-															// el
-															// caso
-															// de
-															// que
-															// todos
-															// los
-															// datos
-															// sean
-															// correctos
-															// devolveremos
-															// True
+										r = isInteger(this.password);
 
+										if (this.password.length() == 0
+												|| r.equals(true)) {
+
+											JOptionPane
+													.showMessageDialog(
+															null,
+															Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
+											this.valido = false;
+
+										} else {
+
+											this.valido = true; // En
+																// el
+																// caso
+																// de
+																// que
+																// todos
+																// los
+																// datos
+																// sean
+																// correctos
+																// devolveremos
+																// True
+
+										}
 									}
+
 								}
 
 							}
@@ -360,7 +378,6 @@ public class Usuarios {
 					}
 
 				}
-
 			}
 		}
 
@@ -396,30 +413,19 @@ public class Usuarios {
 		} else {
 
 			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('" //$NON-NLS-1$
-					+ this.dni
-					+ "', '" //$NON-NLS-1$
-					+ this.nombre
-					+ "', '" //$NON-NLS-1$
-					+ this.apellidos
-					+ "', '" //$NON-NLS-1$
-					+ this.email
-					+ "', '" //$NON-NLS-1$
-					+ this.password
-					+ "', '" //$NON-NLS-1$
-					+ this.tipo
-					+ "', '0', '" //$NON-NLS-1$
-					+ this.telefono
-					+ "', '" //$NON-NLS-1$
-					+ this.direccion
-					+ "', '" //$NON-NLS-1$
-					+ this.poblacion
-					+ "', '" //$NON-NLS-1$
-					+ this.provincia
-					+ "', '" //$NON-NLS-1$
-					+ this.cp
-					+ "', '" //$NON-NLS-1$
+					+ this.dni + "', '" //$NON-NLS-1$
+					+ this.nombre + "', '" //$NON-NLS-1$
+					+ this.apellidos + "', '" //$NON-NLS-1$
+					+ this.email + "', '" //$NON-NLS-1$
+					+ this.password + "', '" //$NON-NLS-1$
+					+ this.tipo + "', '0', '" //$NON-NLS-1$
+					+ this.telefono + "', '" //$NON-NLS-1$
+					+ this.direccion + "', '" //$NON-NLS-1$
+					+ this.poblacion + "', '" //$NON-NLS-1$
+					+ this.provincia + "', '" //$NON-NLS-1$
+					+ this.cp + "', '" //$NON-NLS-1$
 					+ this.fechaNac + "', '1')"; //$NON-NLS-1$
-			//System.out.println(sentencia);
+			// System.out.println(sentencia);
 			ConectarDBA.modificar(sentencia);
 
 			JOptionPane.showMessageDialog(null,
@@ -457,7 +463,8 @@ public class Usuarios {
 
 		} else {
 
-			JOptionPane.showMessageDialog(null, Idioma.getString("msgUserNotExist")); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(null,
+					Idioma.getString("msgUserNotExist")); //$NON-NLS-1$
 		}
 
 		ConectarDBA.cerrarCon();
@@ -470,25 +477,24 @@ public class Usuarios {
 		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false); //$NON-NLS-1$ //$NON-NLS-2$
 		if (ConectarDBA.getExiste() == true) {
 
-			 String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" + this.nombre + "', `Apellidos` = '"  + this.apellidos + "', `Teléfono` = '" + this.telefono + "',`Dirección` = '" + this.direccion + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			 "',`Población` = '" + this.poblacion + "',`fecha_nacimiento` = '" + this.fechaNac + "',`password` = '" + this.password +  "',`Provincia` = '" + this.provincia + "',`Cp` = '" + this.cp + "',`tipo` = '" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-			  this.tipo + "',`email`='" + this.email + "' WHERE `dni` LIKE '" + this.dni + "'";  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" + this.nombre + "', `Apellidos` = '" + this.apellidos + "', `Teléfono` = '" + this.telefono + "',`Dirección` = '" + this.direccion + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					"',`Población` = '"
+					+ this.poblacion
+					+ "',`fecha_nacimiento` = '" + this.fechaNac + "',`password` = '" + this.password + "',`Provincia` = '" + this.provincia + "',`Cp` = '" + this.cp + "',`tipo` = '" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+					this.tipo
+					+ "',`email`='" + this.email + "' WHERE `dni` LIKE '" + this.dni + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-			
-			//System.out.println("por ahora funciona");
-			//System.out.println(sentencia);
 			ConectarDBA.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,
 					Idioma.getString("msgUserChanged")); //$NON-NLS-1$
-			//System.out.print("Va bien");
+
 		} else {
 
 			JOptionPane.showMessageDialog(null,
 					Idioma.getString("msgIdNotExists")); //$NON-NLS-1$
-			//System.out.print("canvio false x true");
+
 		}
 		ConectarDBA.cerrarCon();
-
 
 	}
 

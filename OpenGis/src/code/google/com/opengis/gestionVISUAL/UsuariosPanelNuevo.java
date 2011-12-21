@@ -52,25 +52,27 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JLabel lblPass2 = null;
 	private JPasswordField txtPass2 = null;
 	private String accion;
-	
-	private String dni=""; //$NON-NLS-1$
-	private String nombre=""; //$NON-NLS-1$
-	private String apellidos=""; //$NON-NLS-1$
-	private String direccion=""; //$NON-NLS-1$
-	private String poblacion=" "; //$NON-NLS-1$
-	private String provincia=""; //$NON-NLS-1$
-	private String cp=""; //$NON-NLS-1$
-	private String telefono=""; //$NON-NLS-1$
-	private String email=""; //$NON-NLS-1$
-	private String fechanac=""; //$NON-NLS-1$
-	
-	
-	
+
+	private String dni = ""; //$NON-NLS-1$
+	private String nombre = ""; //$NON-NLS-1$
+	private String apellidos = ""; //$NON-NLS-1$
+	private String direccion = ""; //$NON-NLS-1$
+	private String poblacion = " "; //$NON-NLS-1$
+	private String provincia = ""; //$NON-NLS-1$
+	private String cp = ""; //$NON-NLS-1$
+	private String telefono = ""; //$NON-NLS-1$
+	private String email = ""; //$NON-NLS-1$
+	private String fechanac = ""; //$NON-NLS-1$
+
 	/**
-	 * Constructor del Panel de gestión de Usuarios. En caso de que la acción sea "modificar" el panel 
-	 * se utilizará para modificar. En caso de que la acción sea "alta" el panel se utilizará como altas.
+	 * Constructor del Panel de gestión de Usuarios. En caso de que la acción
+	 * sea "modificar" el panel se utilizará para modificar. En caso de que la
+	 * acción sea "alta" el panel se utilizará como altas.
 	 */
-	public UsuariosPanelNuevo(String accion,String dni, String nombre, String apellidos,String direccion,String poblacion, String provincia, String cp, String telefono, String email, String fechanac){
+	public UsuariosPanelNuevo(String accion, String dni, String nombre,
+			String apellidos, String direccion, String poblacion,
+			String provincia, String cp, String telefono, String email,
+			String fechanac) {
 		super();
 		this.accion = accion;
 		this.dni = dni;
@@ -85,16 +87,15 @@ public class UsuariosPanelNuevo extends JPanel {
 		this.fechanac = fechanac;
 		initialize();
 	}
-	
-	public UsuariosPanelNuevo(String accion){
-		
+
+	public UsuariosPanelNuevo(String accion) {
+
 		super();
 		this.accion = accion;
-		
-		initialize();
-		
-	}
 
+		initialize();
+
+	}
 
 	/**
 	 * This method initializes this
@@ -107,7 +108,8 @@ public class UsuariosPanelNuevo extends JPanel {
 		lblPass2.setText(Idioma.getString("etConfirmPassword")); //$NON-NLS-1$
 		lblObligtorios = new JLabel();
 		lblObligtorios.setBounds(new Rectangle(434, 334, 238, 25));
-		lblObligtorios.setFont(new Font(Idioma.getString("Dialog"), Font.ITALIC, 12)); //$NON-NLS-1$
+		lblObligtorios.setFont(new Font(
+				Idioma.getString("Dialog"), Font.ITALIC, 12)); //$NON-NLS-1$
 		lblObligtorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
 		lblFechaNac = new JLabel();
 		lblFechaNac.setBounds(new Rectangle(506, 83, 138, 30));
@@ -178,86 +180,145 @@ public class UsuariosPanelNuevo extends JPanel {
 		this.add(getTxtPass2(), null);
 		comboPoblacion.setEditable(false);
 		txtProvincia.setEditable(false);
-		
+
 	}
 
 	/**
-	 * This method initializes bGuardar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes bGuardar
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBGuardar() {
 		if (bGuardar == null) {
 			bGuardar = new JButton();
 			bGuardar.setBounds(new Rectangle(46, 314, 53, 45));
-			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
+			bGuardar.setIcon(new ImageIcon(getClass().getResource(
+					"/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
 			bGuardar.setToolTipText(Idioma.getString("etSaveNewUser")); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					
-					
-					if(accion.equals("alta")){ //$NON-NLS-1$
-					
-						char[] contra = txtPass.getPassword();
-						String pass = new String(contra);
-	
-						char[] contra2 = txtPass2.getPassword();
-						String pass2 = new String(contra2);
-	
-						if (pass.equals(pass2)) {
-							
-	
-							Usuarios u = new Usuarios(txtDNI.getText().trim(), txtNombre.getText().trim(), txtApellidos.getText().trim(), txtTelefono.getText().trim(), txtDireccion.getText().trim(),comboPoblacion.getSelectedItem().toString(),	txtProvincia.getText().trim(), txtCP.getText().trim(), txtFechaNac.getText().trim(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txtMail.getText().trim());
-							u.validarDatos();
-							if (u.getValido()) {
-								try {
-									u.crearUsuario();
-								} catch (SQLException e1) {
-									// TODO Auto-generated catch block
-									JOptionPane.showMessageDialog(null,Idioma.getString("msgIDAlreadyExists")); //$NON-NLS-1$
-								}
-	
+
+					boolean valido = false;
+					char[] contra = txtPass.getPassword();
+					String pass = new String(contra);
+
+					char[] contra2 = txtPass2.getPassword();
+					String pass2 = new String(contra2);
+					String[] campos = {
+							txtDNI.getText(),
+							txtNombre.getText(),
+							txtApellidos.getText(),
+							txtTelefono.getText(),
+							txtDireccion.getText(),
+							txtProvincia.getText(),
+							txtCP.getText(),
+							txtFechaNac.getText(),
+							pass,
+							comboTipo.getSelectedItem().toString()
+									.toLowerCase(), txtMail.getText() };
+					if (accion.equals("alta")) { //$NON-NLS-1$
+
+						for (int i = 0; i < campos.length; i++) {
+							String campo = campos[i];
+							if (campo.length() == 0) {
+								valido = false;
+								break;
+							} else {
+								valido = true;
 							}
-	
-						} else {
-	
-							JOptionPane.showMessageDialog(null,
-									Idioma.getString("msgPasswordUnmatch")); //$NON-NLS-1$
-	
+
 						}
-					}else{
-						
-						
-						// Aquí entraremos cuando la acción declarada sea modificar
-						
-						char[] contra = txtPass.getPassword();
-						String pass = new String(contra);
 
-						char[] contra2 = txtPass2.getPassword();
-						String pass2 = new String(contra2);
+						if (valido == true) {
+							if (pass.equals(pass2)) {
 
-						if (pass.equals(pass2)) {
-							Usuarios u = new Usuarios(txtDNI.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(),comboPoblacion.getSelectedItem().toString(),txtProvincia.getText(), txtCP.getText(), txtFechaNac.getText(), pass, comboTipo.getSelectedItem().toString().toLowerCase(), txtMail.getText());
-							u.validarDatos();
-							
-							if (u.getValido()) {
-								
+								Usuarios u = new Usuarios(txtDNI.getText()
+										.trim(), txtNombre.getText().trim(),
+										txtApellidos.getText().trim(),
+										txtTelefono.getText().trim(),
+										txtDireccion.getText().trim(),
+										comboPoblacion.getSelectedItem()
+												.toString(), txtProvincia
+												.getText().trim(), txtCP
+												.getText().trim(), txtFechaNac
+												.getText().trim(), pass,
+										comboTipo.getSelectedItem().toString()
+												.toLowerCase(), txtMail
+												.getText().trim());
+								u.validarDatos();
+								if (u.getValido()) {
+									try {
+										u.crearUsuario();
+									} catch (SQLException e1) {
+										// TODO Auto-generated catch block
+										JOptionPane.showMessageDialog(
+												null,
+												Idioma.getString("msgIDAlreadyExists")); //$NON-NLS-1$
+									}
+
+								}
+
+							} else {
+
+								JOptionPane.showMessageDialog(null,
+										Idioma.getString("msgPasswordUnmatch")); //$NON-NLS-1$
+
+							}
+						} else {
+							JOptionPane.showMessageDialog(null,
+									Idioma.getString("msgErrorField") //$NON-NLS-1$
+											+ Idioma.getString("etAllFields")); //$NON-NLS-1$
+						}
+					} else {
+
+						// Aquí entraremos cuando la acción declarada sea
+						// modificar
+
+						for (int i = 0; i < campos.length; i++) {
+							String campo = campos[i];
+							if (campo.equals("")) {
+								JOptionPane.showMessageDialog(
+										null,
+										Idioma.getString("msgErrorField") //$NON-NLS-1$
+												+ Idioma.getString("etAllFields")); //$NON-NLS-1$
+								valido = false;
+							}
+
+						}
+						if (valido == true) {
+
+							if (pass.equals(pass2)) {
+								Usuarios u = new Usuarios(txtDNI.getText(),
+										txtNombre.getText(), txtApellidos
+												.getText(), txtTelefono
+												.getText(), txtDireccion
+												.getText(), comboPoblacion
+												.getSelectedItem().toString(),
+										txtProvincia.getText(),
+										txtCP.getText(), txtFechaNac.getText(),
+										pass, comboTipo.getSelectedItem()
+												.toString().toLowerCase(),
+										txtMail.getText());
+								u.validarDatos();
+
+								if (u.getValido()) {
+
 									try {
 										u.modificarUsuario();
 									} catch (SQLException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
-								
+
+								}
+							} else {
+
+								JOptionPane.showMessageDialog(null,
+										Idioma.getString("msgPasswordUnmatch")); //$NON-NLS-1$
 
 							}
-						} else {
-
-							JOptionPane.showMessageDialog(null,
-									Idioma.getString("msgPasswordUnmatch")); //$NON-NLS-1$
-
 						}
-						
+
 					}
 				}
 			});
@@ -266,29 +327,26 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes bRestablecer	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes bRestablecer
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBRestablecer() {
 		if (bRestablecer == null) {
 			bRestablecer = new JButton();
 			bRestablecer.setBounds(new Rectangle(122, 314, 53, 45));
-			bRestablecer.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png"))); //$NON-NLS-1$
+			bRestablecer.setIcon(new ImageIcon(getClass().getResource(
+					"/recursosVisuales/Limpiar.png"))); //$NON-NLS-1$
 			bRestablecer.setToolTipText(Idioma.getString("etCleanFields")); //$NON-NLS-1$
 			bRestablecer.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					
-					
-					if(accion!="modificar"){ //$NON-NLS-1$
+
+					if (accion != "modificar") { //$NON-NLS-1$
 						restablecerCampos(false);
-						
-						
+
 					}
 					restablecerCampos(true);
-					
-					
-					
+
 				}
 			});
 		}
@@ -296,28 +354,28 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtDNI	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtDNI
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtDNI() {
 		if (txtDNI == null) {
 			txtDNI = new JTextField(dni);
 			txtDNI.setBounds(new Rectangle(123, 33, 143, 27));
-			
-			if(accion=="modificar"){ //$NON-NLS-1$
-				
+
+			if (accion == "modificar") { //$NON-NLS-1$
+
 				txtDNI.setEnabled(false);
 			}
-			
+
 		}
 		return txtDNI;
 	}
 
 	/**
-	 * This method initializes txtNombre	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtNombre
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtNombre() {
 		if (txtNombre == null) {
@@ -328,9 +386,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtApellidos	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtApellidos
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtApellidos() {
 		if (txtApellidos == null) {
@@ -341,9 +399,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtFechaNac	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtFechaNac
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtFechaNac() {
 		if (txtFechaNac == null) {
@@ -354,9 +412,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtDireccion	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtDireccion
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtDireccion() {
 		if (txtDireccion == null) {
@@ -367,9 +425,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtCP	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtCP
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtCP() {
 		if (txtCP == null) {
@@ -377,40 +435,40 @@ public class UsuariosPanelNuevo extends JPanel {
 			txtCP.setBounds(new Rectangle(358, 139, 115, 27));
 			txtCP.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
-					
-					if(txtCP.getText().length() > 0){
-						
+
+					if (txtCP.getText().length() > 0) {
+
 						try {
-							
+
 							comboPoblacion.removeAllItems();
-							
+
 							String codigoPostal = txtCP.getText();
-							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND postal = '"+ codigoPostal +"' LIMIT 0,30"; //$NON-NLS-1$ //$NON-NLS-2$
-							
-							ConectarDBA.acceder(); // Conectamos con la base de datos
-							
+							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND postal = '" + codigoPostal + "' LIMIT 0,30"; //$NON-NLS-1$ //$NON-NLS-2$
+
+							ConectarDBA.acceder(); // Conectamos con la base de
+													// datos
+
 							ResultSet rs = ConectarDBA.consulta(sentencia);
-							
-							while(rs.next()){
-							
-							comboPoblacion.addItem(rs.getString(1));
-							txtProvincia.setText(rs.getString(2));
-							
+
+							while (rs.next()) {
+
+								comboPoblacion.addItem(rs.getString(1));
+								txtProvincia.setText(rs.getString(2));
+
 							}
-							
+
 							ConectarDBA.cerrarCon(); // Cerramos la conexion
-							
+
 						} catch (SQLException e1) {
-							
-							JOptionPane.showMessageDialog(null,Idioma.getString("etPostalCodeUnmatch")); //$NON-NLS-1$
+
+							JOptionPane.showMessageDialog(null,
+									Idioma.getString("etPostalCodeUnmatch")); //$NON-NLS-1$
 						}
 
-						
-					}else{
-						
-												
+					} else {
+
 					}
-					
+
 				}
 			});
 		}
@@ -418,9 +476,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtProvincia	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtProvincia
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtProvincia() {
 		if (txtProvincia == null) {
@@ -431,9 +489,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtTelefono	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txtTelefono
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxtTelefono() {
 		if (txtTelefono == null) {
@@ -444,9 +502,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txteMail	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes txteMail
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getTxteMail() {
 		if (txtMail == null) {
@@ -457,9 +515,9 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes txtPass	
-	 * 	
-	 * @return javax.swing.JPasswordField	
+	 * This method initializes txtPass
+	 * 
+	 * @return javax.swing.JPasswordField
 	 */
 	private JPasswordField getTxtPass() {
 		if (txtPass == null) {
@@ -470,27 +528,26 @@ public class UsuariosPanelNuevo extends JPanel {
 	}
 
 	/**
-	 * This method initializes comboTipo	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes comboTipo
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
 	private JComboBox getComboTipo() {
 		if (comboTipo == null) {
 			comboTipo = new JComboBox();
 			comboTipo.setBounds(new Rectangle(634, 250, 115, 27));
-			
-			
+
 			comboTipo.addItem(Idioma.getString("etWorker")); //$NON-NLS-1$
 			comboTipo.addItem(Idioma.getString("etAdmin")); //$NON-NLS-1$
-			
+
 		}
 		return comboTipo;
 	}
 
 	/**
-	 * This method initializes comboPoblacion	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes comboPoblacion
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
 	private JComboBox getComboPoblacion() {
 		if (comboPoblacion == null) {
@@ -501,52 +558,51 @@ public class UsuariosPanelNuevo extends JPanel {
 			comboPoblacion.addItem(poblacion);
 			comboPoblacion.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
-					
-					if(txtCP.getText().length() == 0){
-							
-						
+
+					if (txtCP.getText().length() == 0) {
+
 						try {
-							
-							String poblacion = comboPoblacion.getSelectedItem().toString();
-							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND poblacion = '"+ poblacion +"' LIMIT 0,30"; //$NON-NLS-1$ //$NON-NLS-2$
-							
-							ConectarDBA.acceder(); // Conectamos con la base de datos
-							
+
+							String poblacion = comboPoblacion.getSelectedItem()
+									.toString();
+							String sentencia = "SELECT poblacion.poblacion, provincia.provincia FROM poblacion INNER JOIN provincia WHERE provincia.idprovincia = poblacion.idprovincia AND poblacion = '" + poblacion + "' LIMIT 0,30"; //$NON-NLS-1$ //$NON-NLS-2$
+
+							ConectarDBA.acceder(); // Conectamos con la base de
+													// datos
+
 							ResultSet rs = ConectarDBA.consulta(sentencia);
-							
-							while(rs.next()){
-							
-							comboPoblacion.addItem(rs.getString(1));
-							
-							txtProvincia.setText(rs.getString(2));
-							
-							
+
+							while (rs.next()) {
+
+								comboPoblacion.addItem(rs.getString(1));
+
+								txtProvincia.setText(rs.getString(2));
+
 							}
-							
+
 							ConectarDBA.cerrarCon(); // Cerramos la conexion
-							
+
 						} catch (SQLException e1) {
-							
-							JOptionPane.showMessageDialog(null,Idioma.getString("etPostalCodeUnmatch")); //$NON-NLS-1$
+
+							JOptionPane.showMessageDialog(null,
+									Idioma.getString("etPostalCodeUnmatch")); //$NON-NLS-1$
 						}
 
-						
-					}else{
-						
-												
+					} else {
+
 					}
-					
+
 				}
 			});
-			
+
 		}
 		return comboPoblacion;
 	}
 
 	/**
-	 * This method initializes txtPass2	
-	 * 	
-	 * @return javax.swing.JPasswordField	
+	 * This method initializes txtPass2
+	 * 
+	 * @return javax.swing.JPasswordField
 	 */
 	private JPasswordField getTxtPass2() {
 		if (txtPass2 == null) {
@@ -555,8 +611,8 @@ public class UsuariosPanelNuevo extends JPanel {
 		}
 		return txtPass2;
 	}
-	
-	private void restablecerCampos(boolean modificar){
+
+	private void restablecerCampos(boolean modificar) {
 		if (modificar == false) {
 			txtDNI.setText(""); //$NON-NLS-1$
 		}
@@ -573,4 +629,4 @@ public class UsuariosPanelNuevo extends JPanel {
 		txtPass2.setText(""); //$NON-NLS-1$
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="26,16"
+} // @jve:decl-index=0:visual-constraint="26,16"
