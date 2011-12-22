@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.Idioma;
-import code.google.com.opengis.gestionDAO.ProductoDAO;
+import code.google.com.opengis.gestion.Producto;
 
 
 public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
@@ -30,7 +30,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
 			
-			ResultSet rs = ProductoDAO.buscar(texto);
+			ResultSet rs = Producto.buscar(texto);
 			int nColumnas = rs.getMetaData().getColumnCount();
 			modelo.setColumnIdentifiers(nombreColumna);
 			
@@ -106,7 +106,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 		
 			
 			try {
-				ProductoDAO.desactivarProducto(rProducto[0]);
+				Producto.desactivarProducto(rProducto[0]);
 				buscar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -137,7 +137,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 					
 					try {
 						
-						ProductoDAO.activarProducto(rProducto[0]);
+						Producto.activarProducto(rProducto[0]);
 						buscar();
 						
 					} catch (SQLException e1) {
