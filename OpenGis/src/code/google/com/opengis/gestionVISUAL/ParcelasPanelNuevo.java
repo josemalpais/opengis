@@ -45,7 +45,7 @@ public class ParcelasPanelNuevo extends JPanel {
 	private JTextField txtNumerop = null;
 	private String accion;
 	private ConectarDBA dba =null;
-	private boolean encontrado;
+	private boolean encontrado=true;
 	
 	private String idparcela; //identificador de la parcela
 	private String alias; //nombre que el usuario asignara a la parcela para relacionarlo
@@ -216,7 +216,7 @@ public class ParcelasPanelNuevo extends JPanel {
 								JOptionPane.showMessageDialog(null, "PARCELA MODIFICADA CORRECTAMENTE");
 							} catch (SQLException e1) {
 								
-								//JOptionPane.showMessageDialog(null, "ERROR AL MODIFICAR");
+								JOptionPane.showMessageDialog(null, "ERROR AL MODIFICAR");
 								 //TODO Auto-generated catch block
 								//e1.printStackTrace();
 							}
