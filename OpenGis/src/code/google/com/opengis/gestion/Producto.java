@@ -1,9 +1,12 @@
 package code.google.com.opengis.gestion;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 import code.google.com.opengis.gestionDAO.ProductoDAO;
 
@@ -99,26 +102,45 @@ public class Producto {
 	}
 //Enlazar Producto con ProductoDAO, cadena de metodos.	
 	public void crearProducto() {
-	ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
+	Producto	x = new Producto(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
 		try {
 			x.altaProducto();
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorNewProduct")); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorNewProduct")); 
 		}
 		
 	}
+	public void altaProducto() throws SQLException{
+
+		ConectarDBA.acceder();
+		String sentencia = "INSERT INTO `dai2opengis`.`producto` (`idprod` ,`nombre` ,`descripcion` ,`nomtarea` ,`dosis`, `dni`, `activo`) VALUES ('"+ this.idprod +"', '" + this.nombre + "','" + this.descripcion +"','" + this.nomtarea +"','" + this.dosis + "','"+this.dni+"',"+this.activo+")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+		ConectarDBA.modificar(sentencia);
+		ConectarDBA.cerrarCon();
+		JOptionPane.showMessageDialog(null,Idioma.getString("msgNewProductAdded")); 
+	
+	
+}
 //modif
 	
 	public void editarProducto() {
-		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
+		Producto	x = new Producto(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
 			try {
 				x.modificarProducto();			
 			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorNewProduct")); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorNewProduct"));
 			}
 			
 		}
+	public void modificarProducto() throws SQLException{
+		
+		ConectarDBA.acceder();
+		String sentencia = "UPDATE `producto` SET `nombre`='"+ this.nombre +"',`descripcion`='"+ this.descripcion +"',`nomtarea`='"+ this.nomtarea +"',`dosis`='"+ this.dosis +"',`dni`='"+this.dni+"', `activo`='"+this.activo+"' WHERE `idprod` = '"+ this.idprod + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+		ConectarDBA.modificar(sentencia);	
+		ConectarDBA.cerrarCon();
+		JOptionPane.showMessageDialog(null,Idioma.getString("msgProductModSuccess")); 
+		
+	}
 //bajas 
 /*	public void bajasProducto(){
 		ProductoDAO	x = new ProductoDAO(this.idprod,this.nombre,this.descripcion,this.nomtarea,this.dosis, this.dni, this.activo);
@@ -128,8 +150,45 @@ public class Producto {
 			JOptionPane.showMessageDialog(null,"Error al dar de alta el nuevo producto");
 		}
 	}*/
+	
+	//metodo para desactivar un producto
+	public static void desactivarProducto(String id) throws SQLException {
+
+			String sentencia = "UPDATE producto SET `activo` = '1' WHERE `idprod` = '"+ id + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+			ConectarDBA.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgProductInactive")); //$NON-NLS-1$
+
+	}
+	//metodo para activar un producto
+	public static void activarProducto(String id) throws SQLException {
+
+			String sentencia = "UPDATE producto SET `activo` = '0'  WHERE `idprod` = '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+			ConectarDBA.modificar(sentencia);
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgProductEnabled")); //$NON-NLS-1$
+
+	}
+	
+	public static ResultSet buscar(String criterio) {
+		
+		ConectarDBA.acceder();
+        ResultSet rs = null;
+        String sql = "SELECT * FROM `producto` WHERE idprod LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR descripcion LIKE '%"+criterio+"%' OR nomtarea LIKE '%"+criterio+"%' OR dosis LIKE '%"+criterio+"%' OR dni LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+
+        try {
+        	
+           rs = ConectarDBA.consulta(sql);
+           
+        } catch (SQLException e) {
+            System.out.println(e);
+        } 
+        
+        return rs;
+
+    }
+
+	
 //Valida datos	
-public void validarDatos(){
+/*public void validarDatos(){
 
 		if(this.nombre.length() <1 || this.nombre.length()>40){ 
 			
@@ -156,7 +215,7 @@ public void validarDatos(){
 					
 				}else{
 					r = isInteger(this.descripcion);
-					if(r.equals(true) || this.descripcion.length() <1  || this.descripcion.length()>1000){
+					if(r.equals(true) || this.descripcion.length() <1  || this.descripcion.length()>100){
 						
 						JOptionPane.showMessageDialog(null, Idioma.getString("msgDescNotNull")); //$NON-NLS-1$
 						this.correcto = false;
@@ -171,7 +230,7 @@ public void validarDatos(){
 						}
 					}
 			}
-	}
+	}*/
 public boolean isInteger( String input )  
 {  
    try  
@@ -185,6 +244,115 @@ public boolean isInteger( String input )
    }  
    
 }  
-	
-	
+public boolean validarTexto(String texto, String nombreCampo) {
+	Boolean r = isInteger(texto);
+
+	for (int i = 0; i < texto.length(); i++) {
+		if (Character.isLetter(texto.charAt(i)) == false
+				&& texto.charAt(i) != (' ')) {
+			JOptionPane.showMessageDialog(
+					null,
+					Idioma.getString("msgErrorField") 
+							+ nombreCampo
+							+ Idioma.getString("msgErrorNotSpecialChar"));
+			this.correcto = false;
+
+			return false;
+
+		}
+		if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
+
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorField") + nombreCampo
+							+ Idioma.getString("msgErrorBlankSpace")); 
+			return false;
+		}
+	}
+
+	if (r.equals(true) || texto.length() < 2) {
+		JOptionPane.showMessageDialog(
+				null,
+				Idioma.getString("msgErrorField")
+						+ nombreCampo
+						+ Idioma.getString("msgErrorEmptyNorNumeric")); 
+		this.correcto = false;
+
+		return false;
+
+	} else {
+
+		return true;
+
+	}
 }
+
+public boolean validarTextoEspecial(String texto, String nombreCampo) {
+	Boolean r = isInteger(texto);
+
+	for (int i = 0; i < texto.length(); i++) {
+
+		if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
+
+			JOptionPane.showMessageDialog(
+					null,
+					Idioma.getString("msgErrorField")
+							+ nombreCampo
+							+ Idioma.getString("msgErrorBlankSpace")); 
+			return false;
+		}
+	}
+
+	if (r.equals(true) || texto.length() < 2) {
+		JOptionPane.showMessageDialog(
+				null,
+				Idioma.getString("msgErrorField") 
+						+ nombreCampo
+						+ Idioma.getString("msgErrorEmptyNorNumeric")); 
+		this.correcto = false;
+
+		return false;
+
+	} else {
+
+		return true;
+
+	}
+
+}
+
+public void validarDatos() {
+	this.correcto = true;
+	
+	Boolean r = isInteger(this.nombre);
+		if (validarTexto(this.nombre, Idioma.getString("etFirstName")) == false) { 
+			this.correcto = false;
+		} else {
+
+			if (validarTextoEspecial(this.descripcion, Idioma.getString("etDescription")) == false) { 
+				this.correcto = false;
+			} else {	
+				r = isInteger(this.dosis);
+
+				if (r.equals(false) || this.dosis.length() <1 || this.dosis.length()>3) {
+						JOptionPane.showMessageDialog(null, Idioma.getString("msgDoseNotNullOrTooLong")); 					
+				}else{
+					r = isInteger(this.descripcion);
+					if(r.equals(true) || this.descripcion.length() <1  || this.descripcion.length()>100){
+						
+						JOptionPane.showMessageDialog(null, Idioma.getString("msgDescNotNullOrTooLong")); 
+						this.correcto = false;
+						
+					}else{
+
+										this.correcto = true; 
+
+									}
+					}
+				}
+			}
+
+	}
+}
+
+
+	
+
