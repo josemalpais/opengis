@@ -31,16 +31,20 @@ public class ProductoPanelGestion extends JPanel {
 	private JLabel lblDNI = null;
 	private JLabel lblDosis = null;
 	private JLabel lblDescripcion = null;
+	private JLabel lblActivo=null;
+	private JLabel lblObligatorios = null;
+	
 	private JTextField txtID = null;
 	private JTextField txtNombreProd = null;
 	JTextField txtDNI = null;
 	private JTextField txtDosis = null;
 	private JTextArea txtDescripcion = null;
 	private JLabel lblMedida = null;
+	
 	private JComboBox comboTipo = null;
+	
 	private JButton bGuardar = null;
 	private JButton bLimpiar = null;
-	private JLabel lblObligatorios = null;
 	
 	private String accion;
 	private String id;
@@ -88,30 +92,30 @@ public class ProductoPanelGestion extends JPanel {
 	private void initialize() {
 		lblObligatorios = new JLabel();
 		lblObligatorios.setBounds(new Rectangle(359, 305, 227, 20));
-		lblObligatorios.setFont(new Font("Dialog", Font.ITALIC, 12)); //$NON-NLS-1$
-		lblObligatorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
+		lblObligatorios.setFont(new Font("Dialog", Font.ITALIC, 12)); 
+		lblObligatorios.setText(Idioma.getString("etAllFields")); 
 		lblMedida = new JLabel();
 		lblMedida.setBounds(new Rectangle(372, 136, 44, 25));
-		lblMedida.setFont(new Font("Dialog", Font.PLAIN, 12)); //$NON-NLS-1$
-		lblMedida.setText("(l/ha)"); //$NON-NLS-1$
+		lblMedida.setFont(new Font("Dialog", Font.PLAIN, 12)); 
+		lblMedida.setText("(l/ha)"); 
 		lblDescripcion = new JLabel();
 		lblDescripcion.setBounds(new Rectangle(328, 180, 112, 25));
-		lblDescripcion.setText(Idioma.getString("etDesc")); //$NON-NLS-1$
+		lblDescripcion.setText(Idioma.getString("etDesc")); 
 		lblDosis = new JLabel();
 		lblDosis.setBounds(new Rectangle(328, 136, 44, 25));
-		lblDosis.setText(Idioma.getString("etAmount")); //$NON-NLS-1$
+		lblDosis.setText(Idioma.getString("etAmount")); 
 		lblDNI = new JLabel();
 		lblDNI.setBounds(new Rectangle(47, 180, 112, 25));
-		lblDNI.setText(Idioma.getString("etIdCard")); //$NON-NLS-1$
+		lblDNI.setText(Idioma.getString("etIdCard")); 
 		lblTipo = new JLabel();
 		lblTipo.setBounds(new Rectangle(47, 136, 112, 25));
-		lblTipo.setText(Idioma.getString("etType")); //$NON-NLS-1$
+		lblTipo.setText(Idioma.getString("etType")); 
 		lblNombre = new JLabel();
 		lblNombre.setBounds(new Rectangle(47, 91, 112, 25));
-		lblNombre.setText(Idioma.getString("etProductName")); //$NON-NLS-1$
+		lblNombre.setText(Idioma.getString("etProductName")); 
 		lblidprod = new JLabel();
 		lblidprod.setBounds(new Rectangle(47, 48, 112, 25));
-		lblidprod.setText(Idioma.getString("etProductId")); //$NON-NLS-1$
+		lblidprod.setText(Idioma.getString("etProductId")); 
 		this.setSize(774, 357);
 		this.setLayout(null);
 		this.add(lblidprod, null);
@@ -143,31 +147,27 @@ public class ProductoPanelGestion extends JPanel {
 			txtID.setBounds(new Rectangle(157, 48, 149, 24));
 			txtID.setEnabled(false);
 			
-			if(accion=="alta"){ //$NON-NLS-1$
+			if(accion=="alta"){ 
 				
 				ConectarDBA.acceder();
 			
 				try {
 					
-					String sql = "SELECT MAX(idprod) FROM producto"; //$NON-NLS-1$
-					
+					String sql = "SELECT MAX(idprod) FROM producto"; 					
 					ResultSet rs = ConectarDBA.consulta(sql);
 					
 					rs.next();
 					
 					int nuevoid = rs.getInt(1) + 1;
 					
-					txtID.setText(nuevoid+""); //$NON-NLS-1$
+					txtID.setText(nuevoid+""); 
 					
 					ConectarDBA.cerrarCon();
 					
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
-				}
-				
-
-				
+				}								
 			}else{
 				
 				txtID.setText(id);
@@ -210,45 +210,37 @@ public class ProductoPanelGestion extends JPanel {
 			
 			if(accion=="modificar"){ //$NON-NLS-1$
 				
-				txtDNI.setText(dni);
-				
-			}
-			
+				txtDNI.setText(dni);				
+			}			
 			txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					
 					
 					ConectarDBA.acceder();
 					
-					String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'"; //$NON-NLS-1$ //$NON-NLS-2$
+					String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'"; 
 					
 					try {
 						ResultSet rs = ConectarDBA.consulta(consulta);
 						
 						while(rs.next()){
 							
-							encontrado = true;
-							
+							encontrado = true;					
 						}
-						
-
-						
+												
 						if(encontrado == false){
 							
-							JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario"); //$NON-NLS-1$
-							txtDNI.setText(""); //$NON-NLS-1$
-							
+							JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario");
+							txtDNI.setText(""); //$NON-NLS-1$						
 						}
-						
-						
+												
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
 			});
-			
-			
+						
 		}
 		return txtDNI;
 	}
@@ -285,10 +277,8 @@ public class ProductoPanelGestion extends JPanel {
 			
 			if(accion=="modificar"){ //$NON-NLS-1$
 				
-				txtDescripcion.setText(descripcion);
-				
-			}
-			
+				txtDescripcion.setText(descripcion);				
+			}			
 		}
 		return txtDescripcion;
 	}
