@@ -79,21 +79,23 @@ public class Parcela {
 	 * @param alias : nombre representativo para que el usuario identifique cómodamente la parcela.
 	 */
 	public void setAlias(String alias){
-		if (Character.isLetter(alias.charAt(0)) == true && alias.charAt(0) != (' ') && Character.isLetter(alias.charAt(1)) ==
+		if (alias.length()>2){
+			if (Character.isLetter(alias.charAt(0)) == true && alias.charAt(0) != (' ') && Character.isLetter(alias.charAt(1)) ==
 				true && alias.charAt(1) != (' ')){
+
+				if((alias.length()>0)&&(alias.length()<21)){ //comprobamos que el alias este entre 1 y 20
+					this.alias = alias;
+				}else{
+					JOptionPane.showMessageDialog(null, "EL ALIAS DEBE ESTAR COMPRENDIDO ENTRE 1 y 20 CARÁCTERES");
+					valido=false;
+				}
+			}else{
 			
-		
-		
-		if((alias.length()>0)&&(alias.length()<21)){ //comprobamos que el alias este entre 1 y 20
-			this.alias = alias;
+				JOptionPane.showMessageDialog(null, "ALIAS NO ADMITE ESPACIOS EN BLANCO");
+				valido=false;
+			}
 		}else{
-			JOptionPane.showMessageDialog(null, "EL ALIAS DEBE ESTAR COMPRENDIDO ENTRE 1 y 20 CARÁCTERES");
-			valido=false;
-		}
-		}else{
-			
-			JOptionPane.showMessageDialog(null, "ALIAS NO ADMITE ESPACIOS EN BLANCO");
-			valido=false;
+			JOptionPane.showMessageDialog(null, "EL ALIAS DEBE TENER UN MINIMO DE 3 CARÁCTERES.");
 		}
 	}
 	public String getProvincia() {
