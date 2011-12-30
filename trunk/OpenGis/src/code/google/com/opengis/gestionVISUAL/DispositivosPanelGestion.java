@@ -156,12 +156,16 @@ public class DispositivosPanelGestion extends JPanel {
 			bGuardar.setToolTipText(Idioma.getString("etSaveNewDevice")); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-
 				if(accion=="modificar"){ //$NON-NLS-1$
-					
 					if (Dispositivo.validarDatos(txtModelo.getText(),
 							txtNumSerie.getText()) == true) {
-
+						txtModelo.setText(quitarBlancosIzquierda(txtModelo.getText()));
+						txtModelo.setText(quitarBlancosDerecha(txtModelo.getText()));
+						txtNumSerie.setText(quitarBlancosIzquierda(txtNumSerie.getText()));
+						txtNumSerie.setText(quitarBlancosDerecha(txtNumSerie.getText()));						
+						if (txtModelo.getText().equals("")){
+							JOptionPane.showMessageDialog(null, "El modelo no puede estar vacío ni tener espacios al principio o al final");
+						}else{
 						try {
 							DispositivoDAO.modificarDispositivo(
 									txtID.getText(),
@@ -170,13 +174,12 @@ public class DispositivosPanelGestion extends JPanel {
 							e1.printStackTrace();
 						}
 					
-					}else {
+					}}else {
 						JOptionPane
 						.showMessageDialog(
 								null,
 								Idioma.getString("msgSerialNumberError1")); //$NON-NLS-1$
-			}
-					
+			}	
 				}else{
 					
 				
@@ -212,6 +215,11 @@ public class DispositivosPanelGestion extends JPanel {
 							paso2 = false;
 						}
 						if ((paso1 == true) && (paso2 == true)) {
+							txtModelo.setText(quitarBlancosIzquierda(txtModelo.getText()));
+							txtModelo.setText(quitarBlancosDerecha(txtModelo.getText()));
+							if (txtModelo.getText().equals("")){
+								JOptionPane.showMessageDialog(null, "El modelo no puede estar vacío ni tener espacios al principio o al final");
+							}else{
 							try {
 								DispositivoDAO.altaDispositivo(numID,
 										txtModelo.getText(), numeroSerie,0,0);
@@ -232,6 +240,7 @@ public class DispositivosPanelGestion extends JPanel {
 
 							catch (SQLException e1) {
 								e1.printStackTrace();
+							}
 							}
 						}
 					}
@@ -267,5 +276,62 @@ public class DispositivosPanelGestion extends JPanel {
 		}
 		return bLimpiar;
 	}
+	/**
+	 * Método que quita los espacios en blanco por la parte izquierda de una cadena
+	 * @param miCadena
+	 * @return devuelve la cadena sin espacios a la izquierda
+	 */
+	public static String quitarBlancosIzquierda(String miCadena){
+		if (miCadena.equals("")){
+			return "";
+		}else{
+			String cadena = miCadena;
+			boolean b = false;
+			char c;
+			for (int i = 0; i < cadena.length(); i++){
+				if (b == false){
+					c = cadena.charAt(i);
+					if (c == ' '){
+					}
+					else{
+						b = true;
+						cadena = cadena.substring(i);
+					}
+				}
+			}
+			if (cadena.charAt(0) == ' '){
+				return "";
+			}else{
+				return cadena;
+			}
+		}
+	}
+	/**
+	 * Método que quita los espacios en blanco por la parte derecha de una cadena
+	 * @param miCadena
+	 * @return devuelve la cadena sin espacios a la derecha
+	 */
+	public static String quitarBlancosDerecha(String miCadena){
+		if (miCadena.equals("")){
+			return "";
+		}else{
+			String cadena = miCadena;
+			boolean b = false;
+			char c;
+			for (int i = cadena.length()-1; i >= 0; i--){
+				if (b == false){
+					c = cadena.charAt(i);
+					if (c == ' '){
+					}
+					else{
+						b = true;
+						cadena = cadena.substring(0, i+1);
+					}
+				}
+			}
+			return cadena;
+		}
+	}
+	
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
