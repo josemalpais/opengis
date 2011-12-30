@@ -4,6 +4,8 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestion.Dispositivo;
+
 /**
  * Esta clase permite insertar, modificar, y dar de baja dispositivos
  * 
@@ -109,7 +111,8 @@ public class DispositivoDAO {
 	public static void altaDispositivo(String iddispositivo, String modelo,
 			String numSerie,int disponible,int activo) throws SQLException {
 		comprobarDispositivo(iddispositivo);
-
+		if ((Dispositivo.validarDatos(modelo, numSerie)) == false){
+		}else{
 		if (existe == true) {
 
 			JOptionPane.showMessageDialog(null,
@@ -133,6 +136,7 @@ public class DispositivoDAO {
 
 		ConectarDBA.cerrarCon();
 
+	}
 	}
 
 	/**
@@ -215,6 +219,8 @@ public class DispositivoDAO {
 
 	public static void modificarDispositivo(String iddispositivo,
 			String modelo, String numSerie) throws SQLException {
+		if ((Dispositivo.validarDatos(modelo, numSerie)) == false){
+		}else{
 		comprobarDispositivo(iddispositivo);
 		if (existe == true) {
 
@@ -231,6 +237,7 @@ public class DispositivoDAO {
 		} else {
 
 			JOptionPane.showMessageDialog(null, Idioma.getString("msgDeviceNotExist")); //$NON-NLS-1$
+		}
 		}
 
 		ConectarDBA.cerrarCon();
