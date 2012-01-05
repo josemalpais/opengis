@@ -205,7 +205,7 @@ public class PrestamoPanelGestion extends JPanel {
 						
 						if(encontrado == false){
 							
-							JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario"); //$NON-NLS-1$
+							JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorIDUnmatchUser")); //$NON-NLS-1$
 							txtDNI.setText(""); //$NON-NLS-1$
 							
 						}
@@ -246,7 +246,7 @@ public class PrestamoPanelGestion extends JPanel {
 
 				if(encontrado==false){
 				//if(compruebaDni(txtDNI.getText())==false){
-					JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario"); //$NON-NLS-1$
+					JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorIDUnmatchUser")); //$NON-NLS-1$
 					txtDNI.setText(""); //$NON-NLS-1$
 				}else{
 					if(accion.equals("alta")){ //$NON-NLS-1$
@@ -287,7 +287,7 @@ public class PrestamoPanelGestion extends JPanel {
 							}						
 						}
 					
-					if(accion.equals("modificar")){
+					if(accion.equals("modificar")){ //$NON-NLS-1$
 						//try{
 						//auxdisp = txtIDdispositivo.getSelectedItem().toString();
 							Prestamo.modificarPrestamo(txtIDprestamo.getText(), dispositivo, txtDNI.getText(),auxdisp);
@@ -330,7 +330,7 @@ public class PrestamoPanelGestion extends JPanel {
 		ConectarDBA.acceder();
 		
 		//String consulta = "SELECT iddispositivo,modelo From dispositivo where disponible='0' AND activo='0'";
-		String consulta = "SELECT iddispositivo,modelo From dispositivo";
+		String consulta = "SELECT iddispositivo,modelo From dispositivo"; //$NON-NLS-1$
 		
 		try {
 			
@@ -340,7 +340,7 @@ public class PrestamoPanelGestion extends JPanel {
 			
 			while(rs.next()){
 				
-				String dispositivo = rs.getString(1) + " - " + rs.getString(2);
+				String dispositivo = rs.getString(1) + " - " + rs.getString(2); //$NON-NLS-1$
 				
 				txtIDdispositivo.addItem(dispositivo);
 				

@@ -163,8 +163,8 @@ public class DispositivosPanelGestion extends JPanel {
 						txtModelo.setText(quitarBlancosDerecha(txtModelo.getText()));
 						txtNumSerie.setText(quitarBlancosIzquierda(txtNumSerie.getText()));
 						txtNumSerie.setText(quitarBlancosDerecha(txtNumSerie.getText()));						
-						if (txtModelo.getText().equals("")){
-							JOptionPane.showMessageDialog(null, "El modelo no puede estar vacío ni tener espacios al principio o al final");
+						if (txtModelo.getText().equals("")){ //$NON-NLS-1$
+							JOptionPane.showMessageDialog(null, Idioma.getString("msgModelNotNull")); //$NON-NLS-1$
 						}else{
 						try {
 							DispositivoDAO.modificarDispositivo(
@@ -217,8 +217,8 @@ public class DispositivosPanelGestion extends JPanel {
 						if ((paso1 == true) && (paso2 == true)) {
 							txtModelo.setText(quitarBlancosIzquierda(txtModelo.getText()));
 							txtModelo.setText(quitarBlancosDerecha(txtModelo.getText()));
-							if (txtModelo.getText().equals("")){
-								JOptionPane.showMessageDialog(null, "El modelo no puede estar vacío ni tener espacios al principio o al final");
+							if (txtModelo.getText().equals("")){ //$NON-NLS-1$
+								JOptionPane.showMessageDialog(null, Idioma.getString("msgModelNotNull")); //$NON-NLS-1$
 							}else{
 							try {
 								DispositivoDAO.altaDispositivo(numID,
@@ -282,8 +282,8 @@ public class DispositivosPanelGestion extends JPanel {
 	 * @return devuelve la cadena sin espacios a la izquierda
 	 */
 	public static String quitarBlancosIzquierda(String miCadena){
-		if (miCadena.equals("")){
-			return "";
+		if (miCadena.equals("")){ //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}else{
 			String cadena = miCadena;
 			boolean b = false;
@@ -300,7 +300,7 @@ public class DispositivosPanelGestion extends JPanel {
 				}
 			}
 			if (cadena.charAt(0) == ' '){
-				return "";
+				return ""; //$NON-NLS-1$
 			}else{
 				return cadena;
 			}
@@ -312,8 +312,8 @@ public class DispositivosPanelGestion extends JPanel {
 	 * @return devuelve la cadena sin espacios a la derecha
 	 */
 	public static String quitarBlancosDerecha(String miCadena){
-		if (miCadena.equals("")){
-			return "";
+		if (miCadena.equals("")){ //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}else{
 			String cadena = miCadena;
 			boolean b = false;

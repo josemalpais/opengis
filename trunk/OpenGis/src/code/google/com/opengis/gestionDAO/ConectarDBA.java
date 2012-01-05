@@ -32,18 +32,18 @@ public class ConectarDBA {
 
 		// Asignamos a variables todos los datos requeridos para la conexion a
 		// la base de datos.
-		String nombreDriver = "com.mysql.jdbc.Driver";
+		String nombreDriver = "com.mysql.jdbc.Driver"; //$NON-NLS-1$
 		// String nombreServidor = "db4free.net";
-		String nombreServidor = "79.108.245.167";
+		String nombreServidor = "79.108.245.167"; //$NON-NLS-1$
 		//String nombreServidor = "10.2.1.43";
-		String numeroPuerto = "3306";
-		String miBaseDatos = "dai2opengis";
-		String url = "jdbc:mysql://" + nombreServidor + ":" + numeroPuerto
-				+ "/" + miBaseDatos;
+		String numeroPuerto = "3306"; //$NON-NLS-1$
+		String miBaseDatos = "dai2opengis"; //$NON-NLS-1$
+		String url = "jdbc:mysql://" + nombreServidor + ":" + numeroPuerto //$NON-NLS-1$ //$NON-NLS-2$
+				+ "/" + miBaseDatos; //$NON-NLS-1$
 		// String dbuser = "ivanserrano";
 		// String dbpwd = "dai20112012";
-		String dbuser = "dai2proyecto";
-		String dbpwd = "dai20112012";
+		String dbuser = "dai2proyecto"; //$NON-NLS-1$
+		String dbpwd = "dai20112012"; //$NON-NLS-1$
 
 		try {
 			Class.forName(nombreDriver).newInstance();
@@ -51,20 +51,20 @@ public class ConectarDBA {
 			st = conexion.createStatement();
 			// System.out.println("conectaBD");
 		} catch (IllegalAccessException e) {
-			JOptionPane.showMessageDialog(null, "Error De Conexión, usuario o contraseña incorrectos");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgConnWrongUser")); //$NON-NLS-1$
 
 			System.err.println(e.getMessage());
 		} catch (InstantiationException e) {
-			JOptionPane.showMessageDialog(null, "Error De Conexión");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgConnectionError")); //$NON-NLS-1$
 
 			System.err.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Error De Conexión, no se encuentra la clase");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgConnClassNotFound")); //$NON-NLS-1$
 
 			System.err.println(e.getMessage());
 		} catch (SQLException e) {
-			System.out.println("Aquí falla");
-			JOptionPane.showMessageDialog(null, "Error De Conexión, fallo en la sintaxis SQL");
+			System.out.println("Aquí falla"); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgConnSQLSyntax")); //$NON-NLS-1$
 
 			System.err.println(e.getMessage());
 
@@ -135,20 +135,20 @@ public class ConectarDBA {
 			String criterio, boolean buscarActivo) throws SQLException {
 
 		acceder();
-		String sentencia = "SELECT `" + campo + "` FROM `" + tabla
-				+ "` WHERE `" + campo + "` LIKE '" + criterio + "'";
+		String sentencia = "SELECT `" + campo + "` FROM `" + tabla //$NON-NLS-1$ //$NON-NLS-2$
+				+ "` WHERE `" + campo + "` LIKE '" + criterio + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		ResultSet rs = consulta(sentencia);
 		resultado = new String();
 		activo = false;
 		while (rs.next()) {
-			System.out.println("Ejecuto el while");
+			System.out.println("Ejecuto el while"); //$NON-NLS-1$
 
 			resultado = rs.getString(1);
 			System.out.println(resultado);
 
 		}
 
-		System.out.println("Enviado: " + criterio + " esperado: "
+		System.out.println("Enviado: " + criterio + " esperado: " //$NON-NLS-1$ //$NON-NLS-2$
 				+ resultado.toString());
 		if (resultado == null) {
 			setExiste(false);
@@ -160,8 +160,8 @@ public class ConectarDBA {
 
 			rs.close();
 			if (buscarActivo) {
-				String sentencia2 = "SELECT `activo` FROM `" + tabla
-						+ "` WHERE `" + campo + "` LIKE '" + criterio + "'";
+				String sentencia2 = "SELECT `activo` FROM `" + tabla //$NON-NLS-1$
+						+ "` WHERE `" + campo + "` LIKE '" + criterio + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				ResultSet rs2 = consulta(sentencia2);
 				activo = false;
 				while (rs2.next()) {
@@ -207,12 +207,12 @@ public class ConectarDBA {
 		acceder();
 		String sentencia;
 		if (buscarActivo == false) {
-			sentencia = "SELECT * FROM `" + tabla + "` WHERE  `" + campo
-					+ "` LIKE '%" + criterio + "%'";
+			sentencia = "SELECT * FROM `" + tabla + "` WHERE  `" + campo //$NON-NLS-1$ //$NON-NLS-2$
+					+ "` LIKE '%" + criterio + "%'"; //$NON-NLS-1$ //$NON-NLS-2$
 		} else {
-			sentencia = "SELECT * FROM `" + tabla + "` WHERE  `" + campo
-					+ "` LIKE '%" + criterio + "%' AND `activo` = '" + activo
-					+ "'";
+			sentencia = "SELECT * FROM `" + tabla + "` WHERE  `" + campo //$NON-NLS-1$ //$NON-NLS-2$
+					+ "` LIKE '%" + criterio + "%' AND `activo` = '" + activo //$NON-NLS-1$ //$NON-NLS-2$
+					+ "'"; //$NON-NLS-1$
 		}
 
 		try {
@@ -237,12 +237,12 @@ public class ConectarDBA {
 			throws SQLException {
 		comprobarExiste(tabla, campo, criterio, true);
 		if (getExiste() == true && activo == false) {
-			String sentencia = "UPDATE `" + tabla
-					+ "` SET `activo` = '1' WHERE `" + campo + "` LIKE '"
-					+ criterio + "'";
+			String sentencia = "UPDATE `" + tabla //$NON-NLS-1$
+					+ "` SET `activo` = '1' WHERE `" + campo + "` LIKE '" //$NON-NLS-1$ //$NON-NLS-2$
+					+ criterio + "'"; //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,
-					"Se ha activado correctamente");
+					Idioma.getString("msgHasBeenActivated")); //$NON-NLS-1$
 		}
 
 	}
@@ -258,12 +258,12 @@ public class ConectarDBA {
 			throws SQLException {
 		comprobarExiste(tabla, campo, criterio, true);
 		if (getExiste() == true && activo == true) {
-			String sentencia = "UPDATE `" + tabla
-					+ "` SET `activo` = '0' WHERE `" + campo + "` LIKE '"
-					+ criterio + "'";
+			String sentencia = "UPDATE `" + tabla //$NON-NLS-1$
+					+ "` SET `activo` = '0' WHERE `" + campo + "` LIKE '" //$NON-NLS-1$ //$NON-NLS-2$
+					+ criterio + "'"; //$NON-NLS-1$
 			ConectarDBA.modificar(sentencia);
 			JOptionPane.showMessageDialog(null,
-					"Se ha desactivado correctamente");
+					Idioma.getString("msgHasBeenDeactivated")); //$NON-NLS-1$
 		}
 
 	}
@@ -298,7 +298,7 @@ public class ConectarDBA {
 	{
 		ResultSet rs;
 		char t = 0;
-		rs=buscar("SELECT tipo FROM usuario WHERE dni LIKE '" + usuario + "'AND password LIKE '" + pass + "' AND `activo` = '1'");
+		rs=buscar("SELECT tipo FROM usuario WHERE dni LIKE '" + usuario + "'AND password LIKE '" + pass + "' AND `activo` = '1'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		if(rs.next())
 		{
 			t=rs.getString(1).charAt(0);
@@ -314,9 +314,9 @@ public class ConectarDBA {
 		
 		ConectarDBA.acceder();
 		
-		String idioma = "";
+		String idioma = ""; //$NON-NLS-1$
 		
-		String sentencia= "SELECT idioma FROM usuario WHERE dni LIKE '"+usuario+"'";
+		String sentencia= "SELECT idioma FROM usuario WHERE dni LIKE '"+usuario+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 		
 		try {
 			rs = ConectarDBA.consulta(sentencia);
@@ -333,24 +333,24 @@ public class ConectarDBA {
 		}
 		
 		
-		if(idioma.equals("english")){
+		if(idioma.equals("english")){ //$NON-NLS-1$
 			
-			idioma = "resources.lang_en_US";
-			
-		}
-		
-		if(idioma.equals("español")){
-			
-			
-			idioma = "resources.lang_es_ES";
+			idioma = "resources.lang_en_US"; //$NON-NLS-1$
 			
 		}
 		
+		if(idioma.equals("español")){ //$NON-NLS-1$
+			
+			
+			idioma = "resources.lang_es_ES"; //$NON-NLS-1$
+			
+		}
 		
-		if(idioma.equals("catalan")){
+		
+		if(idioma.equals("catalan")){ //$NON-NLS-1$
 			
 			
-			idioma = "resources.lang_ca_ES";
+			idioma = "resources.lang_ca_ES"; //$NON-NLS-1$
 			
 		}
 		

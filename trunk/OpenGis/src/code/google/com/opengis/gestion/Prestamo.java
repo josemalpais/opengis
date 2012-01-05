@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 import code.google.com.opengis.gestionVISUAL.PrestamoPanelGestion;
 
 public class Prestamo {
@@ -116,7 +117,7 @@ public class Prestamo {
 		
 			try {
 				if (validarDatos(iddispositivo, dni_usuario)==true){
-					ResultSet rs = ConectarDBA.buscar("SELECT * FROM `prestamo` WHERE `iddispositivo` = '"+iddispositivo+"'");
+					ResultSet rs = ConectarDBA.buscar("SELECT * FROM `prestamo` WHERE `iddispositivo` = '"+iddispositivo+"'"); //$NON-NLS-1$ //$NON-NLS-2$
 					int nColumnas = rs.getMetaData().getColumnCount();
 					
 					Object[] registro = new Object[nColumnas];
@@ -124,13 +125,13 @@ public class Prestamo {
 
 						for (int i = 0; i < nColumnas; i++) {
 							registro[i] = rs.getObject(i + 1); // Guardamos los registros de préstamos
-							System.out.println(i + " : " + registro[i]);
+							System.out.println(i + " : " + registro[i]); //$NON-NLS-1$
 							}
-						if (registro[4].toString().equals("no")){
+						if (registro[4].toString().equals("no")){ //$NON-NLS-1$
 							abierto = true;
-							System.out.println("He encontrado un préstamo abierto");
+							System.out.println("He encontrado un préstamo abierto"); //$NON-NLS-1$
 						}else{
-							System.out.println("Este préstamo está cerrado");
+							System.out.println("Este préstamo está cerrado"); //$NON-NLS-1$
 						}
 						}
 				}
@@ -150,20 +151,20 @@ public class Prestamo {
 	public static void crearPrestamo(String iddispositivo,
 			String dni_usuario){
 		if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true){
-			JOptionPane.showMessageDialog(null, "Ya existe un préstamo abierto para este dispositivo.");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanAlreadyExists")); //$NON-NLS-1$
 		}else{
 			Calendar c = new GregorianCalendar();	//Con estas 5 instrucciones calculo la fecha actual
 			String dia = Integer.toString(c.get(Calendar.DATE));
 			String mes = Integer.toString((c.get(Calendar.MONTH))+1);
 			String año = Integer.toString(c.get(Calendar.YEAR));
-			String fecha = dia+"/"+mes+"/"+año;
-			System.out.println("La fecha actual es : "+fecha+".");
+			String fecha = dia+"/"+mes+"/"+año; //$NON-NLS-1$ //$NON-NLS-2$
+			System.out.println("La fecha actual es : "+fecha+"."); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			try {
-				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('"+iddispositivo+"','"+dni_usuario+"','"+fecha+"')");
-				JOptionPane.showMessageDialog(null, "Préstamo abierto correctamente.");
+				ConectarDBA.modificar("INSERT INTO `prestamo`(`iddispositivo`, `dni_usuario`, `fecha_alquiler`) VALUES ('"+iddispositivo+"','"+dni_usuario+"','"+fecha+"')"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanSuccess")); //$NON-NLS-1$
 				
-				String modifDispo = "UPDATE `dispositivo` SET `disponible`='1' WHERE iddispositivo='" + iddispositivo +"' ";
+				String modifDispo = "UPDATE `dispositivo` SET `disponible`='1' WHERE iddispositivo='" + iddispositivo +"' "; //$NON-NLS-1$ //$NON-NLS-2$
 				ConectarDBA.modificar(modifDispo);
 				
 				ConectarDBA.cerrarCon();
@@ -182,19 +183,19 @@ public class Prestamo {
 	public static void cerrarPrestamo(String iddispositivo,
 			String dni_usuario){
 		if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==false){
-			JOptionPane.showMessageDialog(null, "No existe un préstamo abierto para este dispositivo.");
+			JOptionPane.showMessageDialog(null, "No existe un préstamo abierto para este dispositivo."); //$NON-NLS-1$
 		}else{
 			try {
 				Calendar c = new GregorianCalendar();	//Con estas 5 instrucciones calculo la fecha actual
 				String dia = Integer.toString(c.get(Calendar.DATE));
 				String mes = Integer.toString((c.get(Calendar.MONTH))+1);
 				String año = Integer.toString(c.get(Calendar.YEAR));
-				String fecha = dia+"/"+mes+"/"+año;
-				System.out.println("La fecha actual es : "+fecha+".");
-				ConectarDBA.modificar("UPDATE `prestamo` SET `fecha_devol` = '"+fecha+"' WHERE `iddispositivo` = '"+iddispositivo+"' AND `fecha_devol` = 'no'");
-				JOptionPane.showMessageDialog(null, "Préstamo cerrado correctamente.");
+				String fecha = dia+"/"+mes+"/"+año; //$NON-NLS-1$ //$NON-NLS-2$
+				System.out.println("La fecha actual es : "+fecha+"."); //$NON-NLS-1$ //$NON-NLS-2$
+				ConectarDBA.modificar("UPDATE `prestamo` SET `fecha_devol` = '"+fecha+"' WHERE `iddispositivo` = '"+iddispositivo+"' AND `fecha_devol` = 'no'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanReturned")); //$NON-NLS-1$
 				
-				String modifDispo = "UPDATE `dispositivo` SET `disponible`='0' WHERE iddispositivo='" + iddispositivo +"' ";
+				String modifDispo = "UPDATE `dispositivo` SET `disponible`='0' WHERE iddispositivo='" + iddispositivo +"' "; //$NON-NLS-1$ //$NON-NLS-2$
 				ConectarDBA.modificar(modifDispo);
 				
 				ConectarDBA.cerrarCon();
@@ -219,9 +220,9 @@ public class Prestamo {
 			if (aux.equals(iddispositivo)){
 				try {
 					//if (validarDatos(iddispositivo, dni_usuario)){
-					ConectarDBA.modificar("UPDATE `prestamo` SET `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
+					ConectarDBA.modificar("UPDATE `prestamo` SET `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					
-						JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
+						JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanUpdated")); //$NON-NLS-1$
 				}
 				catch (SQLException e) {
 					e.printStackTrace();
@@ -230,13 +231,13 @@ public class Prestamo {
 			else{
 				if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true){
 			
-				JOptionPane.showMessageDialog(null, "Ya existe un préstamo abierto para este dispositivo.");
+				JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanAlreadyExists")); //$NON-NLS-1$
 			}else{
 				try {
-					ConectarDBA.modificar("UPDATE `prestamo` SET `iddispositivo` = '"+iddispositivo+"', `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'");
-					ConectarDBA.modificar("UPDATE `dispositivo` SET `disponible`='1' WHERE iddispositivo='" + iddispositivo +"'");
-					ConectarDBA.modificar("UPDATE `dispositivo` SET `disponible`='0' WHERE iddispositivo='" + aux +"'");
-					JOptionPane.showMessageDialog(null, "Préstamo actualizado correctamente.");
+					ConectarDBA.modificar("UPDATE `prestamo` SET `iddispositivo` = '"+iddispositivo+"', `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					ConectarDBA.modificar("UPDATE `dispositivo` SET `disponible`='1' WHERE iddispositivo='" + iddispositivo +"'"); //$NON-NLS-1$ //$NON-NLS-2$
+					ConectarDBA.modificar("UPDATE `dispositivo` SET `disponible`='0' WHERE iddispositivo='" + aux +"'"); //$NON-NLS-1$ //$NON-NLS-2$
+					JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanUpdated")); //$NON-NLS-1$
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -259,19 +260,19 @@ public class Prestamo {
 		
 		boolean b = false;
 
-		b = ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, false);
+		b = ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, false); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		if (b == false) {
 			JOptionPane.showMessageDialog(null,
 					//"Error. El ID de dispositivo ha de ser numérico.");
-					"Error. No existe un dispositivo activo con el ID introducido.");
+					Idioma.getString("msgErrorDeviceNotActiveWithID")); //$NON-NLS-1$
 			return false;
 
 		} else{
-			b = ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, false);
+			b = ConectarDBA.comprobarExiste("usuario", "dni", dni_usuario, false); //$NON-NLS-1$ //$NON-NLS-2$
 			if (b == false){
 				JOptionPane.showMessageDialog(null,
-						"Error. No existe un usuario activo con el DNI introducido.");
+						Idioma.getString("msgErrorNotActiveUser")); //$NON-NLS-1$
 				return false;
 			/*if(!(ConectarDBA.comprobarExiste("dispositivo", "iddispositivo", iddispositivo, true))){
 				JOptionPane.showMessageDialog(null,
