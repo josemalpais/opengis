@@ -40,17 +40,19 @@ public class InformeCuaderno {
 	static String espacio2 = "               ";
 	static  String year = Integer.toString(c.get(Calendar.YEAR));
 	static String linea = "_____________________________________________";
-	static String consulta;
+
 	static String Dni;
 	static ResultSet rs;
+	static ResultSet rs2;
+	static ResultSet rs3;
+	static ResultSet rs4;
+
 	static String nombre;
 	static int x;
+	static String consulta;
 	static String consulta2;
-	static ResultSet rs2;
-	static String parcela;
-	static String poblacion;
-	static String poligono;
-	
+	static String consulta3;
+	static String consulta4;
 	
 	public InformeCuaderno(String dni) throws SQLException{
 		Dni = dni;
@@ -64,9 +66,10 @@ public class InformeCuaderno {
 		String finicio = inicio;
 		String ffin = fin; //implementar la consulta para elegir entre 2 fechas
 		consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` , `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`numero` , `parcela_usuario`.`dni_usuario` , `parcela_usuario`.`id_parcela`FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
-	//	consulta2 = "SELECT `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`numero` FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
-		// ,producto.nombre, tareas_realizadas.dosis
-		// ,tareas_realizadas.fecha_final
+		consulta2 ="SELECT  `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`alias` FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
+		consulta3 = "SELECT `parcela`.`poligono` , `parcela`.`alias` , `tareas_realizadas`.`fecha_ini` FROM tareas_realizadas, parcela WHERE ((`tareas_realizadas`.`dni_usuario` LIKE '"+dni+"') AND (`tareas_realizadas`.`idtarea` LIKE '1') AND (`tareas_realizadas`.`idparcela` LIKE `parcela`.`idparcela`))";
+		consulta4 = "SELECT  `parcela`.`alias`,`producto`.`nombre` ,`tareas_realizadas`.`dosis` , `tareas_realizadas`.`fecha_ini`,`producto`.`descripcion` FROM tareas_realizadas, parcela,producto WHERE ((`tareas_realizadas`.`dni_usuario` LIKE '"+dni+"') AND (`tareas_realizadas`.`idtarea` LIKE '5') AND (`tareas_realizadas`.`idparcela` LIKE `parcela`.`idparcela`) AND (`tareas_realizadas`.`idprod` LIKE `producto`.`idprod`))";
+
 		ConectarDBA.acceder();
 		
 		try {
@@ -76,11 +79,16 @@ public class InformeCuaderno {
 				Dni = rs.getString(1);
 				nombre = rs.getString(2);
 				nombre = nombre +" "+ rs.getString(3);
-				poblacion = rs.getString(4);
-				poligono = rs.getString(5);
-				parcela = rs.getString(6);
 				
-		}} catch (SQLException e) {
+				
+		}
+			
+			
+			
+
+
+			
+			} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -141,23 +149,26 @@ public class InformeCuaderno {
 		                     tabla.addCell("sup. Sembrada (1)");
 			                 tabla.addCell("Cultivo y Variedad");
 			                 tabla.addCell("Observaciones");
-			                 tabla.addCell("1");
-			                 tabla.addCell(poblacion);
-			                 tabla.addCell(poligono);
-			                 tabla.addCell(parcela);
-			                 int contador = 0;
-			                 int[] xx= {0,7,15,23,31,39,47,55,63,71,79,87,95,103,111,119,127,135,143,151,159,167,175,183,191,199,207,215,223};
-			                 int i = 4;
+			                 int orden= 1;
+			                 tabla.addCell(orden+"");
+			                 int con = 1;
+			                 rs = ConectarDBA.consulta(consulta2);	
 			                while(rs.next()){
-			                	for(; i <= 6 ; i++ ){
-			                	  
-			                		if(xx[contador] == i)
-			                	  
-			                	  {tabla.addCell(contador+"");
-			                	   contador++;}
-			                	
-			                	  tabla.addCell(rs.getString(i));
-			                 }i = 4;}
+			                	for(int i = 1; i <=3;i++){
+			                		con++;
+			                		tabla.addCell(rs.getString(i));
+			                	}
+			                	for(int aa = 1;aa<=4;aa++){
+			                		tabla.addCell("");
+			                		con++;
+			                	}
+			                	if(con == 8){
+			                		orden ++;
+			                		tabla.addCell(orden+"");
+			                		con = 1;
+			                	}
+			                }
+			                
 			                 
 			                 
 		                 mipdf.add(tabla);
@@ -185,17 +196,22 @@ public class InformeCuaderno {
 		                 mipdf.add(new Paragraph("4. PREPARACION DEL TERRENO", FontFactory.getFont("arial",14,Font.BOLD)));
 		                 mipdf.add(new Paragraph("Fangueado o fresadora", FontFactory.getFont("arial",14,Font.BOLD)));
 		                 mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));
-			                 PdfPTable tabla2 = new PdfPTable(7);
+			                 PdfPTable tabla2 = new PdfPTable(4);
 			                 tabla2.setHorizontalAlignment(Element.ALIGN_LEFT);
-			                 tabla2.addCell("Nº Orden parcela(2)");
-			                 tabla2.addCell("Mes entrada agua");
-			                 tabla2.addCell("Mes retirada agua");
-			                 tabla2.addCell(" ");
-			                 tabla2.addCell("Nº Orden parcela(2)");
-			                 tabla2.addCell("Mes entrada agua");
-			                 tabla2.addCell("Mes retirada agua");
-			                 for(int o =0;o<=49;o++){
-			                	 tabla2.addCell(" ");
+			                 tabla2.addCell("Poligono");
+			                 tabla2.addCell("Parcela");
+			                 tabla2.addCell("Fecha");
+			                 tabla2.addCell("Observaciones");
+			                 con =1;	
+			                 rs =ConectarDBA.consulta(consulta3);
+			                 while(rs.next()){
+			                  for(int o = 1; o<=3;o++){
+			                	  tabla2.addCell(rs.getString(o));
+			                   if(con == 4){
+			                	   tabla2.addCell(con+"");
+			                	   con =1;
+			                   }
+			                 }
 			                 }
 		                 mipdf.add(tabla2);
 		                 mipdf.add(new Paragraph("(2) Hacer constar el nº de orden de todas las parcelas si se agrupan.", FontFactory.getFont("arial",8,Font.BOLD)));
@@ -261,10 +277,13 @@ public class InformeCuaderno {
 			                 tabla6.addCell("Dosis");
 			                 tabla6.addCell("Fecha");
 			                 tabla6.addCell("Observaciones");
-			                
-			                 for(int o =0;o<=25;o++){
-			                	 tabla6.addCell(" ");
+			                 rs=ConectarDBA.consulta(consulta4);
+			                 while(rs.next()){
+			                	for(int o = 1;o <=5;o++){
+			                		tabla6.addCell(rs.getString(o));
+			                	} 
 			                 }
+			                 		                 
 		                 mipdf.add(tabla6);
 		                 
                  mipdf.newPage();//sexta pagina

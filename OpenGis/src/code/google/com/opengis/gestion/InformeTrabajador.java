@@ -36,6 +36,7 @@ static ResultSet rs;
 static Document mipdf = new Document(PageSize.LEGAL.rotate());
 static String Dni;
 static String consulta;
+static String consulta2;
 static String nombre;
 static String apellidos;
 static String ppoblacion;
@@ -50,7 +51,7 @@ static String fechaini;
 static String fechafin;
 
 public InformeTrabajador(String dni) throws SQLException {
-	DatosUsuarioParcela(dni,"01/01/2011","31/12/2011");
+	DatosUsuarioParcela(dni,"2011/01/01","2011/12/31");
 	
 	crear_PDF("Informe Trabajador", "Opengis");
 
@@ -58,20 +59,19 @@ public InformeTrabajador(String dni) throws SQLException {
 public void DatosUsuarioParcela(String dni,String inicio,String fin) {
 	fechaini = inicio;
 	fechafin = fin; //implementar la consulta para elegir entre 2 fechas
-	consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` , `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`numero` , `parcela_usuario`.`dni_usuario` , `parcela_usuario`.`id_parcela`FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
-	// ,producto.nombre, tareas_realizadas.dosis
-	// ,tareas_realizadas.fecha_final
+	consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
+	consulta2 = "SELECT  `parcela`.`alias` ,`parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`dni_propietario` , `tareas_realizadas`.`idtarea` , `tareas_realizadas`.`fecha_ini`, `tareas_realizadas`.`fecha_final` FROM parcela, tareas_realizadas WHERE ((`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`)) ";
 	ConectarDBA.acceder();
-	
 	try {
 		
 		rs = ConectarDBA.consulta(consulta);
-		while (rs.next()) {	
+		if (rs.next()) {	
 			Dni = rs.getString(1);
 			nombre = rs.getString(2);
 			apellidos =  rs.getString(3);
 			
 			}
+		rs = ConectarDBA.consulta(consulta2);
 
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -105,24 +105,36 @@ private void crear_PDF(String titulo, String n) {
             foto.setAlignment(Chunk.ALIGN_MIDDLE);
             mipdf.add(foto); 
             */
-            mipdf.add(new Paragraph("Nombre: "+nombre, FontFactory.getFont("arial",22,Font.BOLD)));             
-            mipdf.add(new Paragraph("Apellidos: "+apellidos, FontFactory.getFont("arial",22,Font.BOLD)));             
-            mipdf.add(new Paragraph("Dni: "+Dni, FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph("Nombre: "+nombre, FontFactory.getFont("arial",18,Font.BOLD)));             
+            mipdf.add(new Paragraph("Apellidos: "+apellidos, FontFactory.getFont("arial",18,Font.BOLD)));             
+            mipdf.add(new Paragraph("Dni: "+Dni, FontFactory.getFont("arial",18,Font.BOLD)));             
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
-            mipdf.add(new Paragraph("Parcelas trabajadas entre "+ fechaini +" y "+fechafin, FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph("Parcelas trabajadas entre "+ fechaini +" y "+fechafin, FontFactory.getFont("arial",18,Font.BOLD)));             
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
             PdfPTable tabla = new PdfPTable(7);
             tabla.setHorizontalAlignment(Element.ALIGN_CENTER);
             tabla.addCell("Nº Parcela");
             tabla.addCell("Término municipal");
             tabla.addCell("Polígono");
+            tabla.addCell("Dueño");
             tabla.addCell("Tarea Realizada");
             tabla.addCell("Fecha inicio");
             tabla.addCell("Fecha fin");
-            tabla.addCell("Dueño");
-            for(int o =0;o<=49;o++){
-           	 tabla.addCell(" ");
-            }
+           
+            try {
+				while(rs.next())
+				for(int o =1;o<=7;o++){
+				 try {
+					tabla.addCell(rs.getString(o));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             mipdf.add(tabla);
             mipdf.close(); //se cierra el PDF&
             JOptionPane.showMessageDialog(null,"Documento PDF creado");

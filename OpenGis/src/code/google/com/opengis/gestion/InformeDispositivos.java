@@ -34,13 +34,12 @@ public class InformeDispositivos {
 
 static ResultSet rs;
 static Document mipdf = new Document(PageSize.LEGAL.rotate());
-static String Dni;
+static String iddispositivo;
 static String consulta;
-static String nombre;
-static String apellidos;
-static String ppoblacion;
-static String ppoligono;
-static String pnumero;
+static String consulta2;
+static String modelo;
+static String nºserie;
+
 
 
 static Calendar c = new GregorianCalendar();
@@ -49,29 +48,29 @@ static Image imghead = null;
 static String fechaini;
 static String fechafin;
 
-public InformeDispositivos(String dni) throws SQLException {
-	DatosUsuarioParcela(dni,"01/01/2011","31/12/2011");
+public InformeDispositivos(String id) throws SQLException {
+	DatosUsuarioParcela(id,"01/01/2011","31/12/2011");
 	
 	crear_PDF("Informe Trabajador", "Opengis");
 
 }
-public void DatosUsuarioParcela(String dni,String inicio,String fin) {
+public void DatosUsuarioParcela(String id,String inicio,String fin) {
 	fechaini = inicio;
 	fechafin = fin; //implementar la consulta para elegir entre 2 fechas
-	consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` , `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`numero` , `parcela_usuario`.`dni_usuario` , `parcela_usuario`.`id_parcela`FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
-	// ,producto.nombre, tareas_realizadas.dosis
-	// ,tareas_realizadas.fecha_final
-	ConectarDBA.acceder();
+	consulta = "SELECT `dispositivo`.`modelo` , `dispositivo`.`num_serie` , `dispositivo`.`iddispositivo` FROM dispositivo WHERE ((`dispositivo`.`iddispositivo` LIKE '"+id+"'))";
+	consulta2 = "SELECT `usuario`.`nombre`, `usuario`.`apellidos`, `usuario`.`dni` , `prestamo`.`fecha_alquiler` , `prestamo`.`fecha_devol` FROM dispositivo, prestamo, usuario	WHERE ((`dispositivo`.`iddispositivo` LIKE '"+id+"') AND (`prestamo`.`iddispositivo` LIKE `dispositivo`.`iddispositivo`) AND (`usuario`.`dni` LIKE `prestamo`.`dni_usuario`))";
+			 	ConectarDBA.acceder();
 	
 	try {
 		
 		rs = ConectarDBA.consulta(consulta);
-		while (rs.next()) {	
-			Dni = rs.getString(1);
-			nombre = rs.getString(2);
-			apellidos =  rs.getString(3);
+		if (rs.next()) {	
+			modelo = rs.getString(1);
+			nºserie = rs.getString(2);
+			iddispositivo =  rs.getString(3);
 			
 			}
+		rs = ConectarDBA.consulta(consulta2);
 
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -105,13 +104,13 @@ private void crear_PDF(String titulo, String n) {
             foto.setAlignment(Chunk.ALIGN_MIDDLE);
             mipdf.add(foto); 
             */
-            mipdf.add(new Paragraph("Modelo: ", FontFactory.getFont("arial",22,Font.BOLD)));             
-            mipdf.add(new Paragraph("Numero de Serie: ", FontFactory.getFont("arial",22,Font.BOLD)));             
-            mipdf.add(new Paragraph("ID dispositivo: ", FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph("Modelo: "+ modelo, FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph("Numero de Serie: "+ nºserie, FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph("ID dispositivo: "+ iddispositivo, FontFactory.getFont("arial",22,Font.BOLD)));             
                  
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
 
-            mipdf.add(new Paragraph("Empleados entre "+ fechaini +" y "+fechafin, FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph("Dispositivos usados entre "+ fechaini +" y "+fechafin, FontFactory.getFont("arial",22,Font.BOLD)));             
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
             PdfPTable tabla = new PdfPTable(5);
             tabla.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -121,10 +120,15 @@ private void crear_PDF(String titulo, String n) {
             tabla.addCell("Fecha inicio");
             tabla.addCell("Fecha final");
             
-
-            for(int o =0;o<=30;o++){
-           	 tabla.addCell(" ");
-            }
+            try {
+				while(rs.next()){
+				for(int o =1;o<=5;o++){
+				 tabla.addCell(rs.getString(o));
+				}}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             mipdf.add(tabla);
             mipdf.close(); //se cierra el PDF&
             JOptionPane.showMessageDialog(null,"Documento PDF creado");
