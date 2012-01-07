@@ -187,7 +187,7 @@ public class PrestamoPanelGestion extends JPanel {
 			txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					
-					
+					encontrado = false;
 					ConectarDBA.acceder();
 					
 					String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'"; //$NON-NLS-1$ //$NON-NLS-2$
