@@ -110,7 +110,7 @@ private void crear_PDF(String titulo, String n) {
                  
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
 
-            mipdf.add(new Paragraph("Dispositivos usados entre "+ fechaini +" y "+fechafin, FontFactory.getFont("arial",22,Font.BOLD)));             
+            //mipdf.add(new Paragraph("Dispositivos usados entre "+ fechaini +" y "+fechafin, FontFactory.getFont("arial",22,Font.BOLD)));             
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
             PdfPTable tabla = new PdfPTable(5);
             tabla.setHorizontalAlignment(Element.ALIGN_CENTER);

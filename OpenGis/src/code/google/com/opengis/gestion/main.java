@@ -30,7 +30,10 @@ public class main {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
 		LoginVisual ln = new LoginVisual();
-		//VentanaPrincipal p = new VentanaPrincipal('a',"53762611L");
+		//InformeCuaderno ln = new InformeCuaderno("44876647j");
+		//InformeTrabajador ln = new InformeTrabajador("44876647j");
+		//InformeDispositivos ln = new InformeDispositivos("2");
+		//InformeParcela ln = new InformeParcela("2");
 		
 	
 }
