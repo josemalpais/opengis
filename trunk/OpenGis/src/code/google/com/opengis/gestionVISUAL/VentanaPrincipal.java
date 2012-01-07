@@ -612,6 +612,39 @@ import code.google.com.opengis.gestionDAO.Idioma;
     			bInformes.setBounds(new Rectangle(246, 33, 63, 58));
     			bInformes.setIcon(new ImageIcon ("OpenGis/src/recursosVisuales/informes.png")); //$NON-NLS-1$
     			bInformes.setToolTipText(Idioma.getString("etReportsMng")); //$NON-NLS-1$
+    			bInformes.addActionListener(new java.awt.event.ActionListener() {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					bCerrarPestaña.setVisible(true);
+
+    					if(tipoUsuario == 'a'){
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							InformesVisual panelNuevo = new InformesVisual();
+    						
+    							tabsPaneles.addTab(Idioma.getString("etImplementsMng"),panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+							
+    						
+    					}else{
+    						
+    						
+    						// INSERTAR AQUÍ FUNCIONALIDAD DE TRABAJADOR
+    						
+    					}
+    						
+    						
+        					
+    				}
+    			});
     		}
     		return bInformes;
     	}
