@@ -219,10 +219,13 @@ public class Prestamo {
 			if(validarDatos(iddispositivo, dni_usuario)){
 			if (aux.equals(iddispositivo)){
 				try {
-					//if (validarDatos(iddispositivo, dni_usuario)){
-					ConectarDBA.modificar("UPDATE `prestamo` SET `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					
+					if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true){
+						
+						JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanAlreadyExists")); //$NON-NLS-1$
+					}else{
+						ConectarDBA.modificar("UPDATE `prestamo` SET `dni_usuario` = '"+dni_usuario+"' WHERE `id_prestamo` = '"+idprestamo+"' AND `fecha_devol` = 'no'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanUpdated")); //$NON-NLS-1$
+					}
 				}
 				catch (SQLException e) {
 					e.printStackTrace();
