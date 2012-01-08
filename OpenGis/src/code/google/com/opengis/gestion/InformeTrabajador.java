@@ -111,7 +111,7 @@ private void crear_PDF(String titulo, String n) {
             mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.LastName")+apellidos, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
             mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.IDCard")+Dni, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
-            mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.LotsWorkedBetween")+ fechaini +Idioma.getString("_WorkerReport.23")+fechafin, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.LotsWorkedBetween")+ fechaini +Idioma.getString("_WorkerReport.And")+fechafin, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
             PdfPTable tabla = new PdfPTable(7);
             tabla.setHorizontalAlignment(Element.ALIGN_CENTER);
