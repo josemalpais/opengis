@@ -52,7 +52,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
-		frame.getContentPane().add(new InformesVisual());
+		frame.getContentPane().add(new InformeVisual2());
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
