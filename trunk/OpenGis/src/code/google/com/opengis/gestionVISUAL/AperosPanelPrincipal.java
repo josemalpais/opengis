@@ -80,7 +80,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 	
 	public void nuevo(){
 		
-		AperosPanelNuevo p = new AperosPanelNuevo("alta"); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+		AperosPanelNuevo p = new AperosPanelNuevo("alta",""); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 		
 		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewImplement"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		

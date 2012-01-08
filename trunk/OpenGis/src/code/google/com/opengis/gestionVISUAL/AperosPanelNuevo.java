@@ -313,6 +313,11 @@ public class AperosPanelNuevo extends JPanel {
 	private JTextField getTxtUser() {
 		if (txtUser == null) {
 			txtUser = new JTextField(user);
+			if(user != ""){
+				
+				txtUser.setEnabled(false);
+				
+			}
 			txtUser.setBounds(new Rectangle(123, 139, 143, 27));
 		}
 		return txtUser;
