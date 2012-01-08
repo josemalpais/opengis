@@ -17,7 +17,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 
 	private String dniUsuario;
-	static Object[] columnas={"ID Parcela", "Alias", "Nº Provincia","Nº Población", "Nº Polígono", "Nº Parcela","Nº Partida","DNI del Propietario","Estado"};
+	static Object[] columnas={Idioma.getString("etIDLot"), Idioma.getString("etAlias"), Idioma.getString("etProvinceNum"),Idioma.getString("etCityNum"), Idioma.getString("etAreaNum"), Idioma.getString("etLotNum"),Idioma.getString("etEntryNum"),Idioma.getString("etIDOwner"),Idioma.getString("etStatus")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
 	private ResultSet rs = null;
 	private JButton bSigPac;
 	
@@ -41,7 +41,7 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 			ConectarDBA.acceder();
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
-			String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario`, `activo` FROM `parcela` WHERE dni_propietario LIKE '"+dniUsuario+"'";
+			String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario`, `activo` FROM `parcela` WHERE dni_propietario LIKE '"+dniUsuario+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 			try{
 
 				rs = dba.consulta(Texto);
@@ -135,10 +135,10 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 	
 	public void nuevo(){
 		
-		ParcelasPanelNuevo p = new ParcelasPanelNuevo("alta"); 
+		ParcelasPanelNuevo p = new ParcelasPanelNuevo("alta");  //$NON-NLS-1$
 		p.txtDniPropietario.setText(dniUsuario);
 		p.txtDniPropietario.setEnabled(false);
-		VentanaPrincipal.añadirPestañaNueva("Nueva Parcela",p);
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewLot"),p); //$NON-NLS-1$
 
 	}
 	
@@ -153,9 +153,9 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 			}
 			
 			
-			ParcelasPanelNuevo p = new ParcelasPanelNuevo("modificar",rParcela[0].toString(),rParcela[1].toString(),rParcela[2].toString(),rParcela[3].toString(),rParcela[4].toString(),rParcela[5].toString(),rParcela[6].toString(),rParcela[7].toString()); // Creamos el panel de Alta de Parcelas
+			ParcelasPanelNuevo p = new ParcelasPanelNuevo("modificar",rParcela[0].toString(),rParcela[1].toString(),rParcela[2].toString(),rParcela[3].toString(),rParcela[4].toString(),rParcela[5].toString(),rParcela[6].toString(),rParcela[7].toString()); // Creamos el panel de Alta de Parcelas //$NON-NLS-1$
 			p.txtDniPropietario.setEnabled(false);
-			VentanaPrincipal.añadirPestañaNueva("Modificar "+rParcela[1].toString(),p);
+			VentanaPrincipal.añadirPestañaNueva("Modificar "+rParcela[1].toString(),p); //$NON-NLS-1$
 			
 			
 		}
@@ -167,7 +167,7 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 		if (bSigPac == null) {
 			bSigPac = new JButton();
 			bSigPac.setBounds(new Rectangle(725, 316, 55, 47));
-			bSigPac.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png"));
+			bSigPac.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png")); //$NON-NLS-1$
 			bSigPac.setEnabled(false);
 			bSigPac.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -175,15 +175,15 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 				
 				    NativeInterface.open();
 				    	  
-				    	  String url = "http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat="
-								+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+
-								",0,0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+
-								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true";
+				    	  String url = "http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat=" //$NON-NLS-1$
+								+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+ //$NON-NLS-1$
+								",0,0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+ //$NON-NLS-1$
+								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true"; //$NON-NLS-1$ //$NON-NLS-2$
 							
 				    	  
 							PanelPDF pdf = new PanelPDF(url);
 							
-							VentanaPrincipal.añadirPestañaNueva("Información Parcela - " + getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),1),pdf);
+							VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etLotInfo") + getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),1),pdf); //$NON-NLS-1$
 
 				}
 			});
@@ -202,7 +202,7 @@ public void eliminar(){
 		
 			
     	try {
-    		int confirmar=JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el registro "+id);
+    		int confirmar=JOptionPane.showConfirmDialog(null, Idioma.getString("msgDeleteConfirm")+id); //$NON-NLS-1$
     		if(JOptionPane.OK_OPTION==confirmar){
     			Parcela.bajaParcela(id);
     			buscar();

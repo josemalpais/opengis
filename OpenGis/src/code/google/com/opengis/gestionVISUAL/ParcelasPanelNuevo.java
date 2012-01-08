@@ -83,11 +83,11 @@ public class ParcelasPanelNuevo extends JPanel {
 		this.accion = accion;
 		initialize();
 		try {
-			String snt = "SELECT MAX(idparcela) FROM `parcela`";
+			String snt = "SELECT MAX(idparcela) FROM `parcela`"; //$NON-NLS-1$
 			dba.acceder();
 			ResultSet rs2 = dba.consulta(snt);
 			while (rs2.next()) {
-				txtIdParcelap.setText((rs2.getInt(1) + 1) + "");
+				txtIdParcelap.setText((rs2.getInt(1) + 1) + ""); //$NON-NLS-1$
 			}
 			txtIdParcelap.setEnabled(false);
 		} catch (SQLException e1) {
@@ -106,29 +106,29 @@ public class ParcelasPanelNuevo extends JPanel {
 	private void initialize() {
 		lblPoblacionp = new JLabel();
 		lblPoblacionp.setBounds(new Rectangle(506, 83, 138, 30));
-		lblPoblacionp.setText("Nº Población: ");
+		lblPoblacionp.setText(Idioma.getString("etCityNum")); //$NON-NLS-1$
 
 		lblDnip = new JLabel();
 		lblDnip.setBounds(new Rectangle(44, 192, 88, 30));
-		lblDnip.setText("DNI Dueño: ");
+		lblDnip.setText(Idioma.getString("etOwnerID")); //$NON-NLS-1$
 		lblNumerop = new JLabel();
 		lblNumerop.setBounds(new Rectangle(506, 136, 88, 30));
-		lblNumerop.setText("Nº Parcela: ");
+		lblNumerop.setText(Idioma.getString("etLotNum")); //$NON-NLS-1$
 		lblPartidap = new JLabel();
 		lblPartidap.setBounds(new Rectangle(274, 137, 88, 30));
-		lblPartidap.setText("Partida: ");
+		lblPartidap.setText(Idioma.getString("etEntry")); //$NON-NLS-1$
 		lblPoligonop = new JLabel();
 		lblPoligonop.setBounds(new Rectangle(42, 137, 88, 30));
-		lblPoligonop.setText("Nº Polígono: ");
+		lblPoligonop.setText(Idioma.getString("etAreaNum")); //$NON-NLS-1$
 		lblIdParcela = new JLabel();
 		lblIdParcela.setBounds(new Rectangle(42, 31, 88, 30));
-		lblIdParcela.setText("ID Parcela: ");
+		lblIdParcela.setText(Idioma.getString("etLotID")); //$NON-NLS-1$
 		lblProvinciap = new JLabel();
 		lblProvinciap.setBounds(new Rectangle(274, 84, 88, 30));
-		lblProvinciap.setText("Nº Provincia: ");
+		lblProvinciap.setText(Idioma.getString("etProvinceNum")); //$NON-NLS-1$
 		lblAliasp = new JLabel();
 		lblAliasp.setBounds(new Rectangle(42, 84, 88, 30));
-		lblAliasp.setText("Alias: ");
+		lblAliasp.setText(Idioma.getString("etAlias")); //$NON-NLS-1$
 		this.setSize(782, 388);
 		this.setLayout(null);
 		this.add(lblAliasp, null);
@@ -168,7 +168,7 @@ public class ParcelasPanelNuevo extends JPanel {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					ConectarDBA dba=null;
 					
-					if(accion.equals("alta")){ 
+					if(accion.equals("alta")){  //$NON-NLS-1$
 						
 						Parcela p1=new Parcela(0,txtAliasp
 								.getText(), txtProvinciap.getText(),txtPoblacion.getText(),
@@ -178,16 +178,16 @@ public class ParcelasPanelNuevo extends JPanel {
 							try {
 								p1.altaParcela();
 								
-								txtAliasp.setText("");
-								txtProvinciap.setText("");
-								txtPoblacion.setText("");
-								txtPoligonop.setText("");
-								txtPartidap.setText("");
-								txtNumerop.setText("");
-								txtDniPropietario.setText("");
+								txtAliasp.setText(""); //$NON-NLS-1$
+								txtProvinciap.setText(""); //$NON-NLS-1$
+								txtPoblacion.setText(""); //$NON-NLS-1$
+								txtPoligonop.setText(""); //$NON-NLS-1$
+								txtPartidap.setText(""); //$NON-NLS-1$
+								txtNumerop.setText(""); //$NON-NLS-1$
+								txtDniPropietario.setText(""); //$NON-NLS-1$
 								
 							} catch (SQLException e1) {
-								JOptionPane.showMessageDialog(null, "ERROR DE INSERCION");
+								JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorInsert")); //$NON-NLS-1$
 								 //TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
@@ -209,14 +209,14 @@ public class ParcelasPanelNuevo extends JPanel {
 						if(Parcela.isValido()==true && encontrado==true){
 							try {
 
-								String sentencia = "UPDATE `dai2opengis`.`parcela` SET  `alias` = '"+p1.getAlias()+"', `provincia`= '"+p1.getProvincia()+"', `poblacion`= '"+p1.getPoblacion()+"', `poligono`= '"+p1.getPoligono()+"', `numero`= '"+p1.getNumero()+"', `partida`= '"+p1.getPartida()+"',`dni_propietario`= '"+p1.getDniPropietario()+"'  WHERE `idparcela` = "+x;
+								String sentencia = "UPDATE `dai2opengis`.`parcela` SET  `alias` = '"+p1.getAlias()+"', `provincia`= '"+p1.getProvincia()+"', `poblacion`= '"+p1.getPoblacion()+"', `poligono`= '"+p1.getPoligono()+"', `numero`= '"+p1.getNumero()+"', `partida`= '"+p1.getPartida()+"',`dni_propietario`= '"+p1.getDniPropietario()+"'  WHERE `idparcela` = "+x; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 								
 								dba.modificar(sentencia);
 								
-								JOptionPane.showMessageDialog(null, "PARCELA MODIFICADA CORRECTAMENTE");
+								JOptionPane.showMessageDialog(null, Idioma.getString("msgLotModified")); //$NON-NLS-1$
 							} catch (SQLException e1) {
 								
-								JOptionPane.showMessageDialog(null, "ERROR AL MODIFICAR");
+								JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorLotModify")); //$NON-NLS-1$
 								 //TODO Auto-generated catch block
 								//e1.printStackTrace();
 							}
@@ -238,23 +238,23 @@ public class ParcelasPanelNuevo extends JPanel {
 			bRestablecer = new JButton();
 			bRestablecer.setBounds(new Rectangle(122, 314, 53, 45));
 			bRestablecer.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png"))); //$NON-NLS-1$
-			bRestablecer.setToolTipText(Idioma.getString("etCleanFields"));
+			bRestablecer.setToolTipText(Idioma.getString("etCleanFields")); //$NON-NLS-1$
 			bRestablecer.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
 					
-					if(accion!="modificar"){
+					if(accion!="modificar"){ //$NON-NLS-1$
 					
-						txtIdParcelap.setText("");
+						txtIdParcelap.setText(""); //$NON-NLS-1$
 						
 					}
-					txtAliasp.setText("");
-					txtProvinciap.setText("");
-					txtPoblacion.setText("");
-					txtPoligonop.setText("");
-					txtPartidap.setText("");
-					txtNumerop.setText("");
-					txtDniPropietario.setText("");
+					txtAliasp.setText(""); //$NON-NLS-1$
+					txtProvinciap.setText(""); //$NON-NLS-1$
+					txtPoblacion.setText(""); //$NON-NLS-1$
+					txtPoligonop.setText(""); //$NON-NLS-1$
+					txtPartidap.setText(""); //$NON-NLS-1$
+					txtNumerop.setText(""); //$NON-NLS-1$
+					txtDniPropietario.setText(""); //$NON-NLS-1$
 					
 					
 				}
@@ -273,7 +273,7 @@ public class ParcelasPanelNuevo extends JPanel {
 			txtIdParcelap = new JTextField(idparcela);
 			txtIdParcelap.setBounds(new Rectangle(123, 33, 143, 27));
 			
-			if(accion=="modificar"){
+			if(accion=="modificar"){ //$NON-NLS-1$
 				
 				txtIdParcelap.setEnabled(false);
 			}

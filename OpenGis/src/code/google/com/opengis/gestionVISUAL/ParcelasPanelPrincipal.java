@@ -30,7 +30,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 	private JButton bSigPac = null;
 	private int i = 0;
 	
-	static Object[] columnas={"ID Parcela", "Alias", "Nº Provincia","Nº Población", "Nº Polígono", "Nº Parcela","Nº Partida","DNI del Propietario", "Estado"};
+	static Object[] columnas={Idioma.getString("etIDLot"), Idioma.getString("etAlias"), Idioma.getString("etProvinceNum"),Idioma.getString("etCityNum"), Idioma.getString("etAreaNum"), Idioma.getString("etLotNum"),Idioma.getString("etEntryNum"),Idioma.getString("etIDOwner"), Idioma.getString("etStatus")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
 	ResultSet rs = null;
 	
 	public ParcelasPanelPrincipal(){
@@ -46,12 +46,12 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				ConectarDBA.acceder();
 				modelo.setColumnCount(0);
 				modelo.setRowCount(0);
-				String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario`, `activo` FROM `parcela` WHERE (idparcela LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or alias LIKE '%"
-						+getTxtCriterioBusqueda().getText()+"%' Or provincia LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  poblacion LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or poligono LIKE '%"
-						+getTxtCriterioBusqueda().getText()+"%' Or  numero LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  partida LIKE '%"
-						+getTxtCriterioBusqueda().getText()+"%' Or  dni_propietario LIKE '%"+getTxtCriterioBusqueda().getText()+"%' )";
+				String Texto = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario`, `activo` FROM `parcela` WHERE (idparcela LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or alias LIKE '%" //$NON-NLS-1$ //$NON-NLS-2$
+						+getTxtCriterioBusqueda().getText()+"%' Or provincia LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  poblacion LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or poligono LIKE '%" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						+getTxtCriterioBusqueda().getText()+"%' Or  numero LIKE '%"+getTxtCriterioBusqueda().getText()+"%' Or  partida LIKE '%" //$NON-NLS-1$ //$NON-NLS-2$
+						+getTxtCriterioBusqueda().getText()+"%' Or  dni_propietario LIKE '%"+getTxtCriterioBusqueda().getText()+"%' )"; //$NON-NLS-1$ //$NON-NLS-2$
 				try{
-					System.out.println("Ejecutada sentencia "+ Texto);
+					System.out.println("Ejecutada sentencia "+ Texto); //$NON-NLS-1$
 					rs = dba.consulta(Texto);
 				}catch (SQLException e){
 					System.out.println(e);
@@ -97,9 +97,9 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 		}
 	
 	public void nuevo(){
-		ParcelasPanelNuevo p = new ParcelasPanelNuevo("alta"); 
+		ParcelasPanelNuevo p = new ParcelasPanelNuevo("alta");  //$NON-NLS-1$
 		
-		VentanaPrincipal.añadirPestañaNueva("Nueva Parcela",p);
+		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewLot"),p); //$NON-NLS-1$
 		
 	}
 
@@ -116,9 +116,9 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 			
 			
-			ParcelasPanelNuevo p = new ParcelasPanelNuevo("modificar",rParcela[0].toString(),rParcela[1].toString(),rParcela[2].toString(),rParcela[3].toString(),rParcela[4].toString(),rParcela[5].toString(),rParcela[6].toString(),rParcela[7].toString()); // Creamos el panel de Alta de Parcelas
+			ParcelasPanelNuevo p = new ParcelasPanelNuevo("modificar",rParcela[0].toString(),rParcela[1].toString(),rParcela[2].toString(),rParcela[3].toString(),rParcela[4].toString(),rParcela[5].toString(),rParcela[6].toString(),rParcela[7].toString()); // Creamos el panel de Alta de Parcelas //$NON-NLS-1$
 			
-			VentanaPrincipal.añadirPestañaNueva("Modificar "+rParcela[1].toString(),p);
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModify")+rParcela[1].toString(),p); //$NON-NLS-1$
 			
 			
 		}
@@ -137,7 +137,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 		
 			
     	try {
-    		int confirmar=JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el registro "+id);
+    		int confirmar=JOptionPane.showConfirmDialog(null, Idioma.getString("msgDeleteConfirm")+id); //$NON-NLS-1$
     		if(JOptionPane.OK_OPTION==confirmar){
     			Parcela.bajaParcela(id);
     			buscar();
@@ -194,7 +194,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 		if (bSigPac == null) {
 			bSigPac = new JButton();
 			bSigPac.setBounds(new Rectangle(725, 316, 55, 47));
-			bSigPac.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png"));
+			bSigPac.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/parcela.png")); //$NON-NLS-1$
 			bSigPac.setEnabled(false);
 			bSigPac.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -202,15 +202,15 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				
 				    NativeInterface.open();
 				    	  
-				    	  String url = "http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat="
-								+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+
-								",0,0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+
-								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true";
+				    	  String url = "http://sigpac.mapa.es/fega/salidasgraficas/AspPrintLotProvider.aspx?layer=PARCELA&RCat=" //$NON-NLS-1$
+								+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),2)+","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),3)+ //$NON-NLS-1$
+								",0,0,"+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),4)+ //$NON-NLS-1$
+								","+getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),5)+"&visibleLayers=PARCELA;RECINTO;ARBOLES&etiquetas=true"; //$NON-NLS-1$ //$NON-NLS-2$
 							
 				    	  
 							PanelPDF pdf = new PanelPDF(url);
 							
-							VentanaPrincipal.añadirPestañaNueva("Información Parcela - " + getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),1),pdf);
+							VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etLotInfo") + getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(),1),pdf); //$NON-NLS-1$
 
 				}
 			});
@@ -236,7 +236,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				getBEliminar().setEnabled(false);
 				getBSigPac().setEnabled(false);
 				
-				int resp = JOptionPane.showConfirmDialog(this,"La parcela con Nombre: " + rParcela[1] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("etLotWithName") + rParcela[1] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
 				if(resp==0){
 					

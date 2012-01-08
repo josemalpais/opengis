@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 
 /**
@@ -86,16 +87,16 @@ public class Parcela {
 				if((alias.length()>0)&&(alias.length()<21)){ //comprobamos que el alias este entre 1 y 20
 					this.alias = alias;
 				}else{
-					JOptionPane.showMessageDialog(null, "EL ALIAS DEBE ESTAR COMPRENDIDO ENTRE 1 y 20 CARÁCTERES");
+					JOptionPane.showMessageDialog(null, Idioma.getString("msgAliasBetween1And20")); //$NON-NLS-1$
 					valido=false;
 				}
 			}else{
 			
-				JOptionPane.showMessageDialog(null, "ALIAS NO ADMITE ESPACIOS EN BLANCO");
+				JOptionPane.showMessageDialog(null, Idioma.getString("msgAliasNotBlankSpace")); //$NON-NLS-1$
 				valido=false;
 			}
 		}else{
-			JOptionPane.showMessageDialog(null, "EL ALIAS DEBE TENER UN MINIMO DE 3 CARÁCTERES.");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgAliasThreeChar")); //$NON-NLS-1$
 		}
 	}
 	public String getProvincia() {
@@ -114,11 +115,11 @@ public class Parcela {
 			if((esNumerico(provincia)==true &&(prov>0)&&(prov<52))){ //comprobamos que el alias este entre 1 y 20
 				this.provincia = provincia;
 			}else{
-				JOptionPane.showMessageDialog(null,"EL Nº PROVINCIA NO ES CORRECTO.");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgProvNumWrong")); //$NON-NLS-1$
 				valido=false;
 			}
 		} catch (Exception e2) {
-				JOptionPane.showMessageDialog(null,"EL Nº PROVINCIA DEBE SER NUMERICO.");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgProvNumNumeric")); //$NON-NLS-1$
 		}
 	}
 	public String getPoblacion() {
@@ -136,11 +137,11 @@ public class Parcela {
 			if((esNumerico(poblacion)==true &&(pobl>0)&&(pobl<8175))){ //comprobamos que el alias este entre 1 y 30
 				this.poblacion = poblacion;
 			}else{
-				JOptionPane.showMessageDialog(null,"EL Nº POBLACION NO ES CORRECTO.");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgCityNumWrong")); //$NON-NLS-1$
 				valido=false;
 			}
 		} catch (Exception e2) {
-			JOptionPane.showMessageDialog(null,"EL Nº POBLACION DEBE SER NUMERICO.");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgCityNumNumeric")); //$NON-NLS-1$
 	}
 	}
 	public String getPoligono() {
@@ -159,11 +160,11 @@ public class Parcela {
 		if((esNumerico(poligono)&&(pol>0)&&(pol<1000))){ //comprobamos que el poligono este entre 1 y 10
 			this.poligono = poligono;
 		}else{
-			JOptionPane.showMessageDialog(null,"EL Nº POLIGONO NO ES CORRECTO.");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgAreaNumWrong")); //$NON-NLS-1$
 			valido=false;
 		}
 		} catch (Exception e2) {
-			JOptionPane.showMessageDialog(null,"EL Nº POLIGONO DEBE SER NUMERICO.");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgAreaNumNumeric")); //$NON-NLS-1$
 	}
 	}
 	public String getNumero() {
@@ -180,11 +181,11 @@ public class Parcela {
 		if((esNumerico(numero)&&(num>0)&&(num<100000))){ //comprobamos que sea numerico y entre 1 y 10
 			this.numero = numero;
 		}else{
-			JOptionPane.showMessageDialog(null,"EL Nº DE PARCELA NO ES CORRECTO");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgLotNumWrong")); //$NON-NLS-1$
 			valido=false;
 		}
 		} catch (Exception e2) {
-			JOptionPane.showMessageDialog(null,"EL Nº PARCELA DEBE SER NUMÉRICO.");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgLotNumNumeric")); //$NON-NLS-1$
 	}
 	}
 	public int isActivo() {
@@ -208,7 +209,7 @@ public class Parcela {
 		if((partida.length()>-1)&&(partida.length()<21)){//comprobamos que la partida este entre 1 y 20
 			this.partida = partida;
 		}else{
-			JOptionPane.showMessageDialog(null, "LA PARTIDA DEBE ESTAR COMPRENDIDA ENTRE 0 Y 20 CARÁCTERES");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgEntryBetween0And20")); //$NON-NLS-1$
 			valido=false;
 		}
 	}
@@ -224,11 +225,11 @@ public class Parcela {
 			try{	
 				validarDni(dnipropietario);
 			}catch(NumberFormatException ex){
-				JOptionPane.showMessageDialog(null,"DNI INCORRECTO");
+				JOptionPane.showMessageDialog(null,Idioma.getString("msgIDCardWrong")); //$NON-NLS-1$
 				valido=false;
 			}
 		}else{
-			JOptionPane.showMessageDialog(null,"EL DNI DEBE CONTENER UNA LONGITUD EXACTA DE 9 (00000000L)");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementWrongOwner")); //$NON-NLS-1$
 			valido=false;
 		}
 			
@@ -256,8 +257,8 @@ public class Parcela {
 	 */
 	public String calcularDNI(String dni){
 		int pletra;
-		String aux="";
-		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"};
+		String aux=""; //$NON-NLS-1$
+		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$ //$NON-NLS-19$ //$NON-NLS-20$ //$NON-NLS-21$ //$NON-NLS-22$ //$NON-NLS-23$ //$NON-NLS-24$
 		for(int x=0;x<8;x++){//este for nos cojera los primeros carácteres y los guardara en el string aux
 			aux=aux + dni.charAt(x);
 		}	
@@ -274,9 +275,9 @@ public class Parcela {
 	 */
 	public boolean validarDni(String dni){
 		int pletra;
-		String aux="";
-		String aux2="";
-		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"};
+		String aux=""; //$NON-NLS-1$
+		String aux2=""; //$NON-NLS-1$
+		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$ //$NON-NLS-19$ //$NON-NLS-20$ //$NON-NLS-21$ //$NON-NLS-22$ //$NON-NLS-23$ //$NON-NLS-24$
 		
 		for(int x=0;x<8;x++){//este for nos cojera los 8 primeros carácteres y los guardará en el string aux
 			aux=aux + dni.charAt(x);
@@ -285,18 +286,18 @@ public class Parcela {
 			 pletra= Integer.parseInt(aux); //si no fueran enteros saldriamos del metodo con un false
 		}  
 	    catch(NumberFormatException ex ) {
-			JOptionPane.showMessageDialog(null, "LOS 8 PRIMEROS DIGITOS HAN DE SER ENTEROS");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgIdCardErrorNumbers")); //$NON-NLS-1$
 			valido=false;
 	        return false;  
 	    }  
 		pletra=pletra%23;
-		aux2=dni.charAt(dni.length()-1)+"";
+		aux2=dni.charAt(dni.length()-1)+""; //$NON-NLS-1$
 		
 		if(arrayLetra[pletra].equalsIgnoreCase(aux2)){
 			dniPropietario= aux + arrayLetra[pletra];//lo colocamos en formato de 9 carácteres
 			return true;
 		}else{
-			JOptionPane.showMessageDialog(null, "EL NUMERO QUE HA INTRODUCIDO NO SE CORRESPONDE CON LA LETRA");
+			JOptionPane.showMessageDialog(null, Idioma.getString("msgIdCardUnmatchWord")); //$NON-NLS-1$
 			valido=false;
 			return false;
 		}
@@ -307,28 +308,28 @@ public class Parcela {
 	
 	public void comprobarParcela(int s) throws SQLException{
 		ConectarDBA.acceder();
-		sentencia = "SELECT `alias`, `activo` FROM `parcela` WHERE `alias` LIKE '"+s+"'";
+		sentencia = "SELECT `alias`, `activo` FROM `parcela` WHERE `alias` LIKE '"+s+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 		ResultSet rs = dba.consulta(sentencia);
 		resultado = new String[2];
 		activo = 0;
 		while(rs.next()){
-			System.out.println("Ejecuto el while");
+			System.out.println("Ejecuto el while"); //$NON-NLS-1$
 				resultado[0] = rs.getString(1);
 				System.out.println(resultado[0]);
 				resultado[1] = rs.getString(2);
 				System.out.println(resultado[1]);
 		}
-			System.out.println("Enviado: "+alias+" esperado: "+resultado[0].toString());
+			System.out.println("Enviado: "+alias+" esperado: "+resultado[0].toString()); //$NON-NLS-1$ //$NON-NLS-2$
 			if(resultado[0] == null){
 				existe = false;
-				System.out.println("El estado de existe es: "+existe);
+				System.out.println("El estado de existe es: "+existe); //$NON-NLS-1$
 			}else if (resultado[0].equals(alias)){
 				existe = true;
-				if (resultado[1].equals("0")){
+				if (resultado[1].equals("0")){ //$NON-NLS-1$
 					activo = 1;	
 				}
-				System.out.println("El estado de activo es: "+activo);
-				System.out.println("El estado de existe es: "+existe);
+				System.out.println("El estado de activo es: "+activo); //$NON-NLS-1$
+				System.out.println("El estado de existe es: "+existe); //$NON-NLS-1$
 			}
 			
 		rs.close();
@@ -348,14 +349,14 @@ public static ResultSet buscar(String criterio) throws SQLException{
 			+criterio+"' Or  `numero` = '"+criterio+"' Or  `partida` = '"
 			+criterio+"' Or  `dni_propietario`= '"+criterio+"' ) AND  `activo` <> '0'";
 	*/
-	String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (idparcela LIKE '%"+criterio+"%' Or alias LIKE '%"
-			+criterio+"%' Or provincia LIKE '%"+criterio+"%' Or  poblacion LIKE '%"+criterio+"%' Or poligono LIKE '%"
-			+criterio+"%' Or  numero LIKE '%"+criterio+"%' Or  partida LIKE '%"
-			+criterio+"%' Or  dni_propietario LIKE '%"+criterio+"%' ) AND  activo <> '0'";
+	String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `partida`, `dni_propietario` FROM `parcela` WHERE (idparcela LIKE '%"+criterio+"%' Or alias LIKE '%" //$NON-NLS-1$ //$NON-NLS-2$
+			+criterio+"%' Or provincia LIKE '%"+criterio+"%' Or  poblacion LIKE '%"+criterio+"%' Or poligono LIKE '%" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			+criterio+"%' Or  numero LIKE '%"+criterio+"%' Or  partida LIKE '%" //$NON-NLS-1$ //$NON-NLS-2$
+			+criterio+"%' Or  dni_propietario LIKE '%"+criterio+"%' ) AND  activo <> '0'"; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	//String sentencia = "SELECT `dni` , `nombre` , `apellidos` , `dirección` , `población` , `provincia` , `cp` , `teléfono` , `email` , `fecha_nacimiento` , `tipo` , `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
 	try{
-		System.out.println("Ejecutada sentencia "+ sentencia);
+		System.out.println("Ejecutada sentencia "+ sentencia); //$NON-NLS-1$
 	rs = dba.consulta(sentencia);
 	}catch (SQLException e){
 		System.out.println(e);
@@ -371,13 +372,13 @@ public static ResultSet buscar(String criterio) throws SQLException{
 		ConectarDBA.acceder();
 		existe = false;
 
-		String sentencia = "INSERT INTO `dai2opengis`.`parcela` (`idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `activo`, `partida`, `dni_propietario`) VALUES (NULL,'" + this.alias  + "','" + this.provincia +"','" +this.poblacion +"','" + this.poligono +"','" + this.numero +"','"  + this.activo +"','"+ this.partida +"','"+ this.dniPropietario +"')";
+		String sentencia = "INSERT INTO `dai2opengis`.`parcela` (`idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `activo`, `partida`, `dni_propietario`) VALUES (NULL,'" + this.alias  + "','" + this.provincia +"','" +this.poblacion +"','" + this.poligono +"','" + this.numero +"','"  + this.activo +"','"+ this.partida +"','"+ this.dniPropietario +"')"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
 		
 		if (existe == true){ 	
-			 JOptionPane.showMessageDialog(null,"El Id Parcela que intenta introducir ya existe");
+			 JOptionPane.showMessageDialog(null,Idioma.getString("msgLotIDAlreadyExist")); //$NON-NLS-1$
 		}else{
 			dba.modificar(sentencia);
-			JOptionPane.showMessageDialog(null,"Parcela insertada correctamente");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgLotRegistrySuccess")); //$NON-NLS-1$
 		}
 		dba.cerrarCon();
 	}
@@ -391,17 +392,17 @@ public static ResultSet buscar(String criterio) throws SQLException{
 
 	public static void bajaParcela(String id) throws SQLException{
 		ConectarDBA.acceder();
-		String sentencia = "UPDATE parcela SET `activo` = '0' WHERE idparcela  LIKE '"+id+"'";
+		String sentencia = "UPDATE parcela SET `activo` = '0' WHERE idparcela  LIKE '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 		ConectarDBA.modificar(sentencia);
-		JOptionPane.showMessageDialog(null,"Se ha desactivado correctamente");
+		JOptionPane.showMessageDialog(null,Idioma.getString("msgHasBeenDeactivated")); //$NON-NLS-1$
 		ConectarDBA.cerrarCon();
 	}
 	
 	public static void activarParcela(String id) throws SQLException{
 		ConectarDBA.acceder();
-		String sentencia = "UPDATE parcela SET `activo` = '1' WHERE idparcela  LIKE '"+id+"'";
+		String sentencia = "UPDATE parcela SET `activo` = '1' WHERE idparcela  LIKE '"+id+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 		ConectarDBA.modificar(sentencia);
-		JOptionPane.showMessageDialog(null,"Se ha activado correctamente");
+		JOptionPane.showMessageDialog(null,Idioma.getString("msgHasBeenActivated")); //$NON-NLS-1$
 		ConectarDBA.cerrarCon();
 	}
 	
@@ -411,20 +412,20 @@ public static ResultSet buscar(String criterio) throws SQLException{
 	 */
 	public void modificarParcela() throws SQLException{
 		
-			sentencia = "UPDATE `dai2opengis`.`parcela` SET `idparcela`= `"+this.idparcela+"`,`alias`=`"+this.alias+"`," +
-					" `provincia`= `"+this.provincia+"`, `poblacion`= `"+this.poblacion+"`,`poligono`= `"+this.poligono+"`," +
-							"`numero`= `"+this.numero+"`,`activo`= 1,`partida`= `"+this.partida+"`,`dni_propietario`= `"+this.dniPropietario+
-							"`  WHERE `idparcela` = `"+this.idparcela+"`)";
+			sentencia = "UPDATE `dai2opengis`.`parcela` SET `idparcela`= `"+this.idparcela+"`,`alias`=`"+this.alias+"`," + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					" `provincia`= `"+this.provincia+"`, `poblacion`= `"+this.poblacion+"`,`poligono`= `"+this.poligono+"`," + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+							"`numero`= `"+this.numero+"`,`activo`= 1,`partida`= `"+this.partida+"`,`dni_propietario`= `"+this.dniPropietario+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+							"`  WHERE `idparcela` = `"+this.idparcela+"`)"; //$NON-NLS-1$ //$NON-NLS-2$
 	
 					dba.modificar(sentencia);
-			JOptionPane.showMessageDialog(null,"Se ha modificado la parcela correctamente");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgLotModifySuccess")); //$NON-NLS-1$
 	}
 
 		
 	public void calcularPosicion() throws SQLException{
 		int count=0;
 		ConectarDBA.acceder();
-		sentencia="Select * FROM `parcela`";
+		sentencia="Select * FROM `parcela`"; //$NON-NLS-1$
 		ResultSet rs = dba.consulta(sentencia);
 		while(rs.next()){
 			count=count+1;
