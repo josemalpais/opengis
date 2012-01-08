@@ -243,12 +243,38 @@ public class PrestamoPanelGestion extends JPanel {
 					dispositivo = dispositivo.substring(0,1);
 				}
 					
-
-				if(encontrado==false){
 				//if(compruebaDni(txtDNI.getText())==false){
-					JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorIDUnmatchUser")); //$NON-NLS-1$
-					txtDNI.setText(""); //$NON-NLS-1$
-				}else{
+					
+						
+						encontrado = false;
+						ConectarDBA.acceder();
+						
+						String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'"; //$NON-NLS-1$ //$NON-NLS-2$
+						
+						try {
+							ResultSet rs = ConectarDBA.consulta(consulta);
+							
+							while(rs.next()){
+								
+								encontrado = true;
+								
+							}
+							
+
+							
+							if(encontrado == false){
+								
+								JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorIDUnmatchUser")); //$NON-NLS-1$
+								txtDNI.setText(""); //$NON-NLS-1$
+								
+							}
+							
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					
+
 					if(accion.equals("alta")){ //$NON-NLS-1$
 									
 						
@@ -296,7 +322,7 @@ public class PrestamoPanelGestion extends JPanel {
 					}			
 				}
 				}
-			});
+			);
 		}
 		return bGuardar;
 	}
