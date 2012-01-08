@@ -372,7 +372,7 @@ public class InformeCuaderno {
 		                 mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
 		                 mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
 		                 mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
-		                 mipdf.add(new Paragraph(espacio+espacio+espacio+espacio+espacio+"..............................,a...............de....................................de.............", FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
+		                 mipdf.add(new Paragraph(espacio+espacio+espacio+espacio+espacio+Idioma.getString("_BookReport.SigningDate"), FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
 		                 mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
 		                 mipdf.add(new Paragraph(Idioma.getString("_BookReport.StampText")+espacio+espacio+espacio+Idioma.getString("_BookReport.BookHolder"), FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		                 mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",12,Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
