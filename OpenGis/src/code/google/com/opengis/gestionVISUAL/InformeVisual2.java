@@ -2,6 +2,7 @@ package code.google.com.opengis.gestionVISUAL;
 import info.clearthought.layout.TableLayout;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.sql.ResultSet;
@@ -22,6 +23,8 @@ import code.google.com.opengis.gestion.InformeDispositivos;
 import code.google.com.opengis.gestion.InformeParcela;
 import code.google.com.opengis.gestion.InformeTrabajador;
 import code.google.com.opengis.gestion.Parcela;
+import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
 
 
 
@@ -44,11 +47,17 @@ public class InformeVisual2 extends javax.swing.JPanel {
 	private JTable tbltabla;
 	private JTextField txtBuscador;
 	private JLabel jLabel1;
+	static String id;
 	private JButton btnDispositivos;
 	private JButton btnParcela;
 	private JTable tbaTabla;
 	public DefaultTableModel modelo = new DefaultTableModel();
 	static int informe;
+	static Object[] nombreColumna = { Idioma.getString("etIdCard"), Idioma.getString("etFirstName"), Idioma.getString("etLastName"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"), Idioma.getString("etPostalCode"), Idioma.getString("etPhone"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		Idioma.getString("etMail"), Idioma.getString("etBirthDate"), Idioma.getString("etAccType"), Idioma.getString("etStatus") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	
+	
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -75,11 +84,47 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				btnCuaderno.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					txtBuscador.setEnabled(true);
-    				
-    	    			 String[] columnas = {"Dni", "Nombre", "Apellidos","Direccion", "Poblacion", "Provincia","CodigoPostal","Telefono"};
+    					String criterio = getTxtCriterioBusqueda().getText();
+    					
+    					
+    					try {
+    						
+    						modelo.setColumnCount(0);
+    						modelo.setRowCount(0);
+    						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
+    						ResultSet rs = ConectarDBA.buscar(sentencia);
+    						int nColumnas = rs.getMetaData().getColumnCount();
+    						modelo.setColumnIdentifiers(nombreColumna);
+    						
+    						while (rs.next()) {
+    							
+    							Object[] registro = new Object[nColumnas];
 
-     					modelo = new DefaultTableModel();
-     					modelo.setColumnIdentifiers(columnas);
+    							for (int i = 0; i < nColumnas; i++) {
+    								registro[i] = rs.getObject(i + 1); // Guardamos todos los registros
+    								
+    							}
+    							
+    							
+    							for (int i2 = 0; i2 < registro.length; i2++) {
+
+    								if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+    								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
+    								}
+    								//System.out.println(registro[i2]);
+    							}
+
+    							
+    							modelo.addRow(registro); // Añadimos el registro a la tabla
+
+    						}
+    						rs.close();
+    					} catch (SQLException e1) {
+    						System.out.println(e1);
+
+    					}
      					tbaTabla = new JTable(modelo);
      					add(tbaTabla);
      					tbaTabla.setBounds(21, 180, 778, 162);
@@ -95,18 +140,54 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				btnTrabajador.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					txtBuscador.setEnabled(true);
+    					String criterio = getTxtCriterioBusqueda().getText();
     					
     					
-    					String[] columnas = {"Dni", "Nombre", "Apellidos","Direccion", "Poblacion", "Provincia","CodigoPostal","Telefono"};
+    					try {
+    						
+    						modelo.setColumnCount(0);
+    						modelo.setRowCount(0);
+    						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
+    						ResultSet rs = ConectarDBA.buscar(sentencia);
+    						int nColumnas = rs.getMetaData().getColumnCount();
+    						modelo.setColumnIdentifiers(nombreColumna);
+    						
+    						while (rs.next()) {
+    							
+    							Object[] registro = new Object[nColumnas];
 
-    					modelo = new DefaultTableModel();
-    					modelo.setColumnIdentifiers(columnas);
-    					tbaTabla = new JTable(modelo);
-    					add(tbaTabla);
-    					tbaTabla.setBounds(21, 180, 778, 162);
-    					informe  =2;
+    							for (int i = 0; i < nColumnas; i++) {
+    								registro[i] = rs.getObject(i + 1); // Guardamos todos los registros
+    								
+    							}
+    							
+    							
+    							for (int i2 = 0; i2 < registro.length; i2++) {
+
+    								if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+    								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
+    								}
+    								//System.out.println(registro[i2]);
+    							}
+
+    							
+    							modelo.addRow(registro); // Añadimos el registro a la tabla
+
+    						}
+    						rs.close();
+    					} catch (SQLException e1) {
+    						System.out.println(e1);
+
+    					}
+     					tbaTabla = new JTable(modelo);
+     					add(tbaTabla);
+     					tbaTabla.setBounds(21, 180, 778, 162);
+    					informe = 2;
     					}});
-			}
+    				}
+			
 			{
 				btnParcela = new JButton();
 				this.add(btnParcela);
@@ -169,55 +250,154 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				btnGenerar.setBounds(273, 360, 223, 31);
 				btnGenerar.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
+    					
     					switch(informe){
     					case 1:
-    						InformeCuaderno l1 = new InformeCuaderno(id);
+    					
+    						try {
+								InformeCuaderno l1 = new InformeCuaderno(id);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+    						
     						break;
     					case 2:
+    						try {
     						InformeTrabajador l2 = new InformeTrabajador(id);
+    						} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
     						break;
     					case 3:
+    						try {
     						InformeParcela l3 = new InformeParcela(id);
+    					} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
     						break;
     					case 4:
+    						try {
     						InformeDispositivos l4 = new InformeDispositivos(id);
+    				} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+    						break;
     					}
     						
     					}});
 			}
 			{
 				
-			 /*   tbaTabla = new JTable();
+			    tbaTabla = new JTable();
 				this.add(tbaTabla);
 				tbaTabla.setModel(modelo);
-				tbaTabla.setBounds(21, 180, 778, 162);*/
+				tbaTabla.setBounds(21, 180, 778, 162);
+				tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
+					public void mouseClicked(java.awt.event.MouseEvent e) {
+						
+						int i = tbaTabla.getSelectedRow();
+						if (i != -1) {
+							id = tbaTabla.getValueAt(i, 0).toString();
+									
+						}
+						
+						
+						
+					}
+				});
 				
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	public void rellenarTabla(String criterio,String[]columnas, Object[]filax){
 		
-		try {
-			int x=0;
-			int y=0;
-			modelo.setColumnCount(0);
-				modelo.setRowCount(0);
-				modelo.setColumnIdentifiers(columnas);
-			
-				ResultSet rs = Parcela.buscar(criterio);
-				while (rs.next()) {
-					Object[]fila =filax;
-					modelo.addRow(fila);
+	}
+	public JTextField getTxtCriterioBusqueda() {
+		if (txtBuscador == null) {
+			txtBuscador = new JTextField(Idioma.getString("msgSearchCriteria")); //$NON-NLS-1$
+			txtBuscador.setBounds(new Rectangle(267, 48, 284, 32));
+			txtBuscador.setSelectedTextColor(new Color(204, 204, 204));
+			txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+				public void keyTyped(java.awt.event.KeyEvent e) {
+					
+					
+					
+					txtBuscador.setText(txtBuscador.getText());
+					
+					buscar();
+					
 				}
-				rs.close();		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			});
+			
+			/* Acción de ratón. Cuando clic nos elimina el texto que hay en la caja de texto
+			 * Así podemos trabajar de una forma mucho más limpia y eficaz.
+			 */
+			
+			txtBuscador.addMouseListener(new java.awt.event.MouseAdapter() { 
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					
+					txtBuscador.setText(""); //$NON-NLS-1$
+					
+					
+				}
+			});
 		}
+		return txtBuscador;
 	}
 	
+	public void buscar(){
+		
 
+		
+		String criterio = getTxtCriterioBusqueda().getText();
+		
+		
+		try {
+			
+			modelo.setColumnCount(0);
+			modelo.setRowCount(0);
+			String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
+			ResultSet rs = ConectarDBA.buscar(sentencia);
+			int nColumnas = rs.getMetaData().getColumnCount();
+			modelo.setColumnIdentifiers(nombreColumna);
+			
+			while (rs.next()) {
+				
+				Object[] registro = new Object[nColumnas];
+
+				for (int i = 0; i < nColumnas; i++) {
+					registro[i] = rs.getObject(i + 1); // Guardamos todos los registros
+					
+				}
+				
+				
+				for (int i2 = 0; i2 < registro.length; i2++) {
+
+					if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
+						registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+					} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+						registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
+					}
+					//System.out.println(registro[i2]);
+				}
+
+				
+				modelo.addRow(registro); // Añadimos el registro a la tabla
+
+			}
+			rs.close();
+		} catch (SQLException e1) {
+			System.out.println(e1);
+
+		}
+		
+		
+		
+		
+	}
 }
