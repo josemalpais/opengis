@@ -639,7 +639,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
     						
     						if (numPestañas <10) {
 							
-    							InformesVisual panelNuevo = new InformesVisual();
+    							InformeVisual2 panelNuevo = new InformeVisual2();
     						
     							tabsPaneles.addTab(Idioma.getString("etImplementsMng"),panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
