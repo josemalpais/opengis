@@ -16,6 +16,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.crypto.Data;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
+import code.google.com.opengis.gestionDAO.Idioma;
+
 import com.lowagie.text.*;
 
 import com.lowagie.text.Chunk;
@@ -51,16 +53,16 @@ static String fechaini;
 static String fechafin;
 
 public InformeTrabajador(String dni) throws SQLException {
-	DatosUsuarioParcela(dni,"2011/01/01","2011/12/31");
+	DatosUsuarioParcela(dni,"2011/01/01","2011/12/31"); //$NON-NLS-1$ //$NON-NLS-2$
 	
-	crear_PDF("Informe Trabajador", "Opengis");
+	crear_PDF(Idioma.getString("_WorkerReport.Header"), Idioma.getString("_WorkerReport.OpenGis")); //$NON-NLS-1$ //$NON-NLS-2$
 
 }
 public void DatosUsuarioParcela(String dni,String inicio,String fin) {
 	fechaini = inicio;
 	fechafin = fin; //implementar la consulta para elegir entre 2 fechas
-	consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))";
-	consulta2 = "SELECT  `parcela`.`alias` ,`parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`dni_propietario` , `tareas_realizadas`.`idtarea` , `tareas_realizadas`.`fecha_ini`, `tareas_realizadas`.`fecha_final` FROM parcela, tareas_realizadas WHERE ((`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`)) ";
+	consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))"; //$NON-NLS-1$ //$NON-NLS-2$
+	consulta2 = "SELECT  `parcela`.`alias` ,`parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`dni_propietario` , `tareas_realizadas`.`idtarea` , `tareas_realizadas`.`fecha_ini`, `tareas_realizadas`.`fecha_final` FROM parcela, tareas_realizadas WHERE ((`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`)) "; //$NON-NLS-1$
 	ConectarDBA.acceder();
 	try {
 		
@@ -89,15 +91,15 @@ private void crear_PDF(String titulo, String n) {
 	if(this.ruta_destino!=null){
 		try {	
 			mipdf = new Document (PageSize.LEGAL.rotate());
-			PdfWriter.getInstance(mipdf, new FileOutputStream(this.ruta_destino + ".pdf")).setInitialLeading(6);
+			PdfWriter.getInstance(mipdf, new FileOutputStream(this.ruta_destino + ".pdf")).setInitialLeading(6); //$NON-NLS-1$
 			mipdf.open();// se abre el documento
             mipdf.addTitle(titulo); // se añade el titulo
             mipdf.addAuthor(n); // se añade el autor del documento
-            mipdf.addSubject(""); //se añade el asunto del documento
-            mipdf.addKeywords(""); //Se agregan palabras claves 
-            Paragraph nn = new Paragraph("Informe Trabajador", FontFactory.getFont("arial",22,Font.BOLD));    
+            mipdf.addSubject(""); //se añade el asunto del documento //$NON-NLS-1$
+            mipdf.addKeywords(""); //Se agregan palabras claves  //$NON-NLS-1$
+            Paragraph nn = new Paragraph(Idioma.getString("_WorkerReport.Header"), FontFactory.getFont("arial",22,Font.BOLD));     //$NON-NLS-1$ //$NON-NLS-2$
             nn.setAlignment(Element.ALIGN_CENTER);
-            mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
             mipdf.add(nn);
            
           /*  Image foto = Image.getInstance("pingu.png");
@@ -105,21 +107,21 @@ private void crear_PDF(String titulo, String n) {
             foto.setAlignment(Chunk.ALIGN_MIDDLE);
             mipdf.add(foto); 
             */
-            mipdf.add(new Paragraph("Nombre: "+nombre, FontFactory.getFont("arial",18,Font.BOLD)));             
-            mipdf.add(new Paragraph("Apellidos: "+apellidos, FontFactory.getFont("arial",18,Font.BOLD)));             
-            mipdf.add(new Paragraph("Dni: "+Dni, FontFactory.getFont("arial",18,Font.BOLD)));             
-            mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
-            mipdf.add(new Paragraph("Parcelas trabajadas entre "+ fechaini +" y "+fechafin, FontFactory.getFont("arial",18,Font.BOLD)));             
-            mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));             
+            mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.Name")+nombre, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
+            mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.LastName")+apellidos, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
+            mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.IDCard")+Dni, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
+            mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
+            mipdf.add(new Paragraph(Idioma.getString("_WorkerReport.LotsWorkedBetween")+ fechaini +Idioma.getString("_WorkerReport.23")+fechafin, FontFactory.getFont("arial",18,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            mipdf.add(new Paragraph(" ", FontFactory.getFont("arial",22,Font.BOLD)));              //$NON-NLS-1$ //$NON-NLS-2$
             PdfPTable tabla = new PdfPTable(7);
             tabla.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell("Nº Parcela");
-            tabla.addCell("Término municipal");
-            tabla.addCell("Polígono");
-            tabla.addCell("Dueño");
-            tabla.addCell("Tarea Realizada");
-            tabla.addCell("Fecha inicio");
-            tabla.addCell("Fecha fin");
+            tabla.addCell(Idioma.getString("_WorkerReport.LotNum")); //$NON-NLS-1$
+            tabla.addCell(Idioma.getString("_WorkerReport.Municipality")); //$NON-NLS-1$
+            tabla.addCell(Idioma.getString("_WorkerReport.Area")); //$NON-NLS-1$
+            tabla.addCell(Idioma.getString("_WorkerReport.Owner")); //$NON-NLS-1$
+            tabla.addCell(Idioma.getString("_WorkerReport.TaskTaken")); //$NON-NLS-1$
+            tabla.addCell(Idioma.getString("_WorkerReport.IniDate")); //$NON-NLS-1$
+            tabla.addCell(Idioma.getString("_WorkerReport.EndDate")); //$NON-NLS-1$
            
             try {
 				while(rs.next())
@@ -137,7 +139,7 @@ private void crear_PDF(String titulo, String n) {
 			}
             mipdf.add(tabla);
             mipdf.close(); //se cierra el PDF&
-            JOptionPane.showMessageDialog(null,"Documento PDF creado");
+            JOptionPane.showMessageDialog(null,Idioma.getString("_WorkerReport.DocCreated")); //$NON-NLS-1$
             
             
 		} catch (FileNotFoundException e) {
@@ -154,7 +156,7 @@ private void crear_PDF(String titulo, String n) {
 
 public void Colocar_Destino() {
 	FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			"Archivo PDF", "pdf", "PDF");
+			Idioma.getString("_WorkerReport.PDFFile"), "pdf", "PDF"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	JFileChooser fileChooser = new JFileChooser();
 	fileChooser.setFileFilter(filter);
 	int result = fileChooser.showSaveDialog(null);
