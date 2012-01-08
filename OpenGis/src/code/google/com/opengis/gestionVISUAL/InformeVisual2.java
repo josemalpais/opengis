@@ -52,6 +52,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
 	private JButton btnParcela;
 	private JTable tbaTabla;
 	public DefaultTableModel modelo = new DefaultTableModel();
+	private String dni = "";
 	static int informe;
 	static Object[] nombreColumna = { Idioma.getString("etIdCard"), Idioma.getString("etFirstName"), Idioma.getString("etLastName"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"), Idioma.getString("etPostalCode"), Idioma.getString("etPhone"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
@@ -71,6 +72,13 @@ public class InformeVisual2 extends javax.swing.JPanel {
 		super();
 		initGUI();
 	}
+	
+	public InformeVisual2(String dni) {
+		super();
+		this.dni = dni;
+		initGUI();
+	}
+	
 	
 	private void initGUI() {
 		try {
@@ -189,6 +197,8 @@ public class InformeVisual2 extends javax.swing.JPanel {
     				}
 			
 			{
+				
+				
 				btnParcela = new JButton();
 				this.add(btnParcela);
 				btnParcela.setText("Parcela");
@@ -228,6 +238,13 @@ public class InformeVisual2 extends javax.swing.JPanel {
     					
     					informe = 4;
     					}});
+				
+				if(dni!=""){
+					
+					btnDispositivos.setEnabled(false);
+					btnParcela.setEnabled(false);
+					
+				}
 			}
 			{
 				jLabel1 = new JLabel();
@@ -361,7 +378,10 @@ public class InformeVisual2 extends javax.swing.JPanel {
 			
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
+			
 			String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
+
+			 
 			ResultSet rs = ConectarDBA.buscar(sentencia);
 			int nColumnas = rs.getMetaData().getColumnCount();
 			modelo.setColumnIdentifiers(nombreColumna);

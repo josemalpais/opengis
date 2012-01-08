@@ -656,6 +656,22 @@ import code.google.com.opengis.gestionDAO.Idioma;
     						
     						// INSERTAR AQUÍ FUNCIONALIDAD DE TRABAJADOR
     						
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							InformeVisual2 panelNuevo = new InformeVisual2(dniUsuario);
+    						
+    							tabsPaneles.addTab(Idioma.getString("etImplementsMng"),panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+    						
     					}
     						
     						
