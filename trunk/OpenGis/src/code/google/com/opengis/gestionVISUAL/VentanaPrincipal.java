@@ -597,7 +597,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
     							AperosPanelPrincipalUsuarios panelNuevo = new AperosPanelPrincipalUsuarios(dniUsuario);
     						
-    							tabsPaneles.addTab("Mis Aperos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.addTab(Idioma.getString("etMyImplements"),panelNuevo); //$NON-NLS-1$
     							tabsPaneles.setSelectedIndex(numPestañas);
     							
     						}else{
