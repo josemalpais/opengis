@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -92,7 +93,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				btnCuaderno.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					txtBuscador.setEnabled(true);
-    					String criterio = getTxtCriterioBusqueda().getText();
+    					String criterio = txtBuscador.getText();
     					
     					
     					try {
@@ -148,7 +149,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				btnTrabajador.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     					txtBuscador.setEnabled(true);
-    					String criterio = getTxtCriterioBusqueda().getText();
+    					String criterio = txtBuscador.getText();
     					
     					
     					try {
@@ -253,12 +254,67 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				jLabel1.setBounds(273, 28, 276, 23);
 			}
 			{
-				txtBuscador = new JTextField();
-				this.add(txtBuscador);
-				txtBuscador.setBounds(285, 115, 242, 33);
-				txtBuscador.setEnabled(false);
+				
+			
+				txtBuscador = new JTextField(Idioma.getString("msgSearchCriteria")); //$NON-NLS-1$
+				txtBuscador.setBounds(new Rectangle(267,110, 284, 32));
+				txtBuscador.setSelectedTextColor(new Color(204, 204, 204));
+				
+				if(dni!=""){
+					
+					txtBuscador.setText(dni);
+					
+					txtBuscador.setEnabled(false);
+					
+					buscar();
+					
+				}
+				
+				
+				txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+					public void keyTyped(java.awt.event.KeyEvent e) {
+						
+						
+						
+						txtBuscador.setText(txtBuscador.getText());
+						
+						buscar();
+						
+					}
 
+			
+					
+			
+				
+
+			});
+				
+				
+				txtBuscador.addActionListener(new java.awt.event.ActionListener() {
+
+				
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						
+						
+						txtBuscador.setText("");
+						
+					}
+
+			
+					
+			
+				
+
+			});
+				
+				
+				
+				
 			}
+			
+			this.add(txtBuscador);
 			
 			{
 				btnGenerar = new JButton();
@@ -334,44 +390,15 @@ public class InformeVisual2 extends javax.swing.JPanel {
 		}
 		
 	}
-	public JTextField getTxtCriterioBusqueda() {
-		if (txtBuscador == null) {
-			txtBuscador = new JTextField(Idioma.getString("msgSearchCriteria")); //$NON-NLS-1$
-			txtBuscador.setBounds(new Rectangle(267, 48, 284, 32));
-			txtBuscador.setSelectedTextColor(new Color(204, 204, 204));
-			txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
-				public void keyTyped(java.awt.event.KeyEvent e) {
-					
-					
-					
-					txtBuscador.setText(txtBuscador.getText());
-					
-					buscar();
-					
-				}
-			});
-			
-			/* Acción de ratón. Cuando clic nos elimina el texto que hay en la caja de texto
-			 * Así podemos trabajar de una forma mucho más limpia y eficaz.
-			 */
-			
-			txtBuscador.addMouseListener(new java.awt.event.MouseAdapter() { 
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					
-					txtBuscador.setText(""); //$NON-NLS-1$
-					
-					
-				}
-			});
-		}
-		return txtBuscador;
-	}
+
+
+
 	
 	public void buscar(){
 		
 
 		
-		String criterio = getTxtCriterioBusqueda().getText();
+		String criterio = txtBuscador.getText();
 		
 		
 		try {
