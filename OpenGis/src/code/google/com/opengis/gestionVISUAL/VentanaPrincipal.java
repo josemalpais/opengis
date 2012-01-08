@@ -590,6 +590,23 @@ import code.google.com.opengis.gestionDAO.Idioma;
     						
     						// INSERTAR AQUÍ FUNCIONALIDAD DE TRABAJADOR
     						
+    						
+    						int numPestañas = tabsPaneles.getTabCount();
+    						
+    						if (numPestañas <10) {
+							
+    							AperosPanelPrincipalUsuarios panelNuevo = new AperosPanelPrincipalUsuarios(dniUsuario);
+    						
+    							tabsPaneles.addTab("Mis Aperos",panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);
+    							
+    						}else{
+    							
+    							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
+    							
+    						}
+							
+    						
     					}
     						
     						

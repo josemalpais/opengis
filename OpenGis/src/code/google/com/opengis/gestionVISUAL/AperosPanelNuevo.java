@@ -71,10 +71,11 @@ public class AperosPanelNuevo extends JPanel {
 		this.comboTarea.setSelectedIndex(Integer.parseInt(tarea)-1);
 	}
 
-	public AperosPanelNuevo(String accion) {
+	public AperosPanelNuevo(String accion, String user) {
 
 		super();
 		this.accion = accion;
+		this.user = user;
 
 		initialize();
 		
