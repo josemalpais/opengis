@@ -55,7 +55,7 @@ static String fechafin;
 public InformeTrabajador(String dni) throws SQLException {
 	DatosUsuarioParcela(dni,"2011/01/01","2011/12/31"); //$NON-NLS-1$ //$NON-NLS-2$
 	
-	crear_PDF(Idioma.getString("_WorkerReport.Header"), Idioma.getString("_WorkerReport.OpenGis")); //$NON-NLS-1$ //$NON-NLS-2$
+	crear_PDF(Idioma.getString("_WorkerReport.Header"), Idioma.getString("_WorkerReport.Author")); //$NON-NLS-1$ //$NON-NLS-2$
 
 }
 public void DatosUsuarioParcela(String dni,String inicio,String fin) {
