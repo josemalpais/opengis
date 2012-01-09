@@ -184,7 +184,7 @@ public class PrestamoPanelGestion extends JPanel {
 				//
 			}
 			
-			txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+			/*txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					
 					encontrado = false;
@@ -215,7 +215,7 @@ public class PrestamoPanelGestion extends JPanel {
 						e1.printStackTrace();
 					}
 				}
-			});
+			});*/
 			
 			
 		}
