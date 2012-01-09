@@ -274,7 +274,9 @@ public class PrestamoPanelGestion extends JPanel {
 							e1.printStackTrace();
 						}
 					
-
+if(encontrado == false){
+	
+}else{
 					if(accion.equals("alta")){ //$NON-NLS-1$
 									
 						
@@ -322,6 +324,7 @@ public class PrestamoPanelGestion extends JPanel {
 					}			
 				}
 				}
+			}
 			);
 		}
 		return bGuardar;
