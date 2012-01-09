@@ -55,7 +55,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 	private JButton btnParcela;
 	private JTable tbaTabla;
 	public DefaultTableModel modelo = new DefaultTableModel();
-	private String dni = ""; //$NON-NLS-1$
+	private String dni = "";
 	static int informe;
 	
 	
@@ -87,7 +87,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			{
 				btnCuaderno = new JButton();
 				this.add(btnCuaderno);
-				btnCuaderno.setText(Idioma.getString("etBookLog")); //$NON-NLS-1$
+				btnCuaderno.setText(Idioma.getString("etBookLog"));
 				btnCuaderno.setBounds(177, 63, 108, 29);
 				btnCuaderno.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -96,11 +96,12 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     					
     					
     					try {
-   		    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etName"), Idioma.getString("etLastName"),Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"),Idioma.getString("etPostalCode"),Idioma.getString("etPhone"),Idioma.getString("etMail"),Idioma.getString("etBirthDate"),Idioma.getString("etType"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+   		    			    		    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etName"), Idioma.getString("etLastName"),Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"),Idioma.getString("etPostalCode"),Idioma.getString("etPhone"),Idioma.getString("etMail"),Idioma.getString("etBirthDate"),Idioma.getString("etType"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+
 
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
-    						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+    						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
     						modelo.setColumnIdentifiers(columnas);
@@ -143,7 +144,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			{
 				btnTrabajador = new JButton();
 				this.add(btnTrabajador);
-				btnTrabajador.setText(Idioma.getString("etWorker")); //$NON-NLS-1$
+				btnTrabajador.setText(Idioma.getString("etWorker"));
 				btnTrabajador.setBounds(290, 63, 108, 30);
 				btnTrabajador.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -152,11 +153,12 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     					
     					
     					try {
-   		    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etName"), Idioma.getString("etLastName"),Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"),Idioma.getString("etPostalCode"),Idioma.getString("etPhone"),Idioma.getString("etEmail"),Idioma.getString("etBirthDate"),Idioma.getString("etType"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+   		    			    		    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etName"), Idioma.getString("etLastName"),Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"),Idioma.getString("etPostalCode"),Idioma.getString("etPhone"),Idioma.getString("etEmail"),Idioma.getString("etBirthDate"),Idioma.getString("etType"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+
 
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
-    						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+    						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
     						modelo.setColumnIdentifiers(columnas);
@@ -201,36 +203,114 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				
 				btnParcela = new JButton();
 				this.add(btnParcela);
-				btnParcela.setText(Idioma.getString("etLots")); //$NON-NLS-1$
+				btnParcela.setText(Idioma.getString("etLots"));
 				btnParcela.setBounds(403, 62, 108, 31);
+
 				btnParcela.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    			 String[] columnas = {Idioma.getString("etIDLot"), Idioma.getString("etAlias"), Idioma.getString("etProvince"),Idioma.getString("etCity"), Idioma.getString("etArea"), Idioma.getString("etNumber"),Idioma.getString("etEntry"),Idioma.getString("etIDOwner")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
-
     					txtBuscador.setEnabled(true);
+    					String criterio = txtBuscador.getText();
+    					
+    					
+    					try {
+    			   			 String[] columnas = {Idioma.getString("etIDLot"), Idioma.getString("etAlias"), Idioma.getString("etProvince"),Idioma.getString("etCity"), Idioma.getString("etArea"), Idioma.getString("etNumber"),Idioma.getString("etEntry"),Idioma.getString("etIDOwner")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 
-    					add(getTablaPrincipal());
+    						modelo.setColumnCount(0);
+    						modelo.setRowCount(0);
+    						String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `activo`, `partida`, `dni_propietario` FROM `parcela` WHERE idparcela LIKE '%"+criterio+"%' OR alias LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%' OR poblacion LIKE '%"+criterio+"%' OR poligono LIKE '%"+criterio+"%' OR numero LIKE '%"+criterio+"%' OR activo LIKE '%"+criterio+"%' OR partida LIKE '%"+criterio+"%' OR dni_propietario LIKE '%"+criterio+"%'";
+    						ResultSet rs = ConectarDBA.buscar(sentencia);
+    						int nColumnas = rs.getMetaData().getColumnCount();
+    						modelo.setColumnIdentifiers(columnas);
+    						
+    						while (rs.next()) {
+    							
+    							Object[] registro = new Object[nColumnas];
+
+    							for (int i = 0; i < nColumnas; i++) {
+    								registro[i] = rs.getObject(i + 1); // Guardamos todos los registros
+    								
+    							}
+    							
+    							
+    							for (int i2 = 0; i2 < registro.length; i2++) {
+
+    								if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+    								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
+    								}
+    								//System.out.println(registro[i2]);
+    							}
+
+    							
+    							modelo.addRow(registro); // Añadimos el registro a la tabla
+
+    						}
+    						rs.close();
+    					} catch (SQLException e1) {
+    						System.out.println(e1);
+
+    					}
+     					add(getTablaPrincipal());
     					informe = 3;
     					}});
 			}
 			{
 				btnDispositivos = new JButton();
 				this.add(btnDispositivos);
-				btnDispositivos.setText(Idioma.getString("etDevices")); //$NON-NLS-1$
+				btnDispositivos.setText(Idioma.getString("etDevices"));
 				btnDispositivos.setBounds(516, 62, 107, 31);
 				btnDispositivos.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    					
-    	    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etModel"), Idioma.getString("etSerialNumber"),Idioma.getString("etAvailabe"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-
     					txtBuscador.setEnabled(true);
+    					String criterio = txtBuscador.getText();
     					
-    					add(getTablaPrincipal());
     					
+    					try {
+       	    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etModel"), Idioma.getString("etSerialNumber"),Idioma.getString("etAvailabe"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+ 					
+
+    						modelo.setColumnCount(0);
+    						modelo.setRowCount(0);
+    						String sentencia = "SELECT `iddispositivo`, `modelo`, `num_serie`, `disponible`, `activo` FROM `dispositivo` WHERE iddispositivo LIKE '%"+criterio+"%' OR modelo LIKE '%"+criterio+"%' OR num_serie LIKE '%"+criterio+"%' OR disponible LIKE '%"+criterio+"%' OR activo LIKE '%"+criterio+"%'";
+    						ResultSet rs = ConectarDBA.buscar(sentencia);
+    						int nColumnas = rs.getMetaData().getColumnCount();
+    						modelo.setColumnIdentifiers(columnas);
+    						
+    						while (rs.next()) {
+    							
+    							Object[] registro = new Object[nColumnas];
+
+    							for (int i = 0; i < nColumnas; i++) {
+    								registro[i] = rs.getObject(i + 1); // Guardamos todos los registros
+    								
+    							}
+    							
+    							
+    							for (int i2 = 0; i2 < registro.length; i2++) {
+
+    								if (registro[i2].toString().equals("true")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etActive"); //$NON-NLS-1$
+    								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
+    									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
+    								}
+    								//System.out.println(registro[i2]);
+    							}
+
+    							
+    							modelo.addRow(registro); // Añadimos el registro a la tabla
+
+    						}
+    						rs.close();
+    					} catch (SQLException e1) {
+    						System.out.println(e1);
+
+    					}
+     					add(getTablaPrincipal());
     					informe = 4;
     					}});
 				
-				if(dni!=""){ //$NON-NLS-1$
+				if(dni!=""){
 					
 					btnDispositivos.setEnabled(false);
 					btnParcela.setEnabled(false);
@@ -240,17 +320,17 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			{
 				jLabel1 = new JLabel();
 				this.add(jLabel1);
-				jLabel1.setText(Idioma.getString("msgReportType")); //$NON-NLS-1$
+				jLabel1.setText(Idioma.getString("msgReportType"));
 				jLabel1.setBounds(273, 28, 276, 23);
 			}
 			{
 				
 			
-				txtBuscador = new JTextField(Idioma.getString("msgSearchCriteria")); //$NON-NLS-1$
+				txtBuscador = new JTextField(); //$NON-NLS-1$
 				txtBuscador.setBounds(new Rectangle(267,110, 284, 32));
 				txtBuscador.setSelectedTextColor(new Color(204, 204, 204));
 				
-				if(dni!=""){ //$NON-NLS-1$
+				if(dni!=""){
 					
 					txtBuscador.setText(dni);
 					
@@ -281,14 +361,10 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				
 				
 				txtBuscador.addActionListener(new java.awt.event.ActionListener() {
-
-				
-
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
+    				public void actionPerformed(java.awt.event.ActionEvent e) {
 						
 						
-						txtBuscador.setText(""); //$NON-NLS-1$
+						txtBuscador.setText("");
 						
 					}
 
@@ -309,7 +385,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			{
 				btnGenerar = new JButton();
 				this.add(btnGenerar);
-				btnGenerar.setText(Idioma.getString("etCreateReport")); //$NON-NLS-1$
+				btnGenerar.setText(Idioma.getString("etCreateReport"));
 				btnGenerar.setBounds(273, 360, 223, 31);
 				btnGenerar.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -328,7 +404,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     						break;
     					case 2:
     						try {
-    						InformeTrabajador l2 = new InformeTrabajador(id,"2011/01/01","2013/01/01"); //$NON-NLS-1$ //$NON-NLS-2$
+    						InformeTrabajador l2 = new InformeTrabajador(id,"2011/01/01","2013/01/01");
     						} catch (SQLException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -336,6 +412,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     						break;
     					case 3:
     						try {
+    							
     						InformeParcela l3 = new InformeParcela(id);
     					} catch (SQLException e1) {
 							// TODO Auto-generated catch block
@@ -354,7 +431,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     						
     					}});
 			}
-			/*{
+			{
 				
 			    tbaTabla = new JTable();
 				this.add(tbaTabla);
@@ -362,20 +439,20 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				tbaTabla.setBounds(21, 180, 778, 162);
 				tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
 					public void mouseClicked(java.awt.event.MouseEvent e) {
-					System.out.println("entra");	
+						
+						
 						int i = tbaTabla.getSelectedRow();
 						System.out.println(i);
 						if (i != -1) {
 							id = tbaTabla.getValueAt(i, 0).toString();
-									System.out.println(id);
+									
 						}
-						
 						
 						
 					}
 				});
 				
-			}*/
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -398,7 +475,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
 			
-			String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+			String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
 
 			 
 			ResultSet rs = ConectarDBA.buscar(sentencia);
@@ -460,6 +537,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 					
 					
 					int i = tbaTabla.getSelectedRow();
+					System.out.println(i);
 					if (i != -1) {
 						id = tbaTabla.getValueAt(i, 0).toString();
 								
