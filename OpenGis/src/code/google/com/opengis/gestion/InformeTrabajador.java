@@ -52,7 +52,8 @@ static Image imghead = null;
 static String fechaini;
 static String fechafin;
 
-public InformeTrabajador(String dni) throws SQLException {
+public InformeTrabajador(String dni,String fechaini,String fechafin) throws SQLException {
+	
 	DatosUsuarioParcela(dni,"2011/01/01","2011/12/31"); //$NON-NLS-1$ //$NON-NLS-2$
 	
 	crear_PDF(Idioma.getString("_WorkerReport.Header"), Idioma.getString("_WorkerReport.Author")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -62,7 +63,7 @@ public void DatosUsuarioParcela(String dni,String inicio,String fin) {
 	fechaini = inicio;
 	fechafin = fin; //implementar la consulta para elegir entre 2 fechas
 	consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))"; //$NON-NLS-1$ //$NON-NLS-2$
-	consulta2 = "SELECT  `parcela`.`alias` ,`parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`dni_propietario` , `tareas_realizadas`.`idtarea` , `tareas_realizadas`.`fecha_ini`, `tareas_realizadas`.`fecha_final` FROM parcela, tareas_realizadas WHERE ((`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`)) "; //$NON-NLS-1$
+	consulta2 = "SELECT  `parcela`.`alias` ,`parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`dni_propietario` , `tareas_realizadas`.`idtarea` , `tareas_realizadas`.`fecha_ini`, `tareas_realizadas`.`fecha_final` FROM parcela, tareas_realizadas WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`) AND (`tareas_realizadas`.`fecha_ini` BETWEEN '"+fechaini+"' AND '"+fechafin+"'))"; //$NON-NLS-1$
 	ConectarDBA.acceder();
 	try {
 		
@@ -73,6 +74,8 @@ public void DatosUsuarioParcela(String dni,String inicio,String fin) {
 			apellidos =  rs.getString(3);
 			
 			}
+		System.out.println(consulta2);
+
 		rs = ConectarDBA.consulta(consulta2);
 
 	} catch (SQLException e) {

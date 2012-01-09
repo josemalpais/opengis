@@ -41,11 +41,13 @@ import code.google.com.opengis.gestionDAO.Idioma;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class InformeVisual2 extends javax.swing.JPanel {
+public class InformeVisual2 extends javax.swing.JPanel  {
+	private boolean redimensionarTabla;
+
 	private JButton btnCuaderno;
 	private JButton btnTrabajador;
 	private JButton btnGenerar;
-	private JTable tbltabla;
+	
 	private JTextField txtBuscador;
 	private JLabel jLabel1;
 	static String id;
@@ -55,9 +57,6 @@ public class InformeVisual2 extends javax.swing.JPanel {
 	public DefaultTableModel modelo = new DefaultTableModel();
 	private String dni = "";
 	static int informe;
-	static Object[] nombreColumna = { Idioma.getString("etIdCard"), Idioma.getString("etFirstName"), Idioma.getString("etLastName"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"), Idioma.getString("etPostalCode"), Idioma.getString("etPhone"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-		Idioma.getString("etMail"), Idioma.getString("etBirthDate"), Idioma.getString("etAccType"), Idioma.getString("etStatus") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	
 	
 
@@ -97,13 +96,14 @@ public class InformeVisual2 extends javax.swing.JPanel {
     					
     					
     					try {
-    						
+   		    			 String[] columnas = {"DNI", "Nombre", "Apellidos","Direccion", "Poblacion", "Provincia","CP","Telefono","Email","Fecha Nacimiento","Tipo", "Activo"};
+
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
     						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
-    						modelo.setColumnIdentifiers(nombreColumna);
+    						modelo.setColumnIdentifiers(columnas);
     						
     						while (rs.next()) {
     							
@@ -134,9 +134,8 @@ public class InformeVisual2 extends javax.swing.JPanel {
     						System.out.println(e1);
 
     					}
-     					tbaTabla = new JTable(modelo);
-     					add(tbaTabla);
-     					tbaTabla.setBounds(21, 180, 778, 162);
+     					add(getTablaPrincipal());
+     					//tbaTabla.setBounds(21, 180, 778, 162);
     					informe = 1;
     					}});
     				}
@@ -153,13 +152,14 @@ public class InformeVisual2 extends javax.swing.JPanel {
     					
     					
     					try {
-    						
+   		    			 String[] columnas = {"DNI", "Nombre", "Apellidos","Direccion", "Poblacion", "Provincia","CP","Telefono","Email","Fecha Nacimiento","Tipo", "Activo"};
+
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
     						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
-    						modelo.setColumnIdentifiers(nombreColumna);
+    						modelo.setColumnIdentifiers(columnas);
     						
     						while (rs.next()) {
     							
@@ -190,9 +190,8 @@ public class InformeVisual2 extends javax.swing.JPanel {
     						System.out.println(e1);
 
     					}
-     					tbaTabla = new JTable(modelo);
-     					add(tbaTabla);
-     					tbaTabla.setBounds(21, 180, 778, 162);
+     					add(getTablaPrincipal());
+     					//tbaTabla.setBounds(21, 180, 778, 162);
     					informe = 2;
     					}});
     				}
@@ -206,16 +205,11 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				btnParcela.setBounds(403, 62, 108, 31);
 				btnParcela.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    	    			 tbaTabla.removeAll();
     			 String[] columnas = {"IdParcela", "Alias", "Provincia","Población", "Polígono", "Número","Partida","DniPropietario"};
 
     					txtBuscador.setEnabled(true);
 
-    					modelo = new DefaultTableModel();
-    					modelo.setColumnIdentifiers(columnas);
-    					tbaTabla = new JTable(modelo);
-    					add(tbaTabla);
-    					tbaTabla.setBounds(21, 180, 778, 162);
+    					add(getTablaPrincipal());
     					informe = 3;
     					}});
 			}
@@ -231,11 +225,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
 
     					txtBuscador.setEnabled(true);
     					
-    					modelo = new DefaultTableModel();
-    					modelo.setColumnIdentifiers(columnas);
-    					tbaTabla = new JTable(modelo);
-    					add(tbaTabla);
-    					tbaTabla.setBounds(21, 180, 778, 162);
+    					add(getTablaPrincipal());
     					
     					informe = 4;
     					}});
@@ -328,6 +318,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
     					case 1:
     					
     						try {
+    							
 								InformeCuaderno l1 = new InformeCuaderno(id);
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -337,7 +328,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
     						break;
     					case 2:
     						try {
-    						InformeTrabajador l2 = new InformeTrabajador(id);
+    						InformeTrabajador l2 = new InformeTrabajador(id,"2011/01/01","2013/01/01");
     						} catch (SQLException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -363,7 +354,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
     						
     					}});
 			}
-			{
+			/*{
 				
 			    tbaTabla = new JTable();
 				this.add(tbaTabla);
@@ -371,11 +362,12 @@ public class InformeVisual2 extends javax.swing.JPanel {
 				tbaTabla.setBounds(21, 180, 778, 162);
 				tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
 					public void mouseClicked(java.awt.event.MouseEvent e) {
-						
+					System.out.println("entra");	
 						int i = tbaTabla.getSelectedRow();
+						System.out.println(i);
 						if (i != -1) {
 							id = tbaTabla.getValueAt(i, 0).toString();
-									
+									System.out.println(id);
 						}
 						
 						
@@ -383,7 +375,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
 					}
 				});
 				
-			}
+			}*/
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -411,7 +403,7 @@ public class InformeVisual2 extends javax.swing.JPanel {
 			 
 			ResultSet rs = ConectarDBA.buscar(sentencia);
 			int nColumnas = rs.getMetaData().getColumnCount();
-			modelo.setColumnIdentifiers(nombreColumna);
+			//modelo.setColumnIdentifiers(nombreColumna);
 			
 			while (rs.next()) {
 				
@@ -446,5 +438,40 @@ public class InformeVisual2 extends javax.swing.JPanel {
 		
 		
 		
+	}
+	public final JTable getTablaPrincipal() {
+		if (tbaTabla == null) {
+			tbaTabla = new JTable(modelo)
+			{
+				
+			    public boolean isCellEditable(int row, int column) {  // La tabla no será editable
+				       return false;
+				    }
+			};
+			
+			if (redimensionarTabla==true){
+			
+				tbaTabla.setAutoResizeMode(0);
+				
+			}
+			
+			tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					
+					
+					int i = tbaTabla.getSelectedRow();
+					if (i != -1) {
+						id = tbaTabla.getValueAt(i, 0).toString();
+								
+					}
+					
+					
+				}
+			});
+			
+		}
+		tbaTabla.setBounds(21, 180, 778, 162);
+		tbaTabla.setVisible(true);
+		return tbaTabla;
 	}
 }
