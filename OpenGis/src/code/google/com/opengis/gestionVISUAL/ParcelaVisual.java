@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import code.google.com.opengis.gestion.Parcela;
 import code.google.com.opengis.gestionDAO.AperoDAO;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
-import code.google.com.opengis.gestionDAO.ProductoDAO;
+import code.google.com.opengis.gestion.Producto;
 /**
  * Clase Visual de Parcela, con la que realizaremos altas, bajas y modificaciones.
  * @author stanfermo
