@@ -641,9 +641,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							
     							InformeVisual2 panelNuevo = new InformeVisual2();
     						
-    							tabsPaneles.addTab(Idioma.getString("etImplementsMng"),panelNuevo); //$NON-NLS-1$
-    							tabsPaneles.setSelectedIndex(numPestañas);
-    							
+    							tabsPaneles.addTab(Idioma.getString("etReportsMng"),panelNuevo); //$NON-NLS-1$
+    							tabsPaneles.setSelectedIndex(numPestañas);    							
     						}else{
     							
     							JOptionPane.showMessageDialog(null, Idioma.getString("msgManyTabs")); //$NON-NLS-1$
