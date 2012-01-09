@@ -44,9 +44,7 @@ public class InformeCuaderno {
 
 	static String Dni;
 	static ResultSet rs;
-	static ResultSet rs2;
-	static ResultSet rs3;
-	static ResultSet rs4;
+	
 
 	static String nombre;
 	static int x;
@@ -57,7 +55,7 @@ public class InformeCuaderno {
 	
 	public InformeCuaderno(String dni) throws SQLException{
 		Dni = dni;
-		DatosUsuarioParcela("44876647j", "01/01/2011","31/12/2012" ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		DatosUsuarioParcela(dni, "01/01/2011","31/12/2012" ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		crear_PDF(Idioma.getString("_BookReport.Title"),Idioma.getString("_BookReport.Author"),"",""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		
 		
