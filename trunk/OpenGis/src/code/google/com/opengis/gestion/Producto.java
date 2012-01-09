@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
-import code.google.com.opengis.gestionDAO.ProductoDAO;
+
 
 
 public class Producto {
@@ -19,7 +19,7 @@ public class Producto {
 	private String dosis;
 	private String dni;
 	private int activo;
-	private ProductoDAO x;
+	private Producto x;
 	private Boolean correcto;
 	
 //CONSTRUCTOR
