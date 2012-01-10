@@ -11,12 +11,14 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JFrame;
 
 import code.google.com.opengis.gestion.InformeCuaderno;
@@ -50,6 +52,9 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 	
 	private JTextField txtBuscador;
 	private JLabel jLabel1;
+	private JLabel jLabel2;
+	private JLabel jLabel3;
+
 	static String id;
 	private JButton btnDispositivos;
 	private JButton btnParcela;
@@ -57,8 +62,10 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 	public DefaultTableModel modelo = new DefaultTableModel();
 	private String dni = "";
 	static int informe;
-	
-	
+	static String lol;
+	private JFormattedTextField JFecha1;
+	private JFormattedTextField JFecha2;
+
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -88,10 +95,11 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				btnCuaderno = new JButton();
 				this.add(btnCuaderno);
 				btnCuaderno.setText(Idioma.getString("etBookLog"));
-				btnCuaderno.setBounds(177, 63, 108, 29);
+				btnCuaderno.setBounds(175, 29, 108, 29);
+				
+
 				btnCuaderno.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    					txtBuscador.setEnabled(true);
     					String criterio = txtBuscador.getText();
     					
     					
@@ -139,16 +147,34 @@ public class InformeVisual2 extends javax.swing.JPanel  {
      					//tbaTabla.setBounds(21, 180, 778, 162);
     					informe = 1;
     					}});
+    				}{
+    					MaskFormatter mascara = new MaskFormatter("##/##/####");
+    					JFecha1 = new JFormattedTextField(mascara);
+    					JFecha1.setBounds(476, 76, 91, 23);
     				}
+    				{
+    					MaskFormatter mascara = new MaskFormatter("##/##/####");
+    					JFecha2 = new JFormattedTextField(mascara);
+    					JFecha2.setBounds(326, 76, 91, 23);
+    				}
+    				{
+    					jLabel2 = new JLabel();
+    					jLabel2.setText("Y");
+    					jLabel2.setBounds(429, 79, 10, 16);
+    				}
+    				 {
+    						jLabel3 = new JLabel();
+    						jLabel3.setText("Escoja la fecha del informe entre: ");
+    						jLabel3.setBounds(103, 79, 216, 16);
+    					}
 			
 			{
 				btnTrabajador = new JButton();
 				this.add(btnTrabajador);
 				btnTrabajador.setText(Idioma.getString("etWorker"));
-				btnTrabajador.setBounds(290, 63, 108, 30);
+				btnTrabajador.setBounds(288, 28, 108, 30);
 				btnTrabajador.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    					txtBuscador.setEnabled(true);
     					String criterio = txtBuscador.getText();
     					
     					
@@ -204,11 +230,10 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				btnParcela = new JButton();
 				this.add(btnParcela);
 				btnParcela.setText(Idioma.getString("etLots"));
-				btnParcela.setBounds(403, 62, 108, 31);
+				btnParcela.setBounds(401, 28, 108, 31);
 
 				btnParcela.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    					txtBuscador.setEnabled(true);
     					String criterio = txtBuscador.getText();
     					
     					
@@ -259,10 +284,9 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				btnDispositivos = new JButton();
 				this.add(btnDispositivos);
 				btnDispositivos.setText(Idioma.getString("etDevices"));
-				btnDispositivos.setBounds(516, 62, 107, 31);
+				btnDispositivos.setBounds(514, 28, 107, 31);
 				btnDispositivos.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    					txtBuscador.setEnabled(true);
     					String criterio = txtBuscador.getText();
     					
     					
@@ -276,6 +300,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
     						modelo.setColumnIdentifiers(columnas);
+
     						
     						while (rs.next()) {
     							
@@ -321,26 +346,14 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				jLabel1 = new JLabel();
 				this.add(jLabel1);
 				jLabel1.setText(Idioma.getString("msgReportType"));
-				jLabel1.setBounds(273, 28, 276, 23);
+				jLabel1.setBounds(246, 5, 276, 23);
 			}
 			{
 				
-			
-				txtBuscador = new JTextField(); //$NON-NLS-1$
-				txtBuscador.setBounds(new Rectangle(267,110, 284, 32));
+				
+				txtBuscador = new JTextField(""); //$NON-NLS-1$
+				txtBuscador.setBounds(273, 136, 284, 32);
 				txtBuscador.setSelectedTextColor(new Color(204, 204, 204));
-				
-				if(dni!=""){
-					
-					txtBuscador.setText(dni);
-					
-					txtBuscador.setEnabled(false);
-					
-					buscar();
-					
-				}
-				
-				
 				txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
 					public void keyTyped(java.awt.event.KeyEvent e) {
 						
@@ -350,32 +363,16 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 						
 						buscar();
 						
-					}
-
-			
+					}});
+				if(dni!=""){
 					
-			
-				
-
-			});
-				
-				
-				txtBuscador.addActionListener(new java.awt.event.ActionListener() {
-    				public void actionPerformed(java.awt.event.ActionEvent e) {
-						
-						
-						txtBuscador.setText("");
-						
-					}
-
-			
+					txtBuscador.setText(dni);
 					
-			
-				
-
-			});
-				
-				
+					txtBuscador.setEnabled(false);
+					
+					buscar();
+					
+				}
 				
 				
 			}
@@ -435,6 +432,10 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				
 			    tbaTabla = new JTable();
 				this.add(tbaTabla);
+				this.add(getJFormattedTextField1());
+				this.add(getJFormattedTextField2());
+				this.add(getJLabel4());
+				this.add(getJLabel4x());
 				tbaTabla.setModel(modelo);
 				tbaTabla.setBounds(21, 180, 778, 162);
 				tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
@@ -474,7 +475,9 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
-			
+			if(criterio.equals("")){}
+			else{
+				System.out.println("entra y criterio es : "+criterio);
 			String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
 
 			 
@@ -506,7 +509,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				modelo.addRow(registro); // Añadimos el registro a la tabla
 
 			}
-			rs.close();
+			rs.close();}
 		} catch (SQLException e1) {
 			System.out.println(e1);
 
@@ -551,5 +554,41 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 		tbaTabla.setBounds(21, 180, 778, 162);
 		tbaTabla.setVisible(true);
 		return tbaTabla;
+	} 
+	
+	private JFormattedTextField getJFormattedTextField1() {
+		if(JFecha1 == null) {
+			JFecha1 = new JFormattedTextField();
+			JFecha1.setText("jFormattedTextField1");
+			JFecha1.setBounds(267, 76, 117, 23);
+		}
+		return JFecha1;
+	}
+	
+	private JFormattedTextField getJFormattedTextField2() {
+		if(JFecha2 == null) {
+			JFecha2 = new JFormattedTextField();
+			JFecha2.setText("jFormattedTextField1");
+			JFecha2.setBounds(397, 76, 117, 23);
+		}
+		return JFecha2;
+	}
+	
+	private JLabel getJLabel4() {
+		if(jLabel2 == null) {
+			jLabel2 = new JLabel();
+			jLabel2.setText("Y");
+			jLabel2.setBounds(401, 79, 18, 16);
+		}
+		return jLabel2;
+	}
+	
+	private JLabel getJLabel4x() {
+		if(jLabel3 == null) {
+			jLabel3 = new JLabel();
+			jLabel3.setText("Escoja la fecha del informe entre: ");
+			jLabel3.setBounds(128, 79, 84, 16);
+		}
+		return jLabel3;
 	}
 }
