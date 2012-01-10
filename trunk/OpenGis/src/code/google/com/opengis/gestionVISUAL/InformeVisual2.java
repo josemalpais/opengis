@@ -559,7 +559,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 	private JFormattedTextField getJFormattedTextField1() {
 		if(JFecha1 == null) {
 			JFecha1 = new JFormattedTextField();
-			JFecha1.setText("jFormattedTextField1");
+			JFecha1.setText("01/01/2011");
 			JFecha1.setBounds(267, 76, 117, 23);
 		}
 		return JFecha1;
@@ -568,7 +568,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 	private JFormattedTextField getJFormattedTextField2() {
 		if(JFecha2 == null) {
 			JFecha2 = new JFormattedTextField();
-			JFecha2.setText("jFormattedTextField1");
+			JFecha2.setText("");
 			JFecha2.setBounds(397, 76, 117, 23);
 		}
 		return JFecha2;
