@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -54,11 +55,34 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
-
+	
+	private JScrollPane jScrollPane = null;
 	static String id;
 	private JButton btnDispositivos;
 	private JButton btnParcela;
-	private JTable tbaTabla;
+	private JTable tbaTabla = null;
+	static Object[] columna1 = { Idioma.getString("etIdCard"),
+		Idioma.getString("etName"), Idioma.getString("etLastName"),
+		Idioma.getString("etAddress"), Idioma.getString("etCity"),
+		Idioma.getString("etProvince"), Idioma.getString("etPostalCode"),
+		Idioma.getString("etPhone"), Idioma.getString("etMail"),
+		Idioma.getString("etBirthDate"), Idioma.getString("etType"),
+		Idioma.getString("etActive") };
+static Object[] columna2 = { Idioma.getString("etIdCard"),
+		Idioma.getString("etName"), Idioma.getString("etLastName"),
+		Idioma.getString("etAddress"), Idioma.getString("etCity"),
+		Idioma.getString("etProvince"), Idioma.getString("etPostalCode"),
+		Idioma.getString("etPhone"), Idioma.getString("etMail"),
+		Idioma.getString("etBirthDate"), Idioma.getString("etType"),
+		Idioma.getString("etActive") };
+static Object[] columna3 = { Idioma.getString("etIDLot"),
+		Idioma.getString("etAlias"), Idioma.getString("etProvince"),
+		Idioma.getString("etCity"), Idioma.getString("etArea"),
+		Idioma.getString("etNumber"), Idioma.getString("etEntry"),
+		Idioma.getString("etIDOwner") };
+static Object[] columna4 = { Idioma.getString("etIdCard"),
+		Idioma.getString("etModel"), Idioma.getString("etSerialNumber"),
+		Idioma.getString("etAvailabe"), Idioma.getString("etActive") };
 	public DefaultTableModel modelo = new DefaultTableModel();
 	private String dni = "";
 	static int informe;
@@ -91,6 +115,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 		try {
 			setPreferredSize(new Dimension(811, 402));
 			this.setLayout(null);
+			this.add(getJScrollPane(), null);
 			{
 				btnCuaderno = new JButton();
 				this.add(btnCuaderno);
@@ -104,15 +129,13 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     					
     					
     					try {
-   		    			    		    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etName"), Idioma.getString("etLastName"),Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"),Idioma.getString("etPostalCode"),Idioma.getString("etPhone"),Idioma.getString("etMail"),Idioma.getString("etBirthDate"),Idioma.getString("etType"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
-
-
+   		    			    
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
     						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
-    						modelo.setColumnIdentifiers(columnas);
+    						modelo.setColumnIdentifiers(columna1);
     						
     						while (rs.next()) {
     							
@@ -179,15 +202,13 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     					
     					
     					try {
-   		    			    		    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etName"), Idioma.getString("etLastName"),Idioma.getString("etAddress"), Idioma.getString("etCity"), Idioma.getString("etProvince"),Idioma.getString("etPostalCode"),Idioma.getString("etPhone"),Idioma.getString("etEmail"),Idioma.getString("etBirthDate"),Idioma.getString("etType"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
-
-
+   		    			    
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
     						String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"+criterio+"%' OR nombre LIKE '%"+criterio+"%' OR apellidos LIKE '%"+criterio+"%' OR dirección LIKE '%"+criterio+"%' OR población LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
-    						modelo.setColumnIdentifiers(columnas);
+    						modelo.setColumnIdentifiers(columna2);
     						
     						while (rs.next()) {
     							
@@ -238,14 +259,13 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     					
     					
     					try {
-    			   			 String[] columnas = {Idioma.getString("etIDLot"), Idioma.getString("etAlias"), Idioma.getString("etProvince"),Idioma.getString("etCity"), Idioma.getString("etArea"), Idioma.getString("etNumber"),Idioma.getString("etEntry"),Idioma.getString("etIDOwner")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
-
+    			   			
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
     						String sentencia = "SELECT `idparcela`, `alias`, `provincia`, `poblacion`, `poligono`, `numero`, `activo`, `partida`, `dni_propietario` FROM `parcela` WHERE idparcela LIKE '%"+criterio+"%' OR alias LIKE '%"+criterio+"%' OR provincia LIKE '%"+criterio+"%' OR poblacion LIKE '%"+criterio+"%' OR poligono LIKE '%"+criterio+"%' OR numero LIKE '%"+criterio+"%' OR activo LIKE '%"+criterio+"%' OR partida LIKE '%"+criterio+"%' OR dni_propietario LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
-    						modelo.setColumnIdentifiers(columnas);
+    						modelo.setColumnIdentifiers(columna3);
     						
     						while (rs.next()) {
     							
@@ -291,15 +311,13 @@ public class InformeVisual2 extends javax.swing.JPanel  {
     					
     					
     					try {
-       	    			 String[] columnas = {Idioma.getString("etIdCard"), Idioma.getString("etModel"), Idioma.getString("etSerialNumber"),Idioma.getString("etAvailabe"), Idioma.getString("etActive")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
- 					
-
+       	    			
     						modelo.setColumnCount(0);
     						modelo.setRowCount(0);
     						String sentencia = "SELECT `iddispositivo`, `modelo`, `num_serie`, `disponible`, `activo` FROM `dispositivo` WHERE iddispositivo LIKE '%"+criterio+"%' OR modelo LIKE '%"+criterio+"%' OR num_serie LIKE '%"+criterio+"%' OR disponible LIKE '%"+criterio+"%' OR activo LIKE '%"+criterio+"%'";
     						ResultSet rs = ConectarDBA.buscar(sentencia);
     						int nColumnas = rs.getMetaData().getColumnCount();
-    						modelo.setColumnIdentifiers(columnas);
+    						modelo.setColumnIdentifiers(columna4);
 
     						
     						while (rs.next()) {
@@ -431,13 +449,13 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			{
 				
 			    tbaTabla = new JTable();
-				this.add(tbaTabla);
+				//this.add(tbaTabla);
 				this.add(getJFormattedTextField1());
 				this.add(getJFormattedTextField2());
 				this.add(getJLabel4());
 				this.add(getJLabel4x());
 				tbaTabla.setModel(modelo);
-				tbaTabla.setBounds(21, 180, 778, 162);
+				//tbaTabla.setBounds(21, 180, 778, 162);
 				tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
 					public void mouseClicked(java.awt.event.MouseEvent e) {
 						
@@ -551,10 +569,19 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 			});
 			
 		}
-		tbaTabla.setBounds(21, 180, 778, 162);
+		
 		tbaTabla.setVisible(true);
 		return tbaTabla;
-	} 
+	}
+	
+	private JScrollPane getJScrollPane() {
+		if (jScrollPane == null) {
+			jScrollPane = new JScrollPane();
+			jScrollPane.setBounds(new Rectangle(21, 180, 778, 162));
+			jScrollPane.setViewportView(getTablaPrincipal());
+		}
+		return jScrollPane;
+	}
 	
 	private JFormattedTextField getJFormattedTextField1() {
 		if(JFecha1 == null) {
