@@ -236,26 +236,21 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				getBEliminar().setEnabled(false);
 				getBSigPac().setEnabled(false);
 				
-				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("etLotWithName") + rParcela[1] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				
-				if(resp==0){
-					
-					try {
-						Parcela.activarParcela(rParcela[0]);
-						buscar();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-				}
-				
-			}else{
-			
-				getBModificar().setEnabled(true);
-				getBEliminar().setEnabled(true);
-				bSigPac.setEnabled(true);
-			}
+				 Object[] opt = {Idioma.getString("etYes"), Idioma.getString("etNo") }; //$NON-NLS-1$ //$NON-NLS-2$
+				 int resp = JOptionPane.showOptionDialog(this,Idioma.getString("etLotWithName") + rParcela[0] + Idioma.getString("msgIsInactive"), Idioma.getString("msgConfirmDialog"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[0]); //$NON-NLS-1$ //$NON-NLS-2$
+				 if (resp == 0) {
+				 try {
+				 Parcela.activarParcela(rParcela[0]);
+				 buscar();
+				 } catch (SQLException e1) {
+				 // TODO Auto-generated catch block
+				 e1.printStackTrace();}
+				 }	
+				 }else{	
+				 getBModificar().setEnabled(true);
+				 getBEliminar().setEnabled(true);
+
+				 }
 			
 		}
 		
