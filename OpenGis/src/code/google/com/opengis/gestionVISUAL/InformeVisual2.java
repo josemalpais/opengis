@@ -346,7 +346,7 @@ public class InformeVisual2 extends javax.swing.JPanel  {
 				jLabel1 = new JLabel();
 				this.add(jLabel1);
 				jLabel1.setText(Idioma.getString("msgReportType"));
-				jLabel1.setBounds(246, 5, 276, 23);
+				jLabel1.setBounds(271, 5, 276, 23);
 			}
 			{
 				
