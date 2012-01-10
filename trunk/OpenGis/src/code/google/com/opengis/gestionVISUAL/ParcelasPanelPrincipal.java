@@ -137,11 +137,11 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 		
 			
     	try {
-    		int confirmar=JOptionPane.showConfirmDialog(null, Idioma.getString("msgDeleteConfirm")+id); //$NON-NLS-1$
-    		if(JOptionPane.OK_OPTION==confirmar){
+    		//int confirmar=JOptionPane.showConfirmDialog(null, Idioma.getString("msgDeleteConfirm")+id); //$NON-NLS-1$
+    		//if(JOptionPane.OK_OPTION==confirmar){
     			Parcela.bajaParcela(id);
-    			buscar();
-    		}
+    			//buscar();
+    		//}
     	} catch (SQLException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
