@@ -295,84 +295,97 @@ public class Usuarios {
 					} else {
 
 						Date fechaAhora = new Date();
-
-						if (this.fechaNac.equals("")) { //$NON-NLS-1$
-
+						if (this.fechaNac.equals("00/00/0000")) {
 							JOptionPane.showMessageDialog(null,
-									Idioma.getString("msgErrorEmptyBirthDate")); //$NON-NLS-1$
+									Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 							this.valido = false;
-
 						} else {
 
-							for (int i = 0; i < this.fechaNac.length(); i++) {
-								if (Character.isDigit(this.fechaNac.charAt(i)) == false
-										&& this.fechaNac.charAt(i) != '/') {
+							if (this.fechaNac.equals("")) { //$NON-NLS-1$
 
-									JOptionPane.showMessageDialog(null, Idioma
-											.getString("msgErrorWrongDate")); //$NON-NLS-1$
-									this.valido = false;
-								}
-							}
+								JOptionPane.showMessageDialog(null, Idioma
+										.getString("msgErrorEmptyBirthDate")); //$NON-NLS-1$
+								this.valido = false;
 
-							if (this.valido) {
-								@SuppressWarnings("deprecation")
-								Date fechaNac = new Date(this.fechaNac);
+							} else {
 
-								if (this.fechaNac.length() != 10
-										|| fechaNac.getTime() > fechaAhora
-												.getTime()) {
-
-									JOptionPane.showMessageDialog(null, Idioma
-											.getString("msgErrorWrongDate")); //$NON-NLS-1$
-									this.valido = false;
-
-								} else {
-
-									r = isInteger(this.cp);
-
-									if (this.cp.length() != 5
-											|| r.equals(false)) {
+								for (int i = 0; i < this.fechaNac.length(); i++) {
+									if (Character.isDigit(this.fechaNac
+											.charAt(i)) == false
+											&& this.fechaNac.charAt(i) != '/') {
 
 										JOptionPane
 												.showMessageDialog(
 														null,
-														Idioma.getString("msgErrorPostalCode")); //$NON-NLS-1$
+														Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
+
+										this.valido = false;
+										break;
+									}
+								}
+
+								if (this.valido) {
+									@SuppressWarnings("deprecation")
+									Date fechaNac = new Date(this.fechaNac);
+
+									if (this.fechaNac.length() != 10
+											|| fechaNac.getTime() > fechaAhora
+													.getTime()) {
+
+										JOptionPane
+												.showMessageDialog(
+														null,
+														Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
+										this.valido = false;
 
 									} else {
 
-										r = isInteger(this.password);
+										r = isInteger(this.cp);
 
-										if (this.password.length() == 0
-												|| r.equals(true)) {
+										if (this.cp.length() != 5
+												|| r.equals(false)) {
 
 											JOptionPane
 													.showMessageDialog(
 															null,
-															Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
-											this.valido = false;
+															Idioma.getString("msgErrorPostalCode")); //$NON-NLS-1$
 
 										} else {
 
-											this.valido = true; // En
-																// el
-																// caso
-																// de
-																// que
-																// todos
-																// los
-																// datos
-																// sean
-																// correctos
-																// devolveremos
-																// True
+											r = isInteger(this.password);
 
+											if (this.password.length() == 0
+													|| r.equals(true)) {
+
+												JOptionPane
+														.showMessageDialog(
+																null,
+																Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
+												this.valido = false;
+
+											} else {
+
+												this.valido = true; // En
+																	// el
+																	// caso
+																	// de
+																	// que
+																	// todos
+																	// los
+																	// datos
+																	// sean
+																	// correctos
+																	// devolveremos
+																	// True
+
+											}
 										}
+
 									}
 
 								}
 
 							}
-
 						}
 
 					}
