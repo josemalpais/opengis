@@ -261,6 +261,30 @@ public class Usuarios {
 
 	}
 
+	public static boolean validarNumerico(String numero, String nombreCampo,
+			int longitud) {
+		Boolean r = isInteger(numero);
+
+		if (numero.length() != longitud) {
+			JOptionPane.showMessageDialog(null,
+					Idioma.getString("msgErrorField") + nombreCampo
+							+ " debe contener " + longitud + " dígitos");
+			return false;
+		} else {
+			for (int i = 0; i < longitud; i++) {
+				if (Character.isDigit(numero.charAt(i)) == false) {
+					JOptionPane.showMessageDialog(null,
+							Idioma.getString("msgErrorField") //$NON-NLS-1$
+									+ nombreCampo
+									+ " sólo debe contener números"); //$NON-NLS-1$
+					return false;
+				}
+			}
+			return true;
+		}
+
+	}
+
 	public void validarDatos() {
 		this.valido = true;
 		if (validarDni(dni) == false) {
@@ -340,57 +364,43 @@ public class Usuarios {
 
 									} else {
 
-										r = isInteger(this.cp);
+										r = isInteger(this.password);
 
-										if (this.cp.length() != 5
-												|| r.equals(false)) {
+										if (this.password.length() == 0
+												|| r.equals(true)) {
 
 											JOptionPane
 													.showMessageDialog(
 															null,
-															Idioma.getString("msgErrorPostalCode")); //$NON-NLS-1$
+															Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
+											this.valido = false;
 
 										} else {
 
-											r = isInteger(this.password);
+											this.valido = true; // En
+																// el
+																// caso
+																// de
+																// que
+																// todos
+																// los
+																// datos
+																// sean
+																// correctos
+																// devolveremos
+																// True
 
-											if (this.password.length() == 0
-													|| r.equals(true)) {
-
-												JOptionPane
-														.showMessageDialog(
-																null,
-																Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
-												this.valido = false;
-
-											} else {
-
-												this.valido = true; // En
-																	// el
-																	// caso
-																	// de
-																	// que
-																	// todos
-																	// los
-																	// datos
-																	// sean
-																	// correctos
-																	// devolveremos
-																	// True
-
-											}
 										}
-
 									}
 
 								}
 
 							}
+
 						}
-
 					}
-
 				}
+
 			}
 		}
 
@@ -531,7 +541,7 @@ public class Usuarios {
 	 * 
 	 */
 
-	public boolean isInteger(String input) {
+	public static boolean isInteger(String input) {
 		try {
 			Integer.parseInt(input);
 			return true;

@@ -435,8 +435,9 @@ public class UsuariosPanelNuevo extends JPanel {
 			txtCP.setBounds(new Rectangle(358, 139, 115, 27));
 			txtCP.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
-
-					if (txtCP.getText().length() > 0) {
+					boolean cpValido = Usuarios.validarNumerico(txtCP.getText(), Idioma.getString("etPostalCode"), 5);
+					System.out.println(cpValido);
+					if (cpValido == true) {
 
 						try {
 
