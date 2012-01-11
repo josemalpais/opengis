@@ -290,10 +290,10 @@ public class PrestamoPanelGestion extends JPanel {
 							e1.printStackTrace();
 						}
 					
-if(encontrado == false){
+						if(encontrado == false){
 	
-}else{
-					if(accion.equals("alta")){ //$NON-NLS-1$
+						}else{
+							if(accion.equals("alta")){ //$NON-NLS-1$
 									
 						
 							try {
