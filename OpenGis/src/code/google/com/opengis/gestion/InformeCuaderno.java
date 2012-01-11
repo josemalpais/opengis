@@ -275,7 +275,7 @@ public class InformeCuaderno {
 			                 tabla6.addCell(Idioma.getString("_BookReport.Product")); //$NON-NLS-1$
 			                 tabla6.addCell(Idioma.getString("_BookReport.Dose")); //$NON-NLS-1$
 			                 tabla6.addCell(Idioma.getString("_BookReport.Date")); //$NON-NLS-1$
-			                 tabla6.addCell(Idioma.getString("_BookReport.Note")); //$NON-NLS-1$
+			                 tabla6.addCell(Idioma.getString("_BookReport.Notes")); //$NON-NLS-1$
 			                 rs=ConectarDBA.consulta(consulta4);
 			                 while(rs.next()){
 			                	for(int o = 1;o <=5;o++){
@@ -296,7 +296,7 @@ public class InformeCuaderno {
 			                 tabla7.addCell(Idioma.getString("_BookReport.Phosphorus")); //$NON-NLS-1$
 			                 tabla7.addCell(Idioma.getString("_BookReport.Potassium")); //$NON-NLS-1$
 			                 tabla7.addCell(Idioma.getString("_BookReport.Date")); //$NON-NLS-1$
-			                 tabla7.addCell(Idioma.getString("_BookReport.Note")); //$NON-NLS-1$
+			                 tabla7.addCell(Idioma.getString("_BookReport.Notes")); //$NON-NLS-1$
 			                
 			                 for(int o =0;o<=70;o++){
 			                	 tabla7.addCell(" "); //$NON-NLS-1$
