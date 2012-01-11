@@ -575,21 +575,21 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 				btnGenerar.setBounds(273, 360, 223, 31);
 				btnGenerar.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
-    				String trim1 = fecha1;
-    				String trim2 = fecha2;
-    				
-    				if((fecha1 !=null)||!(fecha2 !=null)){
+    				fecha1 = JFecha2.getText();
+    				fecha2 = JFecha1.getText();
     					
-    					if((trim1.trim().equals(fecha1))||(trim2.trim().equals(fecha2))){
-    						fecha1 = transformarFecha(JFecha1.getText());
-    						fecha2 = transformarFecha(JFecha2.getText());
+    				
+    				if(!fecha1.equals("  -  -    ")){
+    					System.out.println("La fecha es+ "+fecha1);
+    					if(!fecha2.equals("  -  -    ")){
+    						System.out.println("La fecha2 es+ "+fecha2);
+    						fecha1 = transformarFecha(JFecha2.getText());
+    						fecha2 = transformarFecha(JFecha1.getText());
     						System.out.println("la fecha a cambiado a :" +fecha1 +" y a"+fecha2);
     					}
-    				}else{
-    						fecha1 = "2011-01-01";
-    						fecha2 = year+"-12-31";
-    						
-    					}
+    					}else{
+    						generarFecha();			
+    				}
  
     					switch(informe){
     					
@@ -704,7 +704,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 		if(JFecha1 == null) {
 			JFecha1 = new JFormattedTextField();
 			JFecha1.setText("01-01-2011");
-			JFecha1.setBounds(267, 76, 117, 23);
+			JFecha1.setBounds(267, 76, 117, 23);			
 		}
 		return JFecha1;
 	}
@@ -714,6 +714,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 			JFecha2 = new JFormattedTextField();
 			JFecha2.setText("31-12-2026");
 			JFecha2.setBounds(397, 76, 117, 23);
+
 		}
 		return JFecha2;
 	}
@@ -738,5 +739,18 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	public String transformarFecha(String fecha){
 		fecha = fecha.substring(6,10)+"-"+fecha.substring(3,5)+"-"+fecha.substring(0,2);
 		return fecha;
+	}
+	public void generarFecha(){
+		fecha1 = "2011-01-01";
+		fecha2 = year+"-12-31";
+		
+	}
+	public void fechaHoy(){
+		String dia,mes,annio;
+		 Calendar c = new GregorianCalendar();
+		dia = Integer.toString(c.get(Calendar.DATE));
+		mes = Integer.toString(c.get(Calendar.MONTH)+1);
+		annio = Integer.toString(c.get(Calendar.YEAR));
+		System.out.println(dia+"-"+mes+"-"+annio);
 	}
 }

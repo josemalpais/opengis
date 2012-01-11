@@ -60,8 +60,10 @@ public void DatosUsuarioParcela(String id,String inicio,String fin) {
 	fechaini = inicio;
 	fechafin = fin; //implementar la consulta para elegir entre 2 fechas
 	consulta = "SELECT `dispositivo`.`modelo` , `dispositivo`.`num_serie` , `dispositivo`.`iddispositivo` FROM dispositivo WHERE ((`dispositivo`.`iddispositivo` LIKE '"+id+"'))"; //$NON-NLS-1$ //$NON-NLS-2$
-	consulta2 = "SELECT `usuario`.`nombre`, `usuario`.`apellidos`, `usuario`.`dni` , `prestamo`.`fecha_alquiler` , `prestamo`.`fecha_devol` FROM dispositivo, prestamo, usuario	WHERE ((`prestamo`.`fecha_alquiler`` BETWEEN '"+fechaini+"' AND '"+fechafin+"') AND (`dispositivo`.`iddispositivo` LIKE '"+id+"') AND (`prestamo`.`iddispositivo` LIKE `dispositivo`.`iddispositivo`) AND (`usuario`.`dni` LIKE `prestamo`.`dni_usuario`))"; 
+	consulta2 = "SELECT `usuario`.`nombre`, `usuario`.`apellidos`, `usuario`.`dni` , `prestamo`.`fecha_alquiler` , `prestamo`.`fecha_devol` FROM dispositivo, prestamo, usuario	WHERE ((`prestamo`.`fecha_alquiler` BETWEEN '"+fechaini+"' AND '"+fechafin+"') AND (`dispositivo`.`iddispositivo` LIKE '"+id+"') AND (`prestamo`.`iddispositivo` LIKE `dispositivo`.`iddispositivo`) AND (`usuario`.`dni` LIKE `prestamo`.`dni_usuario`))"; 
 			 	ConectarDBA.acceder();
+			 	System.out.println(consulta);
+			 	System.out.println(consulta2);
 	
 	try {
 		
