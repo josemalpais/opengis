@@ -52,8 +52,9 @@ static Image imghead = null;
 static String fechaini;
 static String fechafin;
 
-public InformeParcela(String parcela) throws SQLException {
-	DatosUsuarioParcela(parcela,"2011/01/01","2011/12/31"); //$NON-NLS-1$ //$NON-NLS-2$
+public InformeParcela(String parcela,String fechaini,String fechafin) throws SQLException {
+	
+	DatosUsuarioParcela(parcela,fechaini,fechafin); //$NON-NLS-1$ //$NON-NLS-2$
 	
 	crear_PDF(Idioma.getString("_LotReport.Header"), Idioma.getString("_LotReport.Author")); //$NON-NLS-1$ //$NON-NLS-2$
 
