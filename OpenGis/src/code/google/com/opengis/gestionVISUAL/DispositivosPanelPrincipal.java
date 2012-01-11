@@ -113,6 +113,9 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 			try {
 				DispositivoDAO.borrarDispositivo(rDisp[0]);
+				
+				buscar();
+				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
