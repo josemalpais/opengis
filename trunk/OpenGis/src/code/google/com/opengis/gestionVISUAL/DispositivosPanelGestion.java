@@ -157,19 +157,19 @@ public class DispositivosPanelGestion extends JPanel {
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 				if(accion=="modificar"){ //$NON-NLS-1$
-					if (Dispositivo.validarDatos(txtModelo.getText(),
-							txtNumSerie.getText()) == true) {
-						txtModelo.setText(quitarBlancosIzquierda(txtModelo.getText()));
-						txtModelo.setText(quitarBlancosDerecha(txtModelo.getText()));
-						txtNumSerie.setText(quitarBlancosIzquierda(txtNumSerie.getText()));
-						txtNumSerie.setText(quitarBlancosDerecha(txtNumSerie.getText()));						
+					if (Dispositivo.validarDatos(txtModelo.getText().trim(),
+							txtNumSerie.getText().trim()) == true) {
+						txtModelo.setText(quitarBlancosIzquierda(txtModelo.getText().trim()));
+						txtModelo.setText(quitarBlancosDerecha(txtModelo.getText().trim()));
+						txtNumSerie.setText(quitarBlancosIzquierda(txtNumSerie.getText().trim()));
+						txtNumSerie.setText(quitarBlancosDerecha(txtNumSerie.getText().trim()));						
 						if (txtModelo.getText().equals("")){ //$NON-NLS-1$
 							JOptionPane.showMessageDialog(null, Idioma.getString("msgModelNotNull")); //$NON-NLS-1$
 						}else{
 						try {
 							DispositivoDAO.modificarDispositivo(
-									txtID.getText(),
-									txtModelo.getText(), txtNumSerie.getText());
+									txtID.getText().trim(),
+									txtModelo.getText().trim(), txtNumSerie.getText().trim());
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -192,11 +192,11 @@ public class DispositivosPanelGestion extends JPanel {
 					String numID = ""; // donde intentaré convertir el ID de //$NON-NLS-1$
 										// Dispositivo introducido a un String
 
-					if (Dispositivo.validarDatos(txtModelo.getText(),
-							txtNumSerie.getText()) == true) {
+					if (Dispositivo.validarDatos(txtModelo.getText().trim(),
+							txtNumSerie.getText().trim()) == true) {
 						// intento convertir el número de serie a un String.
 						try {
-							numeroSerie = (txtNumSerie.getText()).toString();
+							numeroSerie = (txtNumSerie.getText()).toString().trim();
 							paso1 = true;
 						} catch (Exception e1) {
 							JOptionPane
@@ -206,7 +206,7 @@ public class DispositivosPanelGestion extends JPanel {
 						}
 						// intento convertir el ID de Dispositivo a un String.
 						try {
-							numID = (txtID.getText()).toString();
+							numID = (txtID.getText()).toString().trim();
 							paso2 = true;
 						} catch (Exception e1) {
 							JOptionPane
@@ -217,12 +217,12 @@ public class DispositivosPanelGestion extends JPanel {
 						if ((paso1 == true) && (paso2 == true)) {
 							txtModelo.setText(quitarBlancosIzquierda(txtModelo.getText()));
 							txtModelo.setText(quitarBlancosDerecha(txtModelo.getText()));
-							if (txtModelo.getText().equals("")){ //$NON-NLS-1$
+							if (txtModelo.getText().trim().equals("")){ //$NON-NLS-1$
 								JOptionPane.showMessageDialog(null, Idioma.getString("msgModelNotNull")); //$NON-NLS-1$
 							}else{
 							try {
 								DispositivoDAO.altaDispositivo(numID,
-										txtModelo.getText(), numeroSerie,0,0);
+										txtModelo.getText().trim(), numeroSerie,0,0);
 								String nuevoID = null;
 								//El siguiente "try" actualiza el campo de ID de dispositivo 
 								try {
