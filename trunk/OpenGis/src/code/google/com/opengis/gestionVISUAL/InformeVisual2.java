@@ -163,7 +163,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     						System.out.println(e1);
 
     					}
-     					add(getTablaPrincipal());
+     					//add(getTablaPrincipal());
      					//tbaTabla.setBounds(21, 180, 778, 162);
     					informe = 1;
     					}});
@@ -236,7 +236,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     						System.out.println(e1);
 
     					}
-     					add(getTablaPrincipal());
+     					//add(getTablaPrincipal());
      					//tbaTabla.setBounds(21, 180, 778, 162);
     					informe = 2;
     					}});
@@ -293,7 +293,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     						System.out.println(e1);
 
     					}
-     					add(getTablaPrincipal());
+     					//add(getTablaPrincipal());
     					informe = 3;
     					}});
 			}
@@ -346,7 +346,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     						System.out.println(e1);
 
     					}
-     					add(getTablaPrincipal());
+     					//add(getTablaPrincipal());
     					informe = 4;
     					}});
 				
@@ -622,26 +622,26 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 			}
 			{
 				
-			    tbaTabla = new JTable();
+			    //tbaTabla = new JTable();
 				this.add(getJFormattedTextField1());
 				this.add(getJFormattedTextField2());
 				this.add(getJLabel4());
 				this.add(getJLabel4x());
-				tbaTabla.setModel(modelo);
-				tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
-					public void mouseClicked(java.awt.event.MouseEvent e) {
+				//tbaTabla.setModel(modelo);
+				//tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
+					//public void mouseClicked(java.awt.event.MouseEvent e) {
 						
 						
-						int i = tbaTabla.getSelectedRow();
-						System.out.println(i);
-						if (i != -1) {
-							id = tbaTabla.getValueAt(i, 0).toString();
+						//int i = tbaTabla.rowAtPoint(e.getPoint());
+						//System.out.println(i);
+						//if (i != -1) {
+							//id = tbaTabla.getValueAt(i, 0).toString();
 									
-						}
+						//}
 						
 						
-					}
-				});
+					//}
+				//});
 				
 			}
 
@@ -675,7 +675,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 					
 					
-					int i = tbaTabla.getSelectedRow();
+					int i = tbaTabla.rowAtPoint(e.getPoint());
 					System.out.println(i);
 					if (i != -1) {
 						id = tbaTabla.getValueAt(i, 0).toString();
