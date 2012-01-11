@@ -365,7 +365,7 @@ public class ProductoPanelGestion extends JPanel {
 								
 							}
 						}else{
-							JOptionPane.showMessageDialog(null, "msgCamposVacios"); 
+							JOptionPane.showMessageDialog(null, Idioma.getString("etAllFields")); 
 						}
 						
 						}
