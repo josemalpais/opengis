@@ -230,7 +230,7 @@ public class ProductoPanelGestion extends JPanel {
 												
 						if(encontrado == false){
 							
-							JOptionPane.showMessageDialog(null,"El DNI no corresponde a ningún usuario");
+							JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorIDUnmatchUser"));
 							txtDNI.setText(""); //$NON-NLS-1$						
 						}
 												
