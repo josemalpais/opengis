@@ -629,7 +629,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 						e1.printStackTrace();
 					}
     						break;
-    					default: JOptionPane.showMessageDialog(null,"Por favor, seleccione un tipo de Informe");
+    					default: JOptionPane.showMessageDialog(null,Idioma.getString("msgSelectReport"));
     					}
     						
     					}});
