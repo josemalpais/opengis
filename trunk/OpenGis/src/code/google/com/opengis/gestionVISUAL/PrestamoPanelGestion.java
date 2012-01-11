@@ -158,8 +158,24 @@ public class PrestamoPanelGestion extends JPanel {
 			cargarDispositivos();
 			
 			if(accion=="modificar"){ //$NON-NLS-1$
-				
-				txtIDdispositivo.setSelectedItem(this.id_dispositivo);
+				int x=0;
+				String seleccionado;
+				String dispositivo;
+				//Este for recorre los ítems de la lista de dispositivos 
+				//para elegir el que toca a la hora de modificar
+				for(int i=0; i<txtIDdispositivo.getItemCount()-1;i++){
+					txtIDdispositivo.setSelectedIndex(i);
+					seleccionado = txtIDdispositivo.getSelectedItem().toString();
+					dispositivo = seleccionado.substring(0,2);
+					if (Prestamo.isInteger(dispositivo)){
+					}else{
+						dispositivo = dispositivo.substring(0,1);
+					}
+					if(dispositivo.equals(this.id_dispositivo)){
+						x=i;
+					}
+				}
+				txtIDdispositivo.setSelectedIndex(x);
 				//txtIDdispositivo.setEnabled(false);
 				
 			}
