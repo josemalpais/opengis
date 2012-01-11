@@ -147,10 +147,13 @@ public class Prestamo {
 	 * para ese Dispositivo, crea un nuevo registro de Préstamo en la Base de Datos 
 	 * @param iddispositivo Le pasamos el Dispositivo que será prestado
 	 * @param dni_usuario Le pasamos el Usuario al que se le prestará el Dispositivo
+	 * @throws SQLException 
+	 * @throws HeadlessException 
 	 */
 	public static void crearPrestamo(String iddispositivo,
-			String dni_usuario){
-		if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true){
+			String dni_usuario) throws HeadlessException, SQLException{
+		if (comprobarPrestamoAbierto(iddispositivo, dni_usuario)==true && (validarDatos(iddispositivo, dni_usuario)==true)){
+			
 			JOptionPane.showMessageDialog(null, Idioma.getString("msgLoanAlreadyExists")); //$NON-NLS-1$
 		}else{
 			Calendar c = new GregorianCalendar();	//Con estas 5 instrucciones calculo la fecha actual
@@ -310,4 +313,23 @@ public class Prestamo {
 		}
 
 	}
+
+
+public String calcularDNI(String dni) {
+	int pletra;
+	String aux = ""; //$NON-NLS-1$
+	String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+			"D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+			"K", "E", "T" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	for (int x = 0; x < 8; x++) {// este for nos cojera los primeros
+									// carácteres y los guardara en el
+									// string aux
+		aux = aux + dni.charAt(x);
+	}
+	pletra = Integer.parseInt(aux);
+	pletra = pletra % 23;
+	aux = aux + arrayLetra[pletra];
+
+	return dni;
+}
 }
