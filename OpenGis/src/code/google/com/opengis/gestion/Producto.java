@@ -260,7 +260,7 @@ public boolean validarTexto(String texto, String nombreCampo) {
 			return false;
 
 		}
-		if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
+		if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ' && texto.charAt(i)== '\0') {
 
 			JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorField") + nombreCampo
 							+ Idioma.getString("msgErrorBlankSpace")); 
@@ -268,7 +268,7 @@ public boolean validarTexto(String texto, String nombreCampo) {
 		}
 	}
 
-	if (r.equals(true) || texto.length() < 2) {
+	if (r.equals(true) || texto.length() < 1) {
 		JOptionPane.showMessageDialog(
 				null,
 				Idioma.getString("msgErrorField")
