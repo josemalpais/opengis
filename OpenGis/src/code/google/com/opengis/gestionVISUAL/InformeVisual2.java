@@ -179,12 +179,12 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     				}
     				{
     					jLabel2 = new JLabel();
-    					jLabel2.setText("Y");
+    					jLabel2.setText(Idioma.getString("etChooseEndDate"));
     					jLabel2.setBounds(429, 79, 10, 16);
     				}
     				 {
     						jLabel3 = new JLabel();
-    						jLabel3.setText("Escoja la fecha del informe entre: ");
+    						jLabel3.setText(Idioma.getString("etChooseBegDate"));
     						jLabel3.setBounds(103, 79, 216, 16);
     					}
 			
