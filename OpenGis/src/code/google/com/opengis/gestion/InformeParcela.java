@@ -62,9 +62,9 @@ public InformeParcela(String parcela,String fechaini,String fechafin) throws SQL
 public void DatosUsuarioParcela(String parcela,String inicio,String fin) {
 	fechaini = inicio;
 	fechafin = fin; //implementar la consulta para elegir entre 2 fechas
-	consulta = "SELECT `parcela`.`dni_propietario`, `parcela`.`alias`, `parcela`.`provincia`, `poblacion`.`poblacion`, `parcela`.`poligono`, `parcela`.`partida`  FROM usuario, tareas_realizadas, parcela, poblacion	WHERE ((`usuario`.`dni` LIKE `tareas_realizadas`.`dni_usuario`) AND (`tareas_realizadas`.`idparcela` LIKE '"+parcela+"') AND (`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`) AND (`poblacion`.`idpoblacion` LIKE `parcela`.`poblacion`))"; //$NON-NLS-1$ //$NON-NLS-2$
+	consulta = "SELECT `parcela`.`dni_propietario`, `parcela`.`alias`, `parcela`.`provincia`, `poblacion`.`poblacion`, `parcela`.`poligono`, `parcela`.`partida`  FROM usuario, tareas_realizadas, parcela, poblacion	WHERE ((`tareas_realizadas`.`idparcela` LIKE '"+parcela+"') AND (`usuario`.`dni` LIKE `tareas_realizadas`.`dni_usuario`) AND  (`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`) AND (`poblacion`.`idpoblacion` LIKE `parcela`.`poblacion`))"; //$NON-NLS-1$ //$NON-NLS-2$
 	
-	consulta2 = "SELECT `usuario`.`nombre`, `usuario`.`apellidos`, `usuario`.`dni`, `tareas_realizadas`.`idtarea`, `tareas_realizadas`.`fecha_ini`, `tareas_realizadas`.`fecha_final` FROM usuario, tareas_realizadas, parcela, poblacion WHERE ((`usuario`.`dni` LIKE `tareas_realizadas`.`dni_usuario`) AND (`tareas_realizadas`.`idparcela` LIKE '"+parcela+"') AND (`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`) AND (`poblacion`.`idpoblacion` LIKE `parcela`.`poblacion`))"; //$NON-NLS-1$ //$NON-NLS-2$
+	consulta2 = "SELECT `usuario`.`nombre`, `usuario`.`apellidos`, `usuario`.`dni`, `tareas_realizadas`.`idtarea`, `tareas_realizadas`.`fecha_ini`, `tareas_realizadas`.`fecha_final` FROM usuario, tareas_realizadas, parcela, poblacion WHERE ((`tareas_realizadas`.`fecha_ini` BETWEEN '"+fechaini+"' AND '"+fechafin+"') AND (`tareas_realizadas`.`idparcela` LIKE '"+parcela+"') AND (`usuario`.`dni` LIKE `tareas_realizadas`.`dni_usuario`) AND (`parcela`.`idparcela` LIKE `tareas_realizadas`.`idparcela`) AND (`poblacion`.`idpoblacion` LIKE `parcela`.`poblacion`))"; //$NON-NLS-1$ //$NON-NLS-2$
 
 	ConectarDBA.acceder();
 	

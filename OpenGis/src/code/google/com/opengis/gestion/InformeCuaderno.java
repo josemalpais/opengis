@@ -34,11 +34,11 @@ import com.lowagie.text.pdf.PdfWriter;
 
 
 public class InformeCuaderno {
-	static Calendar c = new GregorianCalendar();   
 	private File ruta_destino = null;
 	static Document mipdf = new Document (PageSize.LEGAL.rotate());
 	static String espacio = "                           "; //$NON-NLS-1$
 	static String espacio2 = "               "; //$NON-NLS-1$
+	static Calendar c = new GregorianCalendar();
 	static  String year = Integer.toString(c.get(Calendar.YEAR));
 	static String linea = "_____________________________________________"; //$NON-NLS-1$
 
@@ -66,8 +66,8 @@ public class InformeCuaderno {
 		String ffin = fin; //implementar la consulta para elegir entre 2 fechas
 		consulta = "SELECT `usuario`.`dni` , `usuario`.`nombre` , `usuario`.`apellidos` , `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`numero` , `parcela_usuario`.`dni_usuario` , `parcela_usuario`.`id_parcela`FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))"; //$NON-NLS-1$ //$NON-NLS-2$
 		consulta2 ="SELECT  `parcela`.`poblacion` , `parcela`.`poligono` , `parcela`.`alias` FROM usuario, parcela, parcela_usuario WHERE ((`usuario`.`dni` LIKE '"+dni+"') AND (`parcela`.`idparcela` LIKE `parcela_usuario`.`id_parcela`))"; //$NON-NLS-1$ //$NON-NLS-2$
-		consulta3 = "SELECT `parcela`.`poligono` , `parcela`.`alias` , `tareas_realizadas`.`fecha_ini` FROM tareas_realizadas, parcela WHERE ((`tareas_realizadas`.`dni_usuario` LIKE '"+dni+"') AND (`tareas_realizadas`.`idtarea` LIKE '1') AND (`tareas_realizadas`.`idparcela` LIKE `parcela`.`idparcela`))"; //$NON-NLS-1$ //$NON-NLS-2$
-		consulta4 = "SELECT  `parcela`.`alias`,`producto`.`nombre` ,`tareas_realizadas`.`dosis` , `tareas_realizadas`.`fecha_ini`,`producto`.`descripcion` FROM tareas_realizadas, parcela,producto WHERE ((`tareas_realizadas`.`dni_usuario` LIKE '"+dni+"') AND (`tareas_realizadas`.`idtarea` LIKE '5') AND (`tareas_realizadas`.`idparcela` LIKE `parcela`.`idparcela`) AND (`tareas_realizadas`.`idprod` LIKE `producto`.`idprod`))"; //$NON-NLS-1$ //$NON-NLS-2$
+		consulta3 = "SELECT `parcela`.`poligono` , `parcela`.`alias` , `tareas_realizadas`.`fecha_ini` FROM tareas_realizadas, parcela WHERE ((`tareas_realizadas`.`fecha_ini` BETWEEN '"+finicio+"' AND '"+ffin+"') AND (`tareas_realizadas`.`dni_usuario` LIKE '"+dni+"') AND (`tareas_realizadas`.`idtarea` LIKE '1') AND (`tareas_realizadas`.`idparcela` LIKE `parcela`.`idparcela`))"; //$NON-NLS-1$ //$NON-NLS-2$
+		consulta4 = "SELECT  `parcela`.`alias`,`producto`.`nombre` ,`tareas_realizadas`.`dosis` , `tareas_realizadas`.`fecha_ini`,`producto`.`descripcion` FROM tareas_realizadas, parcela,producto WHERE ((`tareas_realizadas`.`fecha_ini` BETWEEN '"+finicio+"' AND '"+ffin+"') AND (`tareas_realizadas`.`dni_usuario` LIKE '"+dni+"') AND (`tareas_realizadas`.`idtarea` LIKE '5') AND (`tareas_realizadas`.`idparcela` LIKE `parcela`.`idparcela`) AND (`tareas_realizadas`.`idprod` LIKE `producto`.`idprod`))"; //$NON-NLS-1$ //$NON-NLS-2$
 
 		ConectarDBA.acceder();
 		
