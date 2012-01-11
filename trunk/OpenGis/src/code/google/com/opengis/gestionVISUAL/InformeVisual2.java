@@ -168,12 +168,12 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     					informe = 1;
     					}});
     				}{
-    					MaskFormatter mascara = new MaskFormatter("##/##/####");
+    					MaskFormatter mascara = new MaskFormatter("##-##-####");
     					JFecha1 = new JFormattedTextField(mascara);
     					JFecha1.setBounds(476, 76, 91, 23);
     				}
     				{
-    					MaskFormatter mascara = new MaskFormatter("##/##/####");
+    					MaskFormatter mascara = new MaskFormatter("##-##-####");
     					JFecha2 = new JFormattedTextField(mascara);
     					JFecha2.setBounds(326, 76, 91, 23);
     				}
@@ -224,7 +224,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
     									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
     								}
-    								//System.out.println(registro[i2]);
+    								
     							}
 
     							
@@ -236,8 +236,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     						System.out.println(e1);
 
     					}
-     					//add(getTablaPrincipal());
-     					//tbaTabla.setBounds(21, 180, 778, 162);
+     					
     					informe = 2;
     					}});
     				}
@@ -281,7 +280,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
     									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
     								}
-    								//System.out.println(registro[i2]);
+    								
     							}
 
     							
@@ -293,7 +292,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     						System.out.println(e1);
 
     					}
-     					//add(getTablaPrincipal());
+     					
     					informe = 3;
     					}});
 			}
@@ -334,7 +333,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
     									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
     								}
-    								//System.out.println(registro[i2]);
+    								
     							}
 
     							
@@ -346,7 +345,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     						System.out.println(e1);
 
     					}
-     					//add(getTablaPrincipal());
+     					
     					informe = 4;
     					}});
 				
@@ -402,7 +401,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
         								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
         									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
         								}
-        								//System.out.println(registro[i2]);
+        								
         							}
 
         							
@@ -445,7 +444,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
         								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
         									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
         								}
-        								//System.out.println(registro[i2]);
+        								
         							}
 
         							
@@ -488,7 +487,6 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
         								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
         									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
         								}
-        								//System.out.println(registro[i2]);
         							}
 
         							
@@ -532,7 +530,6 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
         								} else if (registro[i2].toString().equals("false")) { //$NON-NLS-1$
         									registro[i2] = Idioma.getString("etInactive"); //$NON-NLS-1$
         								}
-        								//System.out.println(registro[i2]);
         							}
 
         							
@@ -622,26 +619,11 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 			}
 			{
 				
-			    //tbaTabla = new JTable();
 				this.add(getJFormattedTextField1());
 				this.add(getJFormattedTextField2());
 				this.add(getJLabel4());
 				this.add(getJLabel4x());
-				//tbaTabla.setModel(modelo);
-				//tbaTabla.addMouseListener(new java.awt.event.MouseAdapter() {  // Cuando hagan clic...
-					//public void mouseClicked(java.awt.event.MouseEvent e) {
-						
-						
-						//int i = tbaTabla.rowAtPoint(e.getPoint());
-						//System.out.println(i);
-						//if (i != -1) {
-							//id = tbaTabla.getValueAt(i, 0).toString();
-									
-						//}
-						
-						
-					//}
-				//});
+				
 				
 			}
 
@@ -704,7 +686,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	private JFormattedTextField getJFormattedTextField1() {
 		if(JFecha1 == null) {
 			JFecha1 = new JFormattedTextField();
-			JFecha1.setText("01/01/2011");
+			JFecha1.setText("01-01-2011");
 			JFecha1.setBounds(267, 76, 117, 23);
 		}
 		return JFecha1;
@@ -713,7 +695,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	private JFormattedTextField getJFormattedTextField2() {
 		if(JFecha2 == null) {
 			JFecha2 = new JFormattedTextField();
-			JFecha2.setText("");
+			JFecha2.setText("31-12-2026");
 			JFecha2.setBounds(397, 76, 117, 23);
 		}
 		return JFecha2;
