@@ -266,8 +266,7 @@ public class UsuariosPanelNuevo extends JPanel {
 							}
 						} else {
 							JOptionPane.showMessageDialog(null,
-									Idioma.getString("msgErrorField") //$NON-NLS-1$
-											+ Idioma.getString("etAllFields")); //$NON-NLS-1$
+									Idioma.getString("etAllFields")); //$NON-NLS-1$
 						}
 					} else {
 
