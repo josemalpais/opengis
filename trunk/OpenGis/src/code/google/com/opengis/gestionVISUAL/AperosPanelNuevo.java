@@ -158,7 +158,9 @@ public class AperosPanelNuevo extends JPanel {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
 					if (accion.equals("alta")) { //$NON-NLS-1$
-
+						if(txtTamaño.getText().equals("")){
+							txtTamaño.setText("0");
+						}
 						Apero ap = new Apero(Integer.parseInt(txtId.getText()), txtNombre.getText(),
 								Integer.parseInt(txtTamaño.getText()), txtDescripcion.getText(),
 								comboTarea.getSelectedIndex()+1, true,
