@@ -354,7 +354,7 @@ public class ProductoPanelGestion extends JPanel {
 							
 						
 						}else{
-						
+						if(txtNombreProd.getText()!="" || txtDescripcion.getText()!="" || txtDosis.getText()!="" || txtDNI.getText()==""){
 							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
 							
 							prod.validarDatos();
@@ -364,17 +364,16 @@ public class ProductoPanelGestion extends JPanel {
 								prod.crearProducto();
 								
 							}
-							
+						}else{
+							JOptionPane.showMessageDialog(null, "msgCamposVacios"); 
+						}
 						
 						}
 						
 					}else{
 						
 						if(encontrado == false){
-							
-						
-				
-							
+			
 						}else{
 						
 							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
@@ -383,19 +382,12 @@ public class ProductoPanelGestion extends JPanel {
 							
 							if (prod.getCorrecto()==true){
 								
-								prod.editarProducto();
-								
-							}
-							
-						
-						}
-						
-						
-					}
-			
-			
-			
+								prod.editarProducto();								
+							}													
+						}												
+					}									
 				}
+				
 			});
 		}
 		return bGuardar;
@@ -422,8 +414,17 @@ public class ProductoPanelGestion extends JPanel {
 						
 					}					
 					txtDescripcion.setText(""); //$NON-NLS-1$
-					
-					
+					ConectarDBA.acceder();					
+					try {					
+						String sql = "SELECT MAX(idprod) FROM producto"; 					
+						ResultSet rs = ConectarDBA.consulta(sql);						
+						rs.next();						
+						int nuevoid = rs.getInt(1) + 1;					
+						txtID.setText(nuevoid+""); 						
+						ConectarDBA.cerrarCon();						
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}						
 				}
 			});
 		}
