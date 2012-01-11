@@ -6,11 +6,14 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -82,7 +85,9 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	private String dni = "";
 	static String fecha1;
 	static String fecha2;
-	static int informe;
+	static Calendar c = new GregorianCalendar();
+	static  String year = Integer.toString(c.get(Calendar.YEAR));
+	static int informe = 0;
 	static String lol;
 	private JFormattedTextField JFecha1;
 	private JFormattedTextField JFecha2;
@@ -570,11 +575,22 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 				btnGenerar.setBounds(273, 360, 223, 31);
 				btnGenerar.addActionListener(new java.awt.event.ActionListener() {
     				public void actionPerformed(java.awt.event.ActionEvent e) {
+    				String trim1 = fecha1;
+    				String trim2 = fecha2;
     				
-    						fecha1 = JFecha1.getText();
-    						fecha2 = JFecha2.getText();
-    						System.out.println("la fecha a cambiado a :" +fecha1 +" y a"+fecha2);
+    				if((fecha1 !=null)||!(fecha2 !=null)){
     					
+    					if((trim1.trim().equals(fecha1))||(trim2.trim().equals(fecha2))){
+    						fecha1 = transformarFecha(JFecha1.getText());
+    						fecha2 = transformarFecha(JFecha2.getText());
+    						System.out.println("la fecha a cambiado a :" +fecha1 +" y a"+fecha2);
+    					}
+    				}else{
+    						fecha1 = "2011-01-01";
+    						fecha2 = year+"-12-31";
+    						
+    					}
+ 
     					switch(informe){
     					
     					case 1:
@@ -613,6 +629,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 						e1.printStackTrace();
 					}
     						break;
+    					default: JOptionPane.showMessageDialog(null,"Por favor, seleccione un tipo de Informe");
     					}
     						
     					}});
@@ -717,5 +734,9 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 			jLabel3.setBounds(128, 79, 84, 16);
 		}
 		return jLabel3;
+	}
+	public String transformarFecha(String fecha){
+		fecha = fecha.substring(6,10)+"-"+fecha.substring(3,5)+"-"+fecha.substring(0,2);
+		return fecha;
 	}
 }
