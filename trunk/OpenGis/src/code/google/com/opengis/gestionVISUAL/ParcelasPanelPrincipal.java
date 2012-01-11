@@ -133,15 +133,19 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 		
     	ConectarDBA dba = null;
     	String id=getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(), 0).toString();
+    	String nombre=getTablaPrincipal().getValueAt(getTablaPrincipal().getSelectedRow(), 1).toString();
     	ConectarDBA.acceder();
 		
 			
     	try {
-    		//int confirmar=JOptionPane.showConfirmDialog(null, Idioma.getString("msgDeleteConfirm")+id); //$NON-NLS-1$
-    		//if(JOptionPane.OK_OPTION==confirmar){
+    		Object [] opt = {Idioma.getString("etYes"),Idioma.getString("etNo")}; //$NON-NLS-1$
+    		int confirmar=JOptionPane.showOptionDialog(null, Idioma.getString("msgDeleteConfirm")+" - " + nombre,"",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opt, opt[0] ); //$NON-NLS-1$
+    		if(JOptionPane.OK_OPTION==confirmar){
     			Parcela.bajaParcela(id);
-    			//buscar();
-    		//}
+    			buscar();
+				 getBModificar().setEnabled(false);
+				 getBEliminar().setEnabled(false);
+    		}
     	} catch (SQLException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
@@ -247,8 +251,10 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 				 e1.printStackTrace();}
 				 }	
 				 }else{	
+					 
 				 getBModificar().setEnabled(true);
 				 getBEliminar().setEnabled(true);
+				 getBSigPac().setEnabled(true);
 
 				 }
 			
