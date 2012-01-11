@@ -268,7 +268,7 @@ public class Usuarios {
 		if (numero.length() != longitud) {
 			JOptionPane.showMessageDialog(null,
 					Idioma.getString("msgErrorField") + nombreCampo
-							+ " debe contener " + longitud + " dígitos");
+							+ Idioma.getString("msgMustContain") + longitud + Idioma.getString("etDigit"));
 			return false;
 		} else {
 			for (int i = 0; i < longitud; i++) {
