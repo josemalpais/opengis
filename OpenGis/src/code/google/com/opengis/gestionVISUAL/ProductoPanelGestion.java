@@ -215,6 +215,7 @@ public class ProductoPanelGestion extends JPanel {
 			txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					
+					encontrado = false;
 					
 					ConectarDBA.acceder();
 					
