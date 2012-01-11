@@ -50,8 +50,8 @@ static Image imghead = null;
 static String fechaini;
 static String fechafin;
 
-public InformeDispositivos(String id) throws SQLException {
-	DatosUsuarioParcela(id,"01/01/2011","31/12/2011"); //$NON-NLS-1$ //$NON-NLS-2$
+public InformeDispositivos(String id,String fechaini,String fechafin) throws SQLException {
+	DatosUsuarioParcela(id,fechaini,fechafin); //$NON-NLS-1$ //$NON-NLS-2$
 	
 	crear_PDF(Idioma.getString("_DeviceReport.Header"), Idioma.getString("_DeviceReport.Author")); //$NON-NLS-1$ //$NON-NLS-2$
 

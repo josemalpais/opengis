@@ -53,9 +53,9 @@ public class InformeCuaderno {
 	static String consulta3;
 	static String consulta4;
 	
-	public InformeCuaderno(String dni) throws SQLException{
+	public InformeCuaderno(String dni,String fechaini,String fechafin) throws SQLException{
 		Dni = dni;
-		DatosUsuarioParcela(dni, "01/01/2011","31/12/2012" ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		DatosUsuarioParcela(dni, fechaini,fechafin ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		crear_PDF(Idioma.getString("_BookReport.Title"),Idioma.getString("_BookReport.Author"),"",""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		
 		
