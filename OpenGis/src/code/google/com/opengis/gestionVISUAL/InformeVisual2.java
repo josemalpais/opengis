@@ -580,13 +580,12 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     					
     				
     				if(!fecha1.equals("  -  -    ")){
-    					System.out.println("La fecha es+ "+fecha1);
     					if(!fecha2.equals("  -  -    ")){
-    						System.out.println("La fecha2 es+ "+fecha2);
+    						if(validarFecha()){
     						fecha1 = transformarFecha(JFecha2.getText());
     						fecha2 = transformarFecha(JFecha1.getText());
     						System.out.println("la fecha a cambiado a :" +fecha1 +" y a"+fecha2);
-    					}
+    					}}
     					}else{
     						generarFecha();			
     				}
@@ -742,15 +741,49 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	}
 	public void generarFecha(){
 		fecha1 = "2011-01-01";
-		fecha2 = year+"-12-31";
+		fecha2 = transformarFecha(fechaHoy());
+		
 		
 	}
-	public void fechaHoy(){
+	
+	public boolean validarFecha(){
+		String validar = fechaHoy();
+
+		int val2 = Integer.parseInt(fecha2.substring(6,10));
+		int val1 =Integer.parseInt(validar.substring(6,10));
+		
+		if(val1>val2){	
+		 val2 = Integer.parseInt(fecha2.substring(3,5));
+		 val1 =Integer.parseInt(validar.substring(3,5));
+		 
+		if(val1>val2){	
+		 val2 = Integer.parseInt(fecha2.substring(0,2));
+		 val1 =Integer.parseInt(validar.substring(0,2));
+		 if(val1>val2){
+			return true;
+		}
+		}}
+		return false;
+		
+	}
+	/**
+	 * el metodo fechaHoy()
+	 * genera la fecha de hoy con formato 00-00-0000
+	 */
+	
+	public String fechaHoy(){
 		String dia,mes,annio;
 		 Calendar c = new GregorianCalendar();
 		dia = Integer.toString(c.get(Calendar.DATE));
 		mes = Integer.toString(c.get(Calendar.MONTH)+1);
 		annio = Integer.toString(c.get(Calendar.YEAR));
-		System.out.println(dia+"-"+mes+"-"+annio);
+		if(mes.length() < 2){
+			mes = "0"+mes;
+		}
+		if(dia.length() < 2){
+			dia = "0"+dia;
+		}
+		String fec = dia+"-"+mes+"-"+annio;
+		return fec;
 	}
 }
