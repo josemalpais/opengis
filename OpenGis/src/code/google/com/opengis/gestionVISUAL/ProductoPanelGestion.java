@@ -356,7 +356,7 @@ public class ProductoPanelGestion extends JPanel {
 						
 						}else{
 						if(txtNombreProd.getText()!="" || txtDescripcion.getText()!="" || txtDosis.getText()!="" || txtDNI.getText()==""){
-							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
+							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText().trim(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
 							
 							prod.validarDatos();
 							
