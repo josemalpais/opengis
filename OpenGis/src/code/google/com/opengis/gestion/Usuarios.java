@@ -97,7 +97,6 @@ public class Usuarios {
 
 	}
 
-
 	public void validarDatos() {
 		this.valido = true;
 		if (ValidacionDatos.validarDni(dni) == false) {
@@ -106,7 +105,8 @@ public class Usuarios {
 
 			Boolean r = isInteger(this.nombre);
 
-			if (ValidacionDatos.validarTexto(this.nombre, Idioma.getString("etFirstName")) == false //$NON-NLS-1$
+			if (ValidacionDatos.validarTexto(this.nombre,
+					Idioma.getString("etFirstName")) == false //$NON-NLS-1$
 					|| ValidacionDatos.validarTexto(this.apellidos,
 							Idioma.getString("etLastName")) == false) { //$NON-NLS-1$
 
@@ -115,15 +115,13 @@ public class Usuarios {
 
 				if (ValidacionDatos.validarTextoEspecial(this.direccion,
 						Idioma.getString("etAddress")) == false //$NON-NLS-1$
-						|| ValidacionDatos.validarTextoEspecial(this.email,
-								Idioma.getString("etMail")) == false) { //$NON-NLS-1$
+						|| ValidacionDatos.validarEmail(this.email) == false) { //$NON-NLS-1$
 
 					this.valido = false;
 				} else {
+					
 
-					r = isInteger(this.telefono);
-
-					if (this.telefono.length() != 9 || r.equals(false)) {
+					if (ValidacionDatos.validarNumerico(this.telefono, Idioma.getString("etTelephone"), 9) == false) {
 
 						JOptionPane.showMessageDialog(null,
 								Idioma.getString("msgErrorPhoneNumber")); //$NON-NLS-1$
@@ -131,12 +129,13 @@ public class Usuarios {
 
 					} else {
 
-						Date fechaAhora = new Date();
 						if (this.fechaNac.equals("00/00/0000")) {
 							JOptionPane.showMessageDialog(null,
 									Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 							this.valido = false;
 						} else {
+
+							Date fechaAhora = new Date();
 
 							if (this.fechaNac.equals("")) { //$NON-NLS-1$
 
