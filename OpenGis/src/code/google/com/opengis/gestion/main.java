@@ -3,6 +3,7 @@ package code.google.com.opengis.gestion;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -17,7 +18,7 @@ import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 public class main {
 
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws SQLException{
 		
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -31,6 +32,17 @@ public class main {
 		}
 		LoginVisual ln = new LoginVisual();
 		
+		// esto es para insertar ciudades de manera rapidilla, se borrará cuando acabemos con esto
+		/*ConectarDBA.acceder();
+		for(int i = 46000; i<46025;i++){
+			String sentencia = "INSERT INTO `dai2opengis`.`poblacion`(`idprovincia`, `poblacion`, `poblacionseo`, `postal`, `latitud`, `longitud`) VALUES ('36','Valencia','valencia','"+(i+1)+"','39.470490','-0.378084')";
+			ConectarDBA.modificar(sentencia);
+			System.out.println("hola");
+			
+		}
+		ConectarDBA.cerrarCon();
+		System.out.println("adios");
+		*/
 }
 	
 	
