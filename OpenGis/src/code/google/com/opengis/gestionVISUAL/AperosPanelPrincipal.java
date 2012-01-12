@@ -97,7 +97,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			for (int i = 0; i < rUser.length; i++) {
 				rUser[i] = getTablaPrincipal().getValueAt(fila, i).toString();
 			}
-			AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[6].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+			AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
 			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModImplement")+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			
