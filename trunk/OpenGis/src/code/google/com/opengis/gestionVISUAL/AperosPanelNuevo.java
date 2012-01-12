@@ -177,6 +177,33 @@ public class AperosPanelNuevo extends JPanel {
 							
 							try {
 								adao.altaApero();
+								
+								// Actualizamos los campos para poder crear uno nuevo.
+								
+								ConectarDBA dba = new ConectarDBA();
+								
+								int nuevoId = 0;
+								
+								dba.acceder();
+								
+								String sql = "SELECT MAX(idapero) FROM `apero`";
+								
+								ResultSet resul = dba.consulta(sql);
+								
+								resul.next();
+								
+								nuevoId = resul.getInt(1) + 1;
+								
+								dba.cerrarCon();
+								
+								txtId.setText(nuevoId+"");
+								txtNombre.setText("");
+								txtTamaño.setText("");
+								txtDescripcion.setText("");
+								txtUser.setText("");
+								comboTarea.setSelectedIndex(0);
+								
+								
 							} catch (SQLException e1) {
 								JOptionPane.showMessageDialog(null, Idioma.getString("msgIDAlreadyExists")); //$NON-NLS-1$
 							}
@@ -232,17 +259,18 @@ public class AperosPanelNuevo extends JPanel {
 			bRestablecer.setToolTipText(Idioma.getString("etCleanFields")); //$NON-NLS-1$
 			bRestablecer.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-
-					if (accion != "modificar") { //$NON-NLS-1$
-
-						txtId.setText(""); //$NON-NLS-1$
-
-					}
+				
+					
 					txtNombre.setText(""); //$NON-NLS-1$
 					txtTamaño.setText(""); //$NON-NLS-1$
 					txtDescripcion.setText(""); //$NON-NLS-1$
-					txtUser.setText(""); //$NON-NLS-1$
+					
+					if(accion!="modificar"){
+						
+					
+						txtUser.setText(""); //$NON-NLS-1$
 
+					}
 				}
 			});
 		}
