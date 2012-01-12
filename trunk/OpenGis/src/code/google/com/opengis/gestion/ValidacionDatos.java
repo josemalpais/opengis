@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestionDAO.Idioma;
 
-public class validacionDatos {
+public class ValidacionDatos {
 
 	public static Boolean getValido() {
 
