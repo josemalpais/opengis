@@ -577,20 +577,20 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     				fecha1 = JFecha2.getText();
     				fecha2 = JFecha1.getText();
-    					
+    					System.out.println(fecha1 +" y "+fecha2);
     				
-    				if(!fecha1.equals("  -  -    ")){
-    					if(!fecha2.equals("  -  -    ")){
+    				if(!fecha1.equals("  -  -    ")||(!fecha2.equals("  -  -    "))){
+    					
     						if(validarFecha()||validarFecha2()){
     						fecha1 = transformarFecha(JFecha2.getText());
     						fecha2 = transformarFecha(JFecha1.getText());
     						System.out.println("la fecha a cambiado a :" +fecha1 +" y a"+fecha2);
-    					}else{
+    					}else
     						generarFecha();			
-    				}}
-    					}else{
-    						generarFecha();			
-    				}
+    				}else
+						generarFecha();
+    							
+    				
  
     					switch(informe){
     					
