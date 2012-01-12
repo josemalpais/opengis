@@ -97,9 +97,9 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 						.toString();
 				}
 			}
-		int confirmacion = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar este préstamo?");
+		int confirmacion = JOptionPane.showConfirmDialog(null,Idioma.getString("msgCancelReturn"));
 		if (confirmacion == JOptionPane.OK_OPTION){
-			System.out.println("Voy a cerrar el préstamo.");
+		
 			Prestamo.cerrarPrestamo(rPrestamo[1], rPrestamo[2]);
 			buscar();
 			super.getBEliminar().setEnabled(false);
