@@ -12,6 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 
 import code.google.com.opengis.gestion.Usuarios;
+import code.google.com.opengis.gestion.validacionDatos;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
@@ -434,7 +435,7 @@ public class UsuariosPanelNuevo extends JPanel {
 			txtCP.setBounds(new Rectangle(358, 139, 115, 27));
 			txtCP.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
-					boolean cpValido = Usuarios.validarNumerico(txtCP.getText(), Idioma.getString("etPostalCode"), 5);
+					boolean cpValido = validacionDatos.validarNumerico(txtCP.getText(), Idioma.getString("etPostalCode"), 5);
 					System.out.println(cpValido);
 					if (cpValido == true) {
 
