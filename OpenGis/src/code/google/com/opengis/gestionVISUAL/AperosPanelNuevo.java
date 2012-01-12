@@ -110,7 +110,7 @@ public class AperosPanelNuevo extends JPanel {
 		lblObligtorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
 		lblUser = new JLabel();
 		lblUser.setBounds(new Rectangle(42, 137, 88, 30));
-		lblUser.setText(Idioma.getString("etUser")); //$NON-NLS-1$
+		lblUser.setText(Idioma.getString("etIdCard")); //$NON-NLS-1$
 		lblTarea = new JLabel();
 		lblTarea.setBounds(new Rectangle(320, 84, 88, 30));
 		lblTarea.setText(Idioma.getString("etTask")); //$NON-NLS-1$
