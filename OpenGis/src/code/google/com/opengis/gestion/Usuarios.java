@@ -100,22 +100,22 @@ public class Usuarios {
 
 	public void validarDatos() {
 		this.valido = true;
-		if (validacionDatos.validarDni(dni) == false) {
+		if (ValidacionDatos.validarDni(dni) == false) {
 			this.valido = false;
 		} else {
 
 			Boolean r = isInteger(this.nombre);
 
-			if (validacionDatos.validarTexto(this.nombre, Idioma.getString("etFirstName")) == false //$NON-NLS-1$
-					|| validacionDatos.validarTexto(this.apellidos,
+			if (ValidacionDatos.validarTexto(this.nombre, Idioma.getString("etFirstName")) == false //$NON-NLS-1$
+					|| ValidacionDatos.validarTexto(this.apellidos,
 							Idioma.getString("etLastName")) == false) { //$NON-NLS-1$
 
 				this.valido = false;
 			} else {
 
-				if (validacionDatos.validarTextoEspecial(this.direccion,
+				if (ValidacionDatos.validarTextoEspecial(this.direccion,
 						Idioma.getString("etAddress")) == false //$NON-NLS-1$
-						|| validacionDatos.validarTextoEspecial(this.email,
+						|| ValidacionDatos.validarTextoEspecial(this.email,
 								Idioma.getString("etMail")) == false) { //$NON-NLS-1$
 
 					this.valido = false;
