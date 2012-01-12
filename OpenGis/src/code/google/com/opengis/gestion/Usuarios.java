@@ -276,7 +276,7 @@ public class Usuarios {
 					JOptionPane.showMessageDialog(null,
 							Idioma.getString("msgErrorField") //$NON-NLS-1$
 									+ nombreCampo
-									+ " sólo debe contener números"); //$NON-NLS-1$
+									+ Idioma.getString("msgOnlyNumber")); //$NON-NLS-1$
 					return false;
 				}
 			}
