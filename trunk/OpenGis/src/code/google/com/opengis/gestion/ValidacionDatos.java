@@ -11,9 +11,9 @@ public class ValidacionDatos {
 		return valido;
 
 	}
-		
+
 	private static boolean valido;
-	
+
 	/**
 	 * Este método validará los datos que el usuario introduzca en la clase
 	 * visual. En el caso de que algún dato no sea correcto mostrará un mensaje
@@ -40,8 +40,7 @@ public class ValidacionDatos {
 
 		return dni;
 	}
-	
-	
+
 	/**
 	 * Clase que valida el DNI, y lo coloca en formato 00000000L
 	 * 
@@ -94,7 +93,7 @@ public class ValidacionDatos {
 			}
 		}
 	}
-	
+
 	/**
 	 * Método que comprueba si el texto que le pasamos es numérico o está vacio.
 	 * 
@@ -103,7 +102,7 @@ public class ValidacionDatos {
 	 * @return devuelve si el texto es válido o no.
 	 */
 	public static boolean validarTexto(String texto, String nombreCampo) {
-		Boolean r = isInteger(texto);
+		boolean r = isInteger(texto);
 		texto = texto.trim();
 		for (int i = 0; i < texto.length(); i++) {
 			if (Character.isLetter(texto.charAt(i)) == false
@@ -129,7 +128,7 @@ public class ValidacionDatos {
 			}
 		}
 
-		if (r.equals(true) || texto.length() < 2) {
+		if (r == true || texto.length() < 2) {
 			JOptionPane.showMessageDialog(
 					null,
 					Idioma.getString("msgErrorField") //$NON-NLS-1$
@@ -147,7 +146,7 @@ public class ValidacionDatos {
 	}
 
 	public static boolean validarTextoEspecial(String texto, String nombreCampo) {
-		Boolean r = isInteger(texto);
+		boolean r = isInteger(texto);
 		texto = texto.trim();
 		for (int i = 0; i < texto.length(); i++) {
 
@@ -162,7 +161,7 @@ public class ValidacionDatos {
 			}
 		}
 
-		if (r.equals(true) || texto.length() < 2) {
+		if (r == true || texto.length() < 2) {
 			JOptionPane.showMessageDialog(
 					null,
 					Idioma.getString("msgErrorField") //$NON-NLS-1$
@@ -180,20 +179,63 @@ public class ValidacionDatos {
 
 	}
 
+	public static boolean validarEmail(String email) {
+
+		email = email.trim();
+		boolean r = isInteger(email);
+
+		if (r == true || email.length() < 2) {
+			JOptionPane.showMessageDialog(
+					null,
+					Idioma.getString("msgErrorField") //$NON-NLS-1$
+							+ Idioma.getString("etMail")
+							+ Idioma.getString("msgErrorEmptyNorNumeric")); //$NON-NLS-1$
+			valido = false;
+
+			return false;
+
+		} else {
+			boolean at = false;
+			boolean dot = false;
+			for (int i = 0; i < email.length(); i++) {
+				if (email.charAt(i) == '@') {
+					at = true;
+
+				} else if (email.charAt(i) == '.') {
+					dot = true;
+
+				}
+
+			}
+			if (at != true || dot != true) {
+				JOptionPane
+						.showMessageDialog(
+								null,
+								Idioma.getString("msgErrorField") //$NON-NLS-1$
+										+ Idioma.getString("etMail")
+										+ Idioma.getString("msgMustContainEmail")); //$NON-NLS-1$
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public static boolean validarNumerico(String numero, String nombreCampo,
 			int longitud) {
 		numero = numero.trim();
-		Boolean r = isInteger(numero);
-		
+
 		if (numero.length() != longitud) {
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(
+					null,
 					Idioma.getString("msgErrorField") + nombreCampo
-							+ Idioma.getString("msgMustContain") + longitud + Idioma.getString("etDigit"));
+							+ Idioma.getString("msgMustContain") + longitud
+							+ Idioma.getString("etDigit"));
 			return false;
 		} else {
 			for (int i = 0; i < longitud; i++) {
 				if (Character.isDigit(numero.charAt(i)) == false) {
-					JOptionPane.showMessageDialog(null,
+					JOptionPane.showMessageDialog(
+							null,
 							Idioma.getString("msgErrorField") //$NON-NLS-1$
 									+ nombreCampo
 									+ Idioma.getString("msgOnlyNumber")); //$NON-NLS-1$
@@ -204,7 +246,7 @@ public class ValidacionDatos {
 		}
 
 	}
-	
+
 	public static boolean isInteger(String input) {
 		try {
 			Integer.parseInt(input);
@@ -214,5 +256,5 @@ public class ValidacionDatos {
 		}
 
 	}
-	
+
 }
