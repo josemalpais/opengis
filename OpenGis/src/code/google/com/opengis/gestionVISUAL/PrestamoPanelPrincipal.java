@@ -3,6 +3,7 @@ package code.google.com.opengis.gestionVISUAL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import code.google.com.opengis.gestion.Prestamo;
@@ -22,7 +23,8 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 	
 	public PrestamoPanelPrincipal() {
 		super(false);
-
+		super.getBEliminar().setIcon(new ImageIcon("OpenGis/src/recursosVisuales/devolver.png"));
+		super.getBEliminar().setToolTipText(Idioma.getString("etReturn"));
 	}
 	
 	public void buscar(){
