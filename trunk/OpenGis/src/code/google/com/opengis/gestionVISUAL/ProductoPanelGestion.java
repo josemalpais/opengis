@@ -355,15 +355,45 @@ public class ProductoPanelGestion extends JPanel {
 							
 						
 						}else{
+							
 						if(txtNombreProd.getText()=="" || txtDescripcion.getText()=="" || txtDosis.getText()=="" || txtDNI.getText()==""){
 							JOptionPane.showMessageDialog(null, Idioma.getString("etAllFields")); 
-						}else{Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText().trim(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
-						
-						prod.validarDatos();
-						
-						if (prod.getCorrecto()==true){
+						}else{
 							
-							prod.crearProducto();
+							Producto prod = new Producto(Integer.parseInt(txtID.getText()),txtNombreProd.getText().trim(),txtDescripcion.getText(), comboTipo.getSelectedItem().toString(),txtDosis.getText(),txtDNI.getText(),0);
+						
+							prod.validarDatos();
+						
+							if (prod.getCorrecto()==true){
+							
+							try{
+
+								prod.crearProducto();
+								
+								ConectarDBA.acceder();
+								
+								String consulta;
+								
+								consulta="SELECT MAX(idprod) FROM `producto`";
+								
+								ResultSet resul = ConectarDBA.consulta(consulta);
+								
+								resul.next();
+								
+								int masId = resul.getInt(1) + 1;
+								
+								txtDescripcion.setText("");
+								txtDNI.setText("");
+								txtDosis.setText("");
+								txtID.setText(masId+"");
+								txtNombreProd.setText("");
+								
+								
+								}catch(SQLException e1) {
+									JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorInsert")); //$NON-NLS-1$
+									 
+									
+								}
 							
 						}
 							
