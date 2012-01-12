@@ -4,8 +4,9 @@
 package code.google.com.opengis.gestionDAO;
 
 import java.sql.*;
-
+import java.util.Locale;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 
 /**
@@ -336,6 +337,8 @@ public class ConectarDBA {
 		if(idioma.equals("english")){ //$NON-NLS-1$
 			
 			idioma = "resources.lang_en_US"; //$NON-NLS-1$
+			JOptionPane.setDefaultLocale(Locale.US);
+			Locale.setDefault(Locale.US);
 			
 		}
 		
@@ -343,6 +346,9 @@ public class ConectarDBA {
 			
 			
 			idioma = "resources.lang_es_ES"; //$NON-NLS-1$
+			Locale locale = new Locale("es","ES");
+			JOptionPane.setDefaultLocale(locale);
+			Locale.setDefault(locale);
 			
 		}
 		
@@ -351,7 +357,9 @@ public class ConectarDBA {
 			
 			
 			idioma = "resources.lang_ca_ES"; //$NON-NLS-1$
-			
+			Locale locale = new Locale("ca","ES");
+			JOptionPane.setDefaultLocale(locale);
+			Locale.setDefault(locale);
 		}
 		
 		return idioma;

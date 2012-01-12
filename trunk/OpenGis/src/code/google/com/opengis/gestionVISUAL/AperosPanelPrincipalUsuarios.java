@@ -152,7 +152,7 @@ public class AperosPanelPrincipalUsuarios extends GeneradorPanelPrincipal{
 			
 			if(rUser[6].toString().equals(Idioma.getString("etInactive"))){ //$NON-NLS-1$
 				
-				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString(Idioma.getString("etImplementWithId")) + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("etImplementWithId") + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				
 				if(resp==0){
 					
