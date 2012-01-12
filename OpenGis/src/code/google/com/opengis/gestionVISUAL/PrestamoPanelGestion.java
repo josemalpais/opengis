@@ -318,6 +318,9 @@ public class PrestamoPanelGestion extends JPanel {
 										
 										txtIDprestamo.setText(nuevoid+""); //$NON-NLS-1$
 										
+										txtDNI.setText("");
+										txtIDdispositivo.setSelectedItem(0);
+										
 										ConectarDBA.cerrarCon();
 										
 									} catch (SQLException e1) {
