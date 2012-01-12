@@ -749,45 +749,56 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	}
 	public boolean validarFecha(){
 		String validar = fechaHoy();
-
 		int val2 = Integer.parseInt(fecha1.substring(6,10));
 		int val1 =Integer.parseInt(validar.substring(6,10));
 		
-		if(val1>val2){	
-		 val2 = Integer.parseInt(fecha1.substring(3,5));
-		 val1 =Integer.parseInt(validar.substring(3,5));
-		 
-		if(val1>val2){	
-		 val2 = Integer.parseInt(fecha1.substring(0,2));
-		 val1 =Integer.parseInt(validar.substring(0,2));
-		 if(val1>val2){
+		if(val1>val2){
 			return true;
-		}
+		}else{
+			val2 = Integer.parseInt(fecha1.substring(3,5));
+			val1 =Integer.parseInt(validar.substring(3,5));
+			if(val1>val2){
+				return true;
+			}
+			else{
+				val2 = Integer.parseInt(fecha1.substring(0,2));
+				val1 =Integer.parseInt(validar.substring(0,2));
+				if(val1>val2){
+					return true;
 		}}
+			
+			
 		return false;
 		
 	}
+		}
 	
 	public boolean validarFecha2(){
 		String validar = fechaHoy();
-
 		int val2 = Integer.parseInt(fecha2.substring(6,10));
 		int val1 =Integer.parseInt(validar.substring(6,10));
 		
-		if(val1>val2){	
-		 val2 = Integer.parseInt(fecha2.substring(3,5));
-		 val1 =Integer.parseInt(validar.substring(3,5));
-		 
-		if(val1>val2){	
-		 val2 = Integer.parseInt(fecha2.substring(0,2));
-		 val1 =Integer.parseInt(validar.substring(0,2));
-		 if(val1>val2){
+		if(val1>val2){
 			return true;
-		}
+		}else{
+			val2 = Integer.parseInt(fecha2.substring(3,5));
+			val1 =Integer.parseInt(validar.substring(3,5));
+			if(val1>val2){
+				return true;
+			}
+			else{
+				val2 = Integer.parseInt(fecha2.substring(0,2));
+				val1 =Integer.parseInt(validar.substring(0,2));
+				if(val1>val2){
+					return true;
 		}}
+			
+			
 		return false;
 		
 	}
+		}
+
 	/**
 	 * el metodo fechaHoy()
 	 * genera la fecha de hoy con formato 00-00-0000
