@@ -273,7 +273,7 @@ public class UsuariosPanelNuevo extends JPanel {
 
 						// Aquí entraremos cuando la acción declarada sea
 						// modificar
-
+						
 						for (int i = 0; i < campos.length; i++) {
 							String campo = campos[i];
 							if (campo.equals("")) {
@@ -282,9 +282,13 @@ public class UsuariosPanelNuevo extends JPanel {
 										Idioma.getString("msgErrorField") //$NON-NLS-1$
 												+ Idioma.getString("etAllFields")); //$NON-NLS-1$
 								valido = false;
+								break;
+							} else {
+								valido = true;
 							}
 
 						}
+						System.out.println("Estado de válido "+valido);
 						if (valido == true) {
 
 							if (pass.equals(pass2)) {
@@ -300,7 +304,7 @@ public class UsuariosPanelNuevo extends JPanel {
 												.toString().toLowerCase(),
 										txtMail.getText());
 								u.validarDatos();
-
+								System.out.println("Hola" +u.getValido());
 								if (u.getValido()) {
 
 									try {
