@@ -582,9 +582,11 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     				if(!fecha1.equals("  -  -    ")||(!fecha2.equals("  -  -    "))){
     					
     						if(validarFecha()||validarFecha2()){
+    							if(validarFecha3()){
     						fecha1 = transformarFecha(JFecha2.getText());
     						fecha2 = transformarFecha(JFecha1.getText());
-    						System.out.println("la fecha a cambiado a :" +fecha1 +" y a"+fecha2);
+    							}else
+    								generarFecha();
     					}else
     						generarFecha();			
     				}else
@@ -802,7 +804,35 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	/**
 	 * el metodo fechaHoy()
 	 * genera la fecha de hoy con formato 00-00-0000
+	 * @return 
 	 */
+	
+	public boolean validarFecha3(){
+		
+		
+		int val2 = Integer.parseInt(fecha2.substring(6,10));
+		int val1 =Integer.parseInt(fecha1.substring(6,10));
+		
+		if(val1>val2){
+			return true;
+		}else{
+			val2 = Integer.parseInt(fecha2.substring(3,5));
+			val1 =Integer.parseInt(fecha1.substring(3,5));
+			if(val1>val2){
+				return true;
+			}
+			else{
+				val2 = Integer.parseInt(fecha2.substring(0,2));
+				val1 =Integer.parseInt(fecha1.substring(0,2));
+				if(val1>=val2){
+					return true;
+		}}
+			
+			
+		return false;
+		
+	}
+		}
 	
 	public String fechaHoy(){
 		String dia,mes,annio;
