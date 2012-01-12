@@ -109,6 +109,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	public InformeVisual2(String dni) {
 		super();
 		this.dni = dni;
+		id = dni;
 		initGUI();
 	}
 	
