@@ -23,6 +23,7 @@ public class ValidacionDatos {
 	 * 
 	 */
 	public static String calcularDNI(String dni) {
+		dni = dni.trim();
 		int pletra;
 		String aux = ""; //$NON-NLS-1$
 		String[] arrayLetra = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
@@ -49,6 +50,7 @@ public class ValidacionDatos {
 	 *         falso.
 	 */
 	public static boolean validarDni(String dni) {
+		dni = dni.trim();
 		int pletra;
 		String aux = ""; //$NON-NLS-1$
 		String aux2 = ""; //$NON-NLS-1$
@@ -102,7 +104,7 @@ public class ValidacionDatos {
 	 */
 	public static boolean validarTexto(String texto, String nombreCampo) {
 		Boolean r = isInteger(texto);
-
+		texto = texto.trim();
 		for (int i = 0; i < texto.length(); i++) {
 			if (Character.isLetter(texto.charAt(i)) == false
 					&& texto.charAt(i) != (' ')) {
@@ -146,7 +148,7 @@ public class ValidacionDatos {
 
 	public static boolean validarTextoEspecial(String texto, String nombreCampo) {
 		Boolean r = isInteger(texto);
-
+		texto = texto.trim();
 		for (int i = 0; i < texto.length(); i++) {
 
 			if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
@@ -180,8 +182,9 @@ public class ValidacionDatos {
 
 	public static boolean validarNumerico(String numero, String nombreCampo,
 			int longitud) {
+		numero = numero.trim();
 		Boolean r = isInteger(numero);
-
+		
 		if (numero.length() != longitud) {
 			JOptionPane.showMessageDialog(null,
 					Idioma.getString("msgErrorField") + nombreCampo
