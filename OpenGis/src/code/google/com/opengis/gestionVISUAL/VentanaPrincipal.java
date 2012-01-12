@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -907,8 +908,9 @@ import code.google.com.opengis.gestionDAO.Idioma;
 			bIdiomaCatalan.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
-					
-					int resp = JOptionPane.showConfirmDialog(null,"El seu idioma per defecte serà català. Voldria canviar-ho?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+					Object[] opt = {"Si", "No" }; //$NON-NLS-1$ //$NON-NLS-2$
+					int resp = JOptionPane
+							.showOptionDialog(null,"El seu idioma per defecte serà català. Voldria canviar-ho?","",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[0]);			
 					
 					if(resp == 1){
 						
@@ -921,7 +923,9 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							ConectarDBA.acceder();
 							ConectarDBA.modificar(sentencia);
 							ConectarDBA.cerrarCon();
-							
+
+							Locale locale = new Locale("ca","ES");
+							JOptionPane.setDefaultLocale(locale);
 							JOptionPane.showMessageDialog(null, "El seu idioma ha canviat a català"); //$NON-NLS-1$
 							tabsPaneles.removeAll();
 							System.exit(0);
@@ -957,9 +961,9 @@ import code.google.com.opengis.gestionDAO.Idioma;
 			bIdiomaSpanish.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-
-					
-					int resp = JOptionPane.showConfirmDialog(null,"Su idioma predeterminado será español.¿Desea cambiarlo?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+					Object[] opt = {"Si", "No" }; //$NON-NLS-1$ //$NON-NLS-2$
+					int resp = JOptionPane
+							.showOptionDialog(null,"Su idioma predeterminado será español.¿Desea cambiarlo?","",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[0]);					
 					
 					if(resp == 1){
 						
@@ -973,6 +977,8 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							ConectarDBA.modificar(sentencia);
 							ConectarDBA.cerrarCon();
 							
+							Locale locale = new Locale("es","ES");
+							JOptionPane.setDefaultLocale(locale);
 							JOptionPane.showMessageDialog(null, "Su idioma ha cambiado a Español"); //$NON-NLS-1$
 							tabsPaneles.removeAll();
 							System.exit(0);
@@ -1005,7 +1011,9 @@ import code.google.com.opengis.gestionDAO.Idioma;
 			bIdiomaEnglish.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
-					int resp = JOptionPane.showConfirmDialog(null,"Your default language will be English. Do you want to change it?","",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+					Object[] opt = {"Yes", "No" }; //$NON-NLS-1$ //$NON-NLS-2$
+					int resp = JOptionPane
+							.showOptionDialog(null,"Your default language will be English. Do you want to change it?","",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[0]);			
 					
 					if(resp == 1){
 						
@@ -1019,6 +1027,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 							ConectarDBA.modificar(sentencia);
 							ConectarDBA.cerrarCon();
 							
+							JOptionPane.setDefaultLocale(Locale.US);
 							JOptionPane.showMessageDialog(null, "Your language has been changed to English"); //$NON-NLS-1$
 							tabsPaneles.removeAll();
 							System.exit(0);
