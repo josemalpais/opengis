@@ -15,12 +15,14 @@ import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 
 import code.google.com.opengis.gestion.EnviarMail;
@@ -65,7 +67,8 @@ public class LoginVisual extends JFrame
 		setLayout(new GridBagLayout());
 		lblLogo=new JLabel( new ImageIcon(rutaIcono+"logo.png")); //Icono de la aplicación //$NON-NLS-1$
 		lblUser=new JLabel(Idioma.getString("etUserLogin")); //$NON-NLS-1$
-		txtUser = new JTextField(Idioma.getString("msgInsertIdCard")); //$NON-NLS-1$
+		//MaskFormatter mascara = new MaskFormatter("########L");
+		txtUser = new JFormattedTextField(Idioma.getString("msgInsertIdCard")); //$NON-NLS-1$
 		lblPass=new JLabel(Idioma.getString("etPassword")); //$NON-NLS-1$
 		txtPass = new JPasswordField();
 		btnRec = new JButton(Idioma.getString("etRecovery")); //$NON-NLS-1$
