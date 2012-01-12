@@ -1,7 +1,10 @@
 package code.google.com.opengis.gestion;
 
+import java.sql.ResultSet;
+
 import javax.swing.JOptionPane;
 
+import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
 /**
@@ -133,10 +136,11 @@ public class Apero {
 /////////////    M E T O D O      D E     V A L I D A C I O N     //////////////////
 	public Boolean validarDatos(String id, String nombre,String tamaño,String descrip,String tarea, String activo,String idUser){		
 		
-		if(idUser.length() != 9){ // El DNI del propietario debe tener el siguiente formato: ########-L
+		if(idUser.length() != 9){ 
 			JOptionPane.showMessageDialog(null, Idioma.getString("msgImplementWrongOwner")); //$NON-NLS-1$
 			return false;
 		}else{
+			
 			Boolean r = isInteger(nombre);
 			
 			if(r.equals(true) || nombre.length() < 2 || nombre.length()>20){
@@ -160,8 +164,52 @@ public class Apero {
 							JOptionPane.showMessageDialog(null, Idioma.getString("msgImplementNotTask")); //$NON-NLS-1$
 							return false;
 						}else{
-							System.out.println("Validacion OK!"); //$NON-NLS-1$
-							return true;
+							
+							boolean usuarioValido = false;
+							
+							
+							try{
+								
+							
+							ConectarDBA dba = new ConectarDBA();
+							
+							dba.acceder();
+							
+							String sql = "SELECT dni FROM usuario WHERE dni= '" + idUser +"'";
+							
+							ResultSet resu = dba.buscar(sql);
+							
+							resu.next();
+							
+							
+							if(resu.getString(1)!=null){
+								
+								usuarioValido = true;
+								
+							}else{
+								
+								usuarioValido = false;
+								
+							}
+							
+							dba.cerrarCon();
+							
+							}catch(Exception e2){
+								
+								
+							}
+							
+							if(usuarioValido == false){
+							
+								JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorIDUnmatchUser"));
+								
+								return false;
+								
+							}else{
+								System.out.println("Validacion OK!"); //$NON-NLS-1$
+								return true;
+							
+							}
 						}
 					}
 				}

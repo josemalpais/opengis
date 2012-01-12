@@ -158,22 +158,22 @@ public class AperosPanelNuevo extends JPanel {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 
 					if (accion.equals("alta")) { //$NON-NLS-1$
-						if(txtTamaño.getText().equals("")){
+						if(txtTamaño.getText().trim().equals("")){
 							txtTamaño.setText("0");
 						}
-						Apero ap = new Apero(Integer.parseInt(txtId.getText()), txtNombre.getText(),
-								Integer.parseInt(txtTamaño.getText()), txtDescripcion.getText(),
+						Apero ap = new Apero(Integer.parseInt(txtId.getText().trim()), txtNombre.getText().trim(),
+								Integer.parseInt(txtTamaño.getText().trim()), txtDescripcion.getText().trim(),
 								comboTarea.getSelectedIndex()+1, true,
-								txtUser.getText());
-						if (ap.validarDatos(txtId.getText(), txtNombre.getText(),
-								txtTamaño.getText(), txtDescripcion.getText(),
+								txtUser.getText().trim());
+						if (ap.validarDatos(txtId.getText().trim(), txtNombre.getText().trim(),
+								txtTamaño.getText().trim(), txtDescripcion.getText().trim(),
 								(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
-								txtUser.getText())) {
+								txtUser.getText().trim())) {
 							
-							AperoDAO adao = new AperoDAO(txtId.getText(), txtNombre.getText(),
-									txtTamaño.getText(), txtDescripcion.getText(),
+							AperoDAO adao = new AperoDAO(txtId.getText().trim(), txtNombre.getText().trim(),
+									txtTamaño.getText().trim(), txtDescripcion.getText().trim(),
 									(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
-									txtUser.getText());
+									txtUser.getText().trim());
 							
 							try {
 								adao.altaApero();
