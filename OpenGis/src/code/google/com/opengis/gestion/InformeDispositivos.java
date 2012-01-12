@@ -138,13 +138,11 @@ private void crear_PDF(String titulo, String n) {
             JOptionPane.showMessageDialog(null,Idioma.getString("_DeviceReport.DocCreated")); //$NON-NLS-1$
             
             
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 } catch (DocumentException ex) {
+         	JOptionPane.showMessageDialog(null,Idioma.getString("msgSaveError"));
+         } catch (FileNotFoundException ex) {
+             JOptionPane.showMessageDialog(null,Idioma.getString("msgSaveError"));            	
+         }
                 
 	}
 	
