@@ -385,9 +385,9 @@ public class InformeCuaderno {
                 JOptionPane.showMessageDialog(null,Idioma.getString("_BookReport.DocCreated")); //$NON-NLS-1$
             
             } catch (DocumentException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            	JOptionPane.showMessageDialog(null,Idioma.getString("msgSaveError"));
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,Idioma.getString("msgSaveError"));            	
             }            
         }        
     }
