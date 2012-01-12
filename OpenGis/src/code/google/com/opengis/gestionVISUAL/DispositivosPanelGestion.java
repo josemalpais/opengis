@@ -233,6 +233,8 @@ public class DispositivosPanelGestion extends JPanel {
 										nuevoID=(rs1.getInt(1) + 1) + ""; //$NON-NLS-1$
 									}
 									txtID.setText(nuevoID);
+									txtModelo.setText("");
+									txtNumSerie.setText("");
 								} catch (SQLException e1) {
 									e1.printStackTrace();
 									}
