@@ -178,6 +178,22 @@ public class ParcelasPanelNuevo extends JPanel {
 							try {
 								p1.altaParcela();
 								
+								
+								
+								ConectarDBA.acceder();
+								
+								String sql = "SELECT MAX(idparcela) FROM `parcela`";
+								
+								ResultSet resul = ConectarDBA.consulta(sql);
+								
+								resul.next();
+								
+								int masId = resul.getInt(1) + 1;
+								
+								ConectarDBA.cerrarCon();
+								
+								
+								txtIdParcelap.setText(masId+"");
 								txtAliasp.setText(""); //$NON-NLS-1$
 								txtProvinciap.setText(""); //$NON-NLS-1$
 								txtPoblacion.setText(""); //$NON-NLS-1$
