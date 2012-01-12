@@ -581,11 +581,13 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     				
     				if(!fecha1.equals("  -  -    ")){
     					if(!fecha2.equals("  -  -    ")){
-    						if(validarFecha()){
+    						if(validarFecha()||validarFecha2()){
     						fecha1 = transformarFecha(JFecha2.getText());
     						fecha2 = transformarFecha(JFecha1.getText());
     						System.out.println("la fecha a cambiado a :" +fecha1 +" y a"+fecha2);
-    					}}
+    					}else{
+    						generarFecha();			
+    				}}
     					}else{
     						generarFecha();			
     				}
@@ -745,8 +747,28 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 		
 		
 	}
-	
 	public boolean validarFecha(){
+		String validar = fechaHoy();
+
+		int val2 = Integer.parseInt(fecha1.substring(6,10));
+		int val1 =Integer.parseInt(validar.substring(6,10));
+		
+		if(val1>val2){	
+		 val2 = Integer.parseInt(fecha1.substring(3,5));
+		 val1 =Integer.parseInt(validar.substring(3,5));
+		 
+		if(val1>val2){	
+		 val2 = Integer.parseInt(fecha1.substring(0,2));
+		 val1 =Integer.parseInt(validar.substring(0,2));
+		 if(val1>val2){
+			return true;
+		}
+		}}
+		return false;
+		
+	}
+	
+	public boolean validarFecha2(){
 		String validar = fechaHoy();
 
 		int val2 = Integer.parseInt(fecha2.substring(6,10));
