@@ -23,7 +23,7 @@ public class SplashFrame extends JFrame {
 		this.setBackground(Color.WHITE);
 
 		int width = 590; // 590 x 347
-	    int height = 347;
+	    int height = 330;
 	    
 	    int x = (Toolkit.getDefaultToolkit().getScreenSize().width - width) / 2;
 	    int y = (Toolkit.getDefaultToolkit().getScreenSize().height - height) / 2;
