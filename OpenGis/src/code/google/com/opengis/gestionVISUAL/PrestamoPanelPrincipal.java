@@ -25,6 +25,9 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 		super(false);
 		super.getBEliminar().setIcon(new ImageIcon("OpenGis/src/recursosVisuales/devolver.png"));
 		super.getBEliminar().setToolTipText(Idioma.getString("etReturn"));
+		getTxtCriterioBusqueda().setText("");
+		buscar();
+		getTxtCriterioBusqueda().setText("Inserte criterio de búsqueda...");
 	}
 	
 	public void buscar(){

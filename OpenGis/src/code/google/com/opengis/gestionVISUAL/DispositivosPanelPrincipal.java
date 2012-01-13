@@ -21,6 +21,9 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 	public DispositivosPanelPrincipal(){
 		
 		super(false);
+		getTxtCriterioBusqueda().setText("");
+		buscar();
+		getTxtCriterioBusqueda().setText("Inserte criterio de búsqueda...");
 		
 	}
 

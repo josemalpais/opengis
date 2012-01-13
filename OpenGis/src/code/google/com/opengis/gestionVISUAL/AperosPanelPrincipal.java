@@ -20,6 +20,9 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 	
 	public AperosPanelPrincipal(){
 		super(false);
+		getTxtCriterioBusqueda().setText("");
+		buscar();
+		getTxtCriterioBusqueda().setText("Inserte criterio de búsqueda...");
 		
 	}
 	
