@@ -31,6 +31,7 @@ public class ParcelasPanelNuevo extends JPanel {
 	private JLabel lblNumerop = null;
 	private JLabel lblDnip = null;
 	private JLabel lblPoblacionp = null;
+	private JLabel lblCamposObligatorios;
 	
 	private JButton bGuardar = null;
 	private JButton bRestablecer = null;
@@ -129,6 +130,12 @@ public class ParcelasPanelNuevo extends JPanel {
 		lblAliasp = new JLabel();
 		lblAliasp.setBounds(new Rectangle(42, 84, 88, 30));
 		lblAliasp.setText(Idioma.getString("etAlias")); //$NON-NLS-1$
+		
+		lblCamposObligatorios = new JLabel();
+		lblCamposObligatorios.setBounds(new Rectangle(434, 334, 238, 25));
+		lblCamposObligatorios.setFont(new Font(
+		Idioma.getString("Dialog"), Font.ITALIC, 12)); //$NON-NLS-1$
+		lblCamposObligatorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
 		this.setSize(782, 388);
 		this.setLayout(null);
 		this.add(lblAliasp, null);
@@ -138,6 +145,7 @@ public class ParcelasPanelNuevo extends JPanel {
 		this.add(lblPartidap, null);
 		this.add(lblNumerop, null);
 		this.add(lblDnip, null);
+		this.add(lblCamposObligatorios,null);
 
 		this.add(lblPoblacionp, null);
 		this.add(getBGuardar(), null);
