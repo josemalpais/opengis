@@ -250,6 +250,9 @@ public class UsuariosPanelNuevo extends JPanel {
 								if (u.getValido()) {
 									try {
 										u.crearUsuario();
+										
+										restablecerCampos(true);
+										txtDNI.setText("");
 									} catch (SQLException e1) {
 										// TODO Auto-generated catch block
 										JOptionPane.showMessageDialog(
