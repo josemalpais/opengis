@@ -1,6 +1,7 @@
 package code.google.com.opengis.gestion;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,7 +31,12 @@ public class main {
 		} catch (Exception e) {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
-		LoginVisual ln = new LoginVisual();
+		try {
+			LoginVisual ln = new LoginVisual();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// esto es para insertar ciudades de manera rapidilla, se borrará cuando acabemos con esto
 		/*ConectarDBA.acceder();
