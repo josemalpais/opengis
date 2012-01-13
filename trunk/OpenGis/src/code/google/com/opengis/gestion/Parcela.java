@@ -97,6 +97,7 @@ public class Parcela {
 			}
 		}else{
 			JOptionPane.showMessageDialog(null, Idioma.getString("msgAliasThreeChar")); //$NON-NLS-1$
+			valido = false;
 		}
 	}
 	public String getProvincia() {
@@ -120,6 +121,7 @@ public class Parcela {
 			}
 		} catch (Exception e2) {
 				JOptionPane.showMessageDialog(null,Idioma.getString("msgProvNumNumeric")); //$NON-NLS-1$
+				valido = false;
 		}
 	}
 	public String getPoblacion() {
@@ -142,6 +144,7 @@ public class Parcela {
 			}
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null,Idioma.getString("msgCityNumNumeric")); //$NON-NLS-1$
+			valido = false;
 	}
 	}
 	public String getPoligono() {
@@ -165,6 +168,7 @@ public class Parcela {
 		}
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null,Idioma.getString("msgAreaNumNumeric")); //$NON-NLS-1$
+			valido = false;
 	}
 	}
 	public String getNumero() {
@@ -186,6 +190,7 @@ public class Parcela {
 		}
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null,Idioma.getString("msgLotNumNumeric")); //$NON-NLS-1$
+			valido = false;
 	}
 	}
 	public int isActivo() {
@@ -223,7 +228,7 @@ public class Parcela {
 	public void setDniPropietario(String dnipropietario) {
 		if((dnipropietario.length() ==9)){
 			try{	
-				validarDni(dnipropietario);
+				if(ValidacionDatos.validarDni(dnipropietario)==false) valido = false;;
 			}catch(NumberFormatException ex){
 				JOptionPane.showMessageDialog(null,Idioma.getString("msgIDCardWrong")); //$NON-NLS-1$
 				valido=false;
@@ -251,57 +256,6 @@ public class Parcela {
 		}
 		return true;
 	}	
-	/**
-	 * Método que calcula la letra del dni.
-	 * @return el valor calculado de la letra
-	 */
-	public String calcularDNI(String dni){
-		int pletra;
-		String aux=""; //$NON-NLS-1$
-		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$ //$NON-NLS-19$ //$NON-NLS-20$ //$NON-NLS-21$ //$NON-NLS-22$ //$NON-NLS-23$ //$NON-NLS-24$
-		for(int x=0;x<8;x++){//este for nos cojera los primeros carácteres y los guardara en el string aux
-			aux=aux + dni.charAt(x);
-		}	
-		pletra= Integer.parseInt(aux);
-		pletra=pletra%23;			
-		aux= aux + arrayLetra[pletra];
-		
-		return dni;
-	}
-	/**
-	 * Clase que valida el DNI, y lo coloca en formato 00000000L
-	 * @param dni
-	 * @return boolean que nos determinará si el dni introducido es verdadero o falso.
-	 */
-	public boolean validarDni(String dni){
-		int pletra;
-		String aux=""; //$NON-NLS-1$
-		String aux2=""; //$NON-NLS-1$
-		String[]arrayLetra = {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","T"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$ //$NON-NLS-19$ //$NON-NLS-20$ //$NON-NLS-21$ //$NON-NLS-22$ //$NON-NLS-23$ //$NON-NLS-24$
-		
-		for(int x=0;x<8;x++){//este for nos cojera los 8 primeros carácteres y los guardará en el string aux
-			aux=aux + dni.charAt(x);
-		}
-		try {  
-			 pletra= Integer.parseInt(aux); //si no fueran enteros saldriamos del metodo con un false
-		}  
-	    catch(NumberFormatException ex ) {
-			JOptionPane.showMessageDialog(null, Idioma.getString("msgIdCardErrorNumbers")); //$NON-NLS-1$
-			valido=false;
-	        return false;  
-	    }  
-		pletra=pletra%23;
-		aux2=dni.charAt(dni.length()-1)+""; //$NON-NLS-1$
-		
-		if(arrayLetra[pletra].equalsIgnoreCase(aux2)){
-			dniPropietario= aux + arrayLetra[pletra];//lo colocamos en formato de 9 carácteres
-			return true;
-		}else{
-			JOptionPane.showMessageDialog(null, Idioma.getString("msgIdCardUnmatchWord")); //$NON-NLS-1$
-			valido=false;
-			return false;
-		}
-	}
 
 	
 	//PARCELADAO

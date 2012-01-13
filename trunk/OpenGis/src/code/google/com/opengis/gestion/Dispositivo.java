@@ -133,50 +133,44 @@ public class Dispositivo {
 
 	public static Boolean validarDatos(String modelo, String numSerie) {
 		boolean b = false;
-		if (modelo.length() > 15) {
-			/**
-			 * Longitud del modelo, que ha de ser de 15 caracteres como máximo.
-			 **/
-			JOptionPane
-					.showMessageDialog(null,
-							Idioma.getString("msgModelLengthError")); //$NON-NLS-1$
+		if (ValidacionDatos.validarTextoEspecial(modelo,
+				Idioma.getString("etModel")) == false) {
+
 			return false;
 
 		} else {
 
-			if ((numSerie.length() < 10) || (numSerie.length() > 30)) {
-
-				JOptionPane
-						.showMessageDialog(null,
-								Idioma.getString("msgBetween10and30")); //$NON-NLS-1$
+			if (modelo.length() > 15) {
+				/**
+				 * Longitud del modelo, que ha de ser de 15 caracteres como
+				 * máximo.
+				 **/
+				JOptionPane.showMessageDialog(null,
+						Idioma.getString("msgModelLengthError")); //$NON-NLS-1$
 				return false;
 
 			} else {
-				try {
-					numSerie = numSerie.toString();
-					b = true;
-				} catch (Exception e) {
-					b = false;
-				}
-
-				if (b = false) {
-
-					JOptionPane
-							.showMessageDialog(null,
-									Idioma.getString("msgSerialNumberError")); //$NON-NLS-1$
+				if (ValidacionDatos.validarNumerico(numSerie,
+						Idioma.getString("etSerialNumber")) == false) {
 					return false;
+				} else {
+					if ((numSerie.length() < 10) || (numSerie.length() > 30)) {
 
-				}
+						JOptionPane.showMessageDialog(null,
+								Idioma.getString("msgBetween10and30")); //$NON-NLS-1$
+						return false;
 
-				else {
+					} else {
 
-					return true;
-					/**
-					 * Si todos los datos son correctos devuelve True.
-					 */
+						return true;
+						/**
+						 * Si todos los datos son correctos devuelve True.
+						 */
+					}
 				}
 			}
 		}
+
 	}
 
 	/**
