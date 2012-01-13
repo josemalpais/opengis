@@ -49,19 +49,34 @@ public class SplashFrame extends JFrame {
 	    this.add(jpb,gbc);     
 		setVisible(true);
 		
-		jpb.setValue(current());
+		jpb.setValue(current(img));
 		//  this.ContentPanel().setOpaque(false);	
 	    //	add(new ContentPanel());
 	    //  setSize(500, 300);   
   }
 
-  public int current(){
+  public int current(JLabel img){
  	  int i = 0;
 	  for (i = 0 ; i <= 100; i++){
 		  i = i + 20;
 		  SplashFrame.jpb.setValue(i);
 		  SplashFrame.jpb.repaint();
 		  System.out.println(i);
+		  
+		  if(i==41 || i==62){
+			  
+			  ImageIcon icon = new ImageIcon("OpenGis/src/recursosVisuales/splash41.png");
+			  img.setIcon(icon);
+			  
+		  }
+		  
+		  if(i ==83 || i==104){
+			  
+			  ImageIcon icon = new ImageIcon("OpenGis/src/recursosVisuales/splash62.png");
+			  img.setIcon(icon);
+			  
+		  }
+		 
 		  try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
