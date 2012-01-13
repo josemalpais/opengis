@@ -88,6 +88,8 @@ public class ProductoPanelGestion extends JPanel {
 		this.dosis = dosis;
 		this.dni = dni;
 		
+		encontrado = true;
+		
 		try {
 			initialize();
 		} catch (ParseException e) {
