@@ -27,7 +27,7 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 		super.getBEliminar().setToolTipText(Idioma.getString("etReturn"));
 		getTxtCriterioBusqueda().setText("");
 		buscar();
-		getTxtCriterioBusqueda().setText("Inserte criterio de búsqueda...");
+		getTxtCriterioBusqueda().setText(Idioma.getString("msgSearchCriteria"));
 	}
 	
 	public void buscar(){
@@ -123,7 +123,7 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 		bModificar.setEnabled(true);
 		bEliminar.setEnabled(true);
 		}else{
-			JOptionPane.showMessageDialog(null,"Este Prestamo ya fue finalizado");
+			JOptionPane.showMessageDialog(null,Idioma.getString("msgLoanAlreadyReturned"));
 			bModificar.setEnabled(false);
 			bEliminar.setEnabled(false);
 		}
