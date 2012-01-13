@@ -79,6 +79,7 @@ public class ProductoPanelGestion extends JPanel {
 		this.tipo = tipo;
 		this.dosis = dosis;
 		this.dni = dni;
+		encontrado = true;
 		
 		initialize();
 	}
@@ -403,7 +404,11 @@ public class ProductoPanelGestion extends JPanel {
 						
 					}else{
 						
+						System.out.println("MODIFICAAAAR");
+						
 						if(encontrado == false){
+							
+						
 			
 						}else{
 						
