@@ -111,7 +111,7 @@ public class Usuarios {
 							Idioma.getString("etAddress")) == false //$NON-NLS-1$
 					|| ValidacionDatos.validarEmail(this.email) == false
 					|| ValidacionDatos.validarNumerico(this.telefono,
-							Idioma.getString("etTelephone"), 9) == false) { //$NON-NLS-1$
+							Idioma.getString("etPhone"), 9) == false) { //$NON-NLS-1$
 
 				this.valido = false;
 			} else {
