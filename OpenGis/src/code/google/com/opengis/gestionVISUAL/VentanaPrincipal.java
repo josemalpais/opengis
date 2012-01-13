@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Locale;
 
 import javax.swing.ImageIcon;
@@ -813,8 +814,15 @@ import code.google.com.opengis.gestionDAO.Idioma;
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                  this.dispose();
                  tabsPaneles.removeAll();
-                 LoginVisual l = new LoginVisual(); // Si dice que si, volvemos al Login del Programa
-                 l.setVisible(true);                                             
+                 try {
+					LoginVisual l = new LoginVisual();
+					  l.setVisible(true);        
+				} catch (ParseException e) {
+					
+					e.printStackTrace();
+				} 
+                 // Si dice que si, volvemos al Login del Programa
+                                                    
          }else{
                
                  this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // Si dice que no no hacemos nada

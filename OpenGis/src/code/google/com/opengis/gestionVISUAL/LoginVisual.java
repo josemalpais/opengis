@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,7 +45,7 @@ public class LoginVisual extends JFrame
 	private String pass;
 	private JLabel lblLogo;
 	private JLabel lblUser;
-	private JTextField txtUser;
+	private JFormattedTextField txtUser;
 	private JLabel lblPass;
 	private JPasswordField txtPass;
 	private JButton btnVal;
@@ -60,15 +61,16 @@ public class LoginVisual extends JFrame
 	private final String rutaIcono="OpenGis/src/recursosVisuales/"; //$NON-NLS-1$
 	private static String lang = "resources.lang_es_ES"; //$NON-NLS-1$
 
-	public LoginVisual(){
+	public LoginVisual() throws ParseException{
 		super(); //Título de la ventana //$NON-NLS-1$
 		new Idioma(lang);
 		setTitle(Idioma.getString("etLoginWindow"));
 		setLayout(new GridBagLayout());
 		lblLogo=new JLabel( new ImageIcon(rutaIcono+"logo.png")); //Icono de la aplicación //$NON-NLS-1$
 		lblUser=new JLabel(Idioma.getString("etUserLogin")); //$NON-NLS-1$
-		//MaskFormatter mascara = new MaskFormatter("########L");
-		txtUser = new JFormattedTextField(Idioma.getString("msgInsertIdCard")); //$NON-NLS-1$
+		MaskFormatter mascara = new MaskFormatter("########L");
+		txtUser = new JFormattedTextField(mascara); //$NON-NLS-1$
+		txtUser.setText(Idioma.getString("msgInsertIdCard"));
 		lblPass=new JLabel(Idioma.getString("etPassword")); //$NON-NLS-1$
 		txtPass = new JPasswordField();
 		btnRec = new JButton(Idioma.getString("etRecovery")); //$NON-NLS-1$
@@ -196,14 +198,24 @@ public class LoginVisual extends JFrame
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				lang = "resources.lang_ca_ES"; //$NON-NLS-1$
 				lv.dispose();
-				new LoginVisual();	
+				try {
+					new LoginVisual();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 			}
 		});
 		bIdiomaSpanish.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				lang = "resources.lang_es_ES"; //$NON-NLS-1$
 				lv.dispose();
-				new LoginVisual();	
+				try {
+					new LoginVisual();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 			}
 		});
 		
@@ -211,23 +223,30 @@ public class LoginVisual extends JFrame
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				lang = "resources.lang_en_US"; //$NON-NLS-1$
 				lv.dispose();
-				new LoginVisual();	
+				try {
+					new LoginVisual();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 			}
 		});
 		
 		kl=new KeyListener()
 		{
 			public void keyPressed(KeyEvent evento) {
+				
 				Integer l =  evento.getKeyCode();
-				//System.out.println(l);
+			
 				usuario = txtUser.getText();		
 				pass = new String(txtPass.getPassword());
 
 				if(l == 10)
 				{
-					System.out.println("llamo a validar login"); //$NON-NLS-1$
+					
 					validarLogin();
 				}
+				
 			}
 
 			@Override
@@ -257,8 +276,14 @@ public class LoginVisual extends JFrame
 	}
 	
 	private void validarLogin(){
+		
+		if(!validarPass()){
+			JOptionPane.showMessageDialog(null,"Contraseña invalida");
+			txtPass.setText("");
+		}else{
 		try 
 		{
+			
 			char t=ConectarDBA.validarLogin(usuario,pass);
 			if ( t!=0)
 			{
@@ -268,12 +293,30 @@ public class LoginVisual extends JFrame
 				VentanaPrincipal v=new VentanaPrincipal(t,usuario,idioma);
 			
 				lv.dispose();
+			}else{
+				JOptionPane.showMessageDialog(null,"Error al introducir el Usuario o Contraseña");
 			}
+				
 		} 
 		catch (SQLException e1) 
 		{
 			JOptionPane.showMessageDialog(null,Idioma.getString("msgConnectionError")); //$NON-NLS-1$
 			e1.printStackTrace();
 		} 
+	}}
+	
+	private boolean validarPass(){
+		String validar = new String(txtPass.getPassword());
+		String lol;
+		for(int i=0;i<=validar.length()-1;i++){
+				System.out.println(validar.substring(i, i+1));
+				lol =validar.substring(i, i+1);
+			if(lol.equals("'")){
+			
+				return false;
+			}
+		}
+		return true;
 	}
+	
 }
