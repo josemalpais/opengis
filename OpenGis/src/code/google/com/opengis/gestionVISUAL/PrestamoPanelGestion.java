@@ -209,6 +209,7 @@ public class PrestamoPanelGestion extends JPanel {
 		if (txtDNI == null) {
 			MaskFormatter mascara = new MaskFormatter("########L");
 			txtDNI = new JFormattedTextField(mascara);
+			 mascara.setPlaceholderCharacter('0');  
 			txtDNI.setBounds(new Rectangle(160, 136, 149, 24));
 			
 			if(accion=="modificar"){ //$NON-NLS-1$
