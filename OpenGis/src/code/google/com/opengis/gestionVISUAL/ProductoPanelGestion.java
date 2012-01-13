@@ -39,7 +39,7 @@ public class ProductoPanelGestion extends JPanel {
 	
 	private JTextField txtID = null;
 	private JTextField txtNombreProd = null;
-	JTextField txtDNI = null;
+	JFormattedTextField txtDNI = null;
 	private JFormattedTextField txtDosis = null;
 	private JTextArea txtDescripcion = null;
 	private JLabel lblMedida = null;
@@ -219,7 +219,16 @@ public class ProductoPanelGestion extends JPanel {
 	 */
 	private JTextField getTxtDNI() {
 		if (txtDNI == null) {
-			txtDNI = new JTextField();
+			try{
+				
+			MaskFormatter mascara = new MaskFormatter("########L");
+			txtDNI = new JFormattedTextField(mascara);
+			
+			}catch(Exception e2){
+				
+				
+				
+			}
 			txtDNI.setBounds(new Rectangle(160, 180, 149, 24));
 			
 			if(accion=="modificar"){ //$NON-NLS-1$
@@ -269,6 +278,7 @@ public class ProductoPanelGestion extends JPanel {
 	private JTextField getTxtDosis() throws ParseException {
 		if (txtDosis == null) {
 			MaskFormatter mascara = new MaskFormatter("####");
+			mascara.setPlaceholderCharacter('0');
 			txtDosis = new JFormattedTextField(mascara); 
 			txtDosis.setBounds(new Rectangle(420, 136, 149, 24));
 			if(accion=="modificar"){ //$NON-NLS-1$
