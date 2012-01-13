@@ -258,11 +258,11 @@ public void validarDatos() {
 			} else {	
 				r = isInteger(this.dosis);
 
-				if (r.equals(false) || this.dosis.length() <1 || this.dosis.length()>3) {
+				if (r.equals(false) || this.dosis.length() <1 || this.dosis.length()>4) {
 						JOptionPane.showMessageDialog(null, Idioma.getString("msgDoseNotNullOrTooLong")); 					
 				}else{
 					r = isInteger(this.descripcion);
-					if(r.equals(true) || this.descripcion.length() <1  || this.descripcion.length()>100){
+					if(r.equals(true) || this.descripcion.length()>100){
 						
 						JOptionPane.showMessageDialog(null, Idioma.getString("msgDescNotNullOrTooLong")); 
 						this.correcto = false;

@@ -382,7 +382,7 @@ public class ProductoPanelGestion extends JPanel {
 						
 						}else{
 							
-						if(txtNombreProd.getText()=="" || txtDescripcion.getText()=="" || txtDosis.getText()=="" || txtDNI.getText()==""){
+						if(txtNombreProd.getText()=="" || txtDosis.getText()=="" || txtDNI.getText()==""){
 							JOptionPane.showMessageDialog(null, Idioma.getString("etAllFields")); 
 						}else{
 							
