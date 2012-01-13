@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
@@ -13,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.text.MaskFormatter;
 
 import code.google.com.opengis.gestion.Producto;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
@@ -21,6 +23,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 public class ProductoPanelGestion extends JPanel {
 
@@ -37,7 +40,7 @@ public class ProductoPanelGestion extends JPanel {
 	private JTextField txtID = null;
 	private JTextField txtNombreProd = null;
 	JTextField txtDNI = null;
-	private JTextField txtDosis = null;
+	private JFormattedTextField txtDosis = null;
 	private JTextArea txtDescripcion = null;
 	private JLabel lblMedida = null;
 	
@@ -64,7 +67,12 @@ public class ProductoPanelGestion extends JPanel {
 		
 		this.accion = accion;
 		
-		initialize();
+		try {
+			initialize();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -79,9 +87,13 @@ public class ProductoPanelGestion extends JPanel {
 		this.tipo = tipo;
 		this.dosis = dosis;
 		this.dni = dni;
-		encontrado = true;
 		
-		initialize();
+		try {
+			initialize();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -89,8 +101,9 @@ public class ProductoPanelGestion extends JPanel {
 	 * This method initializes this
 	 * 
 	 * @return void
+	 * @throws ParseException 
 	 */
-	private void initialize() {
+	private void initialize() throws ParseException {
 		lblObligatorios = new JLabel();
 		lblObligatorios.setBounds(new Rectangle(359, 305, 227, 20));
 		lblObligatorios.setFont(new Font("Dialog", Font.ITALIC, 12)); 
@@ -251,10 +264,12 @@ public class ProductoPanelGestion extends JPanel {
 	 * This method initializes txtDosis	
 	 * 	
 	 * @return javax.swing.JTextField	
+	 * @throws ParseException 
 	 */
-	private JTextField getTxtDosis() {
+	private JTextField getTxtDosis() throws ParseException {
 		if (txtDosis == null) {
-			txtDosis = new JTextField();
+			MaskFormatter mascara = new MaskFormatter("########L");
+			txtDosis = new JFormattedTextField(mascara); 
 			txtDosis.setBounds(new Rectangle(420, 136, 149, 24));
 			if(accion=="modificar"){ //$NON-NLS-1$
 				
@@ -404,11 +419,7 @@ public class ProductoPanelGestion extends JPanel {
 						
 					}else{
 						
-						System.out.println("MODIFICAAAAR");
-						
 						if(encontrado == false){
-							
-						
 			
 						}else{
 						
