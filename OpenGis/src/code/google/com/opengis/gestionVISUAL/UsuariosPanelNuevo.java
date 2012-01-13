@@ -471,7 +471,10 @@ public class UsuariosPanelNuevo extends JPanel {
 						}
 
 					} else {
-
+						comboPoblacion.removeAllItems();
+						txtCP.setText("");
+						txtProvincia.setText("");
+						
 					}
 
 				}
@@ -564,7 +567,7 @@ public class UsuariosPanelNuevo extends JPanel {
 			comboPoblacion.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 
-					if (txtCP.getText().length() == 0) {
+					if (txtCP.getText().length() == 5) {
 
 						try {
 

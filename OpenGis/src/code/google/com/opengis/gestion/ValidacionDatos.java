@@ -158,6 +158,7 @@ public class ValidacionDatos {
 								+ nombreCampo
 								+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
 				return false;
+				
 			}
 		}
 
@@ -208,12 +209,11 @@ public class ValidacionDatos {
 
 			}
 			if (at != true || dot != true) {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								Idioma.getString("msgErrorField") //$NON-NLS-1$
-										+ Idioma.getString("etMail")
-										+ Idioma.getString("msgMustContainEmail")); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(
+						null,
+						Idioma.getString("msgErrorField") //$NON-NLS-1$
+								+ Idioma.getString("etMail")
+								+ Idioma.getString("msgMustContainEmail")); //$NON-NLS-1$
 				return false;
 			}
 		}
@@ -244,6 +244,25 @@ public class ValidacionDatos {
 			}
 			return true;
 		}
+
+	}
+
+	public static boolean validarNumerico(String numero, String nombreCampo) {
+		numero = numero.trim();
+
+		for (int i = 0; i < numero.length(); i++) {
+			if (Character.isDigit(numero.charAt(i)) == false) {
+				JOptionPane.showMessageDialog(
+						null,
+						Idioma.getString("msgErrorField") //$NON-NLS-1$
+								+ nombreCampo
+								+ Idioma.getString("msgOnlyNumber")); //$NON-NLS-1$
+				return false;
+
+			}
+			return true;
+		}
+		return false;
 
 	}
 

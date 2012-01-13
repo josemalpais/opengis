@@ -244,90 +244,16 @@ public boolean isInteger( String input )
    }  
    
 }  
-public boolean validarTexto(String texto, String nombreCampo) {
-	Boolean r = isInteger(texto);
-
-	for (int i = 0; i < texto.length(); i++) {
-		if (Character.isLetter(texto.charAt(i)) == false
-				&& texto.charAt(i) != (' ')) {
-			JOptionPane.showMessageDialog(
-					null,
-					Idioma.getString("msgErrorField") 
-							+ nombreCampo
-							+ Idioma.getString("msgErrorNotSpecialChar"));
-			this.correcto = false;
-
-			return false;
-
-		}
-		if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ' && texto.charAt(i)== '\0') {
-
-			JOptionPane.showMessageDialog(null,Idioma.getString("msgErrorField") + nombreCampo
-							+ Idioma.getString("msgErrorBlankSpace")); 
-			return false;
-		}
-	}
-
-	if (r.equals(true) || texto.length() < 1) {
-		JOptionPane.showMessageDialog(
-				null,
-				Idioma.getString("msgErrorField")
-						+ nombreCampo
-						+ Idioma.getString("msgErrorEmptyNorNumeric")); 
-		this.correcto = false;
-
-		return false;
-
-	} else {
-
-		return true;
-
-	}
-}
-
-public boolean validarTextoEspecial(String texto, String nombreCampo) {
-	Boolean r = isInteger(texto);
-
-	for (int i = 0; i < texto.length(); i++) {
-
-		if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
-
-			JOptionPane.showMessageDialog(
-					null,
-					Idioma.getString("msgErrorField")
-							+ nombreCampo
-							+ Idioma.getString("msgErrorBlankSpace")); 
-			return false;
-		}
-	}
-
-	if (r.equals(true) || texto.length() < 2) {
-		JOptionPane.showMessageDialog(
-				null,
-				Idioma.getString("msgErrorField") 
-						+ nombreCampo
-						+ Idioma.getString("msgErrorEmptyNorNumeric")); 
-		this.correcto = false;
-
-		return false;
-
-	} else {
-
-		return true;
-
-	}
-
-}
 
 public void validarDatos() {
 	this.correcto = true;
 	
 	Boolean r = isInteger(this.nombre);
-		if (validarTexto(this.nombre, Idioma.getString("etFirstName")) == false) { 
+		if (ValidacionDatos.validarTexto(this.nombre, Idioma.getString("etFirstName")) == false) { 
 			this.correcto = false;
 		} else {
 
-			if (validarTextoEspecial(this.descripcion, Idioma.getString("etDescription")) == false) { 
+			if (ValidacionDatos.validarTextoEspecial(this.descripcion, Idioma.getString("etDescription")) == false) { 
 				this.correcto = false;
 			} else {	
 				r = isInteger(this.dosis);

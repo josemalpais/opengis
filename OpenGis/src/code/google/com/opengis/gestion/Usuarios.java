@@ -103,113 +103,90 @@ public class Usuarios {
 			this.valido = false;
 		} else {
 
-			Boolean r = isInteger(this.nombre);
-
 			if (ValidacionDatos.validarTexto(this.nombre,
 					Idioma.getString("etFirstName")) == false //$NON-NLS-1$
 					|| ValidacionDatos.validarTexto(this.apellidos,
-							Idioma.getString("etLastName")) == false) { //$NON-NLS-1$
+							Idioma.getString("etLastName")) == false
+					|| ValidacionDatos.validarTextoEspecial(this.direccion,
+							Idioma.getString("etAddress")) == false //$NON-NLS-1$
+					|| ValidacionDatos.validarEmail(this.email) == false
+					|| ValidacionDatos.validarNumerico(this.telefono,
+							Idioma.getString("etTelephone"), 9) == false) { //$NON-NLS-1$
 
 				this.valido = false;
 			} else {
 
-				if (ValidacionDatos.validarTextoEspecial(this.direccion,
-						Idioma.getString("etAddress")) == false //$NON-NLS-1$
-						|| ValidacionDatos.validarEmail(this.email) == false) { //$NON-NLS-1$
-
+				if (this.fechaNac.equals("00/00/0000")) {
+					JOptionPane.showMessageDialog(null,
+							Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 					this.valido = false;
 				} else {
-					
 
-					if (ValidacionDatos.validarNumerico(this.telefono, Idioma.getString("etTelephone"), 9) == false) {
+					Date fechaAhora = new Date();
+
+					if (this.fechaNac.equals("")) { //$NON-NLS-1$
 
 						JOptionPane.showMessageDialog(null,
-								Idioma.getString("msgErrorPhoneNumber")); //$NON-NLS-1$
+								Idioma.getString("msgErrorEmptyBirthDate")); //$NON-NLS-1$
 						this.valido = false;
 
 					} else {
 
-						if (this.fechaNac.equals("00/00/0000")) {
-							JOptionPane.showMessageDialog(null,
-									Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
-							this.valido = false;
-						} else {
+						for (int i = 0; i < this.fechaNac.length(); i++) {
+							if (Character.isDigit(this.fechaNac.charAt(i)) == false
+									&& this.fechaNac.charAt(i) != '/') {
 
-							Date fechaAhora = new Date();
+								JOptionPane.showMessageDialog(null,
+										Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 
-							if (this.fechaNac.equals("")) { //$NON-NLS-1$
+								this.valido = false;
+								break;
+							}
+						}
 
-								JOptionPane.showMessageDialog(null, Idioma
-										.getString("msgErrorEmptyBirthDate")); //$NON-NLS-1$
+						if (this.valido) {
+							@SuppressWarnings("deprecation")
+							Date fechaNac = new Date(this.fechaNac);
+
+							if (this.fechaNac.length() != 10
+									|| fechaNac.getTime() > fechaAhora
+											.getTime()) {
+
+								JOptionPane.showMessageDialog(null,
+										Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 								this.valido = false;
 
 							} else {
 
-								for (int i = 0; i < this.fechaNac.length(); i++) {
-									if (Character.isDigit(this.fechaNac
-											.charAt(i)) == false
-											&& this.fechaNac.charAt(i) != '/') {
+								Boolean r = isInteger(this.password);
 
-										JOptionPane
-												.showMessageDialog(
-														null,
-														Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
+								if (this.password.length() == 0
+										|| r.equals(true)) {
 
-										this.valido = false;
-										break;
-									}
-								}
+									JOptionPane.showMessageDialog(null, Idioma
+											.getString("msgErrorPasswordType")); //$NON-NLS-1$
+									this.valido = false;
 
-								if (this.valido) {
-									@SuppressWarnings("deprecation")
-									Date fechaNac = new Date(this.fechaNac);
+								} else {
 
-									if (this.fechaNac.length() != 10
-											|| fechaNac.getTime() > fechaAhora
-													.getTime()) {
-
-										JOptionPane
-												.showMessageDialog(
-														null,
-														Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
-										this.valido = false;
-
-									} else {
-
-										r = isInteger(this.password);
-
-										if (this.password.length() == 0
-												|| r.equals(true)) {
-
-											JOptionPane
-													.showMessageDialog(
-															null,
-															Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
-											this.valido = false;
-
-										} else {
-
-											this.valido = true; // En
-																// el
-																// caso
-																// de
-																// que
-																// todos
-																// los
-																// datos
-																// sean
-																// correctos
-																// devolveremos
-																// True
-
-										}
-									}
+									this.valido = true; // En
+														// el
+														// caso
+														// de
+														// que
+														// todos
+														// los
+														// datos
+														// sean
+														// correctos
+														// devolveremos
+														// True
 
 								}
-
 							}
 
 						}
+
 					}
 				}
 
