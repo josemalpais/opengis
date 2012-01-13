@@ -121,6 +121,8 @@ public class Prestamo {
 					int nColumnas = rs.getMetaData().getColumnCount();
 					
 					Object[] registro = new Object[nColumnas];
+					
+					
 					while (rs.next()) {
 
 						for (int i = 0; i < nColumnas; i++) {
