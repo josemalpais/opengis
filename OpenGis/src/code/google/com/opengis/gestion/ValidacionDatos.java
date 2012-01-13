@@ -112,9 +112,11 @@ public class ValidacionDatos {
 	public static boolean validarTexto(String texto, String nombreCampo) {
 		boolean r = isInteger(texto);
 		texto = texto.trim();
+		String comilla = "'";
 		for (int i = 0; i < texto.length(); i++) {
 			if (Character.isLetter(texto.charAt(i)) == false
-					&& texto.charAt(i) != (' ')) {
+					&& texto.charAt(i) != (' ')
+					|| texto.charAt(i) == comilla.charAt(0)) {
 				JOptionPane.showMessageDialog(
 						null,
 						Idioma.getString("msgErrorField") //$NON-NLS-1$
@@ -156,8 +158,17 @@ public class ValidacionDatos {
 	public static boolean validarTextoEspecial(String texto, String nombreCampo) {
 		boolean r = isInteger(texto);
 		texto = texto.trim();
+		String comilla = "'";
 		for (int i = 0; i < texto.length(); i++) {
-
+			System.out.println(i);
+			if (texto.charAt(i) == comilla.charAt(0)) {
+				JOptionPane.showMessageDialog(
+						null,
+						Idioma.getString("msgErrorField") //$NON-NLS-1$
+								+ nombreCampo
+								+ Idioma.getString("msgErrorNotSpecialChar")); //$NON-NLS-1$
+				return false;
+			}
 			if (texto.charAt(i) == ' ' && texto.charAt(i - 1) == ' ') {
 
 				JOptionPane.showMessageDialog(
@@ -298,7 +309,7 @@ public class ValidacionDatos {
 		}
 		if (dia.length() == 1) {
 			dia = "0" + dia;
-			
+
 		}
 		fecha = dia;
 		o = fecha.length();
@@ -307,13 +318,13 @@ public class ValidacionDatos {
 			o++;
 		}
 		if (mes.length() == 1) {
-			mes = "0" + mes;			
+			mes = "0" + mes;
 		}
 		fecha = fecha + "/" + mes + "/";
 		o = fecha.length();
 		System.out.println("o es " + o);
 		System.out.println("Longitud de fecha " + fecha.length());
-		while (Character.isDigit(fecha.charAt(o)) == true) {			
+		while (Character.isDigit(fecha.charAt(o)) == true) {
 			if (o == fecha.length()) {
 				año = año + fecha.charAt(o);
 				System.out.println("Estado de o " + o);
@@ -321,7 +332,7 @@ public class ValidacionDatos {
 			} else {
 				o++;
 			}
-			
+
 		}
 		if (año.length() != 4) {
 
