@@ -41,7 +41,7 @@ public class AperosPanelNuevo extends JPanel {
 	private JTextField txtNombre = null;
 	private JFormattedTextField txtTamaño = null;
 	private JTextField txtDescripcion = null;
-	private JTextField txtUser = null;
+	private JFormattedTextField txtUser = null;
 	private JComboBox comboTarea = null;
 	private JLabel lblObligtorios = null;
 	private String accion;
@@ -360,10 +360,13 @@ public class AperosPanelNuevo extends JPanel {
 	 * This method initializes txtUser
 	 * 
 	 * @return javax.swing.JTextField
+	 * @throws ParseException 
 	 */
-	private JTextField getTxtUser() {
+	private JTextField getTxtUser() throws ParseException {
 		if (txtUser == null) {
-			txtUser = new JTextField(user);
+			MaskFormatter mascara = new MaskFormatter("########L");
+			txtUser = new JFormattedTextField(mascara);
+			txtUser.setText(user);
 			if(user != ""){
 				
 				txtUser.setEnabled(false);
