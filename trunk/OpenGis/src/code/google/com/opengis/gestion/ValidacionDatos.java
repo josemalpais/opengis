@@ -6,9 +6,17 @@ import code.google.com.opengis.gestionDAO.Idioma;
 
 public class ValidacionDatos {
 
+	static String fechaValida;
+
 	public static Boolean getValido() {
 
 		return valido;
+
+	}
+
+	public static String getFecha() {
+
+		return fechaValida;
 
 	}
 
@@ -158,7 +166,7 @@ public class ValidacionDatos {
 								+ nombreCampo
 								+ Idioma.getString("msgErrorBlankSpace")); //$NON-NLS-1$
 				return false;
-				
+
 			}
 		}
 
@@ -264,6 +272,67 @@ public class ValidacionDatos {
 		}
 		return false;
 
+	}
+
+	public static boolean validarFecha(String fecha) {
+
+		for (int i = 0; i < fecha.length(); i++) {
+			if (Character.isDigit(fecha.charAt(i)) == false
+					&& fecha.charAt(i) != '/') {
+
+				JOptionPane.showMessageDialog(null,
+						Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
+
+				return false;
+
+			}
+		}
+		String dia = "";
+		String mes = "";
+		String año = "";
+		int o = 0;
+		while (Character.isDigit(fecha.charAt(o)) == true) {
+			dia = dia + fecha.charAt(o);
+			o++;
+
+		}
+		if (dia.length() == 1) {
+			dia = "0" + dia;
+			
+		}
+		fecha = dia;
+		o = fecha.length();
+		while (Character.isDigit(fecha.charAt(o)) == true) {
+			mes = mes + fecha.charAt(o);
+			o++;
+		}
+		if (mes.length() == 1) {
+			mes = "0" + mes;			
+		}
+		fecha = fecha + "/" + mes + "/";
+		o = fecha.length();
+		System.out.println("o es " + o);
+		System.out.println("Longitud de fecha " + fecha.length());
+		while (Character.isDigit(fecha.charAt(o)) == true) {			
+			if (o == fecha.length()) {
+				año = año + fecha.charAt(o);
+				System.out.println("Estado de o " + o);
+				break;
+			} else {
+				o++;
+			}
+			
+		}
+		if (año.length() != 4) {
+
+			for (int a = año.length(); a < 4; a++) {
+				año = "0" + año;
+			}
+		}
+
+		fechaValida = dia + "/" + mes + "/" + año;
+		System.out.println(fechaValida);
+		return true;
 	}
 
 	public static boolean isInteger(String input) {
