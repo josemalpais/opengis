@@ -142,28 +142,28 @@ public class Apero {
 
 		if (idUser.length() != 9) {
 			JOptionPane.showMessageDialog(null,
-					Idioma.getString("msgImplementWrongOwner")); //$NON-NLS-1$
+				Idioma.getString("msgImplementWrongOwner")); //$NON-NLS-1$
+			
 			return false;
 		} else {
+			
 
 			if (ValidacionDatos.validarTexto(this.nomApero, "nombre") == false) {
+				
 				return false;
 			} else {
+				
 				if (nombre.length() > 20) {
 
 					JOptionPane
 							.showMessageDialog(
 									null,
 									Idioma.getString("msgImplementNameNumericNorEmpty")); //$NON-NLS-1$
-
+				
 					return false;
 
 				} else {
-
-					if (ValidacionDatos.validarNumerico(tamaño, "tamaño", 3) == true) {
-						return false;
-					} else {
-
+						
 						if (this.tamApero <= 0 || this.tamApero > 500) {
 							JOptionPane
 									.showMessageDialog(
@@ -187,6 +187,7 @@ public class Apero {
 									boolean usuarioValido = false;
 
 									try {
+										
 
 										ConectarDBA dba = new ConectarDBA();
 
@@ -232,7 +233,7 @@ public class Apero {
 								}
 							}
 						}
-					}
+					
 				}
 			}
 		}
