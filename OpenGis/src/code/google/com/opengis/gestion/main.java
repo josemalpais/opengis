@@ -13,6 +13,7 @@ import chrriis.dj.nativeswing.NativeSwing;
 import code.google.com.opengis.gestionDAO.AperoDAO;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionVISUAL.LoginVisual;
+import code.google.com.opengis.gestionVISUAL.SplashFrame;
 import code.google.com.opengis.gestionVISUAL.VentanaPrincipal;
 
 
@@ -20,6 +21,8 @@ public class main {
 
 
 	public static void main(String[] args) throws SQLException{
+		
+		
 		
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -32,6 +35,10 @@ public class main {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
 		try {
+			
+			
+			SplashFrame sph = new SplashFrame();
+			
 			LoginVisual ln = new LoginVisual();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
