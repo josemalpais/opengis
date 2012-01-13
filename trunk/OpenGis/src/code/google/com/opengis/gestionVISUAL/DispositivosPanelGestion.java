@@ -2,6 +2,8 @@ package code.google.com.opengis.gestionVISUAL;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +30,7 @@ public class DispositivosPanelGestion extends JPanel {
 	private JLabel lblIdDispositivo = null;
 	private JLabel lblModelo = null;
 	private JLabel lblNumSerie = null;
+	private JLabel lblObligtorios = null;
 	private JTextField txtID = null;
 	private JTextField txtModelo = null;
 	private JTextField txtNumSerie = null;
@@ -71,6 +74,14 @@ public class DispositivosPanelGestion extends JPanel {
 		lblNumSerie = new JLabel();
 		lblNumSerie.setBounds(new Rectangle(62, 169, 107, 21));
 		lblNumSerie.setText(Idioma.getString("etSerialNumber")); //$NON-NLS-1$
+		
+		
+		lblObligtorios = new JLabel();
+		lblObligtorios.setBounds(new Rectangle(434, 334, 238, 25));
+		lblObligtorios.setFont(new Font(
+		Idioma.getString("Dialog"), Font.ITALIC, 12)); //$NON-NLS-1$
+		lblObligtorios.setText(Idioma.getString("etAllFields")); //$NON-NLS-1$
+		
 		lblModelo = new JLabel();
 		lblModelo.setBounds(new Rectangle(62, 119, 107, 21));
 		lblModelo.setText(Idioma.getString("etModel")); //$NON-NLS-1$
@@ -82,6 +93,7 @@ public class DispositivosPanelGestion extends JPanel {
 		this.add(lblIdDispositivo, null);
 		this.add(lblModelo, null);
 		this.add(lblNumSerie, null);
+		this.add(lblObligtorios, null);
 		this.add(getTxtID(), null);
 		this.add(getTxtModelo(), null);
 		this.add(getTxtNumSerie(), null);
