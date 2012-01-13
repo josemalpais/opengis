@@ -18,6 +18,9 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 
 	public UsuariosPanelPrincipal() {
 		super(true);
+		getTxtCriterioBusqueda().setText("");
+		buscar();
+		getTxtCriterioBusqueda().setText("Inserte criterio de búsqueda...");
 
 	}
 

@@ -36,6 +36,9 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
 	public ParcelasPanelPrincipal(){
 		super(false);
 		super.add(getBSigPac(),null);
+		getTxtCriterioBusqueda().setText("");
+		buscar();
+		getTxtCriterioBusqueda().setText("Inserte criterio de búsqueda...");
 	}
 	
 	

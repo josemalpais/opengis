@@ -17,6 +17,9 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 	
 	public ProductoPanelPrincipal() {
 		super(false);
+		getTxtCriterioBusqueda().setText("");
+		buscar();
+		getTxtCriterioBusqueda().setText("Inserte criterio de búsqueda...");
 
 	}
 	
