@@ -268,7 +268,7 @@ public class ProductoPanelGestion extends JPanel {
 	 */
 	private JTextField getTxtDosis() throws ParseException {
 		if (txtDosis == null) {
-			MaskFormatter mascara = new MaskFormatter("########L");
+			MaskFormatter mascara = new MaskFormatter("####");
 			txtDosis = new JFormattedTextField(mascara); 
 			txtDosis.setBounds(new Rectangle(420, 136, 149, 24));
 			if(accion=="modificar"){ //$NON-NLS-1$
