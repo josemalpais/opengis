@@ -61,7 +61,6 @@ public class SplashFrame extends JFrame {
 		  i = i + 20;
 		  SplashFrame.jpb.setValue(i);
 		  SplashFrame.jpb.repaint();
-		  System.out.println(i);
 		  
 		  if(i==41 || i==62){
 			  
