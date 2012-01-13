@@ -2,6 +2,7 @@ package code.google.com.opengis.gestionVISUAL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.JOptionPane;
 
@@ -83,9 +84,16 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 	
 	public void nuevo(){
 		
-		AperosPanelNuevo p = new AperosPanelNuevo("alta",""); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+		AperosPanelNuevo p;
+		try {
+			p = new AperosPanelNuevo("alta","");
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewImplement"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 		
-		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewImplement"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		
 		
 	}
@@ -100,9 +108,15 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			for (int i = 0; i < rUser.length; i++) {
 				rUser[i] = getTablaPrincipal().getValueAt(fila, i).toString();
 			}
-			AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+			try {
+				AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString());
+				VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModImplement")+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 			
-			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModImplement")+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			
 			
 		}

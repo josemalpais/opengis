@@ -6,10 +6,12 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
+import javax.swing.text.MaskFormatter;
 
 import org.eclipse.swt.custom.CBanner;
 
@@ -22,6 +24,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 public class AperosPanelNuevo extends JPanel {
 
@@ -36,7 +39,7 @@ public class AperosPanelNuevo extends JPanel {
 	private JButton bRestablecer = null;
 	private JTextField txtId = null;
 	private JTextField txtNombre = null;
-	private JTextField txtTamaño = null;
+	private JFormattedTextField txtTamaño = null;
 	private JTextField txtDescripcion = null;
 	private JTextField txtUser = null;
 	private JComboBox comboTarea = null;
@@ -55,10 +58,11 @@ public class AperosPanelNuevo extends JPanel {
 	 * Constructor del Panel de gestión de Usuarios. En caso de que la acción
 	 * sea "modificar" el panel se utilizará para modificar. En caso de que la
 	 * acción sea "alta" el panel se utilizará como altas.
+	 * @throws ParseException 
 	 */
 	public AperosPanelNuevo(String accion, String id, String nombre,
 			String tamaño, String descripcion, String tarea,
-			String user) {
+			String user) throws ParseException {
 		super();
 		this.accion = accion;
 		this.id = id;
@@ -71,7 +75,7 @@ public class AperosPanelNuevo extends JPanel {
 		this.comboTarea.setSelectedIndex(Integer.parseInt(tarea)-1);
 	}
 
-	public AperosPanelNuevo(String accion, String user) {
+	public AperosPanelNuevo(String accion, String user) throws ParseException {
 
 		super();
 		this.accion = accion;
@@ -98,8 +102,9 @@ public class AperosPanelNuevo extends JPanel {
 	 * This method initializes this
 	 * 
 	 * @return void
+	 * @throws ParseException 
 	 */
-	private void initialize() {
+	private void initialize() throws ParseException {
 		lblId = new JLabel();
 		lblId.setBounds(new Rectangle(42, 31, 88, 30));
 		lblId.setText(Idioma.getString("etImplementId")); //$NON-NLS-1$
@@ -317,10 +322,13 @@ public class AperosPanelNuevo extends JPanel {
 	 * This method initializes txtTamaño
 	 * 
 	 * @return javax.swing.JTextField
+	 * @throws ParseException 
 	 */
-	private JTextField getTxtTamaño() {
+	private JTextField getTxtTamaño() throws ParseException {
 		if (txtTamaño == null) {
-			txtTamaño = new JTextField(tamaño);
+			MaskFormatter mascara = new MaskFormatter("###");
+			txtTamaño = new JFormattedTextField(mascara);
+			txtTamaño.setText(tamaño);
 			txtTamaño.setBounds(new Rectangle(123, 86, 143, 27));
 		}
 		return txtTamaño;

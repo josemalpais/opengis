@@ -111,6 +111,23 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 		else{
 			System.out.println("Vale, no hago nada.");
 		}
+
+	}
+	
+	public void botonesActivar(){
+		int fila = getTablaPrincipal().getSelectedRow();
+		if (fila != -1) {
+	String vali	 = getTablaPrincipal().getValueAt(fila,4).toString();
+
+			if(vali.equals("no")){
+		bModificar.setEnabled(true);
+		bEliminar.setEnabled(true);
+		}else{
+			JOptionPane.showMessageDialog(null,"Este Prestamo ya fue finalizado");
+			bModificar.setEnabled(false);
+			bEliminar.setEnabled(false);
+		}
+		}
 	}
 	
 }
