@@ -150,7 +150,8 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 	}
 	
 	public void botonesActivar(){
-		
+		getBModificar().setEnabled(false);
+		getBEliminar().setEnabled(false);
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
 			String[] rUser = new String[7];
@@ -167,6 +168,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 				if(resp==0){
 					
 					try {
+						
 						AperoDAO.activarApero(rUser[0]);
 						buscar();
 					} catch (SQLException e1) {
