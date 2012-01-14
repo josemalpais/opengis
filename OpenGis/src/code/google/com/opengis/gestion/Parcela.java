@@ -80,6 +80,14 @@ public class Parcela {
 	 * @param alias : nombre representativo para que el usuario identifique cómodamente la parcela.
 	 */
 	public void setAlias(String alias){
+		
+		if(ValidacionDatos.validarTextoEspecial(alias,Idioma.getString("etAlias"))==false){
+			
+			
+			valido= false;
+			
+		}else{
+			
 		if (alias.length()>2){
 			if (Character.isLetter(alias.charAt(0)) == true && alias.charAt(0) != (' ') && Character.isLetter(alias.charAt(1)) ==
 				true && alias.charAt(1) != (' ')){
@@ -98,6 +106,8 @@ public class Parcela {
 		}else{
 			JOptionPane.showMessageDialog(null, Idioma.getString("msgAliasThreeChar")); //$NON-NLS-1$
 			valido = false;
+		}
+		
 		}
 	}
 	public String getProvincia() {
