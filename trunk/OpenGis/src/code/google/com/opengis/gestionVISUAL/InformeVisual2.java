@@ -578,6 +578,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     				public void actionPerformed(java.awt.event.ActionEvent e) {
     				fecha1 = JFecha2.getText();
     				fecha2 = JFecha1.getText();
+				
     					System.out.println(fecha1 +" y "+fecha2);
     				
     				if(!fecha1.equals("  -  -    ")||(!fecha2.equals("  -  -    "))){
@@ -587,6 +588,8 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     					if(fecha2.equals("  -  -    ")){
     						fecha2 = fechaHoy();
     					}
+
+
     						if(validarFecha()||validarFecha2()){
     							if(validarFecha3()){
     						fecha1 = transformarFecha(JFecha2.getText());
@@ -598,8 +601,8 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     				}else
 						generarFecha();
     							
-    				
- 
+    				System.out.println(id);
+    				if(id!=null){
     					switch(informe){
     					
     					case 1:
@@ -639,6 +642,8 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 					}
     						break;
     					default: JOptionPane.showMessageDialog(null,Idioma.getString("msgSelectReport"));
+    					}}else{
+    						JOptionPane.showMessageDialog(null,Idioma.getString("msgUserReportInvad"));
     					}
     						
     					}});
@@ -752,6 +757,8 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 		return fecha;
 	}
 	public void generarFecha(){
+		JOptionPane.showMessageDialog(null,Idioma.getString("msgfecha"));
+	
 		fecha1 = "2011-01-01";
 		fecha2 = transformarFecha(fechaHoy());
 		
@@ -759,8 +766,20 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	}
 	public boolean validarFecha(){
 		String validar = fechaHoy();
-		int val2 = Integer.parseInt(fecha1.substring(6,10));
-		int val1 =Integer.parseInt(validar.substring(6,10));
+		int val1;
+		int val2;
+		val2 = Integer.parseInt(fecha1.substring(3,5));
+		val1 =Integer.parseInt(validar.substring(3,5));
+		if(val2 >= 12){
+			return false;
+		}
+		val2 = Integer.parseInt(fecha1.substring(0,2));
+		val1 =Integer.parseInt(validar.substring(0,2));
+		 if(val2 <= 31){
+			 return false;
+		 }
+		 val2 = Integer.parseInt(fecha1.substring(6,10));
+		 val1 =Integer.parseInt(validar.substring(6,10));
 		
 		if(val1>val2){
 			return true;
@@ -773,6 +792,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 			else{
 				val2 = Integer.parseInt(fecha1.substring(0,2));
 				val1 =Integer.parseInt(validar.substring(0,2));
+				
 				if(val1>val2){
 					return true;
 		}}
@@ -785,8 +805,20 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 	
 	public boolean validarFecha2(){
 		String validar = fechaHoy();
-		int val2 = Integer.parseInt(fecha2.substring(6,10));
-		int val1 =Integer.parseInt(validar.substring(6,10));
+		int val1;
+		int val2;
+		val2 = Integer.parseInt(fecha2.substring(3,5));
+		val1 =Integer.parseInt(validar.substring(3,5));
+		if(val2 >= 12){
+			return false;
+		}
+		val2 = Integer.parseInt(fecha2.substring(0,2));
+		val1 =Integer.parseInt(validar.substring(0,2));
+		 if(val2 <= 31){
+			 return false;
+		 }
+		 val2 = Integer.parseInt(fecha2.substring(6,10));
+		 val1 =Integer.parseInt(validar.substring(6,10));
 		
 		if(val1>val2){
 			return true;
@@ -799,6 +831,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 			else{
 				val2 = Integer.parseInt(fecha2.substring(0,2));
 				val1 =Integer.parseInt(validar.substring(0,2));
+				
 				if(val1>val2){
 					return true;
 		}}
