@@ -267,11 +267,6 @@ public class ParcelasPanelNuevo extends JPanel {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
 					
-					if(accion!="modificar"){ //$NON-NLS-1$
-					
-						txtIdParcelap.setText(""); //$NON-NLS-1$
-						
-					}
 					txtAliasp.setText(""); //$NON-NLS-1$
 					txtProvinciap.setText(""); //$NON-NLS-1$
 					txtPoblacion.setText(""); //$NON-NLS-1$
