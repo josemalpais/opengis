@@ -336,6 +336,7 @@ public class AperosPanelNuevo extends JPanel {
 	private JTextField getTxtTamaño() throws ParseException {
 		if (txtTamaño == null) {
 			MaskFormatter mascara = new MaskFormatter("###");
+			mascara.setPlaceholderCharacter('0');
 			txtTamaño = new JFormattedTextField(mascara);
 			txtTamaño.setText(tamaño);
 			txtTamaño.setBounds(new Rectangle(123, 86, 143, 27));
