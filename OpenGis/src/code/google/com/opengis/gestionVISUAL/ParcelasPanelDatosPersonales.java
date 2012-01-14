@@ -25,6 +25,7 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 		
 		super(false);
 		super.add(getBSigPac(),null);
+		super.getBActualizar().setBounds(650, 316, 55, 47);
 		this.dniUsuario = dniUsuario;
 		super.txtCriterioBusqueda.setText(dniUsuario);
 		super.txtCriterioBusqueda.setEnabled(false);
