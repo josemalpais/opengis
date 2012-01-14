@@ -186,7 +186,13 @@ public class AperosPanelNuevo extends JPanel {
 							
 							
 							try {
-								adao.altaApero();
+								if(validarTexto(txtDescripcion.getText())){
+								
+									adao.altaApero();
+								}
+								else{
+									JOptionPane.showMessageDialog(null, Idioma.getString("msgValidarTxt"));
+								}
 								
 								// Actualizamos los campos para poder crear uno nuevo.
 								
@@ -246,7 +252,12 @@ public class AperosPanelNuevo extends JPanel {
 									txtUser.getText().trim());
 							
 							try {
+								if(validarTexto(txtDescripcion.getText())){
 								adao.MoficicarApero();
+								}
+								else{
+									JOptionPane.showMessageDialog(null, Idioma.getString("msgValidarTxt"));
+								}
 							} catch (SQLException e1) {
 								JOptionPane.showMessageDialog(null, Idioma.getString("msgIDAlreadyExists")); //$NON-NLS-1$
 							}
@@ -399,6 +410,19 @@ public class AperosPanelNuevo extends JPanel {
 			}
 		}
 		return comboTarea;
+	}
+	private boolean validarTexto(String dato){
+		
+		String lol;
+		for(int i=0;i<=dato.length()-1;i++){
+				System.out.println(dato.substring(i, i+1));
+				lol =dato.substring(i, i+1);
+			if(lol.equals("'")){
+			
+				return false;
+			}
+		}
+		return true;
 	}
 
 } // @jve:decl-index=0:visual-constraint="26,16"
