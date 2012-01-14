@@ -226,18 +226,9 @@ public class Parcela {
 	 * @param dnipropietario : DNI del propietario de la parcela.
 	 */
 	public void setDniPropietario(String dnipropietario) {
-		if((dnipropietario.length() ==9)){
-			try{	
-				if(ValidacionDatos.validarDni(dnipropietario)==false) valido = false;;
-			}catch(NumberFormatException ex){
-				JOptionPane.showMessageDialog(null,Idioma.getString("msgIDCardWrong")); //$NON-NLS-1$
-				valido=false;
-			}
-		}else{
-			JOptionPane.showMessageDialog(null,Idioma.getString("msgImplementWrongOwner")); //$NON-NLS-1$
-			valido=false;
-		}
-			
+		
+		
+		this.dniPropietario = dnipropietario;
 		
 	}
 	
