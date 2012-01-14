@@ -464,17 +464,21 @@ public class ProductoPanelGestion extends JPanel {
 			bLimpiar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Limpiar.png"))); //$NON-NLS-1$
 			bLimpiar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
+					
+					
 					if(accion.equals("alta")){
 						
 					
 					txtNombreProd.setText(""); //$NON-NLS-1$
 					txtDosis.setText(""); //$NON-NLS-1$
-					if(accion.equals("alta")){
-						
-						txtDNI.setText(""); //$NON-NLS-1$
-						
-					}					
 					txtDescripcion.setText(""); //$NON-NLS-1$
+					
+					if(txtDNI.isEnabled() == true){
+						
+						txtDNI.setText("");
+						
+					}
+					
 					ConectarDBA.acceder();					
 					try {					
 						String sql = "SELECT MAX(idprod) FROM producto"; 					
@@ -486,15 +490,14 @@ public class ProductoPanelGestion extends JPanel {
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
+					
+					
 				}else{
+					
 					txtNombreProd.setText(""); //$NON-NLS-1$
 					txtDosis.setText(""); //$NON-NLS-1$
-					if(accion.equals("alta")){
-						
-						txtDNI.setText(""); //$NON-NLS-1$
-						
-					}					
 					txtDescripcion.setText(""); //$NON-NLS-1$
+					
 					
 				}
 				}
