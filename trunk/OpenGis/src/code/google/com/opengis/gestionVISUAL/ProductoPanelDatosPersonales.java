@@ -76,7 +76,6 @@ public class ProductoPanelDatosPersonales extends GeneradorPanelPrincipal{
 		
 	    p.txtDNI.setEnabled(false); // Le pasamos los datos para el alta propia
 	    p.txtDNI.setText(dniUsuario);
-	    p.encontrado = true;
 	    
 		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etNewProduct"),p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 		
