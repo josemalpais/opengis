@@ -27,6 +27,7 @@ public class GeneradorPanelPrincipal extends JPanel {
 	protected JButton bNuevo = null;
 	protected JButton bModificar = null;
 	protected JButton bEliminar = null;
+	protected JButton bActualizar = null;
 	public DefaultTableModel modelo = new DefaultTableModel();
 	
 	private boolean redimensionarTabla;
@@ -53,8 +54,33 @@ public class GeneradorPanelPrincipal extends JPanel {
 		this.add(getBNuevo(), null);
 		this.add(getBModificar(), null);
 		this.add(getBEliminar(), null);
+		this.add(getBActualizar(),null);
 	}
 
+	
+	
+	/**
+	 * This method initializes bActualizar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton getBActualizar() {
+		if (bActualizar == null) {
+			bActualizar = new JButton();
+			bActualizar.setBounds(new Rectangle(725, 316, 55, 47));
+			bActualizar.setToolTipText(Idioma.getString("etRefresh")); //$NON-NLS-1$
+			bActualizar.setIcon(new ImageIcon("OpenGis/src/recursosVisuales/actualizar.png")); //$NON-NLS-1$
+			bActualizar.setEnabled(true);
+			bActualizar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {			
+					buscar();
+				}
+			});
+		}
+		return bActualizar;
+	}
+	
+	
 	/**
 	 * This method initializes txtCriterioBusqueda	
 	 * 	
