@@ -237,36 +237,7 @@ public class ProductoPanelGestion extends JPanel {
 				
 				txtDNI.setText(dni);				
 			}			
-			txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
-				public void focusLost(java.awt.event.FocusEvent e) {
-					
-					encontrado = false;
-					
-					ConectarDBA.acceder();
-					
-					String consulta = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'"; 
-					
-					try {
-						ResultSet rs = ConectarDBA.consulta(consulta);
-						
-						while(rs.next()){
-							
-							encontrado = true;					
-						}
-												
-						if(encontrado == false){
-							
-							JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorIDUnmatchUser"));
-							txtDNI.setText(""); //$NON-NLS-1$						
-						}
-												
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
-						
+				
 		}
 		return txtDNI;
 	}
@@ -375,9 +346,36 @@ public class ProductoPanelGestion extends JPanel {
 			bGuardar.setIcon(new ImageIcon(getClass().getResource("/recursosVisuales/Guardar.png"))); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
+										
+					ConectarDBA.acceder();
 					
-			
+					String sql = "SELECT dni from usuario where dni = '"+ txtDNI.getText() +"'"; 
+					
+					try {
+						ResultSet rs = ConectarDBA.consulta(sql);
+						
+						while(rs.next()){
+							
+							encontrado = true;					
+						}
+												
+						if(encontrado == false){
+							
+							JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorIDUnmatchUser"));
+							txtDNI.setText(""); //$NON-NLS-1$						
+						}
+						
+						ConectarDBA.cerrarCon();
+												
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					
 					if(accion.equals("alta")){ //$NON-NLS-1$
+						
+						
 						
 						if(encontrado == false){
 							
