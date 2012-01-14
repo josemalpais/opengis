@@ -581,7 +581,12 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
     					System.out.println(fecha1 +" y "+fecha2);
     				
     				if(!fecha1.equals("  -  -    ")||(!fecha2.equals("  -  -    "))){
-    					
+    					if(fecha1.equals("  -  -    ")){
+    						fecha1 = fechaHoy();
+    					}
+    					if(fecha2.equals("  -  -    ")){
+    						fecha2 = fechaHoy();
+    					}
     						if(validarFecha()||validarFecha2()){
     							if(validarFecha3()){
     						fecha1 = transformarFecha(JFecha2.getText());
@@ -650,6 +655,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("1");
 		}
 		
 	}
@@ -741,6 +747,7 @@ static Object[] columna4 = { Idioma.getString("etIdCard"),
 		return jLabel3;
 	}
 	public String transformarFecha(String fecha){
+		
 		fecha = fecha.substring(6,10)+"-"+fecha.substring(3,5)+"-"+fecha.substring(0,2);
 		return fecha;
 	}
