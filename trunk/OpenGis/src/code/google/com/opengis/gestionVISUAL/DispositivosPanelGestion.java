@@ -168,7 +168,11 @@ public class DispositivosPanelGestion extends JPanel {
 			bGuardar.setToolTipText(Idioma.getString("etSaveNewDevice")); //$NON-NLS-1$
 			bGuardar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-				if(accion=="modificar"){ //$NON-NLS-1$
+				if(txtNumSerie.getText().trim().equals("")||txtModelo.getText().trim().equals("")){
+					JOptionPane.showMessageDialog(null, Idioma.getString("msgDatosDispositivos"));
+				}
+				else{
+					if(accion=="modificar"){ //$NON-NLS-1$
 					if (Dispositivo.validarDatos(txtModelo.getText().trim(),
 							txtNumSerie.getText().trim()) == true) {
 						txtModelo.setText(quitarBlancosIzquierda(txtModelo.getText().trim()));
@@ -260,7 +264,7 @@ public class DispositivosPanelGestion extends JPanel {
 					}
 				}
 				
-			}
+			}}
 				
 			});
 		}
