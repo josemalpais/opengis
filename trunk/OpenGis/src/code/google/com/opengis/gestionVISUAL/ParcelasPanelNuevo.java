@@ -272,8 +272,8 @@ public class ParcelasPanelNuevo extends JPanel {
 					txtPoblacion.setText(""); //$NON-NLS-1$
 					txtPoligonop.setText(""); //$NON-NLS-1$
 					txtPartidap.setText(""); //$NON-NLS-1$
-					txtNumerop.setText(""); //$NON-NLS-1$
-					txtDniPropietario.setText(""); //$NON-NLS-1$
+					txtNumerop.setText("");
+					
 					
 					
 				}
