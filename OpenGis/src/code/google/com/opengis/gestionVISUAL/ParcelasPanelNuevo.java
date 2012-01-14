@@ -76,12 +76,14 @@ public class ParcelasPanelNuevo extends JPanel {
 		this.numero = numero;
 		this.partida = partida;
 		this.dniPropietario = dnipropietario;
+		encontrado = true;
 		initialize();
 	}
 	
 	public ParcelasPanelNuevo(String accion){
 		super();
 		this.accion = accion;
+		encontrado = false;
 		initialize();
 		try {
 			String snt = "SELECT MAX(idparcela) FROM `parcela`"; //$NON-NLS-1$
@@ -182,6 +184,33 @@ public class ParcelasPanelNuevo extends JPanel {
 								.getText().trim(), txtProvinciap.getText().trim(),txtPoblacion.getText().trim(),
 								txtPoligonop.getText().trim(),txtNumerop.getText(),1,txtPartidap.getText().trim(),txtDniPropietario.getText().trim());
 						
+						ConectarDBA.acceder();
+						
+						String sql2 = "SELECT dni from usuario where dni = '"+ txtDniPropietario.getText() +"'"; 
+						
+						try {
+							ResultSet rs = ConectarDBA.consulta(sql2);
+							
+							while(rs.next()){
+								
+								encontrado = true;					
+							}
+													
+							if(encontrado == false){
+								
+								JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorIDUnmatchUser"));
+								txtDniPropietario.setText(""); //$NON-NLS-1$						
+							}
+							
+							ConectarDBA.cerrarCon();
+													
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+						
+						
 						if(Parcela.isValido()==true && encontrado==true){
 							try {
 								p1.altaParcela();
@@ -229,6 +258,34 @@ public class ParcelasPanelNuevo extends JPanel {
 								txtPoligonop.getText().trim(),txtNumerop.getText().trim(),1,txtPartidap.getText().trim(),txtDniPropietario.getText().trim());
 		        		
 						int x=p1.getIdParcela();
+						
+
+						ConectarDBA.acceder();
+						
+						String sql2 = "SELECT dni from usuario where dni = '"+ txtDniPropietario.getText() +"'"; 
+						
+						try {
+							ResultSet rs = ConectarDBA.consulta(sql2);
+							
+							while(rs.next()){
+								
+								encontrado = true;					
+							}
+													
+							if(encontrado == false){
+								
+								JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorIDUnmatchUser"));
+								txtDniPropietario.setText(""); //$NON-NLS-1$						
+							}
+							
+							ConectarDBA.cerrarCon();
+													
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						
 						if(Parcela.isValido()==true && encontrado==true){
 							try {
 
