@@ -179,8 +179,8 @@ public class ParcelasPanelNuevo extends JPanel {
 					if(accion.equals("alta")){  //$NON-NLS-1$
 						
 						Parcela p1=new Parcela(0,txtAliasp
-								.getText(), txtProvinciap.getText(),txtPoblacion.getText(),
-								txtPoligonop.getText(),txtNumerop.getText(),1,txtPartidap.getText(),txtDniPropietario.getText());
+								.getText().trim(), txtProvinciap.getText().trim(),txtPoblacion.getText().trim(),
+								txtPoligonop.getText().trim(),txtNumerop.getText(),1,txtPartidap.getText().trim(),txtDniPropietario.getText().trim());
 						
 						if(Parcela.isValido()==true && encontrado==true){
 							try {
@@ -208,7 +208,6 @@ public class ParcelasPanelNuevo extends JPanel {
 								txtPoligonop.setText(""); //$NON-NLS-1$
 								txtPartidap.setText(""); //$NON-NLS-1$
 								txtNumerop.setText(""); //$NON-NLS-1$
-								txtDniPropietario.setText(""); //$NON-NLS-1$
 								
 							} catch (SQLException e1) {
 								JOptionPane.showMessageDialog(null, Idioma.getString("msgErrorInsert")); //$NON-NLS-1$
@@ -226,8 +225,8 @@ public class ParcelasPanelNuevo extends JPanel {
 						
 						// Aquí entraremos cuando la acción declarada sea modificar
 
-		        		Parcela p1 = new Parcela(Integer.parseInt(txtIdParcelap.getText()),txtAliasp.getText(),txtProvinciap.getText(),txtPoblacion.getText(),
-								txtPoligonop.getText(),txtNumerop.getText(),1,txtPartidap.getText(),txtDniPropietario.getText());
+		        		Parcela p1 = new Parcela(Integer.parseInt(txtIdParcelap.getText().trim()),txtAliasp.getText().trim(),txtProvinciap.getText().trim(),txtPoblacion.getText().trim(),
+								txtPoligonop.getText().trim(),txtNumerop.getText().trim(),1,txtPartidap.getText().trim(),txtDniPropietario.getText().trim());
 		        		
 						int x=p1.getIdParcela();
 						if(Parcela.isValido()==true && encontrado==true){
