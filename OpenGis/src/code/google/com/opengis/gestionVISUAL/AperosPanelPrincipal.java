@@ -108,14 +108,47 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			for (int i = 0; i < rUser.length; i++) {
 				rUser[i] = getTablaPrincipal().getValueAt(fila, i).toString();
 			}
-			try {
-				AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString());
-				VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModImplement")+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			
+			if(rUser[6].toString().equals(Idioma.getString("etActive"))){
+				
+				
+				try {
+					AperosPanelNuevo p = new AperosPanelNuevo("modificar",rUser[0].toString(),rUser[1].toString(),rUser[2].toString(),rUser[3].toString(),rUser[4].toString(),rUser[5].toString());
+					VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModImplement")+"("+rUser[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+				
+				
+			}else{
+				
+				
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("etImplementWithId") + rUser[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				
+				if(resp==0){
+					
+					try {
+						
+						AperoDAO.activarApero(rUser[0]);
+						txtCriterioBusqueda.setText("");
+						buscar();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}else{
+					
+					
+					getBModificar().setEnabled(false);
+					getBEliminar().setEnabled(false);
+					
+				}
+				
+				
+			}
 			
 			
 			
@@ -170,6 +203,7 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 					try {
 						
 						AperoDAO.activarApero(rUser[0]);
+						txtCriterioBusqueda.setText("");
 						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
