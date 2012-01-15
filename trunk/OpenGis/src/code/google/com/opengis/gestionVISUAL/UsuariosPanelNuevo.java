@@ -6,10 +6,12 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
+import javax.swing.text.MaskFormatter;
 
 import code.google.com.opengis.gestion.Usuarios;
 import code.google.com.opengis.gestion.ValidacionDatos;
@@ -40,7 +42,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	private JTextField txtDNI = null;
 	private JTextField txtNombre = null;
 	private JTextField txtApellidos = null;
-	private JTextField txtFechaNac = null;
+	private JFormattedTextField txtFechaNac = null;
 	private JTextField txtDireccion = null;
 	private JTextField txtCP = null;
 	private JTextField txtProvincia = null;
@@ -412,7 +414,16 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JTextField getTxtFechaNac() {
 		if (txtFechaNac == null) {
-			txtFechaNac = new JTextField(fechanac);
+			try{
+				MaskFormatter mascara = new MaskFormatter("##/##/####");
+				txtFechaNac = new JFormattedTextField(mascara);
+				mascara.setPlaceholder("dd/mm/aaaa");
+				txtFechaNac.setText(fechanac);
+			}catch(Exception e2){
+				
+				
+			}
+
 			txtFechaNac.setBounds(new Rectangle(634, 86, 116, 27));
 		}
 		return txtFechaNac;
