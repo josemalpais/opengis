@@ -92,18 +92,57 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
-			String[] rUser = new String[10];
+			String[] rUser = new String[12];
 			for (int i = 0; i < rUser.length; i++) {
 				rUser[i] = getTablaPrincipal().getValueAt(fila, i).toString();
 			}
+			
+			
+			if (rUser[11].toString().equals(Idioma.getString("etActive"))) { 
+				
+				UsuariosPanelNuevo p = new UsuariosPanelNuevo(
+						"modificar", rUser[0].toString(), rUser[1].toString(), rUser[2].toString(), rUser[3].toString(), rUser[4].toString(), rUser[5].toString(), rUser[6].toString(), rUser[7].toString(), rUser[8].toString(), rUser[9].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 
-			UsuariosPanelNuevo p = new UsuariosPanelNuevo(
-					"modificar", rUser[0].toString(), rUser[1].toString(), rUser[2].toString(), rUser[3].toString(), rUser[4].toString(), rUser[5].toString(), rUser[6].toString(), rUser[7].toString(), rUser[8].toString(), rUser[9].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+				VentanaPrincipal
+						.añadirPestañaNueva(
+								Idioma.getString("etChangeUser") + "(" + rUser[1].toString() + ")", p); // Añadimos el panel a la pestaña //$NON-NLS-1$
 
-			VentanaPrincipal
-					.añadirPestañaNueva(
-							Idioma.getString("etChangeUser") + "(" + rUser[1].toString() + ")", p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+				
+			}else{
+				
+				Object[] opt = {
+						Idioma.getString("etYes"), Idioma.getString("etNo") }; //$NON-NLS-1$ //$NON-NLS-2$
+				int resp = JOptionPane
+						.showOptionDialog(
+								this,
+								Idioma.getString("msgUserWithID") + rUser[0] + Idioma.getString("msgIsInactive"), Idioma.getString("msgConfirmDialog"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[0]); //$NON-NLS-1$ //$NON-NLS-2$
 
+				if (resp == 0) {
+
+					try {
+						Usuarios.activarUsuario(rUser[0]);
+						txtCriterioBusqueda.setText("");
+						buscar();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}else{
+					
+					
+
+					getBModificar().setEnabled(false);
+					getBEliminar().setEnabled(false);
+					
+					
+				}
+				
+				
+				
+			}
+
+			
 		}
 
 	}
@@ -121,6 +160,8 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 
 			try {
 				Usuarios.desactivarUsuario(rUser[0]);
+				txtCriterioBusqueda.setText("");
+				buscar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -151,6 +192,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 
 					try {
 						Usuarios.activarUsuario(rUser[0]);
+						txtCriterioBusqueda.setText("");
 						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
