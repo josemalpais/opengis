@@ -93,12 +93,44 @@ public class ProductoPanelDatosPersonales extends GeneradorPanelPrincipal{
 						.toString();
 			}
 			
+			if(rProducto[6].equals(Idioma.getString("etActive"))){
+				
+				ProductoPanelGestion p = new ProductoPanelGestion("modificar",rProducto[0].toString(),rProducto[1].toString(),rProducto[2].toString(),rProducto[3].toString(),rProducto[4].toString(),rProducto[5].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+			    p.txtDNI.setEnabled(false);
+			    p.encontrado = true;
+			    p.txtDNI.setText(dniUsuario);
+				VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModifyProduct")+"("+rProducto[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+				
+				
+			}else{
+				
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgProductWithID") + rProducto[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				
+				if(resp==0){
+					
+					try {
+						
+						Producto.activarProducto(rProducto[0]);
+						buscar();
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}else{
+					
+					
+					getBModificar().setEnabled(false);
+					getBEliminar().setEnabled(false);
+					
+					
+				}
+				
+				
+			}
 			
-			ProductoPanelGestion p = new ProductoPanelGestion("modificar",rProducto[0].toString(),rProducto[1].toString(),rProducto[2].toString(),rProducto[3].toString(),rProducto[4].toString(),rProducto[5].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
-		    p.txtDNI.setEnabled(false);
-		    p.encontrado = true;
-		    p.txtDNI.setText(dniUsuario);
-			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModifyProduct")+"("+rProducto[1].toString()+")",p); // Añadimos el panel a la pestaña //$NON-NLS-1$
+			
 		}
 		
 	}
