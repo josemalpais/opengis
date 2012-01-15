@@ -133,6 +133,7 @@ public class Dispositivo {
 
 	public static Boolean validarDatos(String modelo, String numSerie) {
 		boolean b = false;
+		
 		if (ValidacionDatos.validarTextoEspecial(modelo,
 				Idioma.getString("etModel")) == false) {
 
@@ -170,6 +171,8 @@ public class Dispositivo {
 				}
 			}
 		}
+		
+		
 
 	}
 
