@@ -293,13 +293,7 @@ public class AperosPanelNuevo extends JPanel {
 					txtNombre.setText(""); //$NON-NLS-1$
 					txtTamaño.setText(""); //$NON-NLS-1$
 					txtDescripcion.setText(""); //$NON-NLS-1$
-					
-					if(accion!="modificar"){
-						
-					
-						txtUser.setText(""); //$NON-NLS-1$
 
-					}
 				}
 			});
 		}
