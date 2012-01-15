@@ -66,7 +66,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	private String telefono = ""; //$NON-NLS-1$
 	private String email = ""; //$NON-NLS-1$
 	private String fechanac = ""; //$NON-NLS-1$
-
+	private String pass = "";
 	/**
 	 * Constructor del Panel de gestión de Usuarios. En caso de que la acción
 	 * sea "modificar" el panel se utilizará para modificar. En caso de que la
@@ -75,7 +75,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	public UsuariosPanelNuevo(String accion, String dni, String nombre,
 			String apellidos, String direccion, String poblacion,
 			String provincia, String cp, String telefono, String email,
-			String fechanac) {
+			String fechanac,String pass) {
 		super();
 		this.accion = accion;
 		this.dni = dni;
@@ -88,6 +88,7 @@ public class UsuariosPanelNuevo extends JPanel {
 		this.telefono = telefono;
 		this.email = email;
 		this.fechanac = fechanac;
+		this.pass = pass;
 		initialize();
 	}
 
@@ -543,7 +544,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JPasswordField getTxtPass() {
 		if (txtPass == null) {
-			txtPass = new JPasswordField();
+			txtPass = new JPasswordField(pass);
 			txtPass.setBounds(new Rectangle(123, 250, 143, 27));
 		}
 		return txtPass;
@@ -628,7 +629,7 @@ public class UsuariosPanelNuevo extends JPanel {
 	 */
 	private JPasswordField getTxtPass2() {
 		if (txtPass2 == null) {
-			txtPass2 = new JPasswordField();
+			txtPass2 = new JPasswordField(pass);
 			txtPass2.setBounds(new Rectangle(387, 250, 85, 27));
 		}
 		return txtPass2;
