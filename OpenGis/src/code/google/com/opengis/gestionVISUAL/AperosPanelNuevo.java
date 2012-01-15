@@ -189,35 +189,35 @@ public class AperosPanelNuevo extends JPanel {
 								if(validarTexto(txtDescripcion.getText())){
 								
 									adao.altaApero();
+									// Actualizamos los campos para poder crear uno nuevo.
+									
+									ConectarDBA dba = new ConectarDBA();
+									
+									int nuevoId = 0;
+									
+									dba.acceder();
+									
+									String sql = "SELECT MAX(idapero) FROM `apero`";
+									
+									ResultSet resul = dba.consulta(sql);
+									
+									resul.next();
+									
+									nuevoId = resul.getInt(1) + 1;
+									
+									dba.cerrarCon();
+									
+									txtId.setText(nuevoId+"");
+									txtNombre.setText("");
+									txtTamaño.setText("");
+									txtDescripcion.setText("");
+									comboTarea.setSelectedIndex(0);
 								}
 								else{
 									JOptionPane.showMessageDialog(null, Idioma.getString("msgValidarTxt"));
 								}
 								
-								// Actualizamos los campos para poder crear uno nuevo.
 								
-								ConectarDBA dba = new ConectarDBA();
-								
-								int nuevoId = 0;
-								
-								dba.acceder();
-								
-								String sql = "SELECT MAX(idapero) FROM `apero`";
-								
-								ResultSet resul = dba.consulta(sql);
-								
-								resul.next();
-								
-								nuevoId = resul.getInt(1) + 1;
-								
-								dba.cerrarCon();
-								
-								txtId.setText(nuevoId+"");
-								txtNombre.setText("");
-								txtTamaño.setText("");
-								txtDescripcion.setText("");
-								txtUser.setText("");
-								comboTarea.setSelectedIndex(0);
 								
 								
 							} catch (SQLException e1) {
