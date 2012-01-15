@@ -175,12 +175,12 @@ public class AperosPanelNuevo extends JPanel {
 						
 						if (ap.validarDatos(txtId.getText().trim(), txtNombre.getText().trim(),
 								txtTamaño.getText().trim(), txtDescripcion.getText().trim(),
-								(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
+								(comboTarea.getSelectedIndex() + 1) + "", "1", //$NON-NLS-1$ //$NON-NLS-2$
 								txtUser.getText().trim())){
 							
 							AperoDAO adao = new AperoDAO(txtId.getText().trim(), txtNombre.getText().trim(),
 									txtTamaño.getText().trim(), txtDescripcion.getText().trim(),
-									(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
+									(comboTarea.getSelectedIndex() + 1) + "", "1", //$NON-NLS-1$ //$NON-NLS-2$
 									txtUser.getText().trim());
 							
 							
@@ -243,12 +243,12 @@ public class AperosPanelNuevo extends JPanel {
 						
 						if (ap.validarDatos(txtId.getText().trim(), txtNombre.getText().trim(),
 								txtTamaño.getText().trim(), txtDescripcion.getText().trim(),
-								(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
+								(comboTarea.getSelectedIndex() + 1) + "", "1", //$NON-NLS-1$ //$NON-NLS-2$
 								txtUser.getText().trim())) {
 							
 							AperoDAO adao = new AperoDAO(txtId.getText().trim(), txtNombre.getText().trim(),
 									txtTamaño.getText().trim(), txtDescripcion.getText().trim(),
-									(comboTarea.getSelectedIndex() + 1) + "", "0", //$NON-NLS-1$ //$NON-NLS-2$
+									(comboTarea.getSelectedIndex() + 1) + "", "1", //$NON-NLS-1$ //$NON-NLS-2$
 									txtUser.getText().trim());
 							
 							try {
