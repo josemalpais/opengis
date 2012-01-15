@@ -126,7 +126,7 @@ public class Usuarios {
 
 					} else {
 
-						if (this.fechaNac.equals("00/00/0000") || ValidacionDatos.validarFecha(this.fechaNac)==false) {
+						if (this.fechaNac.equals("00/00/0000")) {
 							JOptionPane.showMessageDialog(null,
 									Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 							this.valido = false;
@@ -158,80 +158,107 @@ public class Usuarios {
 								}
 
 								if (this.valido) {
-									@SuppressWarnings("deprecation")
-									Date fechaNac = new Date(this.fechaNac);
-
-									if (this.fechaNac.length() != 10
-											|| fechaNac.getTime() > fechaAhora
-													.getTime()) {
-
+									
+									
+									if (ValidacionDatos
+											.validarFecha(this.fechaNac) == false) {
 										JOptionPane
 												.showMessageDialog(
 														null,
-														Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
+														Idioma.getString("msgErrorWrongDate"));
 										this.valido = false;
-
 									} else {
+									@SuppressWarnings("deprecation")
+									Date fechaNac = new Date(this.fechaNac);
+									Date fechaMinima = new Date("01/01/1912");
 
-										r = isInteger(this.password);
-
-										if (this.password.length() == 0
-												|| r.equals(true)) {
+									
+									
+									if (fechaNac.before(fechaMinima)) {
+										JOptionPane
+												.showMessageDialog(
+														null,
+														Idioma.getString("msgErrorWrongDate"));
+										this.valido = false;
+									} else {
+										if (this.fechaNac.length() != 10
+												|| fechaNac.getTime() > fechaAhora
+														.getTime()) {
 
 											JOptionPane
 													.showMessageDialog(
 															null,
-															Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
+															Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 											this.valido = false;
 
 										} else {
 
-											if (this.valido) {
+											
 
-												String validarPass = new String(
-														this.password);
-												String caracter;
-												for (int i = 0; i <= validarPass
-														.length() - 1; i++) {
-													System.out
-															.println(validarPass
+												r = isInteger(this.password);
+
+												if (this.password.length() == 0
+														|| r.equals(true)) {
+
+													JOptionPane
+															.showMessageDialog(
+																	null,
+																	Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
+													this.valido = false;
+
+												} else {
+
+													if (this.valido) {
+
+														String validarPass = new String(
+																this.password);
+														String caracter;
+														for (int i = 0; i <= validarPass
+																.length() - 1; i++) {
+															System.out
+																	.println(validarPass
+																			.substring(
+																					i,
+																					i + 1));
+															caracter = validarPass
 																	.substring(
 																			i,
-																			i + 1));
-													caracter = validarPass
-															.substring(i, i + 1);
-													if (caracter.equals("'")) {
-														JOptionPane
-														.showMessageDialog(
-																null,
-																Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
-														this.valido = false;
-														break;
+																			i + 1);
+															if (caracter
+																	.equals("'")) {
+																JOptionPane
+																		.showMessageDialog(
+																				null,
+																				Idioma.getString("msgErrorPasswordType")); //$NON-NLS-1$
+																this.valido = false;
+																break;
+															}
+
+														}
+													} else {
+
+														this.valido = true; // En
+																			// el
+																			// caso
+																			// de
+																			// que
+																			// todos
+																			// los
+																			// datos
+																			// sean
+																			// correctos
+																			// devolveremos
+																			// True
+
 													}
-
 												}
-											} else {
-
-												this.valido = true; // En
-																	// el
-																	// caso
-																	// de
-																	// que
-																	// todos
-																	// los
-																	// datos
-																	// sean
-																	// correctos
-																	// devolveremos
-																	// True
 
 											}
+
 										}
 
 									}
-
 								}
-
 							}
 						}
 					}
