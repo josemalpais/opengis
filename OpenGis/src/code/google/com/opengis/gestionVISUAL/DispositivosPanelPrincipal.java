@@ -108,6 +108,7 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 					
 					try {
 						DispositivoDAO.reactivarDispositivo(rDisp[0]);
+						txtCriterioBusqueda.setText("");
 						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -179,6 +180,7 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 					
 					try {
 						DispositivoDAO.reactivarDispositivo(rDispo[0]);
+						txtCriterioBusqueda.setText("");
 						buscar();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
