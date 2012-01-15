@@ -146,7 +146,7 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 			}
 			try {
 				DispositivoDAO.borrarDispositivo(rDisp[0]);
-				
+				txtCriterioBusqueda.setText("");
 				buscar();
 				
 			} catch (SQLException e1) {

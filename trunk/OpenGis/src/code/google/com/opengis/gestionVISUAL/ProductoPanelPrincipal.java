@@ -170,6 +170,7 @@ public class ProductoPanelPrincipal extends GeneradorPanelPrincipal{
 						if (resp == 0) {
 							try {
 							Producto.activarProducto(rProducto[0]);
+							txtCriterioBusqueda.setText("");
 							buscar();
 							} catch (SQLException e1) {
 							// TODO Auto-generated catch block

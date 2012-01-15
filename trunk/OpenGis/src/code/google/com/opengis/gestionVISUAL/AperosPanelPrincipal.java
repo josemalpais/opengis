@@ -172,6 +172,8 @@ public class AperosPanelPrincipal extends GeneradorPanelPrincipal{
 			
 			try {
 				AperoDAO.DesactivarApero(rUser[0]);
+				txtCriterioBusqueda.setText("");
+				buscar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
