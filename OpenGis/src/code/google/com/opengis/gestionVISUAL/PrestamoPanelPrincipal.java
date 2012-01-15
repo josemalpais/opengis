@@ -119,6 +119,7 @@ public class PrestamoPanelPrincipal extends GeneradorPanelPrincipal{
 		if (confirmacion == JOptionPane.OK_OPTION){
 		
 			Prestamo.cerrarPrestamo(rPrestamo[1], rPrestamo[2]);
+			txtCriterioBusqueda.setText("");
 			buscar();
 			super.getBEliminar().setEnabled(false);
 			super.getBModificar().setEnabled(false);

@@ -171,6 +171,7 @@ public class ParcelasPanelPrincipal extends GeneradorPanelPrincipal {
     		int confirmar=JOptionPane.showOptionDialog(null, Idioma.getString("msgDeleteConfirm")+" - " + nombre,"",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opt, opt[0] ); //$NON-NLS-1$
     		if(JOptionPane.OK_OPTION==confirmar){
     			Parcela.bajaParcela(id);
+    			txtCriterioBusqueda.setText("");
     			buscar();
 				 getBModificar().setEnabled(false);
 				 getBEliminar().setEnabled(false);
