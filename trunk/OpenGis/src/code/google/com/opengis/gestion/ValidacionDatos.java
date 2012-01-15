@@ -244,6 +244,7 @@ public class ValidacionDatos {
 	public static boolean validarNumerico(String numero, String nombreCampo,
 			int longitud) {
 		numero = numero.trim();
+		String comilla = "'";
 
 		if (numero.length() != longitud) {
 			JOptionPane.showMessageDialog(
@@ -254,7 +255,7 @@ public class ValidacionDatos {
 			return false;
 		} else {
 			for (int i = 0; i < longitud; i++) {
-				if (Character.isDigit(numero.charAt(i)) == false) {
+				if (Character.isDigit(numero.charAt(i)) == false || numero.charAt(i) == comilla.charAt(0)) {
 					JOptionPane.showMessageDialog(
 							null,
 							Idioma.getString("msgErrorField") //$NON-NLS-1$
@@ -270,9 +271,10 @@ public class ValidacionDatos {
 
 	public static boolean validarNumerico(String numero, String nombreCampo) {
 		numero = numero.trim();
-
-		for (int i = 0; i < numero.length(); i++) {
-			if (Character.isDigit(numero.charAt(i)) == false) {
+		String comilla = "'";
+		int longitud = numero.length();
+		for (int o = 0; o < longitud; o++) {
+			if (Character.isDigit(numero.charAt(o)) == false || numero.charAt(o) == comilla.charAt(0)) {
 				JOptionPane.showMessageDialog(
 						null,
 						Idioma.getString("msgErrorField") //$NON-NLS-1$
@@ -281,9 +283,9 @@ public class ValidacionDatos {
 				return false;
 
 			}
-			return true;
+			
 		}
-		return false;
+		return true;
 
 	}
 
