@@ -200,7 +200,7 @@ public class ValidacionDatos {
 	}
 
 	public static boolean validarEmail(String email) {
-
+		int atCount = 0;
 		email = email.trim();
 		boolean r = isInteger(email);
 
@@ -217,17 +217,19 @@ public class ValidacionDatos {
 		} else {
 			boolean at = false;
 			boolean dot = false;
+			boolean comilla = false;
+			String strComilla = "'";
 			for (int i = 0; i < email.length(); i++) {
 				if (email.charAt(i) == '@') {
 					at = true;
-
+					atCount++;
 				} else if (email.charAt(i) == '.') {
 					dot = true;
 
-				}
-
+				} else if (email.charAt(i) == strComilla.charAt(0))
+					comilla = true;
 			}
-			if (at != true || dot != true) {
+			if (at != true || dot != true || atCount != 1 || comilla != false) {
 				JOptionPane.showMessageDialog(
 						null,
 						Idioma.getString("msgErrorField") //$NON-NLS-1$
@@ -301,48 +303,42 @@ public class ValidacionDatos {
 		String dia = "";
 		String mes = "";
 		String año = "";
-		int o = 0;
-		while (Character.isDigit(fecha.charAt(o)) == true) {
-			dia = dia + fecha.charAt(o);
-			o++;
 
-		}
-		if (dia.length() == 1) {
-			dia = "0" + dia;
+		for (int i = 0; i < 2; i++) {
 
-		}
-		fecha = dia;
-		o = fecha.length();
-		while (Character.isDigit(fecha.charAt(o)) == true) {
-			mes = mes + fecha.charAt(o);
-			o++;
-		}
-		if (mes.length() == 1) {
-			mes = "0" + mes;
-		}
-		fecha = fecha + "/" + mes + "/";
-		o = fecha.length();
-		System.out.println("o es " + o);
-		System.out.println("Longitud de fecha " + fecha.length());
-		while (Character.isDigit(fecha.charAt(o)) == true) {
-			if (o == fecha.length()) {
-				año = año + fecha.charAt(o);
-				System.out.println("Estado de o " + o);
-				break;
-			} else {
-				o++;
-			}
-
-		}
-		if (año.length() != 4) {
-
-			for (int a = año.length(); a < 4; a++) {
-				año = "0" + año;
+			if (Character.isDigit(fecha.charAt(i)) == true) {
+				dia = dia + fecha.charAt(i);
 			}
 		}
 
-		fechaValida = dia + "/" + mes + "/" + año;
-		System.out.println(fechaValida);
+		for (int i = 3; i < 5; i++) {
+			if (Character.isDigit(fecha.charAt(i)) == true) {
+				mes = mes + fecha.charAt(i);
+			}
+
+		}
+		for (int i = 6; i < 10; i++) {
+			if (Character.isDigit(fecha.charAt(i)) == true) {
+				año = año + fecha.charAt(i);
+			}
+
+		}
+		int diaValido = Integer.parseInt(dia);
+		int mesValido = Integer.parseInt(mes);
+		int añoValido = Integer.parseInt(año);
+		
+		if (diaValido < 0 || diaValido > 31){
+			return false;
+		}
+		
+		if (mesValido < 0 || mesValido > 12){
+			return false;
+		}
+		
+		if (añoValido < 1900 || añoValido > 2012){
+			return false;
+		}
+		
 		return true;
 	}
 
