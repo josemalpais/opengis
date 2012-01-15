@@ -100,8 +100,32 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 			
 			if (rUser[11].toString().equals(Idioma.getString("etActive"))) { 
 				
+				
+				String pass = "";
+				
+				try{
+					
+				ConectarDBA.acceder();	
+				
+				String sentencia = "SELECT password FROM Usuario WHERE dni LIKE '" + rUser[0] +"'";
+				
+				ResultSet resul = ConectarDBA.consulta(sentencia);
+				
+				resul.next();
+				
+				pass = resul.getString(1);
+				
+				System.out.println(pass);
+				
+				ConectarDBA.cerrarCon();
+				
+				}catch(Exception e2){
+					
+					
+				}
+				
 				UsuariosPanelNuevo p = new UsuariosPanelNuevo(
-						"modificar", rUser[0].toString(), rUser[1].toString(), rUser[2].toString(), rUser[3].toString(), rUser[4].toString(), rUser[5].toString(), rUser[6].toString(), rUser[7].toString(), rUser[8].toString(), rUser[9].toString()); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
+						"modificar", rUser[0].toString(), rUser[1].toString(), rUser[2].toString(), rUser[3].toString(), rUser[4].toString(), rUser[5].toString(), rUser[6].toString(), rUser[7].toString(), rUser[8].toString(), rUser[9].toString(),pass); // Creamos el panel de Alta de Usuarios //$NON-NLS-1$
 
 				VentanaPrincipal
 						.añadirPestañaNueva(

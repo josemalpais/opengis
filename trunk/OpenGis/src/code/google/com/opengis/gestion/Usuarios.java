@@ -126,7 +126,7 @@ public class Usuarios {
 
 					} else {
 
-						if (this.fechaNac.equals("00/00/0000")) {
+						if (this.fechaNac.equals("00/00/0000") || ValidacionDatos.validarFecha(this.fechaNac)==false) {
 							JOptionPane.showMessageDialog(null,
 									Idioma.getString("msgErrorWrongDate")); //$NON-NLS-1$
 							this.valido = false;
