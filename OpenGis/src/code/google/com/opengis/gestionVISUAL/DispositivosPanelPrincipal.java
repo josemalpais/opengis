@@ -95,9 +95,38 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 						.toString();
 			}
 			
+			if(rDisp[4].toString().equals(Idioma.getString("etActive"))){
+				
+				DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("modificar",rDisp[0].toString(),rDisp[1].toString(),rDisp[2].toString()); //$NON-NLS-1$
+				VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModDevice")+"("+rDisp[1].toString()+")",panelNuevo); // Añadimos el panel a la pestaña //$NON-NLS-1$
+				
+			}else{
+				
+				int resp = JOptionPane.showConfirmDialog(this,Idioma.getString("msgDeviceWithID") + rDisp[0] + Idioma.getString("msgIsInactive"),"",JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				
+				if(resp==0){
+					
+					try {
+						DispositivoDAO.reactivarDispositivo(rDisp[0]);
+						buscar();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}else{
+					
+					getBModificar().setEnabled(false);
+					getBEliminar().setEnabled(false);
+				}
+				
+				
+				
+			}
+			
+			
 		
-		DispositivosPanelGestion panelNuevo = new DispositivosPanelGestion("modificar",rDisp[0].toString(),rDisp[1].toString(),rDisp[2].toString()); //$NON-NLS-1$
-		VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModDevice")+"("+rDisp[1].toString()+")",panelNuevo); // Añadimos el panel a la pestaña //$NON-NLS-1$
+		
 	
 		}
 		
@@ -156,6 +185,10 @@ public class DispositivosPanelPrincipal extends GeneradorPanelPrincipal {
 						e1.printStackTrace();
 					}
 					
+				}else{
+					
+					getBModificar().setEnabled(false);
+					getBEliminar().setEnabled(false);
 				}
 				
 			}else{
