@@ -121,10 +121,7 @@ public class Usuarios {
 				} else {
 
 					if (ValidacionDatos.validarNumerico(this.telefono,
-							Idioma.getString("etTelephone"), 9) == false) {
-
-						JOptionPane.showMessageDialog(null,
-								Idioma.getString("msgErrorPhoneNumber")); //$NON-NLS-1$
+							Idioma.getString("etPhone"), 9) == false) {
 						this.valido = false;
 
 					} else {
