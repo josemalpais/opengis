@@ -145,21 +145,49 @@ public class ParcelasPanelDatosPersonales extends GeneradorPanelPrincipal{
 	
 	public void modificar(){
 		
+	// Recogemos todos los datos de la tabla
+		
 		int fila = getTablaPrincipal().getSelectedRow();
 		if (fila != -1) {
-			String[] rParcela = new String[8];
+			String[] rParcela = new String[9];
 			for (int i = 0; i < rParcela.length; i++) {
 				rParcela[i] = getTablaPrincipal().getValueAt(fila, i)
 						.toString();
 			}
 			
+		
+		
+		if(rParcela[8].toString().equals(Idioma.getString("etActive"))){
+		
+
 			
 			ParcelasPanelNuevo p = new ParcelasPanelNuevo("modificar",rParcela[0].toString(),rParcela[1].toString(),rParcela[2].toString(),rParcela[3].toString(),rParcela[4].toString(),rParcela[5].toString(),rParcela[6].toString(),rParcela[7].toString()); // Creamos el panel de Alta de Parcelas //$NON-NLS-1$
-			p.txtDniPropietario.setEnabled(false);
-			VentanaPrincipal.añadirPestañaNueva("Modificar "+rParcela[1].toString(),p); //$NON-NLS-1$
+			
+			VentanaPrincipal.añadirPestañaNueva(Idioma.getString("etModifyLot")+"("+rParcela[1].toString()+")",p); //$NON-NLS-1$
+			
+			
+		
+		
+		}else{
+			
+			
+			Object[] opt = {Idioma.getString("etYes"), Idioma.getString("etNo") }; //$NON-NLS-1$ //$NON-NLS-2$
+			 int resp = JOptionPane.showOptionDialog(this,Idioma.getString("etLotWithName") + rParcela[0] + Idioma.getString("msgIsInactive"), Idioma.getString("msgConfirmDialog"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[0]); //$NON-NLS-1$ //$NON-NLS-2$
+			 if (resp == 0) {
+			 try {
+			 Parcela.activarParcela(rParcela[0]);
+			 buscar();
+			 } catch (SQLException e1) {
+			 // TODO Auto-generated catch block
+			 e1.printStackTrace();}
+			 }	
 			
 			
 		}
+		
+		}
+	
+		
 		
 	
 	}
