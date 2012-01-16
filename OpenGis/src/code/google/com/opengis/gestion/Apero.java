@@ -164,7 +164,7 @@ public class Apero {
 
 				} else {
 						
-						if (this.tamApero <= 0 || this.tamApero > 500) {
+						if (this.tamApero <= 0 || this.tamApero > 999) {
 							JOptionPane
 									.showMessageDialog(
 											null,
