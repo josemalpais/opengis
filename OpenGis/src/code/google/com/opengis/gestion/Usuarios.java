@@ -121,7 +121,7 @@ public class Usuarios {
 				} else {
 
 					if (ValidacionDatos.validarNumerico(this.telefono,
-							Idioma.getString("etPhone"), 9) == false) {
+							Idioma.getString("etPhone"), 9) == false || ValidacionDatos.validarNumerico(this.cp, Idioma.getString("etPostalCode"), 5,false) == false) {
 						this.valido = false;
 
 					} else {

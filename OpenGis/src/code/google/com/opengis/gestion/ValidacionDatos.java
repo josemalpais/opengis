@@ -268,6 +268,38 @@ public class ValidacionDatos {
 		}
 
 	}
+	
+	public static boolean validarNumerico(String numero, String nombreCampo,
+			int longitud, boolean aviso) {
+		numero = numero.trim();
+		String comilla = "'";
+
+		if (numero.length() != longitud) {
+			if (aviso == true){
+			JOptionPane.showMessageDialog(
+					null,
+					Idioma.getString("msgErrorField") + nombreCampo
+							+ Idioma.getString("msgMustContain") + longitud
+							+ Idioma.getString("etDigit"));
+			}
+			return false;
+		} else {
+			for (int i = 0; i < longitud; i++) {
+				if (Character.isDigit(numero.charAt(i)) == false || numero.charAt(i) == comilla.charAt(0)) {
+					if (aviso == true){
+					JOptionPane.showMessageDialog(
+							null,
+							Idioma.getString("msgErrorField") //$NON-NLS-1$
+									+ nombreCampo
+									+ Idioma.getString("msgOnlyNumber")); //$NON-NLS-1$
+					}
+					return false;
+				}
+			}
+			return true;
+		}
+
+	}
 
 	public static boolean validarNumerico(String numero, String nombreCampo) {
 		numero = numero.trim();
