@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.text.MaskFormatter;
 
 import code.google.com.opengis.gestion.Usuarios;
+import code.google.com.opengis.gestion.ValidacionDatos;
 import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
@@ -382,8 +383,9 @@ public class UsuariosPanelDatosPersonales extends JPanel {
 			txtCP.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 
-					if (txtCP.getText().length() > 0) {
-
+					boolean cpValido = ValidacionDatos.validarNumerico(txtCP.getText(), Idioma.getString("etPostalCode"), 5);
+					System.out.println(cpValido);
+					if (cpValido == true) {
 						try {
 
 							comboPoblacion.removeAllItems();
@@ -412,7 +414,9 @@ public class UsuariosPanelDatosPersonales extends JPanel {
 						}
 
 					} else {
-
+						comboPoblacion.removeAllItems();
+						txtCP.setText("");
+						txtProvincia.setText("");
 					}
 
 				}
