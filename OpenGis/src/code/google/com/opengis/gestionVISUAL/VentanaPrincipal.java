@@ -385,7 +385,7 @@ import code.google.com.opengis.gestionDAO.Idioma;
         							ResultSet rs;
 									try {
 										
-										rs = ConectarDBA.consulta("SELECT dni,nombre,apellidos,email,password,teléfono,dirección,población,provincia,cp,fecha_nacimiento FROM usuario WHERE dni='"+ dniUsuario +"'");
+										rs = ConectarDBA.consulta("SELECT dni,nombre,apellidos,email,password,telefono,direccion,poblacion,provincia,cp,fecha_nacimiento FROM usuario WHERE dni='"+ dniUsuario +"'");
 	        							
 	        							String datos[] = new String[11];
 	        							
