@@ -32,7 +32,7 @@ public class UsuariosPanelPrincipal extends GeneradorPanelPrincipal {
 
 			modelo.setColumnCount(0);
 			modelo.setRowCount(0);
-			String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `dirección`, `población`, `provincia`, `cp`, `teléfono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"
+			String sentencia = "SELECT `dni`, `nombre`, `apellidos`, `direccion`, `poblacion`, `provincia`, `cp`, `telefono`, `email`, `fecha_nacimiento`, `tipo`, `activo` FROM `usuario` WHERE dni LIKE '%"
 					+ criterio
 					+ "%' OR nombre LIKE '%"
 					+ criterio
