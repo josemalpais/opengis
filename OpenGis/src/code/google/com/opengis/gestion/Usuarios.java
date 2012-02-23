@@ -14,11 +14,12 @@ import code.google.com.opengis.gestionDAO.ConectarDBA;
 import code.google.com.opengis.gestionDAO.Idioma;
 
 /**
- * @author Juan Carlos García Clase que valida los datos de los usuarios que
- *         acabamos de insertar desde nuestra clase visual. Además, realiza las
- *         llamadas a los métodos del paquete DAO.
+ * @author Pepe Lara, Juan Carlos GarcÃ­a 
+ *         Clase que valida los datos de los usuarios que
+ *         acabamos de insertar desde nuestra clase visual. AdemÃ¡s, realiza las
+ *         llamadas a los mÃ©todos del paquete DAO.
  * 
- *         Última modificación 14/11/11
+ *         Ãšltima modificaciÃ³n 14/11/11
  * 
  */
 
@@ -56,16 +57,16 @@ public class Usuarios {
 	 * @param Telefono
 	 *            El Telefono del usuario que vamos a introducir
 	 * @param Direccion
-	 *            La dirección del Usuario que vamos a introducir
+	 *            La direcciÃ³n del Usuario que vamos a introducir
 	 * @param Poblacion
-	 *            La población del Usuario que vamos a introducir
+	 *            La poblaciÃ³n del Usuario que vamos a introducir
 	 * @param fecha_nac
 	 *            La fecha de Nacimiento del Usuario que vamos a introducir
 	 */
 
 	public Usuarios(String Dni, String Nombre, String Apellidos,
 			String Telefono, String Direccion, String Poblacion,
-			String Provincia, String Cp, String fecha_nac, String contraseña,
+			String Provincia, String Cp, String fecha_nac, String contraseÃ±a,
 			String tipo, String email) {
 
 		this.dni = Dni;
@@ -75,7 +76,7 @@ public class Usuarios {
 		this.direccion = Direccion;
 		this.poblacion = Poblacion;
 		this.fechaNac = fecha_nac;
-		this.password = contraseña;
+		this.password = contraseÃ±a;
 		this.cp = Cp;
 		this.tipo = tipo;
 		this.provincia = Provincia;
@@ -270,8 +271,8 @@ public class Usuarios {
 	}
 
 	/**
-	 * Este método utiliza la clase UsuariosDAO, creando un objeto del mismo con
-	 * los parametros indicados en su constructor. Después, ejecuta el método
+	 * Este mÃ©todo utiliza la clase UsuariosDAO, creando un objeto del mismo con
+	 * los parametros indicados en su constructor. DespuÃ©s, ejecuta el mÃ©todo
 	 * crear Usuario, definido en la clase UsuariosDAO.
 	 * 
 	 * @throws SQLException
@@ -298,7 +299,7 @@ public class Usuarios {
 
 		} else {
 
-			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `teléfono`, `dirección`, `población`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('" //$NON-NLS-1$
+			String sentencia = "INSERT INTO `dai2opengis`.`usuario` (`dni`, `nombre`, `apellidos`, `email`, `password`, `tipo`, `veces`, `telÃ©fono`, `direcciÃ³n`, `poblaciÃ³n`, `provincia`, `cp`, `fecha_nacimiento`, `activo`) VALUES ('" //$NON-NLS-1$
 					+ this.dni + "', '" //$NON-NLS-1$
 					+ this.nombre + "', '" //$NON-NLS-1$
 					+ this.apellidos + "', '" //$NON-NLS-1$
@@ -324,8 +325,8 @@ public class Usuarios {
 	}
 
 	/**
-	 * Este método utiliza la clase UsuariosDAO, creando un objeto del mismo con
-	 * los parametros indicados en su constructor. Después, ejecuta el método
+	 * Este mÃ©todo utiliza la clase UsuariosDAO, creando un objeto del mismo con
+	 * los parametros indicados en su constructor. DespuÃ©s, ejecuta el mÃ©todo
 	 * borrar Usuario, definido en la clase UsuariosDAO.
 	 * 
 	 * @throws SQLException
@@ -363,8 +364,8 @@ public class Usuarios {
 		ConectarDBA.comprobarExiste("usuario", "dni", this.dni, false); //$NON-NLS-1$ //$NON-NLS-2$
 		if (ConectarDBA.getExiste() == true) {
 
-			String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" + this.nombre + "', `Apellidos` = '" + this.apellidos + "', `Teléfono` = '" + this.telefono + "',`Dirección` = '" + this.direccion + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-					"',`Población` = '"
+			String sentencia = "UPDATE `dai2opengis`.`usuario` SET `Nombre` = '" + this.nombre + "', `Apellidos` = '" + this.apellidos + "', `TelÃ©fono` = '" + this.telefono + "',`DirecciÃ³n` = '" + this.direccion + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					"',`PoblaciÃ³n` = '"
 					+ this.poblacion
 					+ "',`fecha_nacimiento` = '" + this.fechaNac + "',`password` = '" + this.password + "',`Provincia` = '" + this.provincia + "',`Cp` = '" + this.cp + "',`tipo` = '" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 					this.tipo
@@ -395,12 +396,12 @@ public class Usuarios {
 	}
 
 	/**
-	 * Este método comprueba si una cadena String introducida es un Número. Si
-	 * es un número, devuelve true.
+	 * Este mÃ©todo comprueba si una cadena String introducida es un NÃºmero. Si
+	 * es un nÃºmero, devuelve true.
 	 * 
 	 * @param input
-	 *            Cadena de texto que queremos comprobar si es un número
-	 * @return Devolvemos True si es un número, devolvemos False si no lo és.
+	 *            Cadena de texto que queremos comprobar si es un nÃºmero
+	 * @return Devolvemos True si es un nÃºmero, devolvemos False si no lo Ã©s.
 	 * 
 	 */
 
