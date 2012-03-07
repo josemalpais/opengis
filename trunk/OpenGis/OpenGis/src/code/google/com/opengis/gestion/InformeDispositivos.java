@@ -39,7 +39,7 @@ public class InformeDispositivos {
 	static String consulta;
 	static String consulta2;
 	static String modelo;
-	static String nºserie;
+	static String numSerie;
 
 	static Calendar c = new GregorianCalendar();
 	private File ruta_destino = null;
@@ -76,7 +76,7 @@ public class InformeDispositivos {
 			rs = ConectarDBA.consulta(consulta);
 			if (rs.next()) {
 				modelo = rs.getString(1);
-				nºserie = rs.getString(2);
+				numSerie = rs.getString(2);
 				iddispositivo = rs.getString(3);
 
 			}
@@ -117,7 +117,7 @@ public class InformeDispositivos {
 				mipdf.add(new Paragraph(
 						Idioma.getString("_DeviceReport.Model") + modelo, FontFactory.getFont("arial", 22, Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
 				mipdf.add(new Paragraph(
-						Idioma.getString("_DeviceReport.SerialNumber") + nºserie, FontFactory.getFont("arial", 22, Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
+						Idioma.getString("_DeviceReport.SerialNumber") + numSerie, FontFactory.getFont("arial", 22, Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
 				mipdf.add(new Paragraph(
 						Idioma.getString("_DeviceReport.DeviceID") + iddispositivo, FontFactory.getFont("arial", 22, Font.BOLD))); //$NON-NLS-1$ //$NON-NLS-2$
 
