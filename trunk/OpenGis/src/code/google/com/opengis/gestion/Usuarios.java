@@ -66,7 +66,7 @@ public class Usuarios {
 
 	public Usuarios(String Dni, String Nombre, String Apellidos,
 			String Telefono, String Direccion, String Poblacion,
-			String Provincia, String Cp, String fecha_nac, String contraseña,
+			String Provincia, String Cp, String fecha_nac, String contrasenya,
 			String tipo, String email) {
 
 		this.dni = Dni;
@@ -76,7 +76,7 @@ public class Usuarios {
 		this.direccion = Direccion;
 		this.poblacion = Poblacion;
 		this.fechaNac = fecha_nac;
-		this.password = contraseña;
+		this.password = contrasenya;
 		this.cp = Cp;
 		this.tipo = tipo;
 		this.provincia = Provincia;

@@ -154,7 +154,7 @@ public class LoginVisual extends JFrame
 		
 		//Parámetros de la ventana
 
-		setIconImage(new ImageIcon(rutaIcono+"openGIS.png").getImage()); //icono de la barra de título //$NON-NLS-1$
+		setIconImage(new ImageIcon(rutaIcono+"logo.png").getImage()); //icono de la barra de título //$NON-NLS-1$
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400,256);
 		setResizable(false);
